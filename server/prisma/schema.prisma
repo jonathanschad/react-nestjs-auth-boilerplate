@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                      String                   @id @default(uuid())
+  email                   String                   @unique
+  isVerified              Boolean                  @default(false)
+  password                Bytes
+  salt                    String
+  name                    String?
+  settingsId              String                   @unique
+  settings                UserSettings             @relation(fields: [settingsId], references: [id])
+  refreshTokens           RefreshToken[]
+  accessTokens            AccessToken[]
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens     PasswordResetToken[]
+}
+
+model UserSettings {
+  id                   String   @id @default(uuid())
+  user                 User?
+  notificationsEnabled Boolean
+  language             Language @default(EN)
+}
+
+enum Language {
+  EN
+  DE
+}
+
+model RefreshToken {
+  refreshTokenId String        @id @default(uuid())
+  token          String        @unique
+  createdAt      DateTime      @default(now())
+  lastUsedAt     DateTime      @default(now())
+  expiresAt      DateTime
+  valid          Boolean       @default(true)
+  rememberUser   Boolean       @default(false)
+  userId         String
+  user           User          @relation(fields: [userId], references: [id])
+  accessTokens   AccessToken[]
+}
+
+model AccessToken {
+  accessTokenId  String       @id @default(uuid())
+  token          String       @unique
+  createdAt      DateTime     @default(now())
+  lastUsedAt     DateTime     @default(now())
+  expiresAt      DateTime
+  valid          Boolean      @default(true)
+  refreshTokenId String
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  refreshToken   RefreshToken @relation(fields: [refreshTokenId], references: [refreshTokenId])
+}
+
+model EmailVerificationToken {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  hashedSecret String   @unique
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime
+  valid        Boolean  @default(true)
+}
+
+model PasswordResetToken {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  hashedSecret String   @unique
+  createdAt    DateTime @default(now())
+  valid        Boolean  @default(true)
+  expiresAt    DateTime
+}

@@ -1,0 +1,10 @@
+{
+    "subject": "Password Reset Unsuccessful",
+    "headline": "No Account Found with This Email",
+    "body1": "Hello,",
+    "body2": "You attempted to reset a password, but no account is associated with this email address.",
+    "body3": "If you wish to join our service, please create a new account using the link below:",
+    "signup": "Sign up here",
+    "body4": "If you believe this is an error or need assistance, please contact our support team.",
+    "contactHeadline": "Contact"
+}

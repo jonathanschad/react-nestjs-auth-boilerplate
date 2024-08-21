@@ -1,0 +1,10 @@
+{
+    "subject": "Passwort-Reset nicht erfolgreich",
+    "headline": "Kein Konto mit dieser E-Mail gefunden",
+    "body1": "Hallo,",
+    "body2": "Sie haben versucht, ein Passwort zurückzusetzen, aber es ist kein Konto mit dieser E-Mail-Adresse verknüpft.",
+    "body3": "Wenn Sie unserem Dienst beitreten möchten, erstellen Sie bitte ein neues Konto über den unten stehenden Link:",
+    "signup": "Hier anmelden",
+    "body4": "Wenn Sie glauben, dass dies ein Fehler ist oder Hilfe benötigen, kontaktieren Sie bitte unser Support-Team.",
+    "contactHeadline": "Kontakt"
+}

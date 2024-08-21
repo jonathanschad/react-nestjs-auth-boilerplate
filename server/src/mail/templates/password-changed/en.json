@@ -1,0 +1,9 @@
+{
+    "subject": "Password Changed Successfully",
+    "headline": "Your Password Has Been Updated",
+    "body1": "Hello,",
+    "body2": "We're confirming that your password has been successfully changed.",
+    "body3": "If you made this change, no further action is required.",
+    "body4": "If you did not change your password, please contact our support team immediately to secure your account.",
+    "contactHeadline": "Contact"
+}
