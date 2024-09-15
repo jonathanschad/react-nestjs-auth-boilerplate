@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
 import { Translation } from '@/i18n/Translation';
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
-import { register } from '@/repository/login';
+import { register, startGoogleOAuthFlow } from '@/repository/login';
 
 export default function Register() {
     const queryClient = useQueryClient();
@@ -21,6 +21,12 @@ export default function Register() {
         onSuccess: () => {
             queryClient.invalidateQueries();
             navigate('/register/success');
+        },
+    });
+    const googleOAuthMutatation = useMutation({
+        mutationFn: startGoogleOAuthFlow,
+        onSuccess: () => {
+            queryClient.invalidateQueries();
         },
     });
 
@@ -118,6 +124,9 @@ export default function Register() {
                     <Translation>createAccount</Translation>
                 </Button>
             </form>
+            <Button className="w-full" onClick={() => googleOAuthMutatation.mutate()}>
+                <Translation>signInWithGoogle</Translation>
+            </Button>
             <div className="mt-4 text-center text-sm">
                 <Translation>alreadyAccount</Translation>{' '}
                 <RouterLink to="/login" className="underline">

@@ -16,9 +16,10 @@ datasource db {
 model User {
   id                      String                   @id @default(uuid())
   email                   String                   @unique
-  isVerified              Boolean                  @default(false)
-  password                Bytes
-  salt                    String
+  state                   UserState                @default(UNVERIFIED)
+  googleOAuthId           String?                    
+  password                Bytes?
+  salt                    String?
   name                    String?
   settingsId              String                   @unique
   settings                UserSettings             @relation(fields: [settingsId], references: [id])
@@ -26,6 +27,13 @@ model User {
   accessTokens            AccessToken[]
   emailVerificationTokens EmailVerificationToken[]
   passwordResetTokens     PasswordResetToken[]
+}
+
+enum UserState {
+  UNVERIFIED
+  VERIFIED
+  COMPLETE
+  INACTIVE
 }
 
 model UserSettings {

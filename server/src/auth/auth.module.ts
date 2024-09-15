@@ -6,11 +6,13 @@ import { AuthGuard } from '@/auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { DatabaseModule } from '@/database/database.module';
 import { AuthController } from '@/auth/auth.controller';
+import { GoogleAuthController } from '@/auth/google.auth.controller';
+import { GoogleAuthService } from '@/auth/google.auth.service';
 
 @Global()
 @Module({
     imports: [AppConfigModule, DatabaseModule],
-    controllers: [AuthController],
+    controllers: [AuthController, GoogleAuthController],
     providers: [
         {
             provide: APP_GUARD,
@@ -18,7 +20,8 @@ import { AuthController } from '@/auth/auth.controller';
         },
         JWTService,
         AuthService,
+        GoogleAuthService,
     ],
-    exports: [JWTService, AuthService],
+    exports: [JWTService, AuthService, GoogleAuthService],
 })
 export class AuthModule {}

@@ -44,7 +44,7 @@ async function bootstrap() {
     await app.register(fastifyCookie);
     await app.register(fastifyHelmet);
     await app.register(fastifyAccepts);
-    await app.register(fastifyCors, { origin: appConfigService.publicUrl, credentials: true });
+    await app.register(fastifyCors, { origin: appConfigService.frontendPublicUrl, credentials: true });
     await app.register(fastifyJwt, {
         secret: appConfigService.jwtTokenSecret,
     });

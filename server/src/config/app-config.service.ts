@@ -28,8 +28,16 @@ export class AppConfigService {
         return this.get('HOST');
     }
 
+    get protocol(): string {
+        return this.get('PROTOCOL');
+    }
+
     get publicUrl(): string {
-        return this.get('PUBLIC_URL');
+        return `${this.protocol}://${this.host}:${this.port}`;
+    }
+
+    get frontendPublicUrl(): string {
+        return this.get('FRONTEND_PUBLIC_URL');
     }
 
     get jwtTokenSecret(): string {
@@ -114,5 +122,17 @@ export class AppConfigService {
         }
 
         return socials;
+    }
+
+    get googleOAuthClientId(): string {
+        return this.get('GOOGLE_OAUTH_CLIENT_ID');
+    }
+
+    get googleOAuthClientSecret(): string {
+        return this.get('GOOGLE_OAUTH_CLIENT_SECRET');
+    }
+
+    get googleOAuthRedirectUri(): string {
+        return this.get('GOOGLE_OAUTH_REDIRECT_URI');
     }
 }

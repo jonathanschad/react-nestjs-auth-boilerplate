@@ -41,3 +41,8 @@ export const resendVerificationEmail = async ({ email }: { email: string }) => {
         return false;
     }
 };
+
+export const startGoogleOAuthFlow = async () => {
+    const { redirectUrl } = (await api.get<{ redirectUrl: string }>(BASE_URL + '/auth/google')).data;
+    window.location.href = redirectUrl;
+};

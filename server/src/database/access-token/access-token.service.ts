@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
-import { AccessToken, Prisma } from '@prisma/client';
+import { AccessToken, Prisma, UserState } from '@prisma/client';
 import { InvalidAccessTokenError } from '@/util/httpHandlers';
 import { AppConfigService } from '@/config/app-config.service';
 import * as jwt from 'jsonwebtoken';
@@ -8,6 +8,7 @@ import * as jwt from 'jsonwebtoken';
 interface JWTData {
     userId: string;
     email: string;
+    state: UserState;
 }
 
 @Injectable()

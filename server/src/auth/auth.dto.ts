@@ -11,3 +11,9 @@ export class SingInDTO {
     @IsBoolean()
     remember: boolean = true;
 }
+
+export class GoogleOAuthDTO {
+    @IsNotEmpty()
+    @IsString()
+    code!: string;
+}
