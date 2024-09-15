@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import { renewAccessToken } from '@/repository/auth';
 import { useStore } from '@/store/store';
 
 export const BASE_URL = 'http://localhost:3003/api';
@@ -53,18 +54,9 @@ api.interceptors.response.use(
             originalRequest._retry = true; // Mark this request as retried
 
             try {
-                // Assuming your API provides a path to refresh tokens
-                const refreshResponse = await api.get<{
-                    accessToken: string;
-                }>('/auth/refresh-token', {
-                    withCredentials: true, // Ensure cookies are sent
-                });
-                useStore.getState().setAccessToken(refreshResponse.data.accessToken);
-
+                await renewAccessToken();
                 return api(originalRequest);
             } catch (refreshError) {
-                useStore.getState().setAccessToken(null);
-
                 return Promise.reject(refreshError);
             }
         }

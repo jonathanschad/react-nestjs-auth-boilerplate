@@ -42,7 +42,9 @@ export class UserService {
         const user = await this.prisma.user.update({
             where: {
                 id: emailVerificationToken.userId,
-                state: UserState.UNVERIFIED,
+                state: {
+                    in: [UserState.UNVERIFIED, UserState.VERIFIED],
+                },
             },
             data: {
                 state: UserState.VERIFIED,

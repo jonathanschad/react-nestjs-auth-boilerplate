@@ -32,7 +32,7 @@
     "passwordReset": "Reset Password",
     "passwordResetError": "Your request is either invalid or has expired. Please start the process again.",
     "register": "Sign Up",
-    "registerSubHeadline": "Enter your information to create an account",
+    "registerSubHeadline": "Enter your email to create an account. You will then receive an email with a confirmation link.",
     "registerSuccess.alert": "We have sent you an email with a link to confirm your email. If you have not received an email, please check your spam folder.",
     "registerSuccess.headline": "Registration successful",
     "resendEmailConfirmation.emailResend": "Another email has been sent to {{lastSendEmail}}. Please check your inbox.",

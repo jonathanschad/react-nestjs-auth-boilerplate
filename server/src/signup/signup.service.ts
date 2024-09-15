@@ -39,10 +39,10 @@ export class SignupService {
         const existingUser = await this.userService.find({ email });
 
         if (existingUser) {
-            if (existingUser.state !== UserState.UNVERIFIED) {
-                await this.mailService.sendEmailAlreadyExistsEmail(existingUser);
-            } else {
+            if (existingUser.state === UserState.UNVERIFIED || existingUser.state === UserState.VERIFIED) {
                 await this.initiateEmailVerification(existingUser);
+            } else {
+                await this.mailService.sendEmailAlreadyExistsEmail(existingUser);
             }
             return true;
         } else {

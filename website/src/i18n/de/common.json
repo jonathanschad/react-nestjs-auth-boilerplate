@@ -32,7 +32,7 @@
     "passwordReset": "Passwort zurücksetzten",
     "passwordResetError": "Deine Anfrage ist entweder ungültig oder abgelaufen. Bitte starte den Prozess erneut.",
     "register": "Registrieren",
-    "registerSubHeadline": "Geben Sie Ihre Daten ein, um ein Konto zu erstellen",
+    "registerSubHeadline": "Geben Sie Ihre E-Mail ein, um ein Konto zu erstellen. Im Anschluss erhältst du eine E-Mail mit einem Bestätigungslink.",
     "registerSuccess.alert": "Wir haben dir eine E-Mail mit einem Link zum Bestätigen deiner E-Mail geschickt. Wenn du keine E-Mail erhalten hast, überprüfe bitte deinen Spam-Ordner.",
     "registerSuccess.headline": "Registrierung erfolgreich",
     "resendEmailConfirmation.emailResend": "Eine weitere Email wurde an {{lastSendEmail}} gesendet. Bitte überprüfen Sie Ihren Posteingang.",

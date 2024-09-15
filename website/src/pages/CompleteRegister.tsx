@@ -13,7 +13,7 @@ import { Translation } from '@/i18n/Translation';
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
 import { register, startGoogleOAuthFlow } from '@/repository/login';
 
-export default function Register() {
+export default function CompleteRegister() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const registerMutatation = useMutation({
@@ -54,6 +54,24 @@ export default function Register() {
             </div>
             <form onSubmit={formik.handleSubmit} className="grid gap-4">
                 <div className="grid gap-2">
+                    <Label htmlFor="name">
+                        <Translation>name</Translation>
+                    </Label>
+                    <Input
+                        id="name"
+                        name="name"
+                        autoComplete="given-name"
+                        type="name"
+                        placeholder={t('namePlaceholder')}
+                        required
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.name && Boolean(formik.errors.name)}
+                        errorMessage={formik.touched.name && formik.errors.name}
+                    />
+                </div>
+                <div className="grid gap-2">
                     <Label htmlFor="email">
                         <Translation>email</Translation>
                     </Label>
@@ -69,6 +87,25 @@ export default function Register() {
                         onBlur={formik.handleBlur}
                         error={formik.touched.email && Boolean(formik.errors.email)}
                         errorMessage={formik.touched.email && formik.errors.email}
+                    />
+                </div>
+                <div className="grid gap-2">
+                    <div className="flex items-center">
+                        <Label htmlFor="password">
+                            <Translation>password</Translation>
+                        </Label>
+                    </div>
+                    <Input
+                        id="password"
+                        type="password"
+                        required
+                        name="password"
+                        autoComplete="current-password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        errorMessage={formik.touched.password && formik.errors.password}
                     />
                 </div>
                 <div className="">
