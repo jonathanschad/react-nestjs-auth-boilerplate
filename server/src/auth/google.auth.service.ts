@@ -8,7 +8,7 @@ import { PasswordResetTokenService } from '@/database/password-reset-token/passw
 import { JWTService } from '@/auth/jwt.service';
 import { UserWithSettings } from '@/types/prisma';
 import { FastifyReply } from 'fastify';
-import assert from 'assert';
+import * as assert from 'assert';
 import { AuthService } from '@/auth/auth.service';
 
 type GoogleTokenExchangeResponse = {

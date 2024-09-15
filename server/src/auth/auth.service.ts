@@ -9,7 +9,7 @@ import { FastifyReply } from 'fastify';
 import { AccessTokenService } from '@/database/access-token/access-token.service';
 import { RefreshTokenService } from '@/database/refresh-token/refresh-token.service';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
-import assert from 'assert';
+import * as assert from 'assert';
 
 @Injectable()
 export class AuthService {

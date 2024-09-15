@@ -1,55 +1,52 @@
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { Button } from '@/components/ui/button';
-import { CheckboxInput } from '@/components/ui/checkbox-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
+import {
+    completeRegisterFormValidationSchema,
+    CompleteRegisterFormValues,
+    initialCompleteRegisterFormValues,
+} from '@/forms/complete-register-form';
 import { Translation } from '@/i18n/Translation';
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
-import { register, startGoogleOAuthFlow } from '@/repository/login';
+import { completeRegistration } from '@/repository/login';
+import { useStore } from '@/store/store';
 
 export default function CompleteRegister() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-    const registerMutatation = useMutation({
-        mutationFn: register,
+    const registeredEmail = useStore((state) => state.decodedAccessToken()?.email);
+    const registerMutation = useMutation({
+        mutationFn: completeRegistration,
         onSuccess: () => {
             queryClient.invalidateQueries();
-            navigate('/register/success');
-        },
-    });
-    const googleOAuthMutatation = useMutation({
-        mutationFn: startGoogleOAuthFlow,
-        onSuccess: () => {
-            queryClient.invalidateQueries();
+            navigate('/');
         },
     });
 
-    const handleSubmit = (data: RegisterFormValues) => {
-        sessionStorage.setItem('registerEmail', data.email);
-        sessionStorage.setItem('registerEmailSentAt', String(new Date().getTime()));
+    const handleSubmit = (data: CompleteRegisterFormValues) => {
         console.log(data);
-        registerMutatation.mutate(data);
+        registerMutation.mutate(data);
     };
     const { t } = useTranslation('common');
 
     const formik = useFormik({
-        initialValues: initialRegisterFormValues,
-        validationSchema: registerFormValidationSchema(t),
+        initialValues: initialCompleteRegisterFormValues,
+        validationSchema: completeRegisterFormValidationSchema(t),
         onSubmit: handleSubmit,
     });
 
     return (
         <NotSignedInLayout illustration={<RegisterSVG className="m-16 w-full max-w-full" />}>
             <div className="grid gap-2 text-center">
-                <Translation element="h1">register</Translation>
-                <Translation element="p" as="mutedText">
-                    registerSubHeadline
+                <Translation element="h1">completeRegistration.completeRegistration</Translation>
+                <Translation element="p" as="mutedText" translationParams={{ email: registeredEmail }}>
+                    completeRegistration.registerCompleteSubHeadline
                 </Translation>
             </div>
             <form onSubmit={formik.handleSubmit} className="grid gap-4">
@@ -72,24 +69,6 @@ export default function CompleteRegister() {
                     />
                 </div>
                 <div className="grid gap-2">
-                    <Label htmlFor="email">
-                        <Translation>email</Translation>
-                    </Label>
-                    <Input
-                        id="email"
-                        name="email"
-                        autoComplete="email"
-                        type="email"
-                        placeholder={t('emailPlaceholder')}
-                        required
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.email && Boolean(formik.errors.email)}
-                        errorMessage={formik.touched.email && formik.errors.email}
-                    />
-                </div>
-                <div className="grid gap-2">
                     <div className="flex items-center">
                         <Label htmlFor="password">
                             <Translation>password</Translation>
@@ -108,31 +87,10 @@ export default function CompleteRegister() {
                         errorMessage={formik.touched.password && formik.errors.password}
                     />
                 </div>
-                <div className="">
-                    <CheckboxInput
-                        id="acceptAgb"
-                        name="acceptAgb"
-                        checked={formik.values.acceptAgb}
-                        onCheckedChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        label={<Translation>acceptAgb</Translation>}
-                        error={formik.touched.acceptAgb && Boolean(formik.errors.acceptAgb)}
-                        errorMessage={formik.touched.acceptAgb && formik.errors.acceptAgb}
-                    />
-                </div>
                 <Button type="submit" className="w-full">
-                    <Translation>createAccount</Translation>
+                    <Translation>completeRegistration.completeRegistration</Translation>
                 </Button>
             </form>
-            <Button className="w-full" onClick={() => googleOAuthMutatation.mutate()}>
-                <Translation>signInWithGoogle</Translation>
-            </Button>
-            <div className="mt-4 text-center text-sm">
-                <Translation>alreadyAccount</Translation>{' '}
-                <RouterLink to="/login" className="underline">
-                    <Translation>login</Translation>
-                </RouterLink>
-            </div>
         </NotSignedInLayout>
     );
 }

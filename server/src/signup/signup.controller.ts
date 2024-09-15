@@ -43,15 +43,15 @@ export class SignupController {
     @Post('/complete')
     async completeSignup(
         @Body() body: CompleteSignupRequestDto,
-        @Req() request: FastifyRequest,
+        @Res() res: FastifyReply,
         @User() user: UserWithSettings,
     ) {
-        const result = await this.signupService.completeVerifiedUser({
+        await this.signupService.completeVerifiedUser({
             ...body,
             id: user.id,
         });
 
-        return { success: result };
+        return await this.authService.signInUser({ res: res, user, remember: true });
     }
 
     @SkipAuth()
@@ -68,7 +68,7 @@ export class SignupController {
         await new Promise((resolve) => setTimeout(resolve, 5000));
 
         const user = await this.signupService.verifyEmailToken(token);
-        return await this.authService.signInUser({ res: response, user, remember: false });
+        return await this.authService.signInUser({ res: response, user, remember: true });
     }
 
     @SkipAuth()

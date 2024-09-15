@@ -11,15 +11,34 @@ export class ExceptionFilter implements NestExceptionFilter {
         const request = ctx.getRequest<FastifyRequest>();
         let httpStatus: number = 500;
         let message: unknown;
+        let responseData: unknown;
+        let wasSet = false;
 
         if (exception instanceof HttpException) {
             httpStatus = exception.getStatus();
             message = exception.message;
+            responseData = exception.getResponse();
+            wasSet = true;
         } else if (exception instanceof HTTPError) {
             httpStatus = exception.statusCode;
             message = exception.message;
+            wasSet = true;
         } else {
             logger.error(exception);
+        }
+
+        if (!wasSet) {
+            if (
+                typeof exception === 'object' &&
+                exception &&
+                'statusCode' in exception &&
+                typeof exception.statusCode === 'number'
+            ) {
+                httpStatus = exception.statusCode;
+            }
+            if (typeof exception === 'object' && exception && 'message' in exception) {
+                message = exception.message;
+            }
         }
 
         void response.status(httpStatus).send({
@@ -27,6 +46,7 @@ export class ExceptionFilter implements NestExceptionFilter {
             timestamp: new Date().toISOString(),
             path: request.url,
             message,
+            responseData,
         });
     }
 }

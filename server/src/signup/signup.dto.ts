@@ -11,7 +11,7 @@ export class SignupRequestDto {
     acceptAgb: boolean = false;
 }
 
-export class CompleteSignupRequestDto extends SignupRequestDto {
+export class CompleteSignupRequestDto {
     @IsNotEmpty()
     @IsString()
     password!: string;

@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
             this.reflector.getAllAndOverride<UserState | UserState[]>(USER_STATE_KEY, [
                 context.getHandler(),
                 context.getClass(),
-            ]) ?? UserState.VERIFIED;
+            ]) ?? UserState.COMPLETE;
 
         if (!Array.isArray(requiredState)) {
             requiredState = [requiredState];

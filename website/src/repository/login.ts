@@ -1,3 +1,4 @@
+import { CompleteRegisterFormValues } from '@/forms/complete-register-form';
 import { LoginFormValues } from '@/forms/login-form';
 import { RegisterFormValues } from '@/forms/register-form';
 import api, { BASE_URL } from '@/repository';
@@ -17,6 +18,14 @@ export const logout = async () => {
 
 export const register = async (registerDTO: RegisterFormValues) => {
     const data = await api.post(BASE_URL + '/signup', registerDTO, {
+        withCredentials: true,
+    });
+
+    return data;
+};
+
+export const completeRegistration = async (completeRegisterDTO: CompleteRegisterFormValues) => {
+    const data = await api.post(BASE_URL + '/signup/complete', completeRegisterDTO, {
         withCredentials: true,
     });
 
