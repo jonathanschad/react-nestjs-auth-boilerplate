@@ -43,7 +43,11 @@ export class GoogleAuthController {
 
             await this.googleOAuthService.singUpOrLoginWithGoogle(profile, language, reply);
 
-            await reply.redirect(this.appConfigService.frontendPublicUrl);
+            const callbackUrl = new URL('/', this.appConfigService.frontendPublicUrl).href;
+            const redirectUrl = new URL('/load-application', this.appConfigService.frontendPublicUrl);
+            redirectUrl.searchParams.append('callbackUrl', callbackUrl);
+
+            await reply.redirect(redirectUrl.href);
         } catch (error) {
             console.error('Error during Google OAuth callback:', error);
             const errorUrl = new URL('/login', this.appConfigService.frontendPublicUrl).href;

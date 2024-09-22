@@ -43,7 +43,7 @@ export class SignupController {
     @Post('/complete')
     async completeSignup(
         @Body() body: CompleteSignupRequestDto,
-        @Res() res: FastifyReply,
+        @Res({ passthrough: true }) res: FastifyReply,
         @User() user: UserWithSettings,
     ) {
         await this.signupService.completeVerifiedUser({

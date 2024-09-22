@@ -77,7 +77,12 @@ export class GoogleAuthService {
             user = await this.userService.findByGoogleOAuthId(id);
         } catch (error) {
             // User does not exist --> create user
-            user = await this.userService.findByEmail(email);
+            try {
+                user = await this.userService.findByEmail(email);
+                // The user exists but is not connected with Google. The user now needs to enter a password to connect the Google account
+            } catch (error) {
+                // User does not exist --> create user
+            }
 
             if (user) {
                 throw new Error(

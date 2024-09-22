@@ -27,6 +27,17 @@ export class UserService {
         });
     }
 
+    async findByUuid(uuid: string): Promise<UserWithSettings> {
+        return await this.prisma.user.findFirstOrThrow({
+            where: {
+                id: uuid,
+            },
+            include: {
+                settings: true,
+            },
+        });
+    }
+
     async findByGoogleOAuthId(googleOAuthId: string): Promise<UserWithSettings> {
         return await this.prisma.user.findFirstOrThrow({
             where: {

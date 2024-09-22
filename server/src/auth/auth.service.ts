@@ -74,9 +74,15 @@ export class AuthService {
         refreshToken?: string;
         remember?: boolean;
     }): Promise<{ success: true; accessToken: string }> {
-        const refreshToken = await this.refreshTokenService.createRefreshToken(user.id, oldRefreshToken, remember);
+        const reloadedUser = await this.userService.findByUuid(user.id);
+
+        const refreshToken = await this.refreshTokenService.createRefreshToken(
+            reloadedUser.id,
+            oldRefreshToken,
+            remember,
+        );
         const accessToken = await this.accessTokenService.generateAccessToken(
-            { userId: user.id, email: user.email, state: user.state },
+            { userId: reloadedUser.id, email: reloadedUser.email, state: reloadedUser.state },
             refreshToken,
         );
 

@@ -16,7 +16,12 @@ import { UserState, useStore } from '@/store/store';
 
 const routerFactory = (userState: UserState | undefined | null, shouldRenewAccessToken: boolean) => {
     const isLoggedIn = Boolean(userState);
-    const routes: RouteObject[] = [];
+    const routes: RouteObject[] = [
+        {
+            path: '/load-application',
+            element: <LoadingApplication />,
+        },
+    ];
 
     if (shouldRenewAccessToken) {
         console.log('Renewing access token', shouldRenewAccessToken);

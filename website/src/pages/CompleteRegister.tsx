@@ -24,6 +24,7 @@ export default function CompleteRegister() {
     const registerMutation = useMutation({
         mutationFn: completeRegistration,
         onSuccess: () => {
+            console.log('Registration complete');
             queryClient.invalidateQueries();
             navigate('/');
         },
