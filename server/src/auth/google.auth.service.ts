@@ -107,6 +107,8 @@ export class GoogleAuthService {
             this.jwtService.getSha256Hash(decodedToken.secret),
         );
         assert(databaseToken);
+        await this.connectGoogleAccountTokenService.invalidateConnectGoogleAccountTokensByUser(databaseToken.userId);
+
         const user = await this.userService.findByUuid(databaseToken.userId);
         const isPasswordCorrect = await this.authService.verifyPassword(user, password);
         if (!isPasswordCorrect) {
