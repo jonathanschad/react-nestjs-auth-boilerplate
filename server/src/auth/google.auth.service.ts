@@ -8,6 +8,10 @@ import { PasswordResetTokenService } from '@/database/password-reset-token/passw
 import { JWTService } from '@/auth/jwt.service';
 import { FastifyReply } from 'fastify';
 import { AuthService } from '@/auth/auth.service';
+import { CompleteGoogleAccountConnectionDTO } from '@/auth/auth.dto';
+import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
+import * as assert from 'assert';
+import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 type GoogleTokenExchangeResponse = {
     access_token: string;
@@ -30,6 +34,7 @@ export class GoogleAuthService {
         private readonly passwordResetTokenService: PasswordResetTokenService,
         private readonly jwtService: JWTService,
         private readonly authService: AuthService,
+        private readonly connectGoogleAccountTokenService: ConnectGoogleAccountTokenService,
     ) {}
 
     public buildGoogleOAuthRedirectUrl(): string {
@@ -87,6 +92,30 @@ export class GoogleAuthService {
             res: response,
             user,
             remember: true,
+        });
+    }
+
+    public async completeAccountConnection({ password, token }: CompleteGoogleAccountConnectionDTO) {
+        const decodedToken = await this.jwtService.verifyToken<{
+            googleOAuthId: string;
+            googleEmail: string;
+            name: string;
+            secret: string;
+        }>(token);
+
+        const databaseToken = await this.connectGoogleAccountTokenService.findConnectGoogleAccountToken(
+            this.jwtService.getSha256Hash(decodedToken.secret),
+        );
+        assert(databaseToken);
+        const user = await this.userService.findByUuid(databaseToken.userId);
+        const isPasswordCorrect = await this.authService.verifyPassword(user, password);
+        if (!isPasswordCorrect) {
+            throw new HTTPError({ statusCode: HttpStatusCode.UNAUTHORIZED, message: 'Wrong username or password' });
+        }
+
+        return await this.userService.connectGoogleAccount({
+            user,
+            googleOAuthId: decodedToken.googleOAuthId,
         });
     }
 }

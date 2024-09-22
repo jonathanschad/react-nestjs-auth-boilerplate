@@ -10,7 +10,7 @@ import { Home } from '@/pages/Home';
 import LoadingApplication from '@/pages/LoadingApplication';
 import CompleteRegister from '@/pages/signup/CompleteRegister';
 import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
-import ConnectGoogleAccountCompletion from '@/pages/signup/ConnectGoogleAccountCompletion';
+import ConnectGoogleAccountCompletion from '@/pages/signup/google/ConnectGoogleAccountCompletion';
 import Register from '@/pages/signup/Register';
 import { RegisterSuccess } from '@/pages/signup/RegisterSuccess';
 import { UserState, useStore } from '@/store/store';

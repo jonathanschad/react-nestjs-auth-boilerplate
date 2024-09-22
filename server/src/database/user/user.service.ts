@@ -123,4 +123,15 @@ export class UserService {
 
         return createdUser;
     }
+
+    async connectGoogleAccount({ user, googleOAuthId }: { user: User; googleOAuthId: string }): Promise<User> {
+        return await this.prisma.user.update({
+            where: {
+                id: user.id,
+            },
+            data: {
+                googleOAuthId,
+            },
+        });
+    }
 }

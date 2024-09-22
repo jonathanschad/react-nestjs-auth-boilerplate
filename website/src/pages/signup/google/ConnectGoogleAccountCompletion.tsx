@@ -1,74 +1,76 @@
 import { useFormik } from 'formik';
+import { jwtDecode } from 'jwt-decode';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
-    completeRegisterFormValidationSchema,
-    CompleteRegisterFormValues,
-    initialCompleteRegisterFormValues,
-} from '@/forms/complete-register-form';
+    connectGoogleAccountFormValidationSchema,
+    ConnectGoogleAccountFormValues,
+    initialConnectGoogleAccountFormValues,
+} from '@/forms/connect-google-account-form';
 import { Translation } from '@/i18n/Translation';
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
-import { completeRegistration } from '@/repository/login';
-import { useStore } from '@/store/store';
+import { completeGoogleAccountConnection } from '@/repository/login';
+
+type ConnectTokenType = { googleOAuthId: string; googleEmail: string; name: string; secret: string };
 
 export default function ConnectGoogleAccountCompletion() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-    const registeredEmail = useStore((state) => state.decodedAccessToken()?.email);
+    const [searchParams] = useSearchParams();
+    const connectToken = useMemo(() => searchParams.get('connectToken'), [searchParams]);
+    const decodedConnectToken = useMemo(() => {
+        try {
+            return jwtDecode<ConnectTokenType>(connectToken ?? '');
+        } catch (error) {
+            return;
+        }
+    }, [connectToken]);
+
     const registerMutation = useMutation({
-        mutationFn: completeRegistration,
+        mutationFn: completeGoogleAccountConnection,
         onSuccess: () => {
-            console.log('Registration complete');
             queryClient.invalidateQueries();
             navigate('/');
         },
     });
 
-    const handleSubmit = (data: CompleteRegisterFormValues) => {
+    const handleSubmit = (data: ConnectGoogleAccountFormValues) => {
         console.log(data);
-        registerMutation.mutate(data);
+        if (connectToken) registerMutation.mutate({ token: connectToken, ...data });
     };
     const { t } = useTranslation('common');
 
     const formik = useFormik({
-        initialValues: initialCompleteRegisterFormValues,
-        validationSchema: completeRegisterFormValidationSchema(t),
+        initialValues: initialConnectGoogleAccountFormValues,
+        validationSchema: connectGoogleAccountFormValidationSchema(t),
         onSubmit: handleSubmit,
     });
+
+    if (!decodedConnectToken) {
+        return <Navigate to="/login" />;
+    }
 
     return (
         <NotSignedInLayout illustration={<RegisterSVG className="m-16 w-full max-w-full" />}>
             <div className="grid gap-2 text-center">
-                Google Accoun tcomplettiong
-                <Translation element="h1">completeRegistration.completeRegistration</Translation>
-                <Translation element="p" as="mutedText" translationParams={{ email: registeredEmail }}>
-                    completeRegistration.registerCompleteSubHeadline
+                <Translation element="h1">connectGoogleAccount.headline</Translation>
+                <Translation element="p" as="mutedText" translationParams={{ email: decodedConnectToken.googleEmail }}>
+                    connectGoogleAccount.explain
                 </Translation>
             </div>
             <form onSubmit={formik.handleSubmit} className="grid gap-4">
                 <div className="grid gap-2">
-                    <Label htmlFor="name">
-                        <Translation>name</Translation>
+                    <Label htmlFor="email">
+                        <Translation>email</Translation>
                     </Label>
-                    <Input
-                        id="name"
-                        name="name"
-                        autoComplete="given-name"
-                        type="name"
-                        placeholder={t('namePlaceholder')}
-                        required
-                        value={formik.values.name}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.name && Boolean(formik.errors.name)}
-                        errorMessage={formik.touched.name && formik.errors.name}
-                    />
+                    <Input id="email" name="email" disabled value={decodedConnectToken.googleEmail} />
                 </div>
                 <div className="grid gap-2">
                     <div className="flex items-center">
@@ -90,7 +92,7 @@ export default function ConnectGoogleAccountCompletion() {
                     />
                 </div>
                 <Button type="submit" className="w-full">
-                    <Translation>completeRegistration.completeRegistration</Translation>
+                    <Translation>connectGoogleAccount.connectAccount</Translation>
                 </Button>
             </form>
         </NotSignedInLayout>

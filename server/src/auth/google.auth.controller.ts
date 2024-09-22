@@ -1,4 +1,4 @@
-import { GoogleOAuthDTO } from '@/auth/auth.dto';
+import { CompleteGoogleAccountConnectionDTO, GoogleOAuthDTO } from '@/auth/auth.dto';
 import { SkipAuth } from '@/auth/auth.guard';
 import { AuthService } from '@/auth/auth.service';
 import { GoogleAuthService } from '@/auth/google.auth.service';
@@ -7,7 +7,7 @@ import { AppConfigService } from '@/config/app-config.service';
 import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
 import { UserService } from '@/database/user/user.service';
 import { SignupService } from '@/signup/signup.service';
-import { Controller, Get, HttpCode, HttpStatus, Query, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
 @Controller('auth/google')
@@ -84,5 +84,26 @@ export class GoogleAuthController {
             const errorUrl = new URL('/login', this.appConfigService.frontendPublicUrl).href;
             await reply.redirect(errorUrl);
         }
+    }
+
+    @SkipAuth()
+    @HttpCode(HttpStatus.OK)
+    @Post('/complete-account-connection')
+    async completeAccountConnection(
+        @Res({ passthrough: true }) reply: FastifyReply,
+        @Body() completeGoogleAccountConnectionDTO: CompleteGoogleAccountConnectionDTO,
+    ) {
+        const { token, password } = completeGoogleAccountConnectionDTO;
+
+        const connectedUser = await this.googleOAuthService.completeAccountConnection({ token, password });
+
+        if (!connectedUser) {
+            return { success: false };
+        }
+        return await this.authService.signInUser({
+            res: reply,
+            user: connectedUser,
+            remember: true,
+        });
     }
 }

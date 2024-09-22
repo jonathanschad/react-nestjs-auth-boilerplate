@@ -32,6 +32,14 @@ export const completeRegistration = async (completeRegisterDTO: CompleteRegister
     return data;
 };
 
+export const completeGoogleAccountConnection = async (completeRegisterDTO: { password: string; token: string }) => {
+    const data = await api.post(BASE_URL + '/auth/google/complete-account-connection', completeRegisterDTO, {
+        withCredentials: true,
+    });
+
+    return data;
+};
+
 export const confirmEmail = async ({ token }: { token?: string | null }) => {
     if (!token) return false;
     try {

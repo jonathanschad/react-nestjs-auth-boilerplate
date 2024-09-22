@@ -17,3 +17,13 @@ export class GoogleOAuthDTO {
     @IsString()
     code!: string;
 }
+
+export class CompleteGoogleAccountConnectionDTO {
+    @IsNotEmpty()
+    @IsString()
+    token!: string;
+
+    @IsNotEmpty()
+    @IsString()
+    password!: string;
+}
