@@ -2,17 +2,17 @@ import { useMemo } from 'react';
 import { createBrowserRouter, Navigate, RouteObject, RouterProvider } from 'react-router-dom';
 
 import NotFoundPage from '@/pages/404';
-import CompleteRegister from '@/pages/CompleteRegister';
-import { ConfirmEmail } from '@/pages/ConfirmEmail';
-import ConnectGoogleAccountCompletion from '@/pages/ConnectGoogleAccountCompletion';
+import { Login } from '@/pages/auth/Login';
+import { PasswordForgot } from '@/pages/auth/PasswordForgot';
+import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
+import { PasswordReset } from '@/pages/auth/PasswordReset';
 import { Home } from '@/pages/Home';
 import LoadingApplication from '@/pages/LoadingApplication';
-import { Login } from '@/pages/Login';
-import { PasswordForgot } from '@/pages/PasswordForgot';
-import { PasswordForgotSuccess } from '@/pages/PasswordForgotSuccess';
-import { PasswordReset } from '@/pages/PasswordReset';
-import Register from '@/pages/Register';
-import { RegisterSuccess } from '@/pages/RegisterSuccess';
+import CompleteRegister from '@/pages/signup/CompleteRegister';
+import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
+import ConnectGoogleAccountCompletion from '@/pages/signup/ConnectGoogleAccountCompletion';
+import Register from '@/pages/signup/Register';
+import { RegisterSuccess } from '@/pages/signup/RegisterSuccess';
 import { UserState, useStore } from '@/store/store';
 
 const routerFactory = (userState: UserState | undefined | null, shouldRenewAccessToken: boolean) => {

@@ -64,7 +64,7 @@ export class GoogleAuthController {
                 // should be started
                 const { token, hashedSecret, expiresAt } = this.jwtService.generateRandomToken(
                     this.appConfigService.connectGoogleAccountTokenExpiry,
-                    { googleOAuthId: profile.id, googleEmail: profile.email },
+                    { googleOAuthId: profile.id, googleEmail: profile.email, name: profile.name },
                 );
                 await this.connectGoogleAccountTokenService.createConnectGoogleAccountToken({
                     userId: userByEmail.id,
