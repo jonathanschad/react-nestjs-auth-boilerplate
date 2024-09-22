@@ -68,6 +68,10 @@ export class AppConfigService {
         return parseInt(this.get('PASSWORT_RESET_TOKEN_EXPIRY'));
     }
 
+    get connectGoogleAccountTokenExpiry(): number {
+        return parseInt(this.get('CONNECT_GOOGLE_ACCOUNT_TOKEN_EXPIRY'));
+    }
+
     get smtpHost(): string {
         return this.get('SMTP_HOST');
     }

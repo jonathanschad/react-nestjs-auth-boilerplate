@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '@/database/user/user.service';
 import { PrismaService } from '@/database/prisma.service';
 import { FastifyRequest } from 'fastify';
-import { Language, Prisma, User, UserState } from '@prisma/client';
+import { Language, Prisma, TokenType, User, UserState } from '@prisma/client';
 import * as uuid from 'uuid';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 import { AuthService } from '@/auth/auth.service';
@@ -134,8 +134,9 @@ export class SignupService {
             { email: user.email },
         );
 
-        const lastestToken = await this.prisma.emailVerificationToken.findFirst({
+        const lastestToken = await this.prisma.token.findFirst({
             where: {
+                type: TokenType.EMAIL_VERIFICATION,
                 userId: user.id,
             },
             orderBy: {
@@ -154,18 +155,20 @@ export class SignupService {
             }
         }
 
-        await this.prisma.emailVerificationToken.updateMany({
+        await this.prisma.token.updateMany({
             where: {
                 userId: user.id,
+                type: TokenType.EMAIL_VERIFICATION,
             },
             data: {
                 valid: false,
             },
         });
-        await this.prisma.emailVerificationToken.create({
+        await this.prisma.token.create({
             data: {
                 userId: user.id,
                 hashedSecret: this.jwtService.getSha256Hash(secret),
+                type: TokenType.EMAIL_VERIFICATION,
                 expiresAt,
             },
         });

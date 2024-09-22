@@ -25,6 +25,7 @@ export class AuthService {
         const FAIL_MESSAGE = 'Incorrect username or password.' as const;
         try {
             const user = await this.userService.findByEmail(email);
+            assert(user);
 
             if (!(await this.verifyPassword(user, password))) {
                 throw new HTTPError({ statusCode: HttpStatusCode.UNAUTHORIZED, message: FAIL_MESSAGE });

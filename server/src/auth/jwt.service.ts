@@ -86,7 +86,7 @@ export class JWTService {
         const expiresAt = new Date();
         expiresAt.setSeconds(expiresAt.getSeconds() + expiresInSeconds);
 
-        return { token, secret, expiresAt };
+        return { token, secret, hashedSecret: this.getSha256Hash(secret), expiresAt };
     };
 
     public authenticateToken = async (req: FastifyRequest): Promise<User> => {

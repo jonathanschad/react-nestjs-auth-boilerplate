@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
-import { EmailVerificationToken, Prisma, User, UserState } from '@prisma/client';
+import { Token, Prisma, User, UserState, TokenType } from '@prisma/client';
 import { UserWithSettings } from '@/types/prisma';
+import { assert } from 'console';
 
 @Injectable()
 export class UserService {
@@ -16,8 +17,8 @@ export class UserService {
         });
     }
 
-    async findByEmail(email: string): Promise<UserWithSettings> {
-        return await this.prisma.user.findFirstOrThrow({
+    async findByEmail(email: string): Promise<UserWithSettings | null> {
+        return await this.prisma.user.findFirst({
             where: {
                 email: email.toLowerCase(),
             },
@@ -38,8 +39,8 @@ export class UserService {
         });
     }
 
-    async findByGoogleOAuthId(googleOAuthId: string): Promise<UserWithSettings> {
-        return await this.prisma.user.findFirstOrThrow({
+    async findByGoogleOAuthId(googleOAuthId: string): Promise<UserWithSettings | null> {
+        return await this.prisma.user.findFirst({
             where: {
                 googleOAuthId: googleOAuthId,
             },
@@ -49,7 +50,9 @@ export class UserService {
         });
     }
 
-    async verifyUser(emailVerificationToken: EmailVerificationToken): Promise<User> {
+    async verifyUser(emailVerificationToken: Token): Promise<User> {
+        assert(emailVerificationToken.type === TokenType.EMAIL_VERIFICATION);
+
         const user = await this.prisma.user.update({
             where: {
                 id: emailVerificationToken.userId,

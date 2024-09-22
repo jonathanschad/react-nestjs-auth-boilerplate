@@ -6,9 +6,7 @@ import { Language, UserState } from '@prisma/client';
 import { UserService } from '@/database/user/user.service';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
 import { JWTService } from '@/auth/jwt.service';
-import { UserWithSettings } from '@/types/prisma';
 import { FastifyReply } from 'fastify';
-import * as assert from 'assert';
 import { AuthService } from '@/auth/auth.service';
 
 type GoogleTokenExchangeResponse = {
@@ -67,47 +65,23 @@ export class GoogleAuthService {
         return profile;
     }
 
-    public async singUpOrLoginWithGoogle(
+    public async singUpWithGoogle(
         { email, name, id }: GoogleUserProfileResponse,
         language: Language,
         response: FastifyReply,
     ) {
-        let user: UserWithSettings | null = null;
-        try {
-            user = await this.userService.findByGoogleOAuthId(id);
-        } catch (error) {
-            // User does not exist --> create user
-            try {
-                user = await this.userService.findByEmail(email);
-                // The user exists but is not connected with Google. The user now needs to enter a password to connect the Google account
-            } catch (error) {
-                // User does not exist --> create user
-            }
-
-            if (user) {
-                throw new Error(
-                    'User already exists with this email. Please login with your email and password. And connect your Google account in the settings.',
-                );
-            }
-
-            user = await this.userService.create({
-                email,
-                name,
-                googleOAuthId: id,
-                state: UserState.VERIFIED,
-                settings: {
-                    create: {
-                        notificationsEnabled: true,
-                        language,
-                    },
+        const user = await this.userService.create({
+            email,
+            name,
+            googleOAuthId: id,
+            state: UserState.VERIFIED,
+            settings: {
+                create: {
+                    notificationsEnabled: true,
+                    language,
                 },
-            });
-        }
-        assert(user);
-
-        if (!user.googleOAuthId) {
-            throw new Error('User is not connected with Google but the Account already exists');
-        }
+            },
+        });
 
         return await this.authService.signInUser({
             res: response,

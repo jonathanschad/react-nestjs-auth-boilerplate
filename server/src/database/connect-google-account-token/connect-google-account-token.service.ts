@@ -2,52 +2,39 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
 import { AppConfigService } from '@/config/app-config.service';
 import { Token, TokenType } from '@prisma/client';
-import { UserWithSettings } from '@/types/prisma';
-
-interface PasswordResetTokenWithUser extends Token {
-    user: UserWithSettings;
-}
 
 @Injectable()
-export class PasswordResetTokenService {
+export class ConnectGoogleAccountTokenService {
     constructor(
         private prisma: PrismaService,
         private configService: AppConfigService,
     ) {}
 
-    public async findValidTokenBySecret(hashedSecret: string): Promise<PasswordResetTokenWithUser | null> {
-        const passwordResetToken = await this.prisma.token.findFirst({
+    public async findConnectGoogleAccountToken(hashedSecret: string) {
+        const emailVerificationToken = await this.prisma.token.findFirst({
             where: {
                 hashedSecret,
                 expiresAt: { gte: new Date() },
-                type: TokenType.PASSWORD_RESET,
                 valid: true,
-            },
-            include: {
-                user: {
-                    include: {
-                        settings: true,
-                    },
-                },
+                type: TokenType.CONNECT_GOOGLE_ACCOUNT,
             },
         });
-        return passwordResetToken;
+        return emailVerificationToken;
     }
 
-    public async invalidatePasswordResetTokensFromUser(userId: string) {
+    public async invalidateConnectGoogleAccountTokensByUser(userId: string) {
         await this.prisma.token.updateMany({
             where: {
-                type: TokenType.PASSWORD_RESET,
-                userId: userId,
+                userId,
+                type: TokenType.CONNECT_GOOGLE_ACCOUNT,
             },
             data: {
                 valid: false,
-                expiresAt: new Date(),
             },
         });
     }
 
-    public async createPasswordResetToken({
+    public async createConnectGoogleAccountToken({
         userId,
         hashedSecret,
         expiresAt,
@@ -56,14 +43,14 @@ export class PasswordResetTokenService {
         hashedSecret: string;
         expiresAt: Date;
     }): Promise<Token> {
-        await this.invalidatePasswordResetTokensFromUser(userId);
+        await this.invalidateConnectGoogleAccountTokensByUser(userId);
 
         return await this.prisma.token.create({
             data: {
                 userId,
                 hashedSecret,
                 expiresAt,
-                type: TokenType.PASSWORD_RESET,
+                type: TokenType.CONNECT_GOOGLE_ACCOUNT,
             },
         });
     }

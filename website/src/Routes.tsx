@@ -4,6 +4,7 @@ import { createBrowserRouter, Navigate, RouteObject, RouterProvider } from 'reac
 import NotFoundPage from '@/pages/404';
 import CompleteRegister from '@/pages/CompleteRegister';
 import { ConfirmEmail } from '@/pages/ConfirmEmail';
+import ConnectGoogleAccountCompletion from '@/pages/ConnectGoogleAccountCompletion';
 import { Home } from '@/pages/Home';
 import LoadingApplication from '@/pages/LoadingApplication';
 import { Login } from '@/pages/Login';
@@ -84,6 +85,10 @@ const routerFactory = (userState: UserState | undefined | null, shouldRenewAcces
             {
                 path: '/verify-email-token',
                 element: <ConfirmEmail />,
+            },
+            {
+                path: '/google-oauth/connect-accounts',
+                element: <ConnectGoogleAccountCompletion />,
             },
             {
                 path: '*',
