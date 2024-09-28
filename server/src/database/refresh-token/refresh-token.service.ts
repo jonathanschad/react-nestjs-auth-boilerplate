@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
 import { AppConfigService } from '@/config/app-config.service';
 import * as jwt from 'jsonwebtoken';
+import * as uuid from 'uuid';
 @Injectable()
 export class RefreshTokenService {
     constructor(
@@ -25,9 +26,15 @@ export class RefreshTokenService {
     }
 
     public async createRefreshToken(userId: string, oldRefreshToken?: string, rememberUser?: boolean) {
-        const token = jwt.sign({}, this.configService.jwtTokenSecret, {
-            expiresIn: this.configService.refreshTokenExpiry,
-        });
+        const token = jwt.sign(
+            {
+                salt: uuid.v4(),
+            },
+            this.configService.jwtTokenSecret,
+            {
+                expiresIn: this.configService.refreshTokenExpiry,
+            },
+        );
         const expiresAt = new Date();
         expiresAt.setSeconds(expiresAt.getSeconds() + this.configService.refreshTokenExpiry);
         if (oldRefreshToken) {

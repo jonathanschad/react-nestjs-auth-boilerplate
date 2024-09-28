@@ -36,8 +36,6 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @Get('refresh-token')
     async refreshToken(@Res({ passthrough: true }) response: FastifyReply, @Req() request: FastifyRequest) {
-        // This endpoint would typically validate an existing, non-expired "refresh token"
-        // and issue a new "access token". Here we'll just issue a new access token.
         try {
             const refreshToken = this.jwtService.extractRefreshTokenFromCookie(request);
             if (!refreshToken) {

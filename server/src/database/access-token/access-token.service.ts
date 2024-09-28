@@ -4,6 +4,7 @@ import { AccessToken, Prisma, UserState } from '@prisma/client';
 import { InvalidAccessTokenError } from '@/util/httpHandlers';
 import { AppConfigService } from '@/config/app-config.service';
 import * as jwt from 'jsonwebtoken';
+import * as uuid from 'uuid';
 
 interface JWTData {
     userId: string;
@@ -37,7 +38,7 @@ export class AccessTokenService {
             throw new InvalidAccessTokenError();
         }
 
-        const token = jwt.sign(data, this.configService.jwtTokenSecret, {
+        const token = jwt.sign({ ...data, salt: uuid.v4() }, this.configService.jwtTokenSecret, {
             expiresIn: this.configService.accessTokenExpiry,
         });
         const expiresAt = new Date();
