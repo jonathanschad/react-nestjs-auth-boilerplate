@@ -7,7 +7,6 @@ import { PasswordForgot } from '@/pages/auth/PasswordForgot';
 import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
 import { PasswordReset } from '@/pages/auth/PasswordReset';
 import { Home } from '@/pages/Home';
-import LoadingApplication from '@/pages/LoadingApplication';
 import CompleteRegister from '@/pages/signup/CompleteRegister';
 import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
 import ConnectGoogleAccountCompletion from '@/pages/signup/google/ConnectGoogleAccountCompletion';
@@ -15,25 +14,9 @@ import Register from '@/pages/signup/Register';
 import { RegisterSuccess } from '@/pages/signup/RegisterSuccess';
 import { UserState, useStore } from '@/store/store';
 
-const routerFactory = (userState: UserState | undefined | null, shouldRenewAccessToken: boolean) => {
+const routerFactory = (userState: UserState | undefined | null) => {
     const isLoggedIn = Boolean(userState);
-    const routes: RouteObject[] = [
-        {
-            path: '/load-application',
-            element: <LoadingApplication />,
-        },
-    ];
-
-    if (shouldRenewAccessToken) {
-        console.log('Renewing access token', shouldRenewAccessToken);
-
-        return [
-            {
-                path: '*',
-                element: <LoadingApplication />,
-            },
-        ];
-    }
+    const routes: RouteObject[] = [];
     if (userState === UserState.VERIFIED) {
         routes.push(
             {
@@ -96,18 +79,11 @@ const routerFactory = (userState: UserState | undefined | null, shouldRenewAcces
             },
         );
     }
-    routes.push({
-        path: '*',
-        element: <Home />,
-    });
     return routes;
 };
 
 export const Routes = () => {
     const userState = useStore((state) => state.decodedAccessToken()?.state);
-    const shouldRenewAccessToken = useStore((state) => {
-        return !state.accessToken && state.isLoggedIn;
-    });
-    const router = useMemo(() => routerFactory(userState, shouldRenewAccessToken), [userState, shouldRenewAccessToken]);
+    const router = useMemo(() => routerFactory(userState), [userState]);
     return <RouterProvider router={createBrowserRouter(router)}></RouterProvider>;
 };

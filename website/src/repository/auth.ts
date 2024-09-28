@@ -14,7 +14,5 @@ export const renewAccessToken = async () => {
         useStore.getState().setAccessToken(refreshResponse.data.accessToken);
     } catch (refreshError) {
         useStore.getState().setAccessToken(null);
-
-        throw refreshError;
     }
 };

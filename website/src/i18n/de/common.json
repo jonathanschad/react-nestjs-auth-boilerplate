@@ -24,6 +24,7 @@
   "formik.rememberMeRequired": "Eingeloggt bleiben ist erforderlich",
   "formik.termsAndConditions": "Sie müssen die Allgemeinen Geschäftsbedingungen akzeptieren",
   "getPasswordLink": "Passwortlink anfordern",
+  "loadingApplication": "Anwendung wird geladen",
   "login": "Login",
   "loginSubHeadline": "Geben Sie unten Ihre E-Mail-Adresse ein, um sich in Ihr Konto einzuloggen",
   "name": "Name",
@@ -43,6 +44,7 @@
   "resendEmailConfirmation.emailResend": "Eine weitere Email wurde an {{lastSendEmail}} gesendet. Bitte überprüfen Sie Ihren Posteingang.",
   "resendEmailConfirmation.resendButton": "Bestätigungsmail erneut senden",
   "resendEmailConfirmation.resendButtonDisabled": "Bestätigungsmail erneut senden in {{secondsUntilEmailCanBeResent}}s",
+  "signInWithGoogle": "Über Google anmelden",
   "signup": "Registrieren",
   "toLogin": "Zum Login"
 }

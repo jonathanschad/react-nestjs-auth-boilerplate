@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    src: url('./Roboto-Medium.ttf') format('truetype');
+}
+.google-oauth-button {
+    font-family: 'Roboto', sans-serif; /* Apply Roboto font */
+    color: #e3e3e3;
+    border-color: #8e918f;
+    border-width: 1px;
+}
+
+/* Rest of your CSS code */

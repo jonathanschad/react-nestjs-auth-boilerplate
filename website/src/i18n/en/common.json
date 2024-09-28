@@ -24,6 +24,7 @@
   "formik.rememberMeRequired": "Remember me is required",
   "formik.termsAndConditions": "You must accept the terms and conditions",
   "getPasswordLink": "Get password link",
+  "loadingApplication": "Loading Application",
   "login": "Login",
   "loginSubHeadline": "Enter your email below to login to your account",
   "name": "Name",
@@ -43,6 +44,7 @@
   "resendEmailConfirmation.emailResend": "Another email has been sent to {{lastSendEmail}}. Please check your inbox.",
   "resendEmailConfirmation.resendButton": "Send confirmation email again",
   "resendEmailConfirmation.resendButtonDisabled": "Send confirmation email again in {{secondsUntilEmailCanBeResent}}s",
+  "signInWithGoogle": "Sign in with Google",
   "signup": "Sign up",
   "toLogin": "Go to login"
 }
