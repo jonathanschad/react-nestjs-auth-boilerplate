@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '@/database/user/user.service';
 import { PrismaService } from '@/database/prisma.service';
 import { FastifyRequest } from 'fastify';
-import { Language, Prisma, User } from '@prisma/client';
+import { Language, Prisma, TokenType, User, UserState } from '@prisma/client';
 import * as uuid from 'uuid';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 import { AuthService } from '@/auth/auth.service';
@@ -27,42 +27,27 @@ export class SignupService {
 
     public async signupUser({
         email,
-        password,
-        name,
         acceptAgb,
         language,
     }: {
         language: Language;
     } & SignupRequestDto) {
-        const salt = uuid.v4();
-
-        if (!email || !password || !name || !acceptAgb) {
+        if (!acceptAgb) {
             throw new HTTPError({ statusCode: HttpStatusCode.BAD_REQUEST, message: 'Incomplete Request' });
         }
 
-        const hashedPassword = await this.authService.hashPassword(password, salt);
+        const existingUser = await this.userService.find({ email });
 
-        const existingUser = await this.prisma.user.findFirst({
-            where: {
-                email: email,
-            },
-            include: {
-                settings: true,
-            },
-        });
         if (existingUser) {
-            if (existingUser.isVerified) {
-                await this.mailService.sendEmailAlreadyExistsEmail(existingUser);
-            } else {
+            if (existingUser.state === UserState.UNVERIFIED || existingUser.state === UserState.VERIFIED) {
                 await this.initiateEmailVerification(existingUser);
+            } else {
+                await this.mailService.sendEmailAlreadyExistsEmail(existingUser);
             }
             return true;
         } else {
             const user: Prisma.UserCreateInput = {
                 email: email,
-                name: name,
-                password: hashedPassword,
-                salt: salt,
                 settings: {
                     create: {
                         notificationsEnabled: true,
@@ -71,16 +56,23 @@ export class SignupService {
                 },
             };
 
-            const createdUser = await this.prisma.user.create({
-                data: user,
-                include: {
-                    settings: true,
-                },
-            });
+            const createdUser = await this.userService.create(user);
 
             await this.initiateEmailVerification(createdUser);
         }
         return true;
+    }
+
+    public async completeVerifiedUser({ name, password, id }: { name: string; password: string; id: string }) {
+        const salt = uuid.v4();
+        const hashedPassword = await this.authService.hashPassword(password, salt);
+
+        await this.userService.completeVerifiedUser({
+            hashedPassword,
+            salt,
+            id,
+            name,
+        });
     }
 
     public getSupportedLanguageFromRequest = (req: FastifyRequest): Language => {
@@ -123,11 +115,15 @@ export class SignupService {
             this.mailService.sendEmailDoesNotExistConformationMailEmail(email, language);
             return true;
         }
-        if (!user.isVerified) {
+
+        // If the email is verified, but the user has not yet entered a password, we need to send the email again
+        // We act as if the email has not yet been verified
+        if (user.state === UserState.UNVERIFIED || user.state === UserState.VERIFIED) {
             await this.initiateEmailVerification(user);
         } else {
             this.mailService.sendEmailAlreadyVerifiedEmail(user);
         }
+        // TODO add an email for inactive users
 
         return true;
     }
@@ -138,8 +134,9 @@ export class SignupService {
             { email: user.email },
         );
 
-        const lastestToken = await this.prisma.emailVerificationToken.findFirst({
+        const lastestToken = await this.prisma.token.findFirst({
             where: {
+                type: TokenType.EMAIL_VERIFICATION,
                 userId: user.id,
             },
             orderBy: {
@@ -158,18 +155,20 @@ export class SignupService {
             }
         }
 
-        await this.prisma.emailVerificationToken.updateMany({
+        await this.prisma.token.updateMany({
             where: {
                 userId: user.id,
+                type: TokenType.EMAIL_VERIFICATION,
             },
             data: {
                 valid: false,
             },
         });
-        await this.prisma.emailVerificationToken.create({
+        await this.prisma.token.create({
             data: {
                 userId: user.id,
                 hashedSecret: this.jwtService.getSha256Hash(secret),
+                type: TokenType.EMAIL_VERIFICATION,
                 expiresAt,
             },
         });

@@ -1,26 +1,46 @@
 import { useMemo } from 'react';
-import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouteObject, RouterProvider } from 'react-router-dom';
 
 import NotFoundPage from '@/pages/404';
-import { ConfirmEmail } from '@/pages/ConfirmEmail';
+import { Login } from '@/pages/auth/Login';
+import { PasswordForgot } from '@/pages/auth/PasswordForgot';
+import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
+import { PasswordReset } from '@/pages/auth/PasswordReset';
 import { Home } from '@/pages/Home';
-import { Login } from '@/pages/Login';
-import { PasswordForgot } from '@/pages/PasswordForgot';
-import { PasswordForgotSuccess } from '@/pages/PasswordForgotSuccess';
-import { PasswordReset } from '@/pages/PasswordReset';
-import Register from '@/pages/Register';
-import { RegisterSuccess } from '@/pages/RegisterSuccess';
-import { useStore } from '@/store/store';
+import CompleteRegister from '@/pages/signup/CompleteRegister';
+import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
+import ConnectGoogleAccountCompletion from '@/pages/signup/google/ConnectGoogleAccountCompletion';
+import Register from '@/pages/signup/Register';
+import { RegisterSuccess } from '@/pages/signup/RegisterSuccess';
+import { UserState, useStore } from '@/store/store';
 
-const routerFactory = (isLoggedIn: boolean) => {
-    const routes: RouteObject[] = [
-        {
+const routerFactory = (userState: UserState | undefined | null) => {
+    const isLoggedIn = Boolean(userState);
+    const routes: RouteObject[] = [];
+    if (userState === UserState.VERIFIED) {
+        routes.push(
+            {
+                path: '/register/complete',
+                element: <CompleteRegister />,
+            },
+            {
+                path: '*',
+                element: <Navigate replace to="/register/complete" />,
+            },
+        );
+    }
+    if (userState === UserState.COMPLETE) {
+        routes.push({
             path: '/',
-            element: isLoggedIn ? <Home /> : <Login />,
-        },
-    ];
+            element: <Home />,
+        });
+    }
     if (!isLoggedIn) {
         routes.push(
+            {
+                path: '/',
+                element: <Login />,
+            },
             {
                 path: '/login',
                 element: <Login />,
@@ -50,20 +70,20 @@ const routerFactory = (isLoggedIn: boolean) => {
                 element: <ConfirmEmail />,
             },
             {
+                path: '/google-oauth/connect-accounts',
+                element: <ConnectGoogleAccountCompletion />,
+            },
+            {
                 path: '*',
                 element: <NotFoundPage />,
             },
         );
     }
-    routes.push({
-        path: '*',
-        element: <Home />,
-    });
-    return createBrowserRouter(routes);
+    return routes;
 };
 
 export const Routes = () => {
-    const isLoggedIn = useStore((state) => state.isLoggedIn);
-    const router = useMemo(() => routerFactory(isLoggedIn), [isLoggedIn]);
-    return <RouterProvider router={router}></RouterProvider>;
+    const userState = useStore((state) => state.decodedAccessToken()?.state);
+    const router = useMemo(() => routerFactory(userState), [userState]);
+    return <RouterProvider router={createBrowserRouter(router)}></RouterProvider>;
 };

@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
-import { AccessToken, Prisma } from '@prisma/client';
+import { AccessToken, Prisma, UserState } from '@prisma/client';
 import { InvalidAccessTokenError } from '@/util/httpHandlers';
 import { AppConfigService } from '@/config/app-config.service';
 import * as jwt from 'jsonwebtoken';
+import * as uuid from 'uuid';
 
 interface JWTData {
     userId: string;
     email: string;
+    state: UserState;
 }
 
 @Injectable()
@@ -36,7 +38,7 @@ export class AccessTokenService {
             throw new InvalidAccessTokenError();
         }
 
-        const token = jwt.sign(data, this.configService.jwtTokenSecret, {
+        const token = jwt.sign({ ...data, salt: uuid.v4() }, this.configService.jwtTokenSecret, {
             expiresIn: this.configService.accessTokenExpiry,
         });
         const expiresAt = new Date();

@@ -5,8 +5,15 @@ import { JWTService } from '@/auth/jwt.service';
 import { AuthService } from '@/auth/auth.service';
 import { SignupService } from '@/signup/signup.service';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
-import { SkipAuth } from '@/auth/auth.guard';
-import { ResendVerificationDto, SignupRequestDto, VerifyEmailTokenDto } from '@/signup/signup.dto';
+import { RequireUserState, SkipAuth, User } from '@/auth/auth.guard';
+import {
+    CompleteSignupRequestDto,
+    ResendVerificationDto,
+    SignupRequestDto,
+    VerifyEmailTokenDto,
+} from '@/signup/signup.dto';
+import { UserState } from '@prisma/client';
+import { UserWithSettings } from '@/types/prisma';
 
 @Controller('signup')
 export class SignupController {
@@ -20,7 +27,7 @@ export class SignupController {
     @SkipAuth()
     @HttpCode(HttpStatus.OK)
     @Post()
-    async singup(@Body() body: SignupRequestDto, @Req() request: FastifyRequest) {
+    async signup(@Body() body: SignupRequestDto, @Req() request: FastifyRequest) {
         const language = this.signupService.getSupportedLanguageFromRequest(request);
 
         const result = await this.signupService.signupUser({
@@ -29,6 +36,22 @@ export class SignupController {
         });
 
         return { success: result };
+    }
+
+    @RequireUserState(UserState.VERIFIED)
+    @HttpCode(HttpStatus.OK)
+    @Post('/complete')
+    async completeSignup(
+        @Body() body: CompleteSignupRequestDto,
+        @Res({ passthrough: true }) res: FastifyReply,
+        @User() user: UserWithSettings,
+    ) {
+        await this.signupService.completeVerifiedUser({
+            ...body,
+            id: user.id,
+        });
+
+        return await this.authService.signInUser({ res: res, user, remember: true });
     }
 
     @SkipAuth()
@@ -45,7 +68,7 @@ export class SignupController {
         await new Promise((resolve) => setTimeout(resolve, 5000));
 
         const user = await this.signupService.verifyEmailToken(token);
-        return await this.authService.signInUser({ res: response, user, remember: false });
+        return await this.authService.signInUser({ res: response, user, remember: true });
     }
 
     @SkipAuth()

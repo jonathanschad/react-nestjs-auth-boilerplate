@@ -9,6 +9,7 @@ import { FastifyReply } from 'fastify';
 import { AccessTokenService } from '@/database/access-token/access-token.service';
 import { RefreshTokenService } from '@/database/refresh-token/refresh-token.service';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
+import * as assert from 'assert';
 
 @Injectable()
 export class AuthService {
@@ -24,6 +25,7 @@ export class AuthService {
         const FAIL_MESSAGE = 'Incorrect username or password.' as const;
         try {
             const user = await this.userService.findByEmail(email);
+            assert(user);
 
             if (!(await this.verifyPassword(user, password))) {
                 throw new HTTPError({ statusCode: HttpStatusCode.UNAUTHORIZED, message: FAIL_MESSAGE });
@@ -73,9 +75,15 @@ export class AuthService {
         refreshToken?: string;
         remember?: boolean;
     }): Promise<{ success: true; accessToken: string }> {
-        const refreshToken = await this.refreshTokenService.createRefreshToken(user.id, oldRefreshToken, remember);
+        const reloadedUser = await this.userService.findByUuid(user.id);
+
+        const refreshToken = await this.refreshTokenService.createRefreshToken(
+            reloadedUser.id,
+            oldRefreshToken,
+            remember,
+        );
         const accessToken = await this.accessTokenService.generateAccessToken(
-            { userId: user.id, email: user.email },
+            { userId: reloadedUser.id, email: reloadedUser.email, state: reloadedUser.state },
             refreshToken,
         );
 
@@ -95,6 +103,8 @@ export class AuthService {
     }
 
     public async verifyPassword(user: User, password: string): Promise<boolean> {
+        assert(user.salt);
+        assert(user.password);
         const hashedPassword = await this.hashPassword(password, user.salt);
 
         return crypto.timingSafeEqual(user.password, hashedPassword);
@@ -104,8 +114,7 @@ export class AuthService {
         void res.cookie('refreshToken', refreshToken, {
             httpOnly: true, // Important: makes the cookie inaccessible to client-side JavaScript
             secure: process.env.NODE_ENV === 'production', // Cookies sent over HTTPS only in production
-
-            //sameSite: 'strict', // Strictly same site
+            sameSite: 'strict', // Strictly same site
             path: '/api/auth/refresh-token', // Specify the path if needed
             maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : undefined, // Cookie expiration in milliseconds (matches token expiration)
         });

@@ -40,13 +40,14 @@ export class MailService {
 
     public sendPasswordResetEmail(user: UserWithSettings, token: string): void {
         this.sendEmail('passwordReset', user, {
-            resetPasswordLink: new URL(`/password-reset?token=${token}`, this.appConfigService.publicUrl).href,
+            resetPasswordLink: new URL(`/password-reset?token=${token}`, this.appConfigService.frontendPublicUrl).href,
         });
     }
 
     public sendEmailConfirmationEmail(user: UserWithSettings, token: string): void {
         this.sendEmail('emailConfirmation', user, {
-            confirmEmailLink: new URL(`/verify-email-token?token=${token}`, this.appConfigService.publicUrl).href,
+            confirmEmailLink: new URL(`/verify-email-token?token=${token}`, this.appConfigService.frontendPublicUrl)
+                .href,
         });
     }
     public sendEmailDoesNotExistConformationMailEmail(email: string, language: Language): void {
@@ -54,7 +55,7 @@ export class MailService {
             'emailDoesnotExistConfirmationMail',
             { email, language },
             {
-                signupLink: new URL(`/signup`, this.appConfigService.publicUrl).href,
+                signupLink: new URL(`/signup`, this.appConfigService.frontendPublicUrl).href,
             },
         );
     }
@@ -63,7 +64,7 @@ export class MailService {
             'emailDoesnotExistPasswordReset',
             { email, language },
             {
-                signupLink: new URL(`/signup`, this.appConfigService.publicUrl).href,
+                signupLink: new URL(`/signup`, this.appConfigService.frontendPublicUrl).href,
             },
         );
     }
@@ -73,13 +74,13 @@ export class MailService {
 
     public sendEmailAlreadyExistsEmail(user: UserWithSettings): void {
         this.sendEmail('accountAlreadyExists', user, {
-            loginLink: new URL(`/login`, this.appConfigService.publicUrl).href,
+            loginLink: new URL(`/login`, this.appConfigService.frontendPublicUrl).href,
         });
     }
 
     public sendEmailAlreadyVerifiedEmail(user: UserWithSettings): void {
         this.sendEmail('emailAlreadyVerified', user, {
-            loginLink: new URL(`/login`, this.appConfigService.publicUrl).href,
+            loginLink: new URL(`/login`, this.appConfigService.frontendPublicUrl).href,
         });
     }
 

@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
 import { Translation } from '@/i18n/Translation';
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
-import { register } from '@/repository/login';
+import { register, startGoogleOAuthFlow } from '@/repository/login';
 
 export default function Register() {
     const queryClient = useQueryClient();
@@ -21,6 +21,12 @@ export default function Register() {
         onSuccess: () => {
             queryClient.invalidateQueries();
             navigate('/register/success');
+        },
+    });
+    const googleOAuthMutatation = useMutation({
+        mutationFn: startGoogleOAuthFlow,
+        onSuccess: () => {
+            queryClient.invalidateQueries();
         },
     });
 
@@ -48,24 +54,6 @@ export default function Register() {
             </div>
             <form onSubmit={formik.handleSubmit} className="grid gap-4">
                 <div className="grid gap-2">
-                    <Label htmlFor="name">
-                        <Translation>name</Translation>
-                    </Label>
-                    <Input
-                        id="name"
-                        name="name"
-                        autoComplete="given-name"
-                        type="name"
-                        placeholder={t('namePlaceholder')}
-                        required
-                        value={formik.values.name}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.name && Boolean(formik.errors.name)}
-                        errorMessage={formik.touched.name && formik.errors.name}
-                    />
-                </div>
-                <div className="grid gap-2">
                     <Label htmlFor="email">
                         <Translation>email</Translation>
                     </Label>
@@ -81,25 +69,6 @@ export default function Register() {
                         onBlur={formik.handleBlur}
                         error={formik.touched.email && Boolean(formik.errors.email)}
                         errorMessage={formik.touched.email && formik.errors.email}
-                    />
-                </div>
-                <div className="grid gap-2">
-                    <div className="flex items-center">
-                        <Label htmlFor="password">
-                            <Translation>password</Translation>
-                        </Label>
-                    </div>
-                    <Input
-                        id="password"
-                        type="password"
-                        required
-                        name="password"
-                        autoComplete="current-password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.password && Boolean(formik.errors.password)}
-                        errorMessage={formik.touched.password && formik.errors.password}
                     />
                 </div>
                 <div className="">
@@ -118,6 +87,9 @@ export default function Register() {
                     <Translation>createAccount</Translation>
                 </Button>
             </form>
+            <Button className="w-full" onClick={() => googleOAuthMutatation.mutate()}>
+                <Translation>signInWithGoogle</Translation>
+            </Button>
             <div className="mt-4 text-center text-sm">
                 <Translation>alreadyAccount</Translation>{' '}
                 <RouterLink to="/login" className="underline">

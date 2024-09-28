@@ -16,16 +16,23 @@ datasource db {
 model User {
   id                      String                   @id @default(uuid())
   email                   String                   @unique
-  isVerified              Boolean                  @default(false)
-  password                Bytes
-  salt                    String
+  state                   UserState                @default(UNVERIFIED)
+  googleOAuthId           String?                    
+  password                Bytes?
+  salt                    String?
   name                    String?
   settingsId              String                   @unique
   settings                UserSettings             @relation(fields: [settingsId], references: [id])
   refreshTokens           RefreshToken[]
   accessTokens            AccessToken[]
-  emailVerificationTokens EmailVerificationToken[]
-  passwordResetTokens     PasswordResetToken[]
+  otherTokens             Token[]
+}
+
+enum UserState {
+  UNVERIFIED
+  VERIFIED
+  COMPLETE
+  INACTIVE
 }
 
 model UserSettings {
@@ -49,7 +56,7 @@ model RefreshToken {
   valid          Boolean       @default(true)
   rememberUser   Boolean       @default(false)
   userId         String
-  user           User          @relation(fields: [userId], references: [id])
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessTokens   AccessToken[]
 }
 
@@ -62,26 +69,23 @@ model AccessToken {
   valid          Boolean      @default(true)
   refreshTokenId String
   userId         String
-  user           User         @relation(fields: [userId], references: [id])
-  refreshToken   RefreshToken @relation(fields: [refreshTokenId], references: [refreshTokenId])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshToken   RefreshToken @relation(fields: [refreshTokenId], references: [refreshTokenId], onDelete: Cascade)
 }
 
-model EmailVerificationToken {
+enum TokenType {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+  CONNECT_GOOGLE_ACCOUNT
+}
+
+model Token {
   id           String   @id @default(uuid())
+  type         TokenType
   userId       String
-  user         User     @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   hashedSecret String   @unique
   createdAt    DateTime @default(now())
   expiresAt    DateTime
   valid        Boolean  @default(true)
-}
-
-model PasswordResetToken {
-  id           String   @id @default(uuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id])
-  hashedSecret String   @unique
-  createdAt    DateTime @default(now())
-  valid        Boolean  @default(true)
-  expiresAt    DateTime
 }

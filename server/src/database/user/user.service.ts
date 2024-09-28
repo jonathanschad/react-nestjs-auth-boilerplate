@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
-import { EmailVerificationToken, Prisma, User } from '@prisma/client';
+import { Token, Prisma, User, UserState, TokenType } from '@prisma/client';
 import { UserWithSettings } from '@/types/prisma';
+import { assert } from 'console';
 
 @Injectable()
 export class UserService {
@@ -16,8 +17,8 @@ export class UserService {
         });
     }
 
-    async findByEmail(email: string): Promise<UserWithSettings> {
-        return await this.prisma.user.findFirstOrThrow({
+    async findByEmail(email: string): Promise<UserWithSettings | null> {
+        return await this.prisma.user.findFirst({
             where: {
                 email: email.toLowerCase(),
             },
@@ -27,18 +28,68 @@ export class UserService {
         });
     }
 
-    async verifyUser(emailVerificationToken: EmailVerificationToken): Promise<User> {
+    async findByUuid(uuid: string): Promise<UserWithSettings> {
+        return await this.prisma.user.findFirstOrThrow({
+            where: {
+                id: uuid,
+            },
+            include: {
+                settings: true,
+            },
+        });
+    }
+
+    async findByGoogleOAuthId(googleOAuthId: string): Promise<UserWithSettings | null> {
+        return await this.prisma.user.findFirst({
+            where: {
+                googleOAuthId: googleOAuthId,
+            },
+            include: {
+                settings: true,
+            },
+        });
+    }
+
+    async verifyUser(emailVerificationToken: Token): Promise<User> {
+        assert(emailVerificationToken.type === TokenType.EMAIL_VERIFICATION);
+
         const user = await this.prisma.user.update({
             where: {
                 id: emailVerificationToken.userId,
-                isVerified: false,
+                state: {
+                    in: [UserState.UNVERIFIED, UserState.VERIFIED],
+                },
             },
             data: {
-                isVerified: true,
+                state: UserState.VERIFIED,
             },
         });
 
         return user;
+    }
+
+    async completeVerifiedUser({
+        hashedPassword,
+        salt,
+        id,
+        name,
+    }: {
+        hashedPassword: Buffer;
+        salt: string;
+        id: string;
+        name: string;
+    }): Promise<void> {
+        await this.prisma.user.update({
+            where: {
+                id,
+            },
+            data: {
+                password: hashedPassword,
+                salt,
+                name,
+                state: UserState.COMPLETE,
+            },
+        });
     }
 
     async changePassword({
@@ -57,6 +108,29 @@ export class UserService {
             data: {
                 password: hashedPassword,
                 salt,
+            },
+        });
+    }
+
+    async create(data: Prisma.UserCreateInput): Promise<UserWithSettings> {
+        data.email = data.email.toLowerCase();
+        const createdUser = await this.prisma.user.create({
+            data: data,
+            include: {
+                settings: true,
+            },
+        });
+
+        return createdUser;
+    }
+
+    async connectGoogleAccount({ user, googleOAuthId }: { user: User; googleOAuthId: string }): Promise<User> {
+        return await this.prisma.user.update({
+            where: {
+                id: user.id,
+            },
+            data: {
+                googleOAuthId,
             },
         });
     }

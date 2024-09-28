@@ -6,6 +6,12 @@ export class SignupRequestDto {
     @IsString()
     email!: string;
 
+    @IsBoolean()
+    @IsTrue()
+    acceptAgb: boolean = false;
+}
+
+export class CompleteSignupRequestDto {
     @IsNotEmpty()
     @IsString()
     password!: string;
@@ -13,12 +19,7 @@ export class SignupRequestDto {
     @IsNotEmpty()
     @IsString()
     name!: string;
-
-    @IsBoolean()
-    @IsTrue()
-    acceptAgb: boolean = false;
 }
-
 export class VerifyEmailTokenDto {
     @IsNotEmpty()
     @IsString()

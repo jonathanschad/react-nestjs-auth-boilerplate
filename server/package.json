@@ -32,6 +32,7 @@
         "@nestjs/jwt": "^10.2.0",
         "@nestjs/platform-fastify": "^10.3.10",
         "@prisma/client": "5.18.0",
+        "axios": "^1.7.7",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.14.1",
         "jsonwebtoken": "^9.0.2",

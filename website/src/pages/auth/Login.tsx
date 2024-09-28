@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import LoginSVG from '@/assets/illustrations/login.svg?react';
+import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -86,6 +87,7 @@ export function Login() {
                 <Button type="submit" className="w-full">
                     <Translation>login</Translation>
                 </Button>
+                <GoogleOAuthButton />
             </form>
             <div className="mt-4 text-center text-sm">
                 <Translation>noAccount</Translation>{' '}

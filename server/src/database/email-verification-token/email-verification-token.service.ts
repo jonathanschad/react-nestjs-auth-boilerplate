@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
 import { AppConfigService } from '@/config/app-config.service';
+import { TokenType } from '@prisma/client';
 
 @Injectable()
 export class EmailVerificationTokenService {
@@ -10,19 +11,21 @@ export class EmailVerificationTokenService {
     ) {}
 
     public async findEmailVerificationToken(hashedSecret: string) {
-        const emailVerificationToken = await this.prisma.emailVerificationToken.findFirst({
+        const emailVerificationToken = await this.prisma.token.findFirst({
             where: {
                 hashedSecret,
                 expiresAt: { gte: new Date() },
                 valid: true,
+                type: TokenType.EMAIL_VERIFICATION,
             },
         });
         return emailVerificationToken;
     }
 
     public async invalidateEmailVerificationToken(hashedSecret: string) {
-        await this.prisma.emailVerificationToken.update({
+        await this.prisma.token.update({
             where: {
+                type: TokenType.EMAIL_VERIFICATION,
                 hashedSecret,
             },
             data: {
