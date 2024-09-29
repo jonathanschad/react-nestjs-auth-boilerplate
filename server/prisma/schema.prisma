@@ -14,18 +14,23 @@ datasource db {
 }
 
 model User {
-  id                      String                   @id @default(uuid())
-  email                   String                   @unique
-  state                   UserState                @default(UNVERIFIED)
-  googleOAuthId           String?                    
-  password                Bytes?
-  salt                    String?
-  name                    String?
-  settingsId              String                   @unique
-  settings                UserSettings             @relation(fields: [settingsId], references: [id])
-  refreshTokens           RefreshToken[]
-  accessTokens            AccessToken[]
-  otherTokens             Token[]
+  id               String           @id @default(uuid())
+  email            String           @unique
+  state            UserState        @default(UNVERIFIED)
+  googleOAuthId    String?
+  password         Bytes?
+  salt             String?
+  name             String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  settingsId       String           @unique
+  settings         UserSettings     @relation(fields: [settingsId], references: [id])
+  profilePictureId String?          @unique
+  profilePicture   File?            @relation(fields: [profilePictureId], references: [id])
+  refreshTokens    RefreshToken[]
+  accessTokens     AccessToken[]
+  otherTokens      Token[]
+  files            FilePermission[]
 }
 
 enum UserState {
@@ -40,6 +45,8 @@ model UserSettings {
   user                 User?
   notificationsEnabled Boolean
   language             Language @default(EN)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 }
 
 enum Language {
@@ -47,10 +54,48 @@ enum Language {
   DE
 }
 
+model File {
+  id                 String           @id @default(uuid())
+  name               String
+  path               String
+  mimeType           String
+  size               Int
+  access             FileAccess       @default(PRIVATE)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  usersWithAccess    FilePermission[]
+  profilePictureUser User?
+}
+
+enum FileAccess {
+  PRIVATE
+  PUBLIC
+}
+
+model FilePermission {
+  fileId     String
+  userId     String
+  permission FilePermissionType[]
+  file       File                 @relation(fields: [fileId], references: [id])
+  user       User                 @relation(fields: [userId], references: [id])
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+
+  @@id([fileId, userId])
+}
+
+enum FilePermissionType {
+  READ
+  WRITE
+  DELETE
+  CREATOR
+}
+
 model RefreshToken {
   refreshTokenId String        @id @default(uuid())
   token          String        @unique
   createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
   lastUsedAt     DateTime      @default(now())
   expiresAt      DateTime
   valid          Boolean       @default(true)
@@ -64,6 +109,7 @@ model AccessToken {
   accessTokenId  String       @id @default(uuid())
   token          String       @unique
   createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
   lastUsedAt     DateTime     @default(now())
   expiresAt      DateTime
   valid          Boolean      @default(true)
@@ -80,12 +126,13 @@ enum TokenType {
 }
 
 model Token {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
   type         TokenType
   userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  hashedSecret String   @unique
-  createdAt    DateTime @default(now())
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hashedSecret String    @unique
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
   expiresAt    DateTime
-  valid        Boolean  @default(true)
+  valid        Boolean   @default(true)
 }
