@@ -75,7 +75,7 @@ enum FileAccess {
 model FilePermission {
   fileId     String
   userId     String
-  permission FilePermissionType[]
+  permission FilePermissionType
   file       File                 @relation(fields: [fileId], references: [id])
   user       User                 @relation(fields: [userId], references: [id])
   createdAt  DateTime             @default(now())
@@ -85,6 +85,7 @@ model FilePermission {
 }
 
 enum FilePermissionType {
+  DENIED
   READ
   WRITE
   DELETE

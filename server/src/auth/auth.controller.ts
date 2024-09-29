@@ -2,7 +2,7 @@ import { Body, Controller, Post, HttpCode, HttpStatus, Res, Get, Req } from '@ne
 import { AuthService } from '@/auth/auth.service';
 import { SingInDTO } from '@/auth/auth.dto';
 import { PrismaService } from '@/database/prisma.service';
-import { SkipAuth } from '@/auth/auth.guard';
+import { PublicRoute } from '@/auth/auth.guard';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { JWTService } from '@/auth/jwt.service';
 import { InvalidRefreshTokenError } from '@/util/httpHandlers';
@@ -17,7 +17,7 @@ export class AuthController {
         readonly jwtService: JWTService,
     ) {}
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Post('login')
     async signIn(@Body() signInDto: SingInDTO, @Res({ passthrough: true }) response: FastifyReply) {
@@ -32,7 +32,7 @@ export class AuthController {
         return await this.authService.logout({ response, accessToken, refreshToken });
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Get('refresh-token')
     async refreshToken(@Res({ passthrough: true }) response: FastifyReply, @Req() request: FastifyRequest) {

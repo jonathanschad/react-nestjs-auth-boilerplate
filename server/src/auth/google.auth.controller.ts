@@ -1,5 +1,5 @@
 import { CompleteGoogleAccountConnectionDTO, GoogleOAuthDTO } from '@/auth/auth.dto';
-import { SkipAuth } from '@/auth/auth.guard';
+import { PublicRoute } from '@/auth/auth.guard';
 import { AuthService } from '@/auth/auth.service';
 import { GoogleAuthService } from '@/auth/google.auth.service';
 import { JWTService } from '@/auth/jwt.service';
@@ -22,7 +22,7 @@ export class GoogleAuthController {
         private readonly connectGoogleAccountTokenService: ConnectGoogleAccountTokenService,
     ) {}
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Get('/')
     async signIn() {
@@ -30,7 +30,7 @@ export class GoogleAuthController {
         return { redirectUrl: url };
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.MOVED_PERMANENTLY)
     @Get('/callback')
     async callback(
@@ -86,7 +86,7 @@ export class GoogleAuthController {
         }
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Post('/complete-account-connection')
     async completeAccountConnection(

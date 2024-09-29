@@ -1,24 +1,17 @@
-import { SkipAuth } from '@/auth/auth.guard';
-import { AppConfigService } from '@/config/app-config.service';
+import { OptionalUser, PublicRoute } from '@/auth/auth.guard';
 import { GetFileDTO } from '@/files/file.dto';
-import { Controller, Get, HttpCode, HttpStatus, Param, StreamableFile } from '@nestjs/common';
-import { createReadStream } from 'fs';
-import { join } from 'path';
+import { FileService } from '@/files/file.service';
+import { UserWithSettings } from '@/types/prisma';
+import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
 
 @Controller('file')
 export class FileController {
-    constructor(private readonly appConfigService: AppConfigService) {}
+    constructor(private readonly fileService: FileService) {}
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Get('/:fileUuid')
-    async retrieveFile(@Param() { fileUuid }: GetFileDTO) {
-        // Retrieve file from storage
-
-        const file = createReadStream(join(this.appConfigService.fileStoragePath, 'pexels-photo-417074.jpeg'));
-        return new StreamableFile(file, {
-            type: 'image/jpeg',
-            disposition: 'inline; filename="image.jpeg"',
-        });
+    async retrieveFile(@Param() { fileUuid }: GetFileDTO, @OptionalUser() user?: UserWithSettings) {
+        return await this.fileService.getFile({ fileUuid, user });
     }
 }

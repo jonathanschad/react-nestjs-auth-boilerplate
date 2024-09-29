@@ -8,6 +8,7 @@ import { UserController } from '@/database/user/user.controller';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
 import { PrismaService } from '@/database/prisma.service';
 import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
+import { DatabaseFileService } from '@/database/database-file/database-file.service';
 
 @Global()
 @Module({
@@ -21,6 +22,7 @@ import { ConnectGoogleAccountTokenService } from '@/database/connect-google-acco
         EmailVerificationTokenService,
         PasswordResetTokenService,
         ConnectGoogleAccountTokenService,
+        DatabaseFileService,
     ],
     exports: [
         PrismaService,
@@ -30,6 +32,7 @@ import { ConnectGoogleAccountTokenService } from '@/database/connect-google-acco
         EmailVerificationTokenService,
         PasswordResetTokenService,
         ConnectGoogleAccountTokenService,
+        DatabaseFileService,
     ],
 })
 export class DatabaseModule {}

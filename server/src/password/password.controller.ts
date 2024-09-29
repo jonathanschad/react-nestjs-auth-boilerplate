@@ -1,7 +1,7 @@
 import { Controller, Post, HttpCode, HttpStatus, Req, Get, Body, Query, Res } from '@nestjs/common';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { SignupService } from '@/signup/signup.service';
-import { SkipAuth } from '@/auth/auth.guard';
+import { PublicRoute } from '@/auth/auth.guard';
 import { PasswordService } from '@/password/password.service';
 import {
     PasswordChangePasswordDto,
@@ -19,7 +19,7 @@ export class PasswordController {
         private readonly authService: AuthService,
     ) {}
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Post('/forgot')
     async passwordForgot(@Body() { email }: PasswordForgotDto, @Req() request: FastifyRequest) {
@@ -29,14 +29,14 @@ export class PasswordController {
         return { success: true };
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Get('/forgot/validate')
     async passwordForgotValidate(@Query() { token }: PasswordForgotValidateDto) {
         return { success: await this.passwordService.validatePasswordForgotToken(token) };
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Post('/change-password/token')
     async passwordChangeToken(
@@ -50,7 +50,7 @@ export class PasswordController {
         return { success: success };
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Post('/change-password/old-password')
     async passwordChangePassword(@Body() { email, newPassword, oldPassword }: PasswordChangePasswordDto) {
