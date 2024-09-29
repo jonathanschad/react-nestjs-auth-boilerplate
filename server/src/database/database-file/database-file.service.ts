@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
-import { File, FileAccess, FilePermissionType } from '@prisma/client';
+import { File, FileAccess, FilePermissionType, Prisma } from '@prisma/client';
 import { AppConfigService } from '@/config/app-config.service';
 import { logger } from '@/main';
 
@@ -47,5 +47,14 @@ export class DatabaseFileService {
             logger.warn('Tried to access a private file without a user');
         }
         return null;
+    }
+
+    async createFile({ file, user }: { file: Prisma.FileCreateInput; user: { id: string } }): Promise<File> {
+        return this.prisma.file.create({
+            data: {
+                ...file,
+                usersWithAccess: { create: [{ userId: user.id, permission: FilePermissionType.CREATOR }] },
+            },
+        });
     }
 }

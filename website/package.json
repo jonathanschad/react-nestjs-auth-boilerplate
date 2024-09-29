@@ -30,6 +30,7 @@
         "sort-by": "^1.2.0",
         "tailwind-merge": "^2.4.0",
         "tailwindcss-animate": "^1.0.7",
+        "uuid": "^10.0.0",
         "yup": "^1.4.0",
         "zustand": "^4.5.2"
     },
@@ -38,6 +39,7 @@
         "@types/node": "^20.14.12",
         "@types/react": "^18.2.66",
         "@types/react-dom": "^18.2.22",
+        "@types/uuid": "^10.0.0",
         "@typescript-eslint/eslint-plugin": "^7.2.0",
         "@typescript-eslint/parser": "^7.2.0",
         "@vitejs/plugin-react": "^4.2.1",
