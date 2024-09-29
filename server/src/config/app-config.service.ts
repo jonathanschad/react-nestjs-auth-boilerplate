@@ -139,4 +139,8 @@ export class AppConfigService {
     get googleOAuthRedirectUri(): string {
         return this.get('GOOGLE_OAUTH_REDIRECT_URI');
     }
+
+    get fileStoragePath(): string {
+        return this.get('FILE_STORAGE_PATH');
+    }
 }

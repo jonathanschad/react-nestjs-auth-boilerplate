@@ -8,9 +8,19 @@ import { SignupModule } from '@/signup/signup.module';
 import { MailModule } from '@/mail/mail.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PasswordModule } from '@/password/password.module';
+import { FileModule } from '@/files/file.module';
 
 @Module({
-    imports: [DatabaseModule, AppConfigModule, AuthModule, SignupModule, MailModule, JwtModule, PasswordModule],
+    imports: [
+        DatabaseModule,
+        AppConfigModule,
+        AuthModule,
+        SignupModule,
+        MailModule,
+        JwtModule,
+        PasswordModule,
+        FileModule,
+    ],
     controllers: [AppController],
     providers: [AppService],
 })
