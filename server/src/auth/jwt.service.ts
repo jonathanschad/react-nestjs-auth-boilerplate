@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
-import { UserService } from '@/database/user/user.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import * as jwt from 'jsonwebtoken';
 import { AppConfigService } from '@/config/app-config.service';
 import * as crypto from 'crypto';
@@ -16,7 +16,7 @@ interface JWTData {
 @Injectable()
 export class JWTService {
     constructor(
-        readonly userService: UserService,
+        readonly databaseUserService: DatabaseUserService,
         readonly appConfigService: AppConfigService,
         readonly prisma: PrismaService,
     ) {}

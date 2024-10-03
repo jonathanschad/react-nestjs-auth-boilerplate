@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
-import { File, FileAccess, FilePermissionType, Prisma } from '@prisma/client';
+import { File, FileAccess, FilePermission, FilePermissionType, Prisma, User } from '@prisma/client';
 import { AppConfigService } from '@/config/app-config.service';
 import { logger } from '@/main';
 
@@ -20,6 +20,28 @@ export const DELETE_PERMISSIONS: readonly FilePermissionType[] = [
     FilePermissionType.DELETE,
 ] as const;
 export const CREATOR_PERMISSIONS: readonly FilePermissionType[] = [FilePermissionType.CREATOR] as const;
+
+export class PermissionError extends Error {
+    public user: User;
+    public file: { id: string } | File;
+    public filePermission?: FilePermission;
+
+    constructor({
+        user,
+        file,
+        filePermission,
+    }: {
+        user: User;
+        file: { id: string } | File;
+        filePermission?: FilePermission;
+    }) {
+        super('Permission denied');
+
+        this.user = user;
+        this.file = file;
+        this.filePermission = filePermission;
+    }
+}
 
 @Injectable()
 export class DatabaseFileService {
@@ -54,6 +76,28 @@ export class DatabaseFileService {
             data: {
                 ...file,
                 usersWithAccess: { create: [{ userId: user.id, permission: FilePermissionType.CREATOR }] },
+            },
+        });
+    }
+
+    public async deleteFile({ file, user }: { file: { id: string }; user: User }): Promise<File> {
+        const dbFilePermission = await this.prisma.filePermission.findFirst({
+            where: {
+                fileId: file.id,
+                userId: user.id,
+            },
+        });
+
+        if (!dbFilePermission) {
+            throw new PermissionError({ user, file });
+        }
+        if (!DELETE_PERMISSIONS.includes(dbFilePermission.permission)) {
+            throw new PermissionError({ user, file, filePermission: dbFilePermission });
+        }
+
+        return await this.prisma.file.delete({
+            where: {
+                id: file.id,
             },
         });
     }

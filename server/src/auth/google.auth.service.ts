@@ -3,14 +3,14 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { AppConfigService } from '@/config/app-config.service';
 import { Language, UserState } from '@prisma/client';
-import { UserService } from '@/database/user/user.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
 import { JWTService } from '@/auth/jwt.service';
 import { FastifyReply } from 'fastify';
 import { AuthService } from '@/auth/auth.service';
 import { CompleteGoogleAccountConnectionDTO } from '@/auth/auth.dto';
 import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
-import * as assert from 'assert';
+import assert from 'assert';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 type GoogleTokenExchangeResponse = {
@@ -30,7 +30,7 @@ type GoogleUserProfileResponse = {
 export class GoogleAuthService {
     constructor(
         private readonly appConfigService: AppConfigService,
-        private readonly userService: UserService,
+        private readonly databaseUserService: DatabaseUserService,
         private readonly passwordResetTokenService: PasswordResetTokenService,
         private readonly jwtService: JWTService,
         private readonly authService: AuthService,
@@ -75,7 +75,7 @@ export class GoogleAuthService {
         language: Language,
         response: FastifyReply,
     ) {
-        const user = await this.userService.create({
+        const user = await this.databaseUserService.create({
             email,
             name,
             googleOAuthId: id,
@@ -109,13 +109,13 @@ export class GoogleAuthService {
         assert(databaseToken);
         await this.connectGoogleAccountTokenService.invalidateConnectGoogleAccountTokensByUser(databaseToken.userId);
 
-        const user = await this.userService.findByUuid(databaseToken.userId);
+        const user = await this.databaseUserService.findByUuid(databaseToken.userId);
         const isPasswordCorrect = await this.authService.verifyPassword(user, password);
         if (!isPasswordCorrect) {
             throw new HTTPError({ statusCode: HttpStatusCode.UNAUTHORIZED, message: 'Wrong username or password' });
         }
 
-        return await this.userService.connectGoogleAccount({
+        return await this.databaseUserService.connectGoogleAccount({
             user,
             googleOAuthId: decodedToken.googleOAuthId,
         });

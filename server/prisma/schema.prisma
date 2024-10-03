@@ -76,8 +76,8 @@ model FilePermission {
   fileId     String
   userId     String
   permission FilePermissionType
-  file       File                 @relation(fields: [fileId], references: [id])
-  user       User                 @relation(fields: [userId], references: [id])
+  file       File                 @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt  DateTime             @default(now())
   updatedAt  DateTime             @updatedAt
 

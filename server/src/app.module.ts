@@ -9,6 +9,7 @@ import { MailModule } from '@/mail/mail.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PasswordModule } from '@/password/password.module';
 import { FileModule } from '@/files/file.module';
+import { UserModule } from '@/user/user.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { FileModule } from '@/files/file.module';
         JwtModule,
         PasswordModule,
         FileModule,
+        UserModule,
     ],
     controllers: [AppController],
     providers: [AppService],

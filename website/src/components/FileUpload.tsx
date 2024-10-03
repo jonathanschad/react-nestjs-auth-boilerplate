@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import * as uuid from 'uuid';
 
 import api from '@/repository';
-
 const FileUpload = () => {
     const [file, setFile] = useState<File>();
     const [uploadStatus, setUploadStatus] = useState('');
@@ -23,7 +22,7 @@ const FileUpload = () => {
         formData.append('file', file);
 
         try {
-            const response = await api.patch(`/file/${fileUuid}`, formData, {
+            const response = await api.patch(`/file/profile-picture/${fileUuid}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     // You can add authorization header here if necessary

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '@/database/user/user.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import { PrismaService } from '@/database/prisma.service';
 import { FastifyRequest } from 'fastify';
 import { Language, Prisma, TokenType, User, UserState } from '@prisma/client';
@@ -16,7 +16,7 @@ import { SignupRequestDto } from '@/signup/signup.dto';
 @Injectable()
 export class SignupService {
     constructor(
-        private readonly userService: UserService,
+        private readonly databaseUserService: DatabaseUserService,
         private readonly emailVerificationTokenService: EmailVerificationTokenService,
         private readonly appConfigService: AppConfigService,
         private readonly jwtService: JWTService,
@@ -36,7 +36,7 @@ export class SignupService {
             throw new HTTPError({ statusCode: HttpStatusCode.BAD_REQUEST, message: 'Incomplete Request' });
         }
 
-        const existingUser = await this.userService.find({ email });
+        const existingUser = await this.databaseUserService.find({ email });
 
         if (existingUser) {
             if (existingUser.state === UserState.UNVERIFIED || existingUser.state === UserState.VERIFIED) {
@@ -56,7 +56,7 @@ export class SignupService {
                 },
             };
 
-            const createdUser = await this.userService.create(user);
+            const createdUser = await this.databaseUserService.create(user);
 
             await this.initiateEmailVerification(createdUser);
         }
@@ -67,7 +67,7 @@ export class SignupService {
         const salt = uuid.v4();
         const hashedPassword = await this.authService.hashPassword(password, salt);
 
-        await this.userService.completeVerifiedUser({
+        await this.databaseUserService.completeVerifiedUser({
             hashedPassword,
             salt,
             id,
@@ -104,13 +104,13 @@ export class SignupService {
         }
 
         await this.emailVerificationTokenService.invalidateEmailVerificationToken(hashedSecret);
-        const user = this.userService.verifyUser(emailVerificationToken);
+        const user = this.databaseUserService.verifyUser(emailVerificationToken);
 
         return user;
     }
 
     public async resendVerification({ email, language }: { email: string; language: Language }): Promise<true> {
-        const user = await this.userService.findByEmail(email);
+        const user = await this.databaseUserService.findByEmail(email);
         if (!user) {
             this.mailService.sendEmailDoesNotExistConformationMailEmail(email, language);
             return true;

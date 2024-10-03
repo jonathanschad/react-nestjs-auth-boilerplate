@@ -5,7 +5,6 @@ import { UserWithSettings } from '@/types/prisma';
 import { HTTPError } from '@/util/httpHandlers';
 import { Controller, Get, HttpCode, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
-
 @Controller('file')
 export class FileController {
     constructor(private readonly fileService: FileService) {}

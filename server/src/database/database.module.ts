@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { AppConfigModule } from '@/config/app-config.module';
-import { UserService } from '@/database/user/user.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import { AccessTokenService } from '@/database/access-token/access-token.service';
 import { RefreshTokenService } from '@/database/refresh-token/refresh-token.service';
 import { EmailVerificationTokenService } from '@/database/email-verification-token/email-verification-token.service';
@@ -16,7 +16,7 @@ import { DatabaseFileService } from '@/database/database-file/database-file.serv
     controllers: [UserController],
     providers: [
         PrismaService,
-        UserService,
+        DatabaseUserService,
         AccessTokenService,
         RefreshTokenService,
         EmailVerificationTokenService,
@@ -26,7 +26,7 @@ import { DatabaseFileService } from '@/database/database-file/database-file.serv
     ],
     exports: [
         PrismaService,
-        UserService,
+        DatabaseUserService,
         AccessTokenService,
         RefreshTokenService,
         EmailVerificationTokenService,

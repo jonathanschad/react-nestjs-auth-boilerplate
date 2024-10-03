@@ -5,7 +5,7 @@ import { UserWithSettings } from '@/types/prisma';
 import { assert } from 'console';
 
 @Injectable()
-export class UserService {
+export class DatabaseUserService {
     constructor(private prisma: PrismaService) {}
 
     async find(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<UserWithSettings | null> {
@@ -108,6 +108,26 @@ export class UserService {
             data: {
                 password: hashedPassword,
                 salt,
+            },
+        });
+    }
+
+    async updateProfilePicture({
+        userId,
+        profilePictureId,
+    }: {
+        userId: string;
+        profilePictureId: string;
+    }): Promise<UserWithSettings> {
+        return await this.prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                profilePictureId,
+            },
+            include: {
+                settings: true,
             },
         });
     }
