@@ -92,6 +92,6 @@ export class FileService {
     }
 
     private isUserAllowedToWriteFile(user: User): boolean {
-        return user.state === UserState.COMPLETE;
+        return ([UserState.COMPLETE, UserState.VERIFIED] as UserState[]).includes(user.state);
     }
 }

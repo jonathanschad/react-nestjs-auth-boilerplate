@@ -12,6 +12,8 @@ import { CompleteGoogleAccountConnectionDTO } from '@/auth/auth.dto';
 import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
 import assert from 'assert';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
+import { UserService } from '@/user/user.service';
+import * as uuid from 'uuid';
 
 type GoogleTokenExchangeResponse = {
     access_token: string;
@@ -34,6 +36,7 @@ export class GoogleAuthService {
         private readonly passwordResetTokenService: PasswordResetTokenService,
         private readonly jwtService: JWTService,
         private readonly authService: AuthService,
+        private readonly userService: UserService,
         private readonly connectGoogleAccountTokenService: ConnectGoogleAccountTokenService,
     ) {}
 
@@ -71,7 +74,7 @@ export class GoogleAuthService {
     }
 
     public async singUpWithGoogle(
-        { email, name, id }: GoogleUserProfileResponse,
+        { email, name, id, picture }: GoogleUserProfileResponse,
         language: Language,
         response: FastifyReply,
     ) {
@@ -88,9 +91,18 @@ export class GoogleAuthService {
             },
         });
 
+        const profilePicture = await axios.get(picture, {
+            responseType: 'arraybuffer',
+        });
+        const userWithPicture = await this.userService.updateUserProfilePicture({
+            user,
+            fileBuffer: Buffer.from(profilePicture.data),
+            fileUuid: uuid.v4(),
+        });
+
         return await this.authService.signInUser({
             res: response,
-            user,
+            user: userWithPicture,
             remember: true,
         });
     }
