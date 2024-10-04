@@ -6,7 +6,7 @@
     "private": true,
     "license": "UNLICENSED",
     "scripts": {
-        "build": "nest build",
+        "build": "yarn generate-license-attribution && nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "start": "nest start",
         "start:dev": "nest start --watch",
@@ -17,7 +17,8 @@
         "test:watch": "jest --watch",
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:e2e": "jest --config ./test/jest-e2e.json"
+        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "generate-license-attribution": "license-checker-rseidelsohn --json --relativeLicensePath --relativeModulePath --out src/assets/licenses.json"
     },
     "dependencies": {
         "@fastify/accepts": "^4.3.0",
@@ -60,6 +61,7 @@
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-prettier": "^5.0.0",
         "jest": "^29.5.0",
+        "license-checker-rseidelsohn": "^4.4.2",
         "prettier": "^3.0.0",
         "prisma": "^5.18.0",
         "source-map-support": "^0.5.21",

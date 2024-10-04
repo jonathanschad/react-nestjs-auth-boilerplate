@@ -8,6 +8,7 @@ import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
 import { PasswordReset } from '@/pages/auth/PasswordReset';
 import { Home } from '@/pages/Home';
 import { NotSignedInImprint, SignedInImprint } from '@/pages/legal/Imprint';
+import { NotSignedInLicense, SignedInLicense } from '@/pages/legal/License';
 import { NotSignedInTermsOfService, SignedInTermsOfService } from '@/pages/legal/TermsOfService';
 import { Settings } from '@/pages/settings/Settings';
 import CompleteRegister from '@/pages/signup/CompleteRegister';
@@ -49,6 +50,10 @@ const routerFactory = (userState: UserState | undefined | null) => {
             {
                 path: '/terms',
                 element: <SignedInTermsOfService />,
+            },
+            {
+                path: '/licenses',
+                element: <SignedInLicense />,
             },
             {
                 path: '*',
@@ -101,6 +106,10 @@ const routerFactory = (userState: UserState | undefined | null) => {
             {
                 path: '/terms',
                 element: <NotSignedInTermsOfService />,
+            },
+            {
+                path: '/licenses',
+                element: <NotSignedInLicense />,
             },
             {
                 path: '*',

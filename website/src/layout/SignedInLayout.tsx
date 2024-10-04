@@ -122,7 +122,7 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
-                                <Link to="/settings">
+                                <Link to="/settings" className="w-full">
                                     <Translation>settings</Translation>
                                 </Link>
                             </DropdownMenuItem>
@@ -132,17 +132,22 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
-                                <Link to="/imprint">
+                                <Link to="/imprint" className="w-full">
                                     <Translation>imprint</Translation>
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                                <Link to="/terms">
+                                <Link to="/terms" className="w-full">
                                     <Translation>termsOfServiceShort</Translation>
                                 </Link>
                             </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link to="/licenses" className="w-full">
+                                    <Translation>licenses</Translation>
+                                </Link>
+                            </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => logoutMutation.mutate()}>
+                            <DropdownMenuItem onClick={() => logoutMutation.mutate()} className="w-full">
                                 <Translation>logout</Translation>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
