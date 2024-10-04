@@ -7,6 +7,8 @@ import { PasswordForgot } from '@/pages/auth/PasswordForgot';
 import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
 import { PasswordReset } from '@/pages/auth/PasswordReset';
 import { Home } from '@/pages/Home';
+import { NotSignedInImprint, SignedInImprint } from '@/pages/legal/Imprint';
+import { NotSignedInTermsOfService, SignedInTermsOfService } from '@/pages/legal/TermsOfService';
 import { Settings } from '@/pages/settings/Settings';
 import CompleteRegister from '@/pages/signup/CompleteRegister';
 import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
@@ -39,6 +41,14 @@ const routerFactory = (userState: UserState | undefined | null) => {
             {
                 path: '/settings',
                 element: <Settings />,
+            },
+            {
+                path: '/imprint',
+                element: <SignedInImprint />,
+            },
+            {
+                path: '/terms',
+                element: <SignedInTermsOfService />,
             },
             {
                 path: '*',
@@ -83,6 +93,14 @@ const routerFactory = (userState: UserState | undefined | null) => {
             {
                 path: '/google-oauth/connect-accounts',
                 element: <ConnectGoogleAccountCompletion />,
+            },
+            {
+                path: '/imprint',
+                element: <NotSignedInImprint />,
+            },
+            {
+                path: '/terms',
+                element: <NotSignedInTermsOfService />,
             },
             {
                 path: '*',

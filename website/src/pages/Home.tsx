@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 
 import { ProfilePictureEditor } from '@/components/ProfilePictureEditor';
-import { SignedInLayout } from '@/layout/SignedInLayout';
+import { CurrentlySelectedRouteOptions, SignedInLayout } from '@/layout/SignedInLayout';
 import { logout } from '@/repository/login';
 
 export const Home = () => {
@@ -13,7 +13,7 @@ export const Home = () => {
         },
     });
     return (
-        <SignedInLayout>
+        <SignedInLayout currentlySelectedRoute={CurrentlySelectedRouteOptions.DASHBOARD}>
             Logged IN
             <button onClick={() => logoutMutatiuon.mutate()}>Logout</button>
             <ProfilePictureEditor />

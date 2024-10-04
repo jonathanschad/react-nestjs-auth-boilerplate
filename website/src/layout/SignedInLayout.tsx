@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { CircleUser, Menu, Package2 } from 'lucide-react';
+import { CircleUser, Hexagon, Menu } from 'lucide-react';
 import * as React from 'react';
 import { useMutation } from 'react-query';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Translation } from '@/i18n/Translation';
 import { logout } from '@/repository/login';
 
-enum CurrentlySelectedRouteOptions {
+export enum CurrentlySelectedRouteOptions {
     DASHBOARD = 'dashboard',
     SETTINGS = 'settings',
 }
@@ -35,7 +35,7 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
             <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
                 <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                     <Link to="#" className="flex items-center gap-2 text-lg font-semibold md:text-base">
-                        <Package2 className="h-6 w-6" />
+                        <Hexagon className="h-6 w-6" />
                         <span className="sr-only">
                             <Translation>projectName</Translation>
                         </span>
@@ -44,8 +44,8 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                         to="/"
                         className={clsx(
                             currentlySelectedRoute === CurrentlySelectedRouteOptions.DASHBOARD
-                                ? 'text-muted-foreground'
-                                : 'text-foreground',
+                                ? 'text-foreground'
+                                : 'text-muted-foreground',
                             'transition-colors hover:text-foreground',
                         )}
                     >
@@ -55,8 +55,8 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                         to="/settings"
                         className={clsx(
                             currentlySelectedRoute === CurrentlySelectedRouteOptions.SETTINGS
-                                ? 'text-muted-foreground'
-                                : 'text-foreground',
+                                ? 'text-foreground'
+                                : 'text-muted-foreground',
                             'transition-colors hover:text-foreground',
                         )}
                     >
@@ -75,7 +75,7 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                     <SheetContent side="left">
                         <nav className="grid gap-6 text-lg font-medium">
                             <Link to="#" className="flex items-center gap-2 text-lg font-semibold">
-                                <Package2 className="h-6 w-6" />
+                                <Hexagon className="h-6 w-6" />
                                 <span className="sr-only">
                                     <Translation>projectName</Translation>
                                 </span>
@@ -84,8 +84,8 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                                 to="/"
                                 className={clsx(
                                     currentlySelectedRoute === CurrentlySelectedRouteOptions.DASHBOARD
-                                        ? 'text-muted-foreground'
-                                        : 'text-foreground',
+                                        ? 'text-foreground'
+                                        : 'text-muted-foreground',
                                     'hover:text-foreground',
                                 )}
                             >
@@ -95,8 +95,8 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                                 to="/settings"
                                 className={clsx(
                                     currentlySelectedRoute === CurrentlySelectedRouteOptions.SETTINGS
-                                        ? 'text-muted-foreground'
-                                        : 'text-foreground',
+                                        ? 'text-foreground'
+                                        : 'text-muted-foreground',
                                     'hover:text-foreground',
                                 )}
                             >
@@ -124,6 +124,21 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                             <DropdownMenuItem>
                                 <Link to="/settings">
                                     <Translation>settings</Translation>
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuLabel>
+                                <Translation>legal</Translation>
+                            </DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <Link to="/imprint">
+                                    <Translation>imprint</Translation>
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link to="/terms">
+                                    <Translation>termsOfServiceShort</Translation>
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />

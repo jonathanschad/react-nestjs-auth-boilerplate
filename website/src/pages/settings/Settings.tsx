@@ -4,11 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
-import { SignedInLayout } from '@/layout/SignedInLayout';
+import { CurrentlySelectedRouteOptions, SignedInLayout } from '@/layout/SignedInLayout';
 
 export const Settings = () => {
     return (
-        <SignedInLayout>
+        <SignedInLayout currentlySelectedRoute={CurrentlySelectedRouteOptions.SETTINGS}>
             <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
                 <nav className="grid gap-4 text-sm text-muted-foreground" x-chunk="dashboard-04-chunk-0">
                     <Link to="#" className="font-semibold text-primary">

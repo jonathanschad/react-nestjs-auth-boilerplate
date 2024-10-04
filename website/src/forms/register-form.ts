@@ -6,7 +6,7 @@ export type RegisterFormValues = yup.Asserts<ReturnType<typeof registerFormValid
 export const registerFormValidationSchema = (t: TFunction) =>
     yup.object({
         email: yup.string().email(t('formik.emailInvalid')).required(t('formik.emailRequired')),
-        acceptAgb: yup.boolean().oneOf([true], t('formik.termsAndConditions')).required(),
+        acceptAgb: yup.boolean().oneOf([true], t('formik.termsOfService')).required(),
     });
 
 export const initialRegisterFormValues: RegisterFormValues = {
