@@ -33,6 +33,10 @@ api.interceptors.response.use(
     (response: AxiosResponse) => {
         if (response.data.accessToken !== undefined) {
             useStore.getState().setAccessToken(response.data.accessToken);
+
+            if (response.data.refreshToken === null) {
+                window.location.href = '/login';
+            }
         }
         return response;
     },

@@ -1,8 +1,7 @@
 import { useMutation } from 'react-query';
 
-import FileUpload from '@/components/FileUpload';
 import { ProfilePictureEditor } from '@/components/ProfilePictureEditor';
-import { AuthenticatedImage } from '@/components/ui/authenticated-image';
+import { SignedInLayout } from '@/layout/SignedInLayout';
 import { logout } from '@/repository/login';
 
 export const Home = () => {
@@ -14,10 +13,10 @@ export const Home = () => {
         },
     });
     return (
-        <div>
+        <SignedInLayout>
             Logged IN
             <button onClick={() => logoutMutatiuon.mutate()}>Logout</button>
             <ProfilePictureEditor />
-        </div>
+        </SignedInLayout>
     );
 };

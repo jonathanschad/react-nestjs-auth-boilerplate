@@ -7,6 +7,7 @@ import { PasswordForgot } from '@/pages/auth/PasswordForgot';
 import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
 import { PasswordReset } from '@/pages/auth/PasswordReset';
 import { Home } from '@/pages/Home';
+import { Settings } from '@/pages/settings/Settings';
 import CompleteRegister from '@/pages/signup/CompleteRegister';
 import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
 import ConnectGoogleAccountCompletion from '@/pages/signup/google/ConnectGoogleAccountCompletion';
@@ -30,10 +31,20 @@ const routerFactory = (userState: UserState | undefined | null) => {
         );
     }
     if (userState === UserState.COMPLETE) {
-        routes.push({
-            path: '/',
-            element: <Home />,
-        });
+        routes.push(
+            {
+                path: '/',
+                element: <Home />,
+            },
+            {
+                path: '/settings',
+                element: <Settings />,
+            },
+            {
+                path: '*',
+                element: <Navigate replace to="/" />,
+            },
+        );
     }
     if (!isLoggedIn) {
         routes.push(
