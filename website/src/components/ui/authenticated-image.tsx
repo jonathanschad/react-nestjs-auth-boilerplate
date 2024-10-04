@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
+import { cn } from '@/lib/utils';
 import { getFile } from '@/repository/file';
 
 type AuthenticatedImageProps = Omit<
     React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
     'src'
 > & {
-    fileUuid: string;
+    fileUuid?: string | null;
+    fallback?: React.ReactNode;
 };
 
 export function AuthenticatedImage(props: AuthenticatedImageProps) {
@@ -15,7 +17,7 @@ export function AuthenticatedImage(props: AuthenticatedImageProps) {
 
     const { fileUuid, ...imageProps } = props;
 
-    const { data: imageBlob } = useQuery(['file', fileUuid], () => getFile(fileUuid), {
+    const { data: imageBlob, isError } = useQuery(['file', fileUuid], () => getFile(fileUuid), {
         // Optional: Cache the image for future requests
         cacheTime: 120, // Set cache time if needed
         staleTime: Infinity, // Set stale time if needed
@@ -30,7 +32,10 @@ export function AuthenticatedImage(props: AuthenticatedImageProps) {
         }
     }, [imageBlob]);
 
-    if (!imageUrl) {
+    if (!imageUrl || isError) {
+        if (props.fallback) {
+            return props.fallback;
+        }
         return <img {...imageProps} />;
     }
     return <img {...imageProps} src={imageUrl} />;

@@ -1,14 +1,18 @@
 import { User } from '@/auth/auth.guard';
+import { DatabaseUserService } from '@/database/user/user.service';
 import { UserWithSettings } from '@/types/prisma';
 import { UpdateUserProfilePictureDTO } from '@/user/user.dto';
 import { UserService } from '@/user/user.service';
 import { HTTPError } from '@/util/httpHandlers';
-import { Controller, HttpStatus, Param, Patch, Req } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(
+        private readonly userService: UserService,
+        private readonly databaseUserService: DatabaseUserService,
+    ) {}
 
     @Patch('/profile-picture/:idempotencyKey')
     async uploadProfilePictureFile(
@@ -38,5 +42,10 @@ export class UserController {
             console.error('Error compressing image:', err);
             throw new HTTPError({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid image' });
         }
+    }
+
+    @Get()
+    async getUser(@User() user: UserWithSettings) {
+        return this.databaseUserService.sanitizeUser(user);
     }
 }

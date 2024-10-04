@@ -1,9 +1,10 @@
 import clsx from 'clsx';
-import { CircleUser, Hexagon, Menu } from 'lucide-react';
+import { Hexagon, Menu } from 'lucide-react';
 import * as React from 'react';
 import { useMutation } from 'react-query';
 import { Link } from 'react-router-dom';
 
+import { ProfilePicture } from '@/components/ProfilePicture';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -110,7 +111,7 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="secondary" size="icon" className="rounded-full">
-                                <CircleUser className="h-5 w-5" />
+                                <ProfilePicture size={40} />
                                 <span className="sr-only">
                                     <Translation>toggleUserMenu</Translation>
                                 </span>

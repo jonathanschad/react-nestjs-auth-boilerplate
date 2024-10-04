@@ -4,18 +4,24 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import { Translation } from '@/i18n/Translation';
 import { CurrentlySelectedRouteOptions, SignedInLayout } from '@/layout/SignedInLayout';
 
 export const Settings = () => {
     return (
         <SignedInLayout currentlySelectedRoute={CurrentlySelectedRouteOptions.SETTINGS}>
+            <div className="mx-auto grid w-full max-w-6xl gap-2">
+                <h1 className="text-3xl font-semibold">
+                    <Translation>settings</Translation>
+                </h1>
+            </div>
             <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
                 <nav className="grid gap-4 text-sm text-muted-foreground" x-chunk="dashboard-04-chunk-0">
                     <Link to="#" className="font-semibold text-primary">
                         General
                     </Link>
                     <Link to="#">Security</Link>
-                    <Link to="#">Integrations</Link>
+                    <Link to="#">Notifications</Link>
                     <Link to="#">Support</Link>
                     <Link to="#">Organizations</Link>
                     <Link to="#">Advanced</Link>

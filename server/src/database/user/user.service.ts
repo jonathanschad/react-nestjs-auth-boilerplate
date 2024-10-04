@@ -4,6 +4,11 @@ import { Token, Prisma, User, UserState, TokenType } from '@prisma/client';
 import { UserWithSettings } from '@/types/prisma';
 import { assert } from 'console';
 
+type SanitizedUser = Omit<
+    UserWithSettings,
+    'password' | 'salt' | 'createdAt' | 'updatedAt' | 'googleOAuthId' | 'settingsId'
+>;
+
 @Injectable()
 export class DatabaseUserService {
     constructor(private prisma: PrismaService) {}
@@ -153,5 +158,11 @@ export class DatabaseUserService {
                 googleOAuthId,
             },
         });
+    }
+
+    public sanitizeUser(user: UserWithSettings): SanitizedUser {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, salt, createdAt, updatedAt, googleOAuthId, settingsId, ...sanitizedUser } = user;
+        return sanitizedUser;
     }
 }
