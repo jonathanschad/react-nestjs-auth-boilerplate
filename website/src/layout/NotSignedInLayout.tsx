@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { Outlet, useOutletContext } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
 export const NotSignedInLayout = () => {
     const [illustration, setIllustration] = useState<React.ReactNode | null>(null);
@@ -15,11 +15,4 @@ export const NotSignedInLayout = () => {
             </div>
         </div>
     );
-};
-
-export const useSetNotSignedInLayoutIllustration = (illustration: ReactNode) => {
-    const { setIllustration } = useOutletContext<{ setIllustration: (node: ReactNode) => void }>();
-    useEffect(() => {
-        setIllustration(illustration);
-    }, [illustration]);
 };

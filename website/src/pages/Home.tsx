@@ -1,6 +1,10 @@
 import { useMutation } from 'react-query';
 
 import { ProfilePictureEditor } from '@/components/ProfilePictureEditor';
+import {
+    CurrentlySelectedRouteOptions,
+    useSetSignedInCurrentActiveRoute,
+} from '@/layout/useSetSignedInCurrentActiveRoute';
 import { logout } from '@/repository/login';
 
 export const Home = () => {
@@ -11,6 +15,8 @@ export const Home = () => {
             window.location.href = '/login';
         },
     });
+    useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.DASHBOARD);
+
     return (
         <>
             Logged IN

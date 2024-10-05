@@ -3,7 +3,6 @@ import { BrowserRouter, Navigate, Route, Routes as RouterRoutes } from 'react-ro
 
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
 import { SignedInLayout } from '@/layout/SignedInLayout';
-import NotFoundPage from '@/pages/404';
 import { Login } from '@/pages/auth/Login';
 import { PasswordForgot } from '@/pages/auth/PasswordForgot';
 import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
@@ -59,7 +58,7 @@ const routesFactory = (userState: UserState | undefined | null) => {
                 <Route path="imprint" element={<NotSignedInImprint />} />,
                 <Route path="terms" element={<NotSignedInTermsOfService />} />,
                 <Route path="licenses" element={<NotSignedInLicense />} />,
-                <Route path="*" element={<NotFoundPage />} />,
+                <Route path="*" element={<Navigate replace to="/" />} />,
             </Route>,
         );
     }

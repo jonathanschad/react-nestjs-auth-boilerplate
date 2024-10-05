@@ -15,7 +15,7 @@ import {
     initialConnectGoogleAccountFormValues,
 } from '@/forms/connect-google-account-form';
 import { Translation } from '@/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { completeGoogleAccountConnection } from '@/repository/login';
 
 type ConnectTokenType = { googleOAuthId: string; googleEmail: string; name: string; secret: string };

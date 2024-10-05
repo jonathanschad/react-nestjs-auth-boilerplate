@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { initialLoginFormValues, loginFormValidationSchema } from '@/forms/login-form';
 import { Translation } from '@/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { login } from '@/repository/login';
 
 const LoginIllustration = <LoginSVG className="m-8 w-full max-w-full" />;

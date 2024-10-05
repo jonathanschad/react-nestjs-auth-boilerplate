@@ -7,7 +7,7 @@ import CertificationSVG from '@/assets/illustrations/certification.svg?react';
 import { ResendEmailConfirmation } from '@/components/ResendEmailConfirmation';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Translation } from '@/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { confirmEmail } from '@/repository/login';
 
 const ConfirmEmailIllustration = <CertificationSVG className="w-1/2" />;

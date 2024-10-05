@@ -13,7 +13,7 @@ import {
     initialCompleteRegisterFormValues,
 } from '@/forms/complete-register-form';
 import { Translation } from '@/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { completeRegistration } from '@/repository/login';
 import { useStore } from '@/store/store';
 

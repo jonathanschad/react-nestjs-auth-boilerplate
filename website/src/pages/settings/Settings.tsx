@@ -5,8 +5,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Translation } from '@/i18n/Translation';
+import {
+    CurrentlySelectedRouteOptions,
+    useSetSignedInCurrentActiveRoute,
+} from '@/layout/useSetSignedInCurrentActiveRoute';
 
 export const Settings = () => {
+    useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.SETTINGS);
     return (
         <>
             <div className="mx-auto grid w-full max-w-6xl gap-2">

@@ -16,17 +16,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Translation } from '@/i18n/Translation';
+import { CurrentlySelectedRouteOptions } from '@/layout/useSetSignedInCurrentActiveRoute';
 import { logout } from '@/repository/login';
 
-export enum CurrentlySelectedRouteOptions {
-    DASHBOARD = 'dashboard',
-    SETTINGS = 'settings',
-}
+export const SignedInLayout = () => {
+    const [currentlySelectedRoute, setCurrentlySelectedRoute] = React.useState<CurrentlySelectedRouteOptions | null>(
+        null,
+    );
 
-interface SignedInLayoutProps {
-    currentlySelectedRoute?: CurrentlySelectedRouteOptions;
-}
-export const SignedInLayout = ({ currentlySelectedRoute }: SignedInLayoutProps) => {
     const logoutMutation = useMutation({
         mutationFn: logout,
     });
@@ -155,7 +152,7 @@ export const SignedInLayout = ({ currentlySelectedRoute }: SignedInLayoutProps) 
                 </div>
             </header>
             <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-                <Outlet />
+                <Outlet context={{ setCurrentlySelectedRoute }} />
             </main>
         </div>
     );

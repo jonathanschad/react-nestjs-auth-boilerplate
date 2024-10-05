@@ -5,5 +5,12 @@
         "publisher": "shadcn",
         "path": "https://github.com/shadcn-ui/ui/",
         "licenseFile": "https://github.com/shadcn-ui/ui/blob/main/LICENSE.md"
+    },
+    "undraw@": {
+        "licenses": "unDraw",
+        "repository": "https://undraw.co",
+        "publisher": "Katerina Limpitsouni",
+        "path": "https://undraw.co/",
+        "licenseFile": "https://undraw.co/license"
     }
 }

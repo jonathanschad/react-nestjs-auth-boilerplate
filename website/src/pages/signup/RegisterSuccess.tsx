@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { ResendEmailConfirmation } from '@/components/ResendEmailConfirmation';
 import { Translation } from '@/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 
 const RegisterSuccessIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 

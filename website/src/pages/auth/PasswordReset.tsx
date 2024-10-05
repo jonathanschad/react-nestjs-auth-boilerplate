@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { initialPasswordResetFormValues, passwordResetFormValidationSchema } from '@/forms/password-reset';
 import { Translation } from '@/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { passwordChangeToken, passwordForgotTokenValidation } from '@/repository/password';
 
 const PasswordResetIllustration = <ResetPasswordSVG className="w-1/2 max-w-full" />;

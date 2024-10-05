@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ForgotPasswordSVG from '@/assets/illustrations/forgot-password.svg?react';
 import { Button } from '@/components/ui/button';
 import { Translation } from '@/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 
 const PasswordForgotIllustration = <ForgotPasswordSVG className="w-1/2 max-w-full" />;
 
