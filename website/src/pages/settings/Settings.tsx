@@ -5,11 +5,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Translation } from '@/i18n/Translation';
-import { CurrentlySelectedRouteOptions, SignedInLayout } from '@/layout/SignedInLayout';
 
 export const Settings = () => {
     return (
-        <SignedInLayout currentlySelectedRoute={CurrentlySelectedRouteOptions.SETTINGS}>
+        <>
             <div className="mx-auto grid w-full max-w-6xl gap-2">
                 <h1 className="text-3xl font-semibold">
                     <Translation>settings</Translation>
@@ -68,6 +67,6 @@ export const Settings = () => {
                     </Card>
                 </div>
             </div>
-        </SignedInLayout>
+        </>
     );
 };

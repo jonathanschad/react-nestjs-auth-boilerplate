@@ -13,9 +13,11 @@ import {
     initialCompleteRegisterFormValues,
 } from '@/forms/complete-register-form';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
 import { completeRegistration } from '@/repository/login';
 import { useStore } from '@/store/store';
+
+const RegisterIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 
 export default function CompleteRegister() {
     const queryClient = useQueryClient();
@@ -42,8 +44,9 @@ export default function CompleteRegister() {
         onSubmit: handleSubmit,
     });
 
+    useSetNotSignedInLayoutIllustration(RegisterIllustration);
     return (
-        <NotSignedInLayout illustration={<RegisterSVG className="m-16 w-full max-w-full" />}>
+        <>
             <div className="grid gap-2 text-center">
                 <Translation element="h1">completeRegistration.completeRegistration</Translation>
                 <Translation element="p" as="mutedText" translationParams={{ email: registeredEmail }}>
@@ -92,6 +95,6 @@ export default function CompleteRegister() {
                     <Translation>completeRegistration.completeRegistration</Translation>
                 </Button>
             </form>
-        </NotSignedInLayout>
+        </>
     );
 }

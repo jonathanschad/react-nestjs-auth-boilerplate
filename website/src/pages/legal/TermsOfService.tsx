@@ -1,9 +1,8 @@
 import LegalSVG from '@/assets/illustrations/legal.svg?react';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
-import { SignedInLayout } from '@/layout/SignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
 
-const TermsOfService = () => {
+export const TermsOfService = () => {
     return (
         <div className="flex h-full flex-col items-center justify-center">
             <h1 className="text-4xl font-bold">
@@ -16,18 +15,9 @@ const TermsOfService = () => {
     );
 };
 
-export const SignedInTermsOfService = () => {
-    return (
-        <SignedInLayout>
-            <TermsOfService />
-        </SignedInLayout>
-    );
-};
+const TermsOfServiceIllustration = <LegalSVG className="m-8 w-full max-w-full" />;
 
 export const NotSignedInTermsOfService = () => {
-    return (
-        <NotSignedInLayout illustration={<LegalSVG className="m-8 w-full max-w-full" />}>
-            <TermsOfService />
-        </NotSignedInLayout>
-    );
+    useSetNotSignedInLayoutIllustration(TermsOfServiceIllustration);
+    return <TermsOfService />;
 };

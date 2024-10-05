@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { cn } from '@/lib/utils';
 import { getFile } from '@/repository/file';
 
 type AuthenticatedImageProps = Omit<

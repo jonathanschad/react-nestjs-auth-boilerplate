@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { Hexagon, Menu } from 'lucide-react';
 import * as React from 'react';
 import { useMutation } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { Button } from '@/components/ui/button';
@@ -24,10 +24,9 @@ export enum CurrentlySelectedRouteOptions {
 }
 
 interface SignedInLayoutProps {
-    children?: React.ReactNode;
     currentlySelectedRoute?: CurrentlySelectedRouteOptions;
 }
-export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLayoutProps) => {
+export const SignedInLayout = ({ currentlySelectedRoute }: SignedInLayoutProps) => {
     const logoutMutation = useMutation({
         mutationFn: logout,
     });
@@ -156,7 +155,7 @@ export const SignedInLayout = ({ children, currentlySelectedRoute }: SignedInLay
                 </div>
             </header>
             <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-                {children}
+                <Outlet />
             </main>
         </div>
     );

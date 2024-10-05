@@ -7,10 +7,9 @@ import licensesJSON from '@/assets/licenses.json';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
-import { SignedInLayout } from '@/layout/SignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
 
-export interface License {
+interface License {
     name: string;
     version: string;
     licenses: LicenseTypes;
@@ -60,7 +59,7 @@ const combinedLicenses: License[] = Object.entries({
         return 0;
     });
 
-const License = () => {
+export const License = () => {
     return (
         <div className="flex h-full flex-col justify-center">
             <Translation className="mb-8" as={'h1'}>
@@ -72,20 +71,10 @@ const License = () => {
     );
 };
 
-export const SignedInLicense = () => {
-    return (
-        <SignedInLayout>
-            <License />
-        </SignedInLayout>
-    );
-};
-
+const LicenseIllustration = <LegalSVG className="m-8 w-full max-w-full" />;
 export const NotSignedInLicense = () => {
-    return (
-        <NotSignedInLayout illustration={<LegalSVG className="m-8 w-full max-w-full" />}>
-            <License />
-        </NotSignedInLayout>
-    );
+    useSetNotSignedInLayoutIllustration(LicenseIllustration);
+    return <License />;
 };
 
 const columns: ColumnDef<License>[] = [

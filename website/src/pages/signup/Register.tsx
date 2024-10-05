@@ -10,8 +10,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
 import { register, startGoogleOAuthFlow } from '@/repository/login';
+
+const RegisterIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 
 export default function Register() {
     const queryClient = useQueryClient();
@@ -44,8 +46,9 @@ export default function Register() {
         onSubmit: handleSubmit,
     });
 
+    useSetNotSignedInLayoutIllustration(RegisterIllustration);
     return (
-        <NotSignedInLayout illustration={<RegisterSVG className="m-16 w-full max-w-full" />}>
+        <>
             <div className="grid gap-2 text-center">
                 <Translation element="h1">register</Translation>
                 <Translation element="p" as="mutedText">
@@ -96,6 +99,6 @@ export default function Register() {
                     <Translation>login</Translation>
                 </RouterLink>
             </div>
-        </NotSignedInLayout>
+        </>
     );
 }

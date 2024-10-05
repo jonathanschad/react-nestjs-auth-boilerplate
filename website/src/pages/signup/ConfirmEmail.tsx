@@ -7,8 +7,10 @@ import CertificationSVG from '@/assets/illustrations/certification.svg?react';
 import { ResendEmailConfirmation } from '@/components/ResendEmailConfirmation';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
 import { confirmEmail } from '@/repository/login';
+
+const ConfirmEmailIllustration = <CertificationSVG className="w-1/2" />;
 
 export const ConfirmEmail = () => {
     const [searchParams] = useSearchParams();
@@ -34,42 +36,41 @@ export const ConfirmEmail = () => {
         retry: false,
     });
 
+    useSetNotSignedInLayoutIllustration(ConfirmEmailIllustration);
     return (
-        <NotSignedInLayout illustration={<CertificationSVG className="w-1/2" />}>
-            <div>
-                {isLoading ? (
-                    <>
-                        <div className="flex items-center">
-                            <Translation element="h1" as="h5" className="mr-4">
-                                confirmEmail.weAreConfirming
-                            </Translation>
-                            <LoadingSpinner />
-                        </div>
-                        <div className="mt-2 flex flex-col items-center">
-                            <Translation className="mt-4" element="p" as="normalText">
-                                confirmEmail.redirect
-                            </Translation>
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        <Translation element="h1" as="h5">
-                            confirmEmail.couldNotConfirm
+        <div>
+            {isLoading ? (
+                <>
+                    <div className="flex items-center">
+                        <Translation element="h1" as="h5" className="mr-4">
+                            confirmEmail.weAreConfirming
                         </Translation>
-                        <div className="mt-2 flex flex-col items-center">
-                            <Translation className="mb-4 mt-4" element="p" as="normalText">
-                                confirmEmail.couldNotConfirmText
-                            </Translation>
-                            <ResendEmailConfirmation email={email} />
-                        </div>
-                    </>
-                )}
-                <div className="mt-4 text-center text-sm">
-                    <RouterLink to="/login" className="underline">
-                        <Translation>backToLogin</Translation>
-                    </RouterLink>
-                </div>
+                        <LoadingSpinner />
+                    </div>
+                    <div className="mt-2 flex flex-col items-center">
+                        <Translation className="mt-4" element="p" as="normalText">
+                            confirmEmail.redirect
+                        </Translation>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <Translation element="h1" as="h5">
+                        confirmEmail.couldNotConfirm
+                    </Translation>
+                    <div className="mt-2 flex flex-col items-center">
+                        <Translation className="mb-4 mt-4" element="p" as="normalText">
+                            confirmEmail.couldNotConfirmText
+                        </Translation>
+                        <ResendEmailConfirmation email={email} />
+                    </div>
+                </>
+            )}
+            <div className="mt-4 text-center text-sm">
+                <RouterLink to="/login" className="underline">
+                    <Translation>backToLogin</Translation>
+                </RouterLink>
             </div>
-        </NotSignedInLayout>
+        </div>
     );
 };

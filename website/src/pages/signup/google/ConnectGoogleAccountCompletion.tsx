@@ -15,11 +15,11 @@ import {
     initialConnectGoogleAccountFormValues,
 } from '@/forms/connect-google-account-form';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
 import { completeGoogleAccountConnection } from '@/repository/login';
 
 type ConnectTokenType = { googleOAuthId: string; googleEmail: string; name: string; secret: string };
-
+const ConnectGoogleAccountCompletionIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 export default function ConnectGoogleAccountCompletion() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -53,12 +53,14 @@ export default function ConnectGoogleAccountCompletion() {
         onSubmit: handleSubmit,
     });
 
+    useSetNotSignedInLayoutIllustration(ConnectGoogleAccountCompletionIllustration);
+
     if (!decodedConnectToken) {
         return <Navigate to="/login" />;
     }
 
     return (
-        <NotSignedInLayout illustration={<RegisterSVG className="m-16 w-full max-w-full" />}>
+        <>
             <div className="grid gap-2 text-center">
                 <Translation element="h1">connectGoogleAccount.headline</Translation>
                 <Translation element="p" as="mutedText" translationParams={{ email: decodedConnectToken.googleEmail }}>
@@ -95,6 +97,6 @@ export default function ConnectGoogleAccountCompletion() {
                     <Translation>connectGoogleAccount.connectAccount</Translation>
                 </Button>
             </form>
-        </NotSignedInLayout>
+        </>
     );
 }

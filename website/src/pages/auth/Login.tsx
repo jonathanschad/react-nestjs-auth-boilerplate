@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom';
 
 import LoginSVG from '@/assets/illustrations/login.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
@@ -10,8 +10,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { initialLoginFormValues, loginFormValidationSchema } from '@/forms/login-form';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
 import { login } from '@/repository/login';
+
+const LoginIllustration = <LoginSVG className="m-8 w-full max-w-full" />;
 
 export function Login() {
     const queryClient = useQueryClient();
@@ -35,8 +37,10 @@ export function Login() {
         },
     });
 
+    useSetNotSignedInLayoutIllustration(LoginIllustration);
     return (
-        <NotSignedInLayout illustration={<LoginSVG className="m-8 w-full max-w-full" />}>
+        <>
+            <Outlet context={{ illustration: <LoginSVG className="m-8 w-full max-w-full" /> }} />
             <div className="grid gap-2 text-center">
                 <Translation element="h1">login</Translation>
                 <Translation element="p" as="mutedText">
@@ -95,6 +99,6 @@ export function Login() {
                     <Translation>signup</Translation>
                 </RouterLink>
             </div>
-        </NotSignedInLayout>
+        </>
     );
 }

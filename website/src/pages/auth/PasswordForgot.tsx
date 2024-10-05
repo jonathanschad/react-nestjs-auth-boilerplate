@@ -9,8 +9,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { initialPasswordForgotFormValues, passwordForgotFormValidationSchema } from '@/forms/password-forgot-form';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/NotSignedInLayout';
 import { passwordForgot } from '@/repository/password';
+
+const PasswordForgotIllustration = <ForgotPasswordSVG className="w-1/2 max-w-full" />;
 
 export function PasswordForgot() {
     const navigate = useNavigate();
@@ -34,8 +36,9 @@ export function PasswordForgot() {
         },
     });
 
+    useSetNotSignedInLayoutIllustration(PasswordForgotIllustration);
     return (
-        <NotSignedInLayout illustration={<ForgotPasswordSVG className="w-1/2 max-w-full" />}>
+        <>
             <div className="grid gap-2 text-center">
                 <Translation element="h1">forgotPassword</Translation>
                 <Translation element="p" as="mutedText">
@@ -65,6 +68,6 @@ export function PasswordForgot() {
                     <Translation>getPasswordLink</Translation>
                 </Button>
             </form>
-        </NotSignedInLayout>
+        </>
     );
 }
