@@ -19,6 +19,9 @@ export const NotSignedInLayout = () => {
                 <p className="mx-4 my-2 flex-1 text-sm text-muted-foreground">
                     © {new Date().getFullYear()} <span className="font-semibold">Project Name</span>
                 </p>
+                <Link to="/login" className="mx-4 my-2 text-sm text-muted-foreground">
+                    <Translation>login</Translation>
+                </Link>
                 <Link to="/imprint" className="mx-4 my-2 text-sm text-muted-foreground">
                     <Translation>imprint</Translation>
                 </Link>
