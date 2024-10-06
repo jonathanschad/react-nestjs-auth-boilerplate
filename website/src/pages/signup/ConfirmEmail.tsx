@@ -38,7 +38,7 @@ export const ConfirmEmail = () => {
 
     useSetNotSignedInLayoutIllustration(ConfirmEmailIllustration);
     return (
-        <div>
+        <div className="mx-auto grid w-[350px] gap-6">
             {isLoading ? (
                 <>
                     <div className="flex items-center">

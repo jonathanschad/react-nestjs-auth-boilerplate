@@ -38,7 +38,7 @@ export function PasswordForgot() {
 
     useSetNotSignedInLayoutIllustration(PasswordForgotIllustration);
     return (
-        <>
+        <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
                 <Translation element="h1">forgotPassword</Translation>
                 <Translation element="p" as="mutedText">
@@ -68,6 +68,6 @@ export function PasswordForgot() {
                     <Translation>getPasswordLink</Translation>
                 </Button>
             </form>
-        </>
+        </div>
     );
 }

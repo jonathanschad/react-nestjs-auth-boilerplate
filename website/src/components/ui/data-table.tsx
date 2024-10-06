@@ -5,6 +5,7 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
+    PaginationState,
     SortingState,
     useReactTable,
 } from '@tanstack/react-table';
@@ -20,7 +21,10 @@ interface DataTableProps<T> {
 
 export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
     const [sorting, setSorting] = useState<SortingState>([]);
-
+    const [pagination, setPagination] = useState<PaginationState>({
+        pageIndex: 0,
+        pageSize: 10,
+    });
     const table = useReactTable({
         data: data,
         columns: columns,
@@ -29,14 +33,16 @@ export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        onPaginationChange: setPagination,
         state: {
             sorting,
+            pagination,
         },
     });
 
     return (
-        <div className="w-full">
-            <div className="rounded-md border">
+        <div className="flex h-full w-full flex-col overflow-auto">
+            <div className="h-full w-full flex-auto overflow-auto rounded-md border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -74,7 +80,7 @@ export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="flex-shrink-0 flex-grow-0 items-center justify-end space-x-2 py-4">
                 <div className="space-x-2">
                     <Button
                         variant="outline"
@@ -87,7 +93,10 @@ export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => table.nextPage()}
+                        onClick={() => {
+                            console.log('next');
+                            table.nextPage();
+                        }}
                         disabled={!table.getCanNextPage()}
                     >
                         <Translation>next</Translation>

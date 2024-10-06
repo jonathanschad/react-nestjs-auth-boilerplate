@@ -10,7 +10,7 @@ const PasswordForgotIllustration = <ForgotPasswordSVG className="w-1/2 max-w-ful
 export function PasswordForgotSuccess() {
     useSetNotSignedInLayoutIllustration(PasswordForgotIllustration);
     return (
-        <>
+        <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
                 <Translation element="h1">passwordRequested</Translation>
                 <Translation element="p" as="normalText">
@@ -25,6 +25,6 @@ export function PasswordForgotSuccess() {
                     <Translation>toLogin</Translation>
                 </Button>
             </Link>
-        </>
+        </div>
     );
 }

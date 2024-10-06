@@ -39,7 +39,7 @@ export function Login() {
 
     useSetNotSignedInLayoutIllustration(LoginIllustration);
     return (
-        <>
+        <div className="mx-auto grid w-[350px] gap-6">
             <Outlet context={{ illustration: <LoginSVG className="m-8 w-full max-w-full" /> }} />
             <div className="grid gap-2 text-center">
                 <Translation element="h1">login</Translation>
@@ -99,6 +99,6 @@ export function Login() {
                     <Translation>signup</Translation>
                 </RouterLink>
             </div>
-        </>
+        </div>
     );
 }

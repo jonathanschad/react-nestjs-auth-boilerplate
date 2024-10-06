@@ -61,12 +61,13 @@ const combinedLicenses: License[] = Object.entries({
 
 export const License = () => {
     return (
-        <div className="flex h-full flex-col justify-center">
-            <Translation className="mb-8" as={'h1'}>
+        <div className="mx-4 flex h-full w-full flex-col justify-center">
+            <Translation className="mb-8 flex-shrink-0 flex-grow-0" as={'h1'}>
                 licenses
             </Translation>
-
-            <DataTable data={combinedLicenses} columns={columns} />
+            <div className="w-full flex-shrink overflow-scroll">
+                <DataTable data={combinedLicenses} columns={columns} />
+            </div>
         </div>
     );
 };

@@ -48,7 +48,7 @@ export default function Register() {
 
     useSetNotSignedInLayoutIllustration(RegisterIllustration);
     return (
-        <>
+        <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
                 <Translation element="h1">register</Translation>
                 <Translation element="p" as="mutedText">
@@ -99,6 +99,6 @@ export default function Register() {
                     <Translation>login</Translation>
                 </RouterLink>
             </div>
-        </>
+        </div>
     );
 }

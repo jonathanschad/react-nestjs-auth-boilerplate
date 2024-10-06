@@ -60,7 +60,7 @@ export default function ConnectGoogleAccountCompletion() {
     }
 
     return (
-        <>
+        <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
                 <Translation element="h1">connectGoogleAccount.headline</Translation>
                 <Translation element="p" as="mutedText" translationParams={{ email: decodedConnectToken.googleEmail }}>
@@ -97,6 +97,6 @@ export default function ConnectGoogleAccountCompletion() {
                     <Translation>connectGoogleAccount.connectAccount</Translation>
                 </Button>
             </form>
-        </>
+        </div>
     );
 }

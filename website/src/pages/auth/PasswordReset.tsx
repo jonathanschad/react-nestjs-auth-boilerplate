@@ -48,74 +48,76 @@ export function PasswordReset() {
 
     useSetNotSignedInLayoutIllustration(PasswordResetIllustration);
     return (
-        <div className="grid gap-2 text-center">
-            <Translation element="h1" className="mb-4">
-                passwordReset
-            </Translation>
-            {!isPasswordResetTokenValid ? (
-                <>
-                    <Alert variant="destructive" className="my-4 text-left">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertDescription>
-                            <Translation>passwordResetError</Translation>
-                        </AlertDescription>
-                    </Alert>
-                    <Link to="/password-forgot">
-                        <Button className="w-full">
-                            <Translation>forgotPassword</Translation>
-                        </Button>
-                    </Link>
-                    <Link to="/login">
-                        <Button variant="secondary" className="w-full">
-                            <Translation>toLogin</Translation>
-                        </Button>
-                    </Link>
-                </>
-            ) : (
-                <form onSubmit={formik.handleSubmit} className="grid gap-4">
-                    <div className="grid gap-2">
-                        <div className="flex items-center">
-                            <Label htmlFor="password">
-                                <Translation>password</Translation>
-                            </Label>
+        <div className="mx-auto grid w-[350px] gap-6">
+            <div className="grid gap-2 text-center">
+                <Translation element="h1" className="mb-4">
+                    passwordReset
+                </Translation>
+                {!isPasswordResetTokenValid ? (
+                    <>
+                        <Alert variant="destructive" className="my-4 text-left">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertDescription>
+                                <Translation>passwordResetError</Translation>
+                            </AlertDescription>
+                        </Alert>
+                        <Link to="/password-forgot">
+                            <Button className="w-full">
+                                <Translation>forgotPassword</Translation>
+                            </Button>
+                        </Link>
+                        <Link to="/login">
+                            <Button variant="secondary" className="w-full">
+                                <Translation>toLogin</Translation>
+                            </Button>
+                        </Link>
+                    </>
+                ) : (
+                    <form onSubmit={formik.handleSubmit} className="grid gap-4">
+                        <div className="grid gap-2">
+                            <div className="flex items-center">
+                                <Label htmlFor="password">
+                                    <Translation>password</Translation>
+                                </Label>
+                            </div>
+                            <Input
+                                id="password"
+                                type="password"
+                                required
+                                name="password"
+                                autoComplete="new-password"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.password && Boolean(formik.errors.password)}
+                                errorMessage={formik.touched.password && formik.errors.password}
+                            />
                         </div>
-                        <Input
-                            id="password"
-                            type="password"
-                            required
-                            name="password"
-                            autoComplete="new-password"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            errorMessage={formik.touched.password && formik.errors.password}
-                        />
-                    </div>
-                    <div className="grid gap-2">
-                        <div className="flex items-center">
-                            <Label htmlFor="password">
-                                <Translation>passwordRepeat</Translation>
-                            </Label>
+                        <div className="grid gap-2">
+                            <div className="flex items-center">
+                                <Label htmlFor="password">
+                                    <Translation>passwordRepeat</Translation>
+                                </Label>
+                            </div>
+                            <Input
+                                id="passwordRepeat"
+                                type="password"
+                                required
+                                name="passwordRepeat"
+                                autoComplete="new-password"
+                                value={formik.values.passwordRepeat}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.passwordRepeat && Boolean(formik.errors.passwordRepeat)}
+                                errorMessage={formik.touched.passwordRepeat && formik.errors.passwordRepeat}
+                            />
                         </div>
-                        <Input
-                            id="passwordRepeat"
-                            type="password"
-                            required
-                            name="passwordRepeat"
-                            autoComplete="new-password"
-                            value={formik.values.passwordRepeat}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.passwordRepeat && Boolean(formik.errors.passwordRepeat)}
-                            errorMessage={formik.touched.passwordRepeat && formik.errors.passwordRepeat}
-                        />
-                    </div>
-                    <Button type="submit" className="w-full" disabled={!isPasswordResetTokenValid}>
-                        <Translation>passwordReset</Translation>
-                    </Button>
-                </form>
-            )}
+                        <Button type="submit" className="w-full" disabled={!isPasswordResetTokenValid}>
+                            <Translation>passwordReset</Translation>
+                        </Button>
+                    </form>
+                )}
+            </div>
         </div>
     );
 }

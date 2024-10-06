@@ -10,7 +10,7 @@ const RegisterSuccessIllustration = <RegisterSVG className="m-16 w-full max-w-fu
 export function RegisterSuccess() {
     useSetNotSignedInLayoutIllustration(RegisterSuccessIllustration);
     return (
-        <>
+        <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
                 <Translation element="h1">registerSuccess.headline</Translation>
                 <Translation element="p" as="mutedText">
@@ -23,6 +23,6 @@ export function RegisterSuccess() {
                     <Translation>backToLogin</Translation>
                 </RouterLink>
             </div>
-        </>
+        </div>
     );
 }

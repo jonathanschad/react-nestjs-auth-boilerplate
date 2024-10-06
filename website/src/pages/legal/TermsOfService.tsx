@@ -5,9 +5,7 @@ import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInL
 export const TermsOfService = () => {
     return (
         <div className="flex h-full flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold">
-                <Translation>termsOfService</Translation>
-            </h1>
+            <Translation element={'h1'}>termsOfService</Translation>
             <p className="mt-4 text-center">
                 This is a placeholder for the termsOfService. Please replace this page with your own termsOfService.
             </p>
@@ -19,5 +17,9 @@ const TermsOfServiceIllustration = <LegalSVG className="m-8 w-full max-w-full" /
 
 export const NotSignedInTermsOfService = () => {
     useSetNotSignedInLayoutIllustration(TermsOfServiceIllustration);
-    return <TermsOfService />;
+    return (
+        <div className="mx-16 grid w-full gap-6">
+            <TermsOfService />
+        </div>
+    );
 };

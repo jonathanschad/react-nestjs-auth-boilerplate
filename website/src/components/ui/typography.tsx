@@ -39,6 +39,7 @@ export const Typography = <T extends TypographyElement>({ className, element, as
 
     const componentProps = {
         className: cn(typographyVariants({ as: asMapped, className })),
+        style: { wordBreak: 'break-word' },
         ...props,
     };
 

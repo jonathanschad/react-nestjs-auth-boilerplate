@@ -5,9 +5,7 @@ import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInL
 export const Imprint = () => {
     return (
         <div className="flex h-full flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold">
-                <Translation>imprint</Translation>
-            </h1>
+            <Translation as={'h1'}>imprint</Translation>
             <p className="mt-4 text-center">
                 This is a placeholder for the imprint. Please replace this page with your own imprint.
             </p>
@@ -19,5 +17,9 @@ const ImprintIllustration = <LegalSVG className="m-8 w-full max-w-full" />;
 
 export const NotSignedInImprint = () => {
     useSetNotSignedInLayoutIllustration(ImprintIllustration);
-    return <Imprint />;
+    return (
+        <div className="mx-auto grid w-[350px] gap-6">
+            <Imprint />
+        </div>
+    );
 };
