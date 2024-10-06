@@ -14,4 +14,13 @@ export class AppController {
     async getLegalAttribution() {
         return licensesJSON;
     }
+
+    @Get('/health')
+    @PublicRoute()
+    async getHealth() {
+        return {
+            health: 'up',
+            version: process.env.npm_package_version,
+        };
+    }
 }

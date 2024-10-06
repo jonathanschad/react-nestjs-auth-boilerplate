@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import i18n from '@/i18n/i18n';
 import { renewAccessToken } from '@/repository/auth';
 import { useStore } from '@/store/store';
 
@@ -21,6 +22,10 @@ api.interceptors.request.use(
         const token = useStore.getState().accessToken;
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        if (i18n.language) {
+            config.headers['Accept-Language'] = i18n.language;
         }
 
         return config;

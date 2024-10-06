@@ -18,6 +18,7 @@ const variants = {
     normalText: 'text-base font-normal',
     smallText: 'text-sm font-medium leading-none',
     mutedText: 'text-sm text-muted-foreground',
+    bold: 'font-semibold text-sm',
 };
 const typographyVariants = cva('text-foreground', {
     variants: {
