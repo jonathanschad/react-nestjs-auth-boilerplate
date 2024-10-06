@@ -46,7 +46,7 @@ export default function CompleteRegister() {
 
     useSetNotSignedInLayoutIllustration(RegisterIllustration);
     return (
-        <>
+        <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
                 <Translation element="h1">completeRegistration.completeRegistration</Translation>
                 <Translation element="p" as="mutedText" translationParams={{ email: registeredEmail }}>
@@ -95,6 +95,6 @@ export default function CompleteRegister() {
                     <Translation>completeRegistration.completeRegistration</Translation>
                 </Button>
             </form>
-        </>
+        </div>
     );
 }
