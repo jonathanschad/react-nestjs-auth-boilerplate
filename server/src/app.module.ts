@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { AppConfigModule } from '@/config/app-config.module';
 import { DatabaseModule } from '@/database/database.module';
@@ -8,9 +7,22 @@ import { SignupModule } from '@/signup/signup.module';
 import { MailModule } from '@/mail/mail.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PasswordModule } from '@/password/password.module';
+import { FileModule } from '@/files/file.module';
+import { UserModule } from '@/user/user.module';
+import { AppController } from '@/app.controller';
 
 @Module({
-    imports: [DatabaseModule, AppConfigModule, AuthModule, SignupModule, MailModule, JwtModule, PasswordModule],
+    imports: [
+        DatabaseModule,
+        AppConfigModule,
+        AuthModule,
+        SignupModule,
+        MailModule,
+        JwtModule,
+        PasswordModule,
+        FileModule,
+        UserModule,
+    ],
     controllers: [AppController],
     providers: [AppService],
 })

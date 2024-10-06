@@ -5,7 +5,7 @@ import { JWTService } from '@/auth/jwt.service';
 import { AuthService } from '@/auth/auth.service';
 import { SignupService } from '@/signup/signup.service';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
-import { RequireUserState, SkipAuth, User } from '@/auth/auth.guard';
+import { RequireUserState, PublicRoute, User } from '@/auth/auth.guard';
 import {
     CompleteSignupRequestDto,
     ResendVerificationDto,
@@ -24,7 +24,7 @@ export class SignupController {
         readonly signupService: SignupService,
     ) {}
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Post()
     async signup(@Body() body: SignupRequestDto, @Req() request: FastifyRequest) {
@@ -54,7 +54,7 @@ export class SignupController {
         return await this.authService.signInUser({ res: res, user, remember: true });
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Get('verify-email-token')
     async verifyEmailToken(
@@ -71,7 +71,7 @@ export class SignupController {
         return await this.authService.signInUser({ res: response, user, remember: true });
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Post('resend-verification')
     async resendVerification(@Body() { email }: ResendVerificationDto, @Req() request: FastifyRequest) {

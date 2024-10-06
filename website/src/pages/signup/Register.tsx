@@ -4,14 +4,17 @@ import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
+import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
 import { Button } from '@/components/ui/button';
 import { CheckboxInput } from '@/components/ui/checkbox-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
-import { register, startGoogleOAuthFlow } from '@/repository/login';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
+import { register } from '@/repository/login';
+
+const RegisterIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 
 export default function Register() {
     const queryClient = useQueryClient();
@@ -21,12 +24,6 @@ export default function Register() {
         onSuccess: () => {
             queryClient.invalidateQueries();
             navigate('/register/success');
-        },
-    });
-    const googleOAuthMutatation = useMutation({
-        mutationFn: startGoogleOAuthFlow,
-        onSuccess: () => {
-            queryClient.invalidateQueries();
         },
     });
 
@@ -44,8 +41,9 @@ export default function Register() {
         onSubmit: handleSubmit,
     });
 
+    useSetNotSignedInLayoutIllustration(RegisterIllustration);
     return (
-        <NotSignedInLayout illustration={<RegisterSVG className="m-16 w-full max-w-full" />}>
+        <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
                 <Translation element="h1">register</Translation>
                 <Translation element="p" as="mutedText">
@@ -87,15 +85,13 @@ export default function Register() {
                     <Translation>createAccount</Translation>
                 </Button>
             </form>
-            <Button className="w-full" onClick={() => googleOAuthMutatation.mutate()}>
-                <Translation>signInWithGoogle</Translation>
-            </Button>
+            <GoogleOAuthButton />
             <div className="mt-4 text-center text-sm">
                 <Translation>alreadyAccount</Translation>{' '}
                 <RouterLink to="/login" className="underline">
                     <Translation>login</Translation>
                 </RouterLink>
             </div>
-        </NotSignedInLayout>
+        </div>
     );
 }

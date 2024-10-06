@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '@/database/user/user.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import { PrismaService } from '@/database/prisma.service';
 import * as uuid from 'uuid';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
@@ -14,7 +14,7 @@ import { PasswordResetTokenService } from '@/database/password-reset-token/passw
 @Injectable()
 export class PasswordService {
     constructor(
-        private readonly userService: UserService,
+        private readonly databaseUserService: DatabaseUserService,
         private readonly passwordResetTokenService: PasswordResetTokenService,
         private readonly appConfigService: AppConfigService,
         private readonly jwtService: JWTService,
@@ -24,7 +24,7 @@ export class PasswordService {
     ) {}
 
     public async initiatePasswordForgot({ email, language }: { email: string; language: Language }): Promise<void> {
-        const user = await this.userService.findByEmail(email);
+        const user = await this.databaseUserService.findByEmail(email);
         if (user) {
             await this.initiatePasswordReset(user);
         } else {
@@ -48,7 +48,7 @@ export class PasswordService {
     }
 
     public async changePasswordWithPassword(email: string, oldPassword: string, newPassword: string): Promise<boolean> {
-        const user = await this.userService.findByEmail(email);
+        const user = await this.databaseUserService.findByEmail(email);
 
         if (!user || !(await this.authService.verifyPassword(user, oldPassword))) {
             throw new HTTPError({ statusCode: HttpStatusCode.UNAUTHORIZED, message: 'Email or Password is incorrect' });
@@ -84,7 +84,7 @@ export class PasswordService {
     }): Promise<void> {
         const salt = uuid.v4();
         const hashedPassword = await this.authService.hashPassword(password, salt);
-        await this.userService.changePassword({
+        await this.databaseUserService.changePassword({
             hashedPassword,
             salt,
             userId: user.id,

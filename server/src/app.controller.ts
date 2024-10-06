@@ -1,17 +1,26 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppConfigService } from '@/config/app-config.service';
-import { UserService } from '@/database/user/user.service';
+import { PublicRoute } from '@/auth/auth.guard';
+// eslint-disable-next-line no-restricted-imports
+// import packageJSON from '../package.json';
+// // eslint-disable-next-line no-restricted-imports
+import licensesJSON from '@/assets/licenses.json';
 
 @Controller()
 export class AppController {
-    constructor(
-        private readonly appConfigService: AppConfigService,
-        private userService: UserService,
-    ) {}
+    constructor() {}
 
-    @Get()
-    async getHello() {
-        const user = await this.userService.findByEmail('mail@jschad.de');
-        return { user, config: this.appConfigService.databaseUrl };
+    @Get('/legal/attribution')
+    @PublicRoute()
+    async getLegalAttribution() {
+        return licensesJSON;
+    }
+
+    @Get('/health')
+    @PublicRoute()
+    async getHealth() {
+        return {
+            health: 'up',
+            version: process.env.npm_package_version,
+        };
     }
 }

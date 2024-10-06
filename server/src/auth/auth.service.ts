@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '@/database/user/user.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import { User } from '@prisma/client';
 import * as crypto from 'crypto';
 import { SingInDTO } from '@/auth/auth.dto';
@@ -9,12 +9,12 @@ import { FastifyReply } from 'fastify';
 import { AccessTokenService } from '@/database/access-token/access-token.service';
 import { RefreshTokenService } from '@/database/refresh-token/refresh-token.service';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
-import * as assert from 'assert';
+import assert from 'assert';
 
 @Injectable()
 export class AuthService {
     constructor(
-        private userService: UserService,
+        private databaseUserService: DatabaseUserService,
         private accessTokenService: AccessTokenService,
         private refreshTokenService: RefreshTokenService,
         private readonly passwordResetTokenService: PasswordResetTokenService,
@@ -24,7 +24,7 @@ export class AuthService {
     public async signIn(res: FastifyReply, { email, password, remember }: SingInDTO): Promise<any> {
         const FAIL_MESSAGE = 'Incorrect username or password.' as const;
         try {
-            const user = await this.userService.findByEmail(email);
+            const user = await this.databaseUserService.findByEmail(email);
             assert(user);
 
             if (!(await this.verifyPassword(user, password))) {
@@ -75,7 +75,7 @@ export class AuthService {
         refreshToken?: string;
         remember?: boolean;
     }): Promise<{ success: true; accessToken: string }> {
-        const reloadedUser = await this.userService.findByUuid(user.id);
+        const reloadedUser = await this.databaseUserService.findByUuid(user.id);
 
         const refreshToken = await this.refreshTokenService.createRefreshToken(
             reloadedUser.id,

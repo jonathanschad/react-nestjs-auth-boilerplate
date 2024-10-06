@@ -1,11 +1,11 @@
 import { CompleteGoogleAccountConnectionDTO, GoogleOAuthDTO } from '@/auth/auth.dto';
-import { SkipAuth } from '@/auth/auth.guard';
+import { PublicRoute } from '@/auth/auth.guard';
 import { AuthService } from '@/auth/auth.service';
 import { GoogleAuthService } from '@/auth/google.auth.service';
 import { JWTService } from '@/auth/jwt.service';
 import { AppConfigService } from '@/config/app-config.service';
 import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
-import { UserService } from '@/database/user/user.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import { SignupService } from '@/signup/signup.service';
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
@@ -16,13 +16,13 @@ export class GoogleAuthController {
         private readonly appConfigService: AppConfigService,
         private readonly googleOAuthService: GoogleAuthService,
         private readonly signupService: SignupService,
-        private readonly userService: UserService,
+        private readonly databaseUserService: DatabaseUserService,
         private readonly authService: AuthService,
         private readonly jwtService: JWTService,
         private readonly connectGoogleAccountTokenService: ConnectGoogleAccountTokenService,
     ) {}
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Get('/')
     async signIn() {
@@ -30,7 +30,7 @@ export class GoogleAuthController {
         return { redirectUrl: url };
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.MOVED_PERMANENTLY)
     @Get('/callback')
     async callback(
@@ -51,14 +51,14 @@ export class GoogleAuthController {
                 throw new Error('Invalid email');
             }
 
-            const userByGoogleId = await this.userService.findByGoogleOAuthId(profile.id);
+            const userByGoogleId = await this.databaseUserService.findByGoogleOAuthId(profile.id);
             if (userByGoogleId) {
                 // User with this Google ID already exists therefore the user should be signed in
                 await this.authService.signInUser({ res: reply, user: userByGoogleId, remember: true });
                 return await reply.redirect(callbackUrl);
             }
 
-            const userByEmail = await this.userService.findByEmail(profile.email);
+            const userByEmail = await this.databaseUserService.findByEmail(profile.email);
             if (userByEmail) {
                 // A user with this email already exists, a workflow to link the Google account to the existing user
                 // should be started
@@ -86,7 +86,7 @@ export class GoogleAuthController {
         }
     }
 
-    @SkipAuth()
+    @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Post('/complete-account-connection')
     async completeAccountConnection(

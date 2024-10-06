@@ -12,8 +12,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { initialPasswordResetFormValues, passwordResetFormValidationSchema } from '@/forms/password-reset';
 import { Translation } from '@/i18n/Translation';
-import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { passwordChangeToken, passwordForgotTokenValidation } from '@/repository/password';
+
+const PasswordResetIllustration = <ResetPasswordSVG className="w-1/2 max-w-full" />;
 
 export function PasswordReset() {
     const [searchParams] = useSearchParams();
@@ -44,8 +46,9 @@ export function PasswordReset() {
         },
     });
 
+    useSetNotSignedInLayoutIllustration(PasswordResetIllustration);
     return (
-        <NotSignedInLayout illustration={<ResetPasswordSVG className="w-1/2 max-w-full" />}>
+        <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
                 <Translation element="h1" className="mb-4">
                     passwordReset
@@ -115,6 +118,6 @@ export function PasswordReset() {
                     </form>
                 )}
             </div>
-        </NotSignedInLayout>
+        </div>
     );
 }

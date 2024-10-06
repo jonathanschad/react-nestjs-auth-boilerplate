@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as assert from 'assert';
+import assert from 'assert';
 
 @Injectable()
 export class AppConfigService {
@@ -138,5 +138,9 @@ export class AppConfigService {
 
     get googleOAuthRedirectUri(): string {
         return this.get('GOOGLE_OAUTH_REDIRECT_URI');
+    }
+
+    get fileStoragePath(): string {
+        return this.get('FILE_STORAGE_PATH');
     }
 }

@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import i18n from '@/i18n/i18n';
 import { renewAccessToken } from '@/repository/auth';
 import { useStore } from '@/store/store';
 
@@ -23,6 +24,10 @@ api.interceptors.request.use(
             config.headers.Authorization = `Bearer ${token}`;
         }
 
+        if (i18n.language) {
+            config.headers['Accept-Language'] = i18n.language;
+        }
+
         return config;
     },
     (error: AxiosError) => Promise.reject(error),
@@ -33,6 +38,10 @@ api.interceptors.response.use(
     (response: AxiosResponse) => {
         if (response.data.accessToken !== undefined) {
             useStore.getState().setAccessToken(response.data.accessToken);
+
+            if (response.data.refreshToken === null) {
+                window.location.href = '/login';
+            }
         }
         return response;
     },
