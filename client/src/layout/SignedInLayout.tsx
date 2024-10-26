@@ -98,7 +98,7 @@ export const SignedInLayout = () => {
                         </nav>
                     </SheetContent>
                 </Sheet>
-                <div className="flex items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
+                <div className="ml-auto flex items-center justify-end gap-4 md:gap-2 lg:gap-4">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="secondary" size="icon" className="rounded-full">
