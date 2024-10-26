@@ -4,8 +4,13 @@ import { Token, Prisma, User, UserState, TokenType } from '@prisma/client';
 import { UserWithSettings } from '@/types/prisma';
 import { assert } from 'console';
 
+type SanitizedUser = Omit<
+    UserWithSettings,
+    'password' | 'salt' | 'createdAt' | 'updatedAt' | 'googleOAuthId' | 'settingsId'
+>;
+
 @Injectable()
-export class UserService {
+export class DatabaseUserService {
     constructor(private prisma: PrismaService) {}
 
     async find(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<UserWithSettings | null> {
@@ -112,6 +117,26 @@ export class UserService {
         });
     }
 
+    async updateProfilePicture({
+        userId,
+        profilePictureId,
+    }: {
+        userId: string;
+        profilePictureId: string;
+    }): Promise<UserWithSettings> {
+        return await this.prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                profilePictureId,
+            },
+            include: {
+                settings: true,
+            },
+        });
+    }
+
     async create(data: Prisma.UserCreateInput): Promise<UserWithSettings> {
         data.email = data.email.toLowerCase();
         const createdUser = await this.prisma.user.create({
@@ -133,5 +158,11 @@ export class UserService {
                 googleOAuthId,
             },
         });
+    }
+
+    public sanitizeUser(user: UserWithSettings): SanitizedUser {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, salt, createdAt, updatedAt, googleOAuthId, settingsId, ...sanitizedUser } = user;
+        return sanitizedUser;
     }
 }

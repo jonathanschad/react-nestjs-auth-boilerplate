@@ -1,4 +1,4 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { fastifyCookie } from '@fastify/cookie';
 import fastifyHelmet from '@fastify/helmet';
@@ -11,6 +11,8 @@ import pretty from 'pino-pretty';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from '@/app.module';
 import { ExceptionFilter } from '@/util/exception.filter';
+import fastifyMultipart from '@fastify/multipart';
+import { DisabledRouteInterceptor } from '@/util/interceptors/disable-route-interceptor';
 
 const prettyStream = pretty({
     colorize: true,
@@ -39,8 +41,12 @@ async function bootstrap() {
     );
 
     const appConfigService = app.get<AppConfigService>(AppConfigService);
+    const reflector = app.get(Reflector);
+
     app.useGlobalFilters(new ExceptionFilter());
+    app.useGlobalInterceptors(new DisabledRouteInterceptor(reflector));
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
+
     await app.register(fastifyCookie);
     await app.register(fastifyHelmet);
     await app.register(fastifyAccepts);
@@ -48,6 +54,7 @@ async function bootstrap() {
     await app.register(fastifyJwt, {
         secret: appConfigService.jwtTokenSecret,
     });
+    await app.register(fastifyMultipart);
     app.setGlobalPrefix('api');
 
     await app.listen(appConfigService.port);

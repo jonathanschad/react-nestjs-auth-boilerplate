@@ -14,10 +14,12 @@
         "skipLibCheck": true,
         "strictNullChecks": true,
         "noImplicitAny": true,
+        "esModuleInterop": true,
         "strictBindCallApply": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
         "paths": {
             "@/*": ["src/*"]
         }
