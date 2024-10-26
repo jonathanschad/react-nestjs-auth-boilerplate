@@ -2,6 +2,7 @@ import { OptionalUser, PublicRoute, User } from '@/auth/auth.guard';
 import { GetFileDTO } from '@/files/file.dto';
 import { FileService } from '@/files/file.service';
 import { UserWithSettings } from '@/types/prisma';
+import { Disabled } from '@/util/decorators/disabled';
 import { HTTPError } from '@/util/httpHandlers';
 import { Controller, Get, HttpCode, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
@@ -16,6 +17,7 @@ export class FileController {
         return await this.fileService.getFile({ fileUuid, user });
     }
 
+    @Disabled()
     @Patch('/:fileUuid')
     async updateFile(@Req() req: FastifyRequest, @Param() { fileUuid }: GetFileDTO, @User() user: UserWithSettings) {
         const file = await req.file();
