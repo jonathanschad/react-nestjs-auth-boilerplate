@@ -1,0 +1,30 @@
+# Node modules
+**/node_modules
+**/dist
+
+# Environment files
+client/.env
+server/.env
+
+# Build artifacts
+client/build
+client/dist
+server/dist
+
+# Logs
+**/*.log
+**/logs
+npm-debug.log*
+
+# Docker files and configs
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Prisma directory - make sure to exclude specific files if necessary, not the directory itself
+!server/prisma/
+!server/prisma/schema.prisma

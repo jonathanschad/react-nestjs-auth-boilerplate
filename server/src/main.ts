@@ -13,6 +13,7 @@ import { AppModule } from '@/app.module';
 import { ExceptionFilter } from '@/util/exception.filter';
 import fastifyMultipart from '@fastify/multipart';
 import { DisabledRouteInterceptor } from '@/util/interceptors/disable-route-interceptor';
+import path from 'path';
 
 const prettyStream = pretty({
     colorize: true,
@@ -55,8 +56,11 @@ async function bootstrap() {
         secret: appConfigService.jwtTokenSecret,
     });
     await app.register(fastifyMultipart);
+
+    app.useStaticAssets({ root: path.join(__dirname, 'public') });
     app.setGlobalPrefix('api');
 
-    await app.listen(appConfigService.port);
+    await app.listen(appConfigService.port, appConfigService.host);
 }
+
 void bootstrap();

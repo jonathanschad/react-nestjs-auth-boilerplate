@@ -143,7 +143,7 @@ export class AppConfigService {
     get storageType(): 's3' | 'local' {
         const storageType = this.get('STORAGE_TYPE');
         if (storageType !== 's3' && storageType !== 'local') {
-            throw new Error('Config error: STORAGE_TYPE must be either "s3" or "local"');
+            throw new Error(`Config error: STORAGE_TYPE must be either "s3" or "local", got ${storageType}`);
         }
 
         return this.get('STORAGE_TYPE') as 's3' | 'local';

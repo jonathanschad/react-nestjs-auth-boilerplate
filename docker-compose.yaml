@@ -1,0 +1,29 @@
+services:
+    db:
+        image: "postgres:17"
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: "boilerplate"
+            POSTGRES_PASSWORD: "mysecretpassword"
+            POSTGRES_DB: "boilerplate_db"
+        volumes:
+            - postgres:/var/lib/postgresql/data
+
+    server:
+        build: .
+        ports:
+            - "3000:3000"
+        env_file:
+            - ./server/.env
+        environment:
+            DATABASE_URL: "postgresql://boilerplate:mysecretpassword@db:5432/boilerplate_db"
+            PORT: 3000
+            HOST: 0.0.0.0
+            FRONTEND_PUBLIC_URL: "http://localhost:3000"
+        depends_on:
+            - "db"
+
+volumes:
+    postgres:
+        name: boilerplate-db
