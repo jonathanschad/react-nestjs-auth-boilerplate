@@ -140,7 +140,36 @@ export class AppConfigService {
         return this.get('GOOGLE_OAUTH_REDIRECT_URI');
     }
 
+    get storageType(): 's3' | 'local' {
+        const storageType = this.get('STORAGE_TYPE');
+        if (storageType !== 's3' && storageType !== 'local') {
+            throw new Error('Config error: STORAGE_TYPE must be either "s3" or "local"');
+        }
+
+        return this.get('STORAGE_TYPE') as 's3' | 'local';
+    }
+
     get fileStoragePath(): string {
-        return this.get('FILE_STORAGE_PATH');
+        return this.get('FILE_SYSTEM_STORAGE_PATH');
+    }
+
+    get s3AccessKeyId(): string {
+        return this.get('S3_ACCESS_KEY_ID');
+    }
+
+    get s3SecretAccessKey(): string {
+        return this.get('S3_SECRET_ACCESS_KEY');
+    }
+
+    get s3BucketName(): string {
+        return this.get('S3_BUCKET_NAME');
+    }
+
+    get s3Endpoint(): string {
+        return this.get('S3_ENDPOINT');
+    }
+
+    get s3Region(): string {
+        return this.get('S3_REGION');
     }
 }

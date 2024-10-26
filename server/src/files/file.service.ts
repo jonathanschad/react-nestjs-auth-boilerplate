@@ -2,19 +2,19 @@ import { Injectable, StreamableFile } from '@nestjs/common';
 import { AppConfigService } from '@/config/app-config.service';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 import { DatabaseFileService } from '@/database/database-file/database-file.service';
-import { createReadStream, createWriteStream, existsSync, mkdirSync, statSync, unlinkSync } from 'fs';
 import { join } from 'path';
 import { logger } from '@/main';
-import { pipeline } from 'stream/promises';
 import { MultipartFile } from '@fastify/multipart';
 import { File, FileAccess, User, UserState } from '@prisma/client';
 import sharp from 'sharp';
+import { StorageService } from '@/files/storage.service';
 
 @Injectable()
 export class FileService {
     constructor(
         private readonly appConfigService: AppConfigService,
         private readonly databaseFileService: DatabaseFileService,
+        private readonly storageService: StorageService,
     ) {}
 
     async getFile({ fileUuid, user }: { fileUuid: string; user?: { id: string } }): Promise<StreamableFile> {
@@ -24,14 +24,10 @@ export class FileService {
         }
 
         try {
-            const file = createReadStream(join(this.appConfigService.fileStoragePath, dbFile.path));
-            return new StreamableFile(file, {
-                type: dbFile.mimeType,
-                disposition: `inline; filename="${dbFile.name}"`,
-            });
+            return this.storageService.getFile(dbFile);
         } catch (error) {
             logger.error('Error while reading file', error);
-            throw new HTTPError({ statusCode: HttpStatusCode.NOT_FOUND, message: ' si' });
+            throw new HTTPError({ statusCode: HttpStatusCode.NOT_FOUND, message: 'Could not read file' });
         }
     }
 
@@ -50,28 +46,28 @@ export class FileService {
             throw new HTTPError({ statusCode: HttpStatusCode.FORBIDDEN, message: 'No permission' });
         }
 
-        const fileDir = join(this.appConfigService.fileStoragePath, user.id);
-        const filePath = join(fileDir, `${fileUuid}-${file.filename}`);
-        if (!existsSync(fileDir)) {
-            mkdirSync(fileDir, { recursive: true });
-        }
+        const filePath = join(user.id, `${fileUuid}-${file.filename}`);
 
+        let buffer: Buffer | MultipartFile;
         if (file.file instanceof sharp) {
-            const sharpFile = file.file as sharp.Sharp;
-            await sharpFile.toFile(filePath);
+            buffer = await (file.file as sharp.Sharp).toBuffer();
         } else {
-            const multipartFile = file as MultipartFile;
-            await pipeline(multipartFile.file, createWriteStream(filePath));
+            buffer = file as MultipartFile;
         }
 
-        const fileStats = statSync(filePath);
+        const fileCreateInput = await this.storageService.saveFile({
+            file: buffer,
+            path: filePath,
+            contentType: file.mimetype,
+        });
+
         const dbFile = await this.databaseFileService.createFile({
             file: {
                 id: fileUuid,
                 name: file.filename,
-                mimeType: file.mimetype,
-                size: fileStats.size,
-                path: join(user.id, `${fileUuid}-${file.filename}`),
+                mimeType: fileCreateInput.contentType,
+                size: fileCreateInput.size,
+                path: fileCreateInput.path,
                 access: fileAccess,
             },
             user,
@@ -85,8 +81,7 @@ export class FileService {
             throw new HTTPError({ statusCode: HttpStatusCode.FORBIDDEN, message: 'No permission' });
         }
 
-        const filePath = join(this.appConfigService.fileStoragePath, deletedFile.path);
-        unlinkSync(filePath);
+        await this.storageService.deleteFile(deletedFile);
 
         return deletedFile;
     }
