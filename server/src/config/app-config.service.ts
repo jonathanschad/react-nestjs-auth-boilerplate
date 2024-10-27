@@ -33,11 +33,11 @@ export class AppConfigService {
     }
 
     get publicUrl(): string {
-        return `${this.protocol}://${this.host}:${this.port}`;
+        return this.get('VITE_BACKEND_URL');
     }
 
     get frontendPublicUrl(): string {
-        return this.get('FRONTEND_PUBLIC_URL');
+        return this.get('VITE_FRONTEND_URL');
     }
 
     get jwtTokenSecret(): string {

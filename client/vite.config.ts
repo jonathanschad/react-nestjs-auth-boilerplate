@@ -16,4 +16,5 @@ export default defineConfig({
             'top-level-await': true, //browsers can handle top-level-await features
         },
     },
+    envDir: path.resolve(__dirname, '../'),
 });

@@ -5,8 +5,7 @@ import { AppConfigService } from '@/config/app-config.service';
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true,
-            envFilePath: '.env',
+            envFilePath: '../.env',
         }),
     ],
     controllers: [],

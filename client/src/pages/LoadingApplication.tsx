@@ -3,13 +3,13 @@ import { useMutation } from 'react-query';
 
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Translation } from '@/i18n/Translation';
-import { renewAccessToken } from '@/repository/auth';
+import { loadApplication } from '@/repository/load-application';
 
 const LoadingApplication = ({ children }: { children: React.ReactNode }) => {
     const [loadingComplete, setLoadingComplete] = useState(false);
     const hasMutated = useRef(false);
     const { mutate } = useMutation({
-        mutationFn: renewAccessToken,
+        mutationFn: loadApplication,
         onSettled: () => {
             setLoadingComplete(true);
         },
