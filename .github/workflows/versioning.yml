@@ -33,19 +33,22 @@ jobs:
               if: ${{ !contains(env.commit_message, '[skip ci]') }}
               run: |
                   # Bump the patch version in both client and server package.json files
-                  cd client && npm version patch --no-git-tag-version
-                  cd ../server && npm version patch --no-git-tag-version
+                  cd client 
+                  npm version patch --no-git-tag-version
+                  cd ../server 
+                  NEW_VERSION=npm version patch --no-git-tag-version
                   cd .. 
+                  ls -la
 
                   # Stage both package.json files
-                  git add client/package.json server/package.json
+                  git add ./client/package.json ./server/package.json
 
                   # Commit the changes with a combined message
-                  NEW_VERSION=$(node -p "require('server/package.json').version")
+                  # NEW_VERSION=$(node -p "require('./server/package.json').version")
                   # Configure Git author for the commit
                   git config user.name "github-actions[bot]"
                   git config user.email "actions@github.com"
-                  git commit -m "ci: bump version to $NEW_VERSION [skip ci]"
+                  git commit -am "ci: bump version to $NEW_VERSION [skip ci]"
               env:
                   GIT_COMMITTER_NAME: github-actions
                   GIT_COMMITTER_EMAIL: actions@github.com
