@@ -28,10 +28,6 @@ export class AppConfigService {
         return this.get('HOST');
     }
 
-    get protocol(): string {
-        return this.get('PROTOCOL');
-    }
-
     get publicUrl(): string {
         return this.get('VITE_BACKEND_URL');
     }
