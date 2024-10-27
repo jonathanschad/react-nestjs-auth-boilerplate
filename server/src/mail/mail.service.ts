@@ -103,9 +103,9 @@ export class MailService {
                 path: path.join(__dirname, './templates/images/logo.png'),
             },
             ...this.appConfigService.socials.map((social) => ({
-                cid: social.name,
-                filename: `${social.name}.png`,
-                path: path.join(__dirname, `./templates/images/${social.name}.png`),
+                cid: social.name.toLowerCase(),
+                filename: `${social.name.toLowerCase()}.png`,
+                path: path.join(__dirname, `./templates/images/${social.name.toLowerCase()}.png`),
             })),
         );
 

@@ -28,7 +28,7 @@ export class AppConfigService {
         return this.get('HOST');
     }
 
-    get publicUrl(): string {
+    get backendPublicUrl(): string {
         return this.get('VITE_BACKEND_URL');
     }
 
