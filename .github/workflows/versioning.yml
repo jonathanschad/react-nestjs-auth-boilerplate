@@ -40,7 +40,7 @@ jobs:
                   git add client/package.json server/package.json
 
                   # Commit the changes with a combined message
-                  NEW_VERSION=$(node -p "require('./client/package.json').version")
+                  NEW_VERSION=$(node -p "require('./package.json').version")
                   # Configure Git author for the commit
                   git config user.name "github-actions[bot]"
                   git config user.email "actions@github.com"
