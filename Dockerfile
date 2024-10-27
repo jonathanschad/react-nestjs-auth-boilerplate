@@ -24,7 +24,7 @@ COPY --from=server-builder /app/dist ./server
 COPY --from=server-builder /app/node_modules ./node_modules
 
 # Copy client build for static file serving
-COPY --from=client-builder /app/dist ./server/public
+COPY --from=client-builder /app/dist ./public
 
 # Set environment variables
 ENV PORT=3000
