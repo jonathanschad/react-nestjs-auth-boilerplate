@@ -33,7 +33,9 @@ jobs:
               if: ${{ !contains(env.commit_message, '[skip ci]') }}
               working-directory: ./client
               run: |
-                  npm version patch -m "ci: bump client version to %s [skip ci]"
+                  npm version patch --no-git-tag-version
+                  git add package.json
+                  git commit -m "ci: bump client version to $(node -p "require('./package.json').version") [skip ci]"
               env:
                   GIT_COMMITTER_NAME: github-actions
                   GIT_COMMITTER_EMAIL: actions@github.com
@@ -42,12 +44,14 @@ jobs:
               if: ${{ !contains(env.commit_message, '[skip ci]') }}
               working-directory: ./server
               run: |
-                  npm version patch -m "ci: bump server version to %s [skip ci]"
+                  npm version patch --no-git-tag-version
+                  git add package.json
+                  git commit -m "ci: bump server version to $(node -p "require('./package.json').version") [skip ci]"
               env:
                   GIT_COMMITTER_NAME: github-actions
                   GIT_COMMITTER_EMAIL: actions@github.com
 
-            - name: Push Changes
+            - name: Push Changes and Create Tag
               if: ${{ !contains(env.commit_message, '[skip ci]') }}
               env:
                   GIT_COMMITTER_NAME: github-actions
@@ -55,4 +59,13 @@ jobs:
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "actions@github.com"
+
+                  # Get version from client/package.json (or server/package.json, if you prefer)
+                  VERSION=$(node -p "require('./client/package.json').version")
+
+                  # Commit and push changes
                   git push origin main
+
+                  # Create a new tag and push it
+                  git tag "v$VERSION"
+                  git push origin "v$VERSION"
