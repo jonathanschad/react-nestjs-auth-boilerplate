@@ -28,6 +28,293 @@
         "path": "node_modules/@angular-devkit/schematics",
         "licenseFile": "node_modules/@angular-devkit/schematics/LICENSE"
     },
+    "@aws-crypto/crc32@5.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-crypto-helpers",
+        "publisher": "AWS Crypto Tools Team",
+        "email": "aws-cryptools@amazon.com",
+        "path": "node_modules/@aws-crypto/crc32",
+        "licenseFile": "node_modules/@aws-crypto/crc32/LICENSE"
+    },
+    "@aws-crypto/crc32c@5.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-crypto-helpers",
+        "publisher": "AWS Crypto Tools Team",
+        "email": "aws-cryptools@amazon.com",
+        "path": "node_modules/@aws-crypto/crc32c",
+        "licenseFile": "node_modules/@aws-crypto/crc32c/LICENSE"
+    },
+    "@aws-crypto/sha1-browser@5.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-crypto-helpers",
+        "publisher": "AWS Crypto Tools Team",
+        "email": "aws-cryptools@amazon.com",
+        "path": "node_modules/@aws-crypto/sha1-browser",
+        "licenseFile": "node_modules/@aws-crypto/sha1-browser/LICENSE"
+    },
+    "@aws-crypto/sha256-browser@5.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-crypto-helpers",
+        "publisher": "AWS Crypto Tools Team",
+        "email": "aws-cryptools@amazon.com",
+        "path": "node_modules/@aws-crypto/sha256-browser",
+        "licenseFile": "node_modules/@aws-crypto/sha256-browser/LICENSE"
+    },
+    "@aws-crypto/sha256-js@5.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-crypto-helpers",
+        "publisher": "AWS Crypto Tools Team",
+        "email": "aws-cryptools@amazon.com",
+        "path": "node_modules/@aws-crypto/sha256-js",
+        "licenseFile": "node_modules/@aws-crypto/sha256-js/LICENSE"
+    },
+    "@aws-crypto/supports-web-crypto@5.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-crypto-helpers",
+        "publisher": "AWS Crypto Tools Team",
+        "email": "aws-cryptools@amazon.com",
+        "path": "node_modules/@aws-crypto/supports-web-crypto",
+        "licenseFile": "node_modules/@aws-crypto/supports-web-crypto/LICENSE"
+    },
+    "@aws-crypto/util@5.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-crypto-helpers",
+        "publisher": "AWS Crypto Tools Team",
+        "email": "aws-cryptools@amazon.com",
+        "path": "node_modules/@aws-crypto/util",
+        "licenseFile": "node_modules/@aws-crypto/util/LICENSE"
+    },
+    "@aws-sdk/client-s3@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/client-s3",
+        "licenseFile": "node_modules/@aws-sdk/client-s3/LICENSE"
+    },
+    "@aws-sdk/client-sso-oidc@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/client-sso-oidc",
+        "licenseFile": "node_modules/@aws-sdk/client-sso-oidc/LICENSE"
+    },
+    "@aws-sdk/client-sso@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/client-sso",
+        "licenseFile": "node_modules/@aws-sdk/client-sso/LICENSE"
+    },
+    "@aws-sdk/client-sts@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/client-sts",
+        "licenseFile": "node_modules/@aws-sdk/client-sts/LICENSE"
+    },
+    "@aws-sdk/core@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/core",
+        "licenseFile": "node_modules/@aws-sdk/core/README.md"
+    },
+    "@aws-sdk/credential-provider-env@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/credential-provider-env",
+        "licenseFile": "node_modules/@aws-sdk/credential-provider-env/LICENSE"
+    },
+    "@aws-sdk/credential-provider-http@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/credential-provider-http",
+        "licenseFile": "node_modules/@aws-sdk/credential-provider-http/README.md"
+    },
+    "@aws-sdk/credential-provider-ini@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/credential-provider-ini",
+        "licenseFile": "node_modules/@aws-sdk/credential-provider-ini/LICENSE"
+    },
+    "@aws-sdk/credential-provider-node@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/credential-provider-node",
+        "licenseFile": "node_modules/@aws-sdk/credential-provider-node/LICENSE"
+    },
+    "@aws-sdk/credential-provider-process@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/credential-provider-process",
+        "licenseFile": "node_modules/@aws-sdk/credential-provider-process/LICENSE"
+    },
+    "@aws-sdk/credential-provider-sso@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/credential-provider-sso",
+        "licenseFile": "node_modules/@aws-sdk/credential-provider-sso/LICENSE"
+    },
+    "@aws-sdk/credential-provider-web-identity@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/credential-provider-web-identity",
+        "licenseFile": "node_modules/@aws-sdk/credential-provider-web-identity/LICENSE"
+    },
+    "@aws-sdk/middleware-bucket-endpoint@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-bucket-endpoint",
+        "licenseFile": "node_modules/@aws-sdk/middleware-bucket-endpoint/LICENSE"
+    },
+    "@aws-sdk/middleware-expect-continue@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-expect-continue",
+        "licenseFile": "node_modules/@aws-sdk/middleware-expect-continue/LICENSE"
+    },
+    "@aws-sdk/middleware-flexible-checksums@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-flexible-checksums",
+        "licenseFile": "node_modules/@aws-sdk/middleware-flexible-checksums/LICENSE"
+    },
+    "@aws-sdk/middleware-host-header@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-host-header",
+        "licenseFile": "node_modules/@aws-sdk/middleware-host-header/LICENSE"
+    },
+    "@aws-sdk/middleware-location-constraint@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-location-constraint",
+        "licenseFile": "node_modules/@aws-sdk/middleware-location-constraint/LICENSE"
+    },
+    "@aws-sdk/middleware-logger@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-logger",
+        "licenseFile": "node_modules/@aws-sdk/middleware-logger/LICENSE"
+    },
+    "@aws-sdk/middleware-recursion-detection@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-recursion-detection",
+        "licenseFile": "node_modules/@aws-sdk/middleware-recursion-detection/LICENSE"
+    },
+    "@aws-sdk/middleware-sdk-s3@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-sdk-s3",
+        "licenseFile": "node_modules/@aws-sdk/middleware-sdk-s3/LICENSE"
+    },
+    "@aws-sdk/middleware-ssec@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-ssec",
+        "licenseFile": "node_modules/@aws-sdk/middleware-ssec/LICENSE"
+    },
+    "@aws-sdk/middleware-user-agent@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/middleware-user-agent",
+        "licenseFile": "node_modules/@aws-sdk/middleware-user-agent/LICENSE"
+    },
+    "@aws-sdk/region-config-resolver@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/region-config-resolver",
+        "licenseFile": "node_modules/@aws-sdk/region-config-resolver/LICENSE"
+    },
+    "@aws-sdk/signature-v4-multi-region@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/signature-v4-multi-region",
+        "licenseFile": "node_modules/@aws-sdk/signature-v4-multi-region/LICENSE"
+    },
+    "@aws-sdk/token-providers@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/token-providers",
+        "licenseFile": "node_modules/@aws-sdk/token-providers/LICENSE"
+    },
+    "@aws-sdk/types@3.664.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-crypto/util/node_modules/@aws-sdk/types",
+        "licenseFile": "node_modules/@aws-crypto/util/node_modules/@aws-sdk/types/LICENSE"
+    },
+    "@aws-sdk/types@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/types",
+        "licenseFile": "node_modules/@aws-sdk/types/LICENSE"
+    },
+    "@aws-sdk/util-arn-parser@3.568.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/util-arn-parser",
+        "licenseFile": "node_modules/@aws-sdk/util-arn-parser/LICENSE"
+    },
+    "@aws-sdk/util-endpoints@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/util-endpoints",
+        "licenseFile": "node_modules/@aws-sdk/util-endpoints/LICENSE"
+    },
+    "@aws-sdk/util-locate-window@3.568.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/util-locate-window",
+        "licenseFile": "node_modules/@aws-sdk/util-locate-window/LICENSE"
+    },
+    "@aws-sdk/util-user-agent-browser@3.667.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/util-user-agent-browser",
+        "licenseFile": "node_modules/@aws-sdk/util-user-agent-browser/LICENSE"
+    },
+    "@aws-sdk/util-user-agent-node@3.669.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/util-user-agent-node",
+        "licenseFile": "node_modules/@aws-sdk/util-user-agent-node/LICENSE"
+    },
+    "@aws-sdk/xml-builder@3.662.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/aws/aws-sdk-js-v3",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-sdk/xml-builder",
+        "licenseFile": "node_modules/@aws-sdk/xml-builder/LICENSE"
+    },
     "@babel/code-frame@7.24.7": {
         "licenses": "MIT",
         "repository": "https://github.com/babel/babel",
@@ -317,6 +604,13 @@
         "path": "node_modules/@eslint/js",
         "licenseFile": "node_modules/@eslint/js/LICENSE"
     },
+    "@fastify/accept-negotiator@1.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/fastify/accept-negotiator",
+        "publisher": "Aras Abbasi",
+        "path": "node_modules/@fastify/accept-negotiator",
+        "licenseFile": "node_modules/@fastify/accept-negotiator/LICENSE"
+    },
     "@fastify/accepts@4.3.0": {
         "licenses": "MIT",
         "repository": "https://github.com/fastify/fastify-accepts",
@@ -429,6 +723,21 @@
         "publisher": "Tomas Della Vedova - @delvedor",
         "path": "node_modules/@fastify/rate-limit",
         "licenseFile": "node_modules/@fastify/rate-limit/LICENSE"
+    },
+    "@fastify/send@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/fastify/send",
+        "publisher": "TJ Holowaychuk",
+        "email": "tj@vision-media.ca",
+        "path": "node_modules/@fastify/send",
+        "licenseFile": "node_modules/@fastify/send/LICENSE"
+    },
+    "@fastify/static@7.0.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/fastify/fastify-static",
+        "publisher": "Tommaso Allevi - @allevo",
+        "path": "node_modules/@fastify/static",
+        "licenseFile": "node_modules/@fastify/static/LICENSE"
     },
     "@humanwhocodes/config-array@0.11.14": {
         "licenses": "Apache-2.0",
@@ -698,6 +1007,13 @@
         "path": "node_modules/@nestjs/schematics",
         "licenseFile": "node_modules/@nestjs/schematics/LICENSE"
     },
+    "@nestjs/serve-static@4.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/nestjs/serve-static",
+        "publisher": "Kamil Mysliwiec",
+        "path": "node_modules/@nestjs/serve-static",
+        "licenseFile": "node_modules/@nestjs/serve-static/LICENSE"
+    },
     "@nestjs/testing@10.3.10": {
         "licenses": "MIT",
         "repository": "https://github.com/nestjs/nest",
@@ -816,6 +1132,377 @@
         "publisher": "Christian Johansen",
         "path": "node_modules/@sinonjs/fake-timers",
         "licenseFile": "node_modules/@sinonjs/fake-timers/LICENSE"
+    },
+    "@smithy/abort-controller@3.1.5": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/abort-controller",
+        "licenseFile": "node_modules/@smithy/abort-controller/LICENSE"
+    },
+    "@smithy/chunked-blob-reader-native@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/chunked-blob-reader-native",
+        "licenseFile": "node_modules/@smithy/chunked-blob-reader-native/LICENSE"
+    },
+    "@smithy/chunked-blob-reader@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/chunked-blob-reader",
+        "licenseFile": "node_modules/@smithy/chunked-blob-reader/LICENSE"
+    },
+    "@smithy/config-resolver@3.0.9": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/config-resolver",
+        "licenseFile": "node_modules/@smithy/config-resolver/LICENSE"
+    },
+    "@smithy/core@2.4.8": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS Smithy Team",
+        "path": "node_modules/@smithy/core",
+        "licenseFile": "node_modules/@smithy/core/LICENSE"
+    },
+    "@smithy/credential-provider-imds@3.2.4": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/credential-provider-imds",
+        "licenseFile": "node_modules/@smithy/credential-provider-imds/LICENSE"
+    },
+    "@smithy/eventstream-codec@3.1.6": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/eventstream-codec",
+        "licenseFile": "node_modules/@smithy/eventstream-codec/LICENSE"
+    },
+    "@smithy/eventstream-serde-browser@3.0.10": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/eventstream-serde-browser",
+        "licenseFile": "node_modules/@smithy/eventstream-serde-browser/LICENSE"
+    },
+    "@smithy/eventstream-serde-config-resolver@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/eventstream-serde-config-resolver",
+        "licenseFile": "node_modules/@smithy/eventstream-serde-config-resolver/LICENSE"
+    },
+    "@smithy/eventstream-serde-node@3.0.9": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/eventstream-serde-node",
+        "licenseFile": "node_modules/@smithy/eventstream-serde-node/LICENSE"
+    },
+    "@smithy/eventstream-serde-universal@3.0.9": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/eventstream-serde-universal",
+        "licenseFile": "node_modules/@smithy/eventstream-serde-universal/LICENSE"
+    },
+    "@smithy/fetch-http-handler@3.2.9": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/fetch-http-handler",
+        "licenseFile": "node_modules/@smithy/fetch-http-handler/LICENSE"
+    },
+    "@smithy/hash-blob-browser@3.1.6": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/hash-blob-browser",
+        "licenseFile": "node_modules/@smithy/hash-blob-browser/LICENSE"
+    },
+    "@smithy/hash-node@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/hash-node",
+        "licenseFile": "node_modules/@smithy/hash-node/LICENSE"
+    },
+    "@smithy/hash-stream-node@3.1.6": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/hash-stream-node",
+        "licenseFile": "node_modules/@smithy/hash-stream-node/LICENSE"
+    },
+    "@smithy/invalid-dependency@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/invalid-dependency",
+        "licenseFile": "node_modules/@smithy/invalid-dependency/LICENSE"
+    },
+    "@smithy/is-array-buffer@2.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-crypto/util/node_modules/@smithy/is-array-buffer",
+        "licenseFile": "node_modules/@aws-crypto/util/node_modules/@smithy/is-array-buffer/LICENSE"
+    },
+    "@smithy/is-array-buffer@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/is-array-buffer",
+        "licenseFile": "node_modules/@smithy/is-array-buffer/LICENSE"
+    },
+    "@smithy/md5-js@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/md5-js",
+        "licenseFile": "node_modules/@smithy/md5-js/LICENSE"
+    },
+    "@smithy/middleware-content-length@3.0.9": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/middleware-content-length",
+        "licenseFile": "node_modules/@smithy/middleware-content-length/LICENSE"
+    },
+    "@smithy/middleware-endpoint@3.1.4": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/middleware-endpoint",
+        "licenseFile": "node_modules/@smithy/middleware-endpoint/LICENSE"
+    },
+    "@smithy/middleware-retry@3.0.23": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/middleware-retry",
+        "licenseFile": "node_modules/@smithy/middleware-retry/LICENSE"
+    },
+    "@smithy/middleware-serde@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/middleware-serde",
+        "licenseFile": "node_modules/@smithy/middleware-serde/LICENSE"
+    },
+    "@smithy/middleware-stack@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/middleware-stack",
+        "licenseFile": "node_modules/@smithy/middleware-stack/LICENSE"
+    },
+    "@smithy/node-config-provider@3.1.8": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/node-config-provider",
+        "licenseFile": "node_modules/@smithy/node-config-provider/LICENSE"
+    },
+    "@smithy/node-http-handler@3.2.4": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/node-http-handler",
+        "licenseFile": "node_modules/@smithy/node-http-handler/LICENSE"
+    },
+    "@smithy/property-provider@3.1.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/property-provider",
+        "licenseFile": "node_modules/@smithy/property-provider/LICENSE"
+    },
+    "@smithy/protocol-http@4.1.4": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS Smithy Team",
+        "path": "node_modules/@smithy/protocol-http",
+        "licenseFile": "node_modules/@smithy/protocol-http/LICENSE"
+    },
+    "@smithy/querystring-builder@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/querystring-builder",
+        "licenseFile": "node_modules/@smithy/querystring-builder/LICENSE"
+    },
+    "@smithy/querystring-parser@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/querystring-parser",
+        "licenseFile": "node_modules/@smithy/querystring-parser/LICENSE"
+    },
+    "@smithy/service-error-classification@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/service-error-classification",
+        "licenseFile": "node_modules/@smithy/service-error-classification/LICENSE"
+    },
+    "@smithy/shared-ini-file-loader@3.1.8": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/shared-ini-file-loader",
+        "licenseFile": "node_modules/@smithy/shared-ini-file-loader/LICENSE"
+    },
+    "@smithy/signature-v4@4.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/signature-v4",
+        "licenseFile": "node_modules/@smithy/signature-v4/LICENSE"
+    },
+    "@smithy/smithy-client@3.4.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/smithy-client",
+        "licenseFile": "node_modules/@smithy/smithy-client/LICENSE"
+    },
+    "@smithy/types@3.5.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS Smithy Team",
+        "path": "node_modules/@smithy/types",
+        "licenseFile": "node_modules/@smithy/types/LICENSE"
+    },
+    "@smithy/url-parser@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/url-parser",
+        "licenseFile": "node_modules/@smithy/url-parser/LICENSE"
+    },
+    "@smithy/util-base64@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-base64",
+        "licenseFile": "node_modules/@smithy/util-base64/LICENSE"
+    },
+    "@smithy/util-body-length-browser@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-body-length-browser",
+        "licenseFile": "node_modules/@smithy/util-body-length-browser/LICENSE"
+    },
+    "@smithy/util-body-length-node@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-body-length-node",
+        "licenseFile": "node_modules/@smithy/util-body-length-node/LICENSE"
+    },
+    "@smithy/util-buffer-from@2.2.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-crypto/util/node_modules/@smithy/util-buffer-from",
+        "licenseFile": "node_modules/@aws-crypto/util/node_modules/@smithy/util-buffer-from/LICENSE"
+    },
+    "@smithy/util-buffer-from@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-buffer-from",
+        "licenseFile": "node_modules/@smithy/util-buffer-from/LICENSE"
+    },
+    "@smithy/util-config-provider@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-config-provider",
+        "licenseFile": "node_modules/@smithy/util-config-provider/LICENSE"
+    },
+    "@smithy/util-defaults-mode-browser@3.0.23": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-defaults-mode-browser",
+        "licenseFile": "node_modules/@smithy/util-defaults-mode-browser/LICENSE"
+    },
+    "@smithy/util-defaults-mode-node@3.0.23": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-defaults-mode-node",
+        "licenseFile": "node_modules/@smithy/util-defaults-mode-node/LICENSE"
+    },
+    "@smithy/util-endpoints@2.1.3": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-endpoints",
+        "licenseFile": "node_modules/@smithy/util-endpoints/LICENSE"
+    },
+    "@smithy/util-hex-encoding@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-hex-encoding",
+        "licenseFile": "node_modules/@smithy/util-hex-encoding/LICENSE"
+    },
+    "@smithy/util-middleware@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-middleware",
+        "licenseFile": "node_modules/@smithy/util-middleware/LICENSE"
+    },
+    "@smithy/util-retry@3.0.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-retry",
+        "licenseFile": "node_modules/@smithy/util-retry/LICENSE"
+    },
+    "@smithy/util-stream@3.1.9": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-stream",
+        "licenseFile": "node_modules/@smithy/util-stream/LICENSE"
+    },
+    "@smithy/util-uri-escape@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-uri-escape",
+        "licenseFile": "node_modules/@smithy/util-uri-escape/LICENSE"
+    },
+    "@smithy/util-utf8@2.3.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8",
+        "licenseFile": "node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/LICENSE"
+    },
+    "@smithy/util-utf8@3.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-utf8",
+        "licenseFile": "node_modules/@smithy/util-utf8/LICENSE"
+    },
+    "@smithy/util-waiter@3.1.6": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/awslabs/smithy-typescript",
+        "publisher": "AWS SDK for JavaScript Team",
+        "path": "node_modules/@smithy/util-waiter",
+        "licenseFile": "node_modules/@smithy/util-waiter/LICENSE"
     },
     "@tsconfig/node10@1.0.11": {
         "licenses": "MIT",
@@ -1481,6 +2168,14 @@
         "path": "node_modules/bn.js",
         "licenseFile": "node_modules/bn.js/LICENSE"
     },
+    "bowser@2.11.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/lancedikson/bowser",
+        "publisher": "Dustin Diaz",
+        "email": "dustin@dustindiaz.com",
+        "path": "node_modules/bowser",
+        "licenseFile": "node_modules/bowser/LICENSE"
+    },
     "brace-expansion@1.1.11": {
         "licenses": "MIT",
         "repository": "https://github.com/juliangruber/brace-expansion",
@@ -1494,8 +2189,8 @@
         "repository": "https://github.com/juliangruber/brace-expansion",
         "publisher": "Julian Gruber",
         "email": "mail@juliangruber.com",
-        "path": "node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion",
-        "licenseFile": "node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion/LICENSE"
+        "path": "node_modules/@fastify/static/node_modules/brace-expansion",
+        "licenseFile": "node_modules/@fastify/static/node_modules/brace-expansion/LICENSE"
     },
     "braces@3.0.3": {
         "licenses": "MIT",
@@ -1845,6 +2540,14 @@
         "path": "node_modules/consola",
         "licenseFile": "node_modules/consola/README.md"
     },
+    "content-disposition@0.5.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/jshttp/content-disposition",
+        "publisher": "Douglas Christopher Wilson",
+        "email": "doug@somethingdoug.com",
+        "path": "node_modules/content-disposition",
+        "licenseFile": "node_modules/content-disposition/LICENSE"
+    },
     "convert-source-map@2.0.0": {
         "licenses": "MIT",
         "repository": "https://github.com/thlorenz/convert-source-map",
@@ -1971,6 +2674,14 @@
         "email": "felix@debuggable.com",
         "path": "node_modules/delayed-stream",
         "licenseFile": "node_modules/delayed-stream/License"
+    },
+    "depd@2.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/dougwilson/nodejs-depd",
+        "publisher": "Douglas Christopher Wilson",
+        "email": "doug@somethingdoug.com",
+        "path": "node_modules/depd",
+        "licenseFile": "node_modules/depd/LICENSE"
     },
     "detect-libc@2.0.3": {
         "licenses": "Apache-2.0",
@@ -2129,6 +2840,12 @@
         "email": "luke.edwards05@gmail.com",
         "path": "node_modules/escalade",
         "licenseFile": "node_modules/escalade/license"
+    },
+    "escape-html@1.0.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/component/escape-html",
+        "path": "node_modules/escape-html",
+        "licenseFile": "node_modules/escape-html/LICENSE"
     },
     "escape-string-regexp@1.0.5": {
         "licenses": "MIT",
@@ -2392,6 +3109,13 @@
         "email": "vince.legoff@gmail.com",
         "path": "node_modules/fast-uri",
         "licenseFile": "node_modules/fast-uri/LICENSE"
+    },
+    "fast-xml-parser@4.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/NaturalIntelligence/fast-xml-parser",
+        "publisher": "Amit Gupta",
+        "path": "node_modules/fast-xml-parser",
+        "licenseFile": "node_modules/fast-xml-parser/LICENSE"
     },
     "fastfall@1.5.1": {
         "licenses": "MIT",
@@ -2662,8 +3386,8 @@
         "repository": "https://github.com/isaacs/node-glob",
         "publisher": "Isaac Z. Schlueter",
         "email": "i@izs.me",
-        "path": "node_modules/read-package-json/node_modules/glob",
-        "licenseFile": "node_modules/read-package-json/node_modules/glob/LICENSE"
+        "path": "node_modules/@fastify/static/node_modules/glob",
+        "licenseFile": "node_modules/@fastify/static/node_modules/glob/LICENSE"
     },
     "glob@7.2.3": {
         "licenses": "ISC",
@@ -2812,6 +3536,14 @@
         "publisher": "Andrea Giammarchi",
         "path": "node_modules/html-escaper",
         "licenseFile": "node_modules/html-escaper/LICENSE.txt"
+    },
+    "http-errors@2.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/jshttp/http-errors",
+        "publisher": "Jonathan Ong",
+        "email": "me@jongleberry.com",
+        "path": "node_modules/http-errors",
+        "licenseFile": "node_modules/http-errors/LICENSE"
     },
     "human-signals@2.1.0": {
         "licenses": "Apache-2.0",
@@ -3681,6 +4413,14 @@
         "path": "node_modules/mime",
         "licenseFile": "node_modules/mime/LICENSE"
     },
+    "mime@3.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/broofa/mime",
+        "publisher": "Robert Kieffer",
+        "email": "robert@broofa.com",
+        "path": "node_modules/@fastify/send/node_modules/mime",
+        "licenseFile": "node_modules/@fastify/send/node_modules/mime/LICENSE"
+    },
     "mimic-fn@2.1.0": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/mimic-fn",
@@ -3708,8 +4448,8 @@
         "repository": "https://github.com/isaacs/minimatch",
         "publisher": "Isaac Z. Schlueter",
         "email": "i@izs.me",
-        "path": "node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch",
-        "licenseFile": "node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch/LICENSE"
+        "path": "node_modules/@fastify/static/node_modules/minimatch",
+        "licenseFile": "node_modules/@fastify/static/node_modules/minimatch/LICENSE"
     },
     "minimist@1.2.8": {
         "licenses": "MIT",
@@ -4041,6 +4781,12 @@
         "email": "i@izs.me",
         "path": "node_modules/path-scurry",
         "licenseFile": "node_modules/path-scurry/LICENSE.md"
+    },
+    "path-to-regexp@0.2.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/component/path-to-regexp",
+        "path": "node_modules/@nestjs/serve-static/node_modules/path-to-regexp",
+        "licenseFile": "node_modules/@nestjs/serve-static/node_modules/path-to-regexp/LICENSE"
     },
     "path-to-regexp@3.2.0": {
         "licenses": "MIT",
@@ -4539,8 +5285,8 @@
         "licenseFile": "node_modules/serialize-javascript/LICENSE"
     },
     "server@0.0.1": {
-        "licenses": "UNLICENSED",
-        "private": true,
+        "licenses": "MIT",
+        "publisher": "Jonathan Schad",
         "path": "",
         "licenseFile": "README.md"
     },
@@ -4558,6 +5304,13 @@
         "email": "ljharb@gmail.com",
         "path": "node_modules/set-function-length",
         "licenseFile": "node_modules/set-function-length/LICENSE"
+    },
+    "setprototypeof@1.2.0": {
+        "licenses": "ISC",
+        "repository": "https://github.com/wesleytodd/setprototypeof",
+        "publisher": "Wes Todd",
+        "path": "node_modules/setprototypeof",
+        "licenseFile": "node_modules/setprototypeof/LICENSE"
     },
     "sharp@0.33.5": {
         "licenses": "Apache-2.0",
@@ -4749,6 +5502,12 @@
         "path": "node_modules/stack-utils",
         "licenseFile": "node_modules/stack-utils/LICENSE.md"
     },
+    "statuses@2.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/jshttp/statuses",
+        "path": "node_modules/statuses",
+        "licenseFile": "node_modules/statuses/LICENSE"
+    },
     "steed@1.1.3": {
         "licenses": "MIT",
         "repository": "https://github.com/mcollina/steed",
@@ -4778,8 +5537,8 @@
         "repository": "https://github.com/sindresorhus/string-width",
         "publisher": "Sindre Sorhus",
         "email": "sindresorhus@gmail.com",
-        "path": "node_modules/string-width",
-        "licenseFile": "node_modules/string-width/license"
+        "path": "node_modules/string-width-cjs",
+        "licenseFile": "node_modules/string-width-cjs/license"
     },
     "string-width@5.1.2": {
         "licenses": "MIT",
@@ -4842,6 +5601,13 @@
         "email": "sindresorhus@gmail.com",
         "path": "node_modules/strip-json-comments",
         "licenseFile": "node_modules/strip-json-comments/license"
+    },
+    "strnum@1.0.5": {
+        "licenses": "MIT",
+        "repository": "https://github.com/NaturalIntelligence/strnum",
+        "publisher": "Amit Gupta",
+        "path": "node_modules/strnum",
+        "licenseFile": "node_modules/strnum/LICENSE"
     },
     "superagent@9.0.2": {
         "licenses": "MIT",
@@ -4998,6 +5764,14 @@
         "email": "kibertoad@gmail.com",
         "path": "node_modules/toad-cache",
         "licenseFile": "node_modules/toad-cache/LICENSE"
+    },
+    "toidentifier@1.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/component/toidentifier",
+        "publisher": "Douglas Christopher Wilson",
+        "email": "doug@somethingdoug.com",
+        "path": "node_modules/toidentifier",
+        "licenseFile": "node_modules/toidentifier/LICENSE"
     },
     "tr46@0.0.3": {
         "licenses": "MIT",
@@ -5173,6 +5947,12 @@
         "path": "node_modules/uuid",
         "licenseFile": "node_modules/uuid/LICENSE.md"
     },
+    "uuid@9.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/uuidjs/uuid",
+        "path": "node_modules/@smithy/middleware-retry/node_modules/uuid",
+        "licenseFile": "node_modules/@smithy/middleware-retry/node_modules/uuid/LICENSE.md"
+    },
     "v8-compile-cache-lib@3.0.1": {
         "licenses": "MIT",
         "repository": "https://github.com/cspotcode/v8-compile-cache-lib",
@@ -5292,8 +6072,8 @@
         "repository": "https://github.com/chalk/wrap-ansi",
         "publisher": "Sindre Sorhus",
         "email": "sindresorhus@gmail.com",
-        "path": "node_modules/cliui/node_modules/wrap-ansi",
-        "licenseFile": "node_modules/cliui/node_modules/wrap-ansi/license"
+        "path": "node_modules/wrap-ansi-cjs",
+        "licenseFile": "node_modules/wrap-ansi-cjs/license"
     },
     "wrap-ansi@8.1.0": {
         "licenses": "MIT",

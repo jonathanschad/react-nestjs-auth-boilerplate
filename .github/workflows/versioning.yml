@@ -1,0 +1,52 @@
+name: Bump Patch Version
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    bump-version:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "20"
+
+            - name: Get Latest Commit Message
+              id: get_commit_msg
+              run: echo "commit_message=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+
+            - name: Skip Version Bump if Commit Message Contains '[skip ci]'
+              if: ${{ contains(env.commit_message, '[skip ci]') }}
+              run: echo "Skipping version bump for version bump commit"
+
+            - name: Bump Patch Version - Client
+              if: ${{ !contains(env.commit_message, '[skip ci]') }}
+              working-directory: ./client
+              run: |
+                  npm version patch -m "ci: bump client version to %s [skip ci]"
+              env:
+                  GIT_COMMITTER_NAME: github-actions
+                  GIT_COMMITTER_EMAIL: actions@github.com
+
+            - name: Bump Patch Version - Server
+              if: ${{ !contains(env.commit_message, '[skip ci]') }}
+              working-directory: ./server
+              run: |
+                  npm version patch -m "ci: bump server version to %s [skip ci]"
+              env:
+                  GIT_COMMITTER_NAME: github-actions
+                  GIT_COMMITTER_EMAIL: actions@github.com
+
+            - name: Push Changes
+              if: ${{ !contains(env.commit_message, '[skip ci]') }}
+              run: |
+                  git config user.name "github-actions"
+                  git config user.email "actions@github.com"
+                  git push origin main

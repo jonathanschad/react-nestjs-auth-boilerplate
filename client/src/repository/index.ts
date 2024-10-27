@@ -1,15 +1,15 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import { config } from '@/config';
 import i18n from '@/i18n/i18n';
 import { renewAccessToken } from '@/repository/auth';
 import { useStore } from '@/store/store';
 
-export const BASE_URL = 'http://localhost:3003/api';
+export const BASE_URL = new URL('/api', config.BACKEND_URL).href;
 
 export const handleAxiosError = (error: unknown) => {
     console.error(error);
 };
-
 // Create an instance of Axios
 export const api = axios.create({
     baseURL: BASE_URL, // Change to your API base URL

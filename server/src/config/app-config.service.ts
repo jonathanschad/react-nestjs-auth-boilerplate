@@ -28,16 +28,12 @@ export class AppConfigService {
         return this.get('HOST');
     }
 
-    get protocol(): string {
-        return this.get('PROTOCOL');
-    }
-
     get publicUrl(): string {
-        return `${this.protocol}://${this.host}:${this.port}`;
+        return this.get('VITE_BACKEND_URL');
     }
 
     get frontendPublicUrl(): string {
-        return this.get('FRONTEND_PUBLIC_URL');
+        return this.get('VITE_FRONTEND_URL');
     }
 
     get jwtTokenSecret(): string {
@@ -143,7 +139,7 @@ export class AppConfigService {
     get storageType(): 's3' | 'local' {
         const storageType = this.get('STORAGE_TYPE');
         if (storageType !== 's3' && storageType !== 'local') {
-            throw new Error('Config error: STORAGE_TYPE must be either "s3" or "local"');
+            throw new Error(`Config error: STORAGE_TYPE must be either "s3" or "local", got ${storageType}`);
         }
 
         return this.get('STORAGE_TYPE') as 's3' | 'local';

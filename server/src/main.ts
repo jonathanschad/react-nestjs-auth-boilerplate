@@ -13,6 +13,7 @@ import { AppModule } from '@/app.module';
 import { ExceptionFilter } from '@/util/exception.filter';
 import fastifyMultipart from '@fastify/multipart';
 import { DisabledRouteInterceptor } from '@/util/interceptors/disable-route-interceptor';
+import { serveFrontend } from '@/util/middleware/frontend.middleware';
 
 const prettyStream = pretty({
     colorize: true,
@@ -35,10 +36,7 @@ export const logger = pino(
 );
 
 async function bootstrap() {
-    const app = await NestFactory.create<NestFastifyApplication>(
-        AppModule,
-        new FastifyAdapter({ trustProxy: true, logger }),
-    );
+    const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter({ logger }));
 
     const appConfigService = app.get<AppConfigService>(AppConfigService);
     const reflector = app.get(Reflector);
@@ -46,17 +44,27 @@ async function bootstrap() {
     app.useGlobalFilters(new ExceptionFilter());
     app.useGlobalInterceptors(new DisabledRouteInterceptor(reflector));
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
+    app.setGlobalPrefix('api');
 
     await app.register(fastifyCookie);
-    await app.register(fastifyHelmet);
+    await app.register(fastifyHelmet, {
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+                styleSrc: ["'self'", "'unsafe-inline'"],
+            },
+        },
+    });
     await app.register(fastifyAccepts);
     await app.register(fastifyCors, { origin: appConfigService.frontendPublicUrl, credentials: true });
     await app.register(fastifyJwt, {
         secret: appConfigService.jwtTokenSecret,
     });
     await app.register(fastifyMultipart);
-    app.setGlobalPrefix('api');
+    await app.use(serveFrontend);
 
-    await app.listen(appConfigService.port);
+    await app.listen(appConfigService.port, appConfigService.host);
 }
+
 void bootstrap();

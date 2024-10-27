@@ -1,13 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { PublicRoute } from '@/auth/auth.guard';
-// eslint-disable-next-line no-restricted-imports
-// import packageJSON from '../package.json';
-// // eslint-disable-next-line no-restricted-imports
 import licensesJSON from '@/assets/licenses.json';
+import { AppConfigService } from '@/config/app-config.service';
 
 @Controller()
 export class AppController {
-    constructor() {}
+    constructor(private readonly appConfigService: AppConfigService) {}
 
     @Get('/legal/attribution')
     @PublicRoute()
@@ -15,6 +13,14 @@ export class AppController {
         return licensesJSON;
     }
 
+    @Get('/envs')
+    @PublicRoute()
+    async getFrontendEnvs() {
+        return {
+            BACKEND_URL: new URL('/api', this.appConfigService.publicUrl).href,
+            PUBLIC_URL: this.appConfigService.frontendPublicUrl,
+        };
+    }
     @Get('/health')
     @PublicRoute()
     async getHealth() {

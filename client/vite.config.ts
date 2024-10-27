@@ -11,4 +11,10 @@ export default defineConfig({
             '@': path.resolve(__dirname, './src'), // Adjust './src' as needed
         },
     },
+    esbuild: {
+        supported: {
+            'top-level-await': true, //browsers can handle top-level-await features
+        },
+    },
+    envDir: path.resolve(__dirname, '../'),
 });
