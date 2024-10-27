@@ -36,7 +36,7 @@ jobs:
                   context: .
                   push: true
                   tags: |
-                      yourusername/yourimage:${{ env.VERSION }}
-                      yourusername/yourimage:${{ env.MAJOR }}
-                      yourusername/yourimage:${{ env.MINOR }}
-                      yourusername/yourimage:latest
+                      jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
+                      jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
+                      jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
+                      jonathanschad/react-nestjs-boilerplate:latest
