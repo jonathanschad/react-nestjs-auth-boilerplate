@@ -1,0 +1,51 @@
+name: Bump Patch Version and Tag
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    bump-version:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "20"
+
+            - name: Bump Patch Version - Client
+              working-directory: ./client
+              run: |
+                  # Bump the patch version in client/package.json and commit
+                  npm version patch -m "ci: bump client version to %s [skip ci]"
+              env:
+                  GIT_COMMITTER_NAME: github-actions
+                  GIT_COMMITTER_EMAIL: actions@github.com
+
+            - name: Bump Patch Version - Server
+              working-directory: ./server
+              run: |
+                  # Bump the patch version in server/package.json and commit
+                  npm version patch -m "ci: bump server version to %s [skip ci]"
+              env:
+                  GIT_COMMITTER_NAME: github-actions
+                  GIT_COMMITTER_EMAIL: actions@github.com
+
+            - name: Push Changes and Create Tag
+              run: |
+                  # Push changes and tag with the new version
+                  git config user.name "github-actions"
+                  git config user.email "actions@github.com"
+                  git push origin main
+
+                  # Get the new version from the client package.json
+                  VERSION=$(node -p "require('./client/package.json').version")
+
+                  # Create a new Git tag and push it
+                  git tag "v${VERSION}"
+                  git push origin "v${VERSION}"
