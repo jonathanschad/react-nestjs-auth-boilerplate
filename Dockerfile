@@ -22,13 +22,13 @@ WORKDIR /app
 # Copy server build
 COPY --from=server-builder /app/dist ./server
 COPY --from=server-builder /app/node_modules ./node_modules
+COPY --from=server-builder /app/prisma ./prisma 
 
 # Copy client build for static file serving
 COPY --from=client-builder /app/dist ./public
-
 # Set environment variables
 ENV PORT=3000
 EXPOSE 3000
 
 # Start the NestJS server
-CMD ["node", "server/main.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node server/main.js"]
