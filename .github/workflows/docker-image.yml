@@ -2,10 +2,8 @@ name: Build and Push Docker Image
 
 on:
     push:
-        branches:
-            - task/add-deployment
         tags:
-            - "v*" # Only run on version tags like v1.0.0
+            - "v*" # Trigger only on version tags like v1.0.0
 
 jobs:
     build-and-push:
@@ -24,16 +22,21 @@ jobs:
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v2
 
-            - name: Build and Push Docker Image
+            - name: Extract Version Components
+              id: version
+              run: |
+                  VERSION=${GITHUB_REF#refs/tags/v}
+                  echo "VERSION=${VERSION}" >> $GITHUB_ENV
+                  echo "MAJOR=${VERSION%%.*}" >> $GITHUB_ENV
+                  echo "MINOR=${VERSION%.*}" >> $GITHUB_ENV
+
+            - name: Build and Push Docker Image with Multiple Tags
               uses: docker/build-push-action@v4
               with:
                   context: .
-                  tags: jonathanschad/react-nestjs-boilerplate:latest # Replace with your DockerHub username and image name
                   push: true
-
-            # Optionally, tag the image with the Git commit SHA
-            # - name: Tag with Git SHA
-            #   if: github.ref == 'refs/heads/main'
-            #   run: |
-            #     docker tag yourusername/yourimage:latest yourusername/yourimage:${{ github.sha }}
-            #     docker push yourusername/yourimage:${{ github.sha }}
+                  tags: |
+                      yourusername/yourimage:${{ env.VERSION }}
+                      yourusername/yourimage:${{ env.MAJOR }}
+                      yourusername/yourimage:${{ env.MINOR }}
+                      yourusername/yourimage:latest

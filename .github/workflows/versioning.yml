@@ -1,4 +1,4 @@
-name: Bump Patch Version and Tag
+name: Bump Patch Version
 
 on:
     push:
@@ -18,34 +18,35 @@ jobs:
               with:
                   node-version: "20"
 
+            - name: Get Latest Commit Message
+              id: get_commit_msg
+              run: echo "commit_message=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+
+            - name: Skip Version Bump if Commit Message Contains '[skip ci]'
+              if: ${{ contains(env.commit_message, '[skip ci]') }}
+              run: echo "Skipping version bump for version bump commit"
+
             - name: Bump Patch Version - Client
+              if: ${{ !contains(env.commit_message, '[skip ci]') }}
               working-directory: ./client
               run: |
-                  # Bump the patch version in client/package.json and commit
                   npm version patch -m "ci: bump client version to %s [skip ci]"
               env:
                   GIT_COMMITTER_NAME: github-actions
                   GIT_COMMITTER_EMAIL: actions@github.com
 
             - name: Bump Patch Version - Server
+              if: ${{ !contains(env.commit_message, '[skip ci]') }}
               working-directory: ./server
               run: |
-                  # Bump the patch version in server/package.json and commit
                   npm version patch -m "ci: bump server version to %s [skip ci]"
               env:
                   GIT_COMMITTER_NAME: github-actions
                   GIT_COMMITTER_EMAIL: actions@github.com
 
-            - name: Push Changes and Create Tag
+            - name: Push Changes
+              if: ${{ !contains(env.commit_message, '[skip ci]') }}
               run: |
-                  # Push changes and tag with the new version
                   git config user.name "github-actions"
                   git config user.email "actions@github.com"
                   git push origin main
-
-                  # Get the new version from the client package.json
-                  VERSION=$(node -p "require('./client/package.json').version")
-
-                  # Create a new Git tag and push it
-                  git tag "v${VERSION}"
-                  git push origin "v${VERSION}"
