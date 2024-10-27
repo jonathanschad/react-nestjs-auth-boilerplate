@@ -6,7 +6,7 @@ on:
             - main
 
 permissions:
-    contents: write # Allow the GitHub Actions bot to push changes
+    contents: write # Allow the GitHub Actions bot to create branches and PRs
 
 jobs:
     bump-version:
@@ -48,12 +48,12 @@ jobs:
                   # Configure Git author for the commit
                   git config user.name "github-actions[bot]"
                   git config user.email "actions@github.com"
-                  git commit -am "ci: bump version to $NEW_VERSION [skip ci]"
+                  git commit -m "ci: bump version to $NEW_VERSION [skip ci]"
               env:
                   GIT_COMMITTER_NAME: github-actions
                   GIT_COMMITTER_EMAIL: actions@github.com
 
-            - name: Push Changes and Create Tag
+            - name: Push Changes to New Branch and Create PR
               if: ${{ !contains(env.commit_message, '[skip ci]') }}
               env:
                   GIT_COMMITTER_NAME: github-actions
@@ -63,9 +63,13 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "actions@github.com"
 
-                  # Push the commit to main
-                  git push origin main
+                  # Create a new branch for the version bump
+                  BRANCH="bump-version-$NEW_VERSION"
+                  git checkout -b "$BRANCH"
+                  git push origin "$BRANCH"
 
-                  # Create and push a new tag with the new version
-                  git tag "v$NEW_VERSION"
-                  git push origin "v$NEW_VERSION"
+                  # Use GitHub CLI to create a pull request
+                  gh pr create --title "Bump version to $NEW_VERSION" --body "Automated version bump to $NEW_VERSION" --base main --head "$BRANCH" --label "automated"
+
+                  # Optional: Auto-merge the PR if your repo settings allow it
+                  gh pr merge "$BRANCH" --auto
