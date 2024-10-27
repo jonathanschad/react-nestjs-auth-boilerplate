@@ -21,6 +21,13 @@ jobs:
 
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v2
+              with:
+                  install: true
+
+            - name: Create Buildx Builder
+              run: |
+                  docker buildx create --name mybuilder --use
+                  docker buildx inspect --bootstrap
 
             - name: Extract Version Components
               id: version
@@ -30,11 +37,12 @@ jobs:
                   echo "MAJOR=${VERSION%%.*}" >> $GITHUB_ENV
                   echo "MINOR=${VERSION%.*}" >> $GITHUB_ENV
 
-            - name: Build and Push Docker Image with Multiple Tags
+            - name: Build and Push Docker Image with Multiple Tags and Architectures
               uses: docker/build-push-action@v4
               with:
                   context: .
                   push: true
+                  platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
                   tags: |
                       jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
                       jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
