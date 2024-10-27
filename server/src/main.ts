@@ -13,8 +13,7 @@ import { AppModule } from '@/app.module';
 import { ExceptionFilter } from '@/util/exception.filter';
 import fastifyMultipart from '@fastify/multipart';
 import { DisabledRouteInterceptor } from '@/util/interceptors/disable-route-interceptor';
-import path from 'path';
-import { FastifyRequest, FastifyReply } from 'fastify';
+import { serveFrontend } from '@/util/middleware/frontend.middleware';
 
 const prettyStream = pretty({
     colorize: true,
@@ -37,10 +36,7 @@ export const logger = pino(
 );
 
 async function bootstrap() {
-    const app = await NestFactory.create<NestFastifyApplication>(
-        AppModule,
-        new FastifyAdapter({ trustProxy: true, logger }),
-    );
+    const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter({ logger }));
 
     const appConfigService = app.get<AppConfigService>(AppConfigService);
     const reflector = app.get(Reflector);
@@ -48,6 +44,7 @@ async function bootstrap() {
     app.useGlobalFilters(new ExceptionFilter());
     app.useGlobalInterceptors(new DisabledRouteInterceptor(reflector));
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
+    app.setGlobalPrefix('api');
 
     await app.register(fastifyCookie);
     await app.register(fastifyHelmet, {
@@ -65,21 +62,7 @@ async function bootstrap() {
         secret: appConfigService.jwtTokenSecret,
     });
     await app.register(fastifyMultipart);
-
-    app.useStaticAssets({
-        root: path.join(__dirname, 'public'), // Root folder for static files
-        prefix: '/', // URL prefix to access static assets (e.g., /css/style.css)
-        decorateReply: false, // Avoid modifying reply if not needed
-        index: false, // Disables serving index.html automatically
-    });
-    // app.use((req: FastifyRequest, res: FastifyReply, next: () => void) => {
-    //     if (req.url.startsWith('/api')) {
-    //         return next();
-    //     }
-    //     //res.st('index.html', path.join(__dirname, '..', 'static'));
-    // });
-
-    app.setGlobalPrefix('api');
+    await app.use(serveFrontend);
 
     await app.listen(appConfigService.port, appConfigService.host);
 }
