@@ -41,7 +41,7 @@ export class GoogleAuthService {
     ) {}
 
     public buildGoogleOAuthRedirectUrl(): string {
-        const url = new URL(this.appConfigService.googleOAuthRedirectUri, this.appConfigService.publicUrl);
+        const url = new URL(this.appConfigService.googleOAuthRedirectUri, this.appConfigService.backendPublicUrl);
 
         return url.href;
     }

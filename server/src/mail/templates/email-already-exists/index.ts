@@ -1,9 +1,10 @@
 import { MailTemplate } from '@/mail/mail.service';
+import { emailAlreadyExistsFactory } from '@/mail/templates/email-already-exists/email-already-exists';
 import * as fs from 'fs';
 import * as path from 'path';
 
 export const emailAlreadyExistsTemplate: MailTemplate = {
-    template: fs.readFileSync(path.join(__dirname, 'email-already-exists.html'), 'utf8'),
+    templateFactory: emailAlreadyExistsFactory,
     translations: {
         DE: JSON.parse(fs.readFileSync(path.join(__dirname, 'de.json'), 'utf8')),
         EN: JSON.parse(fs.readFileSync(path.join(__dirname, 'en.json'), 'utf8')),
@@ -15,4 +16,5 @@ export const emailAlreadyExistsTemplate: MailTemplate = {
             path: path.join(__dirname, '../images/password-reset.png'),
         },
     ],
+    headlineIconUrl: 'cid:password-reset',
 };

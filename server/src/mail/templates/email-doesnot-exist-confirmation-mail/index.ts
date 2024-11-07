@@ -2,9 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { MailTemplate } from '@/mail/mail.service';
+import { emailDoesNotExistConfirmationFactory } from '@/mail/templates/email-doesnot-exist-confirmation-mail/email-doesnot-exist-confirmation-mail';
 
 export const emailDoesNotExistConformationMailTemplate: MailTemplate = {
-    template: fs.readFileSync(path.join(__dirname, 'email-doesnot-exist-confirmation-mail.html'), 'utf8'),
+    templateFactory: emailDoesNotExistConfirmationFactory,
     translations: {
         DE: JSON.parse(fs.readFileSync(path.join(__dirname, 'de.json'), 'utf8')),
         EN: JSON.parse(fs.readFileSync(path.join(__dirname, 'en.json'), 'utf8')),
@@ -16,4 +17,5 @@ export const emailDoesNotExistConformationMailTemplate: MailTemplate = {
             path: path.join(__dirname, '../images/password-reset.png'),
         },
     ],
+    headlineIconUrl: 'cid:password-reset',
 };

@@ -2,9 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { MailTemplate } from '@/mail/mail.service';
+import { emailAlreadyVerifiedFactory } from '@/mail/templates/email-already-verified/email-already-verified';
 
 export const emailAlreadyVerifiedTemplate: MailTemplate = {
-    template: fs.readFileSync(path.join(__dirname, 'email-already-verified.html'), 'utf8'),
+    templateFactory: emailAlreadyVerifiedFactory,
     translations: {
         DE: JSON.parse(fs.readFileSync(path.join(__dirname, 'de.json'), 'utf8')),
         EN: JSON.parse(fs.readFileSync(path.join(__dirname, 'en.json'), 'utf8')),
@@ -16,4 +17,5 @@ export const emailAlreadyVerifiedTemplate: MailTemplate = {
             path: path.join(__dirname, '../images/password-reset.png'),
         },
     ],
+    headlineIconUrl: 'cid:password-reset',
 };

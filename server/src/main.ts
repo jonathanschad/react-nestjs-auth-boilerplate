@@ -51,8 +51,8 @@ async function bootstrap() {
         contentSecurityPolicy: {
             directives: {
                 defaultSrc: ["'self'"],
-                scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-                styleSrc: ["'self'", "'unsafe-inline'"],
+                scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", appConfigService.frontendPublicUrl],
+                styleSrc: ["'self'", "'unsafe-inline'", appConfigService.frontendPublicUrl],
             },
         },
     });

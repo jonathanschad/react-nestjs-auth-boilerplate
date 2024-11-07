@@ -8,15 +8,19 @@ import { AppConfigService } from '@/config/app-config.service';
 import { Language } from '@prisma/client';
 import { UserWithSettings } from '@/types/prisma';
 import { templates } from '@/mail/templates/templates';
-import { generateSocials } from '@/mail/templates/generate-socials';
 import * as path from 'path';
+import { renderToStaticMarkup, TReaderDocument } from '@usewaypoint/email-builder';
+import { defaultEmailTemplateFactory } from '@/mail/templates/default-template';
 export interface MailTemplate {
-    template: string;
+    templateFactory: (translations: any) => TReaderDocument; // TODO type this
     translations: Record<Language, EmailTranslation>;
-    images?: Attachment[];
+    images: Attachment[];
+    headlineIconUrl: string;
 }
 export interface EmailTranslation {
     subject: string;
+    headline: string;
+    contactHeadline: string;
     [key: string]: string;
 }
 
@@ -94,7 +98,10 @@ export class MailService {
         otherKeys?: Record<string, string>,
     ): void {
         const template = templates[email];
-
+        const socials = this.appConfigService.socials.map((social) => ({
+            name: social.name.toLowerCase(),
+            url: social.url.toLowerCase(),
+        }));
         const images = template.images ?? [];
         images.push(
             {
@@ -102,7 +109,7 @@ export class MailService {
                 filename: 'logo.png',
                 path: path.join(__dirname, './templates/images/logo.png'),
             },
-            ...this.appConfigService.socials.map((social) => ({
+            ...socials.map((social) => ({
                 cid: social.name,
                 filename: `${social.name}.png`,
                 path: path.join(__dirname, `./templates/images/${social.name}.png`),
@@ -111,24 +118,27 @@ export class MailService {
 
         const translation = template.translations[options.language];
 
-        const socials = generateSocials(this.appConfigService.socials);
-
-        const htmlContent = this.applyTranslation(template.template, {
+        const templateRoot = defaultEmailTemplateFactory({
             ...translation,
-            ...otherKeys,
+            iconUrl: template.headlineIconUrl,
             contact1: this.appConfigService.imprintContact1,
             contact2: this.appConfigService.imprintContact2,
             contact3: this.appConfigService.imprintContact3,
             contact4: this.appConfigService.imprintContact4,
+            copyRight: this.appConfigService.imprintCopyright,
             socials,
-            imprintCopyright: this.appConfigService.imprintCopyright,
         });
+        const contentTemplate = template.templateFactory({ ...translation, ...otherKeys });
 
+        const templateOptions = {
+            ...templateRoot,
+            ...contentTemplate,
+        };
         const mailOptions: MailOptions = {
             from: this.appConfigService.smtpUser,
             to: options.email,
             subject: translation.subject,
-            html: htmlContent,
+            html: renderToStaticMarkup(templateOptions, { rootBlockId: 'root' }),
             attachments: template.images,
         };
 
@@ -139,14 +149,5 @@ export class MailService {
                 console.log(`${String(email)} Email sent to ${options.email}`);
             }
         });
-    }
-
-    private applyTranslation(template: string, translation: EmailTranslation): string {
-        let result = template;
-        Object.keys(translation).forEach((key) => {
-            const regex = new RegExp(`{{\\s*${key}\\s*}}`, 'g');
-            result = result.replace(regex, translation[key]);
-        });
-        return result;
     }
 }

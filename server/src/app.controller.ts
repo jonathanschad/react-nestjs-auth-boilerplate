@@ -17,7 +17,7 @@ export class AppController {
     @PublicRoute()
     async getFrontendEnvs() {
         return {
-            BACKEND_URL: new URL('/api', this.appConfigService.publicUrl).href,
+            BACKEND_URL: new URL('/api', this.appConfigService.backendPublicUrl).href,
             PUBLIC_URL: this.appConfigService.frontendPublicUrl,
         };
     }
