@@ -2,9 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { MailTemplate } from '@/mail/mail.service';
+import { passwordResetFactory } from '@/mail/templates/password-reset/password-reset';
 
 export const passwordResetTemplate: MailTemplate = {
-    template: fs.readFileSync(path.join(__dirname, 'password-reset.html'), 'utf8'),
+    templateFactory: passwordResetFactory,
     translations: {
         DE: JSON.parse(fs.readFileSync(path.join(__dirname, 'de.json'), 'utf8')),
         EN: JSON.parse(fs.readFileSync(path.join(__dirname, 'en.json'), 'utf8')),
@@ -16,4 +17,5 @@ export const passwordResetTemplate: MailTemplate = {
             path: path.join(__dirname, '../images/password-reset.png'),
         },
     ],
+    headlineIconUrl: 'cid:password-reset',
 };
