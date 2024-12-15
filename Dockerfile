@@ -1,5 +1,5 @@
 # Stage 1: Build the React app
-FROM node:20-alpine AS client-builder
+FROM node:20-alpine3.20 AS client-builder
 WORKDIR /app
 COPY client/package.json client/yarn.lock ./
 RUN yarn install
@@ -7,7 +7,7 @@ COPY client ./
 RUN yarn build
 
 # Stage 2: Build the NestJS server
-FROM node:20-alpine AS server-builder
+FROM node:20-alpine3.20 AS server-builder
 WORKDIR /app
 COPY server/package.json server/yarn.lock ./
 RUN yarn install
@@ -16,7 +16,7 @@ RUN npx prisma generate
 RUN yarn build
 
 # Stage 3: Production container
-FROM node:20-alpine
+FROM node:20-alpine3.20
 WORKDIR /app
 
 # Fix https://github.com/nodejs/docker-node/issues/2175
