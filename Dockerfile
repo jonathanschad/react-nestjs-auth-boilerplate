@@ -19,9 +19,6 @@ RUN yarn build
 FROM node:20-alpine3.20
 WORKDIR /app
 
-# Fix https://github.com/nodejs/docker-node/issues/2175
-RUN ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3
-
 # Copy server build
 COPY --from=server-builder /app/dist ./server
 COPY --from=server-builder /app/node_modules ./node_modules
