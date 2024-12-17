@@ -56,7 +56,7 @@ export class MailService {
     }
     public sendEmailDoesNotExistConformationMailEmail(email: string, language: Language): void {
         this.sendEmailUnregistered(
-            'emailDoesnotExistConfirmationMail',
+            'emailDoesNotExistConfirmationMail',
             { email, language },
             {
                 signupLink: new URL(`/signup`, this.appConfigService.frontendPublicUrl).href,
@@ -65,7 +65,7 @@ export class MailService {
     }
     public sendEmailDoesNotExistPasswordResetEmail(email: string, language: Language): void {
         this.sendEmailUnregistered(
-            'emailDoesnotExistPasswordReset',
+            'emailDoesNotExistPasswordReset',
             { email, language },
             {
                 signupLink: new URL(`/signup`, this.appConfigService.frontendPublicUrl).href,

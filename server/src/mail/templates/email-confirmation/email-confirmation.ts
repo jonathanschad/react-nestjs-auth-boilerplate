@@ -7,7 +7,7 @@ export const emailConfirmationFactory = (translations: {
     body3: string;
     confirmEmail: string;
     body4: string;
-    confirmationLink: string;
+    confirmEmailLink: string; // TODO THIS LINK DOES NOT WORK
 }): TReaderDocument => ({
     content: {
         type: 'Container',
@@ -122,7 +122,7 @@ export const emailConfirmationFactory = (translations: {
                 fullWidth: true,
                 size: 'medium',
                 text: translations.confirmEmail,
-                url: translations.confirmationLink,
+                url: translations.confirmEmailLink,
             },
         },
     },
