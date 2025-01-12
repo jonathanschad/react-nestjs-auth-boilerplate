@@ -35,6 +35,8 @@
         "@nestjs/jwt": "^10.2.0",
         "@nestjs/platform-fastify": "^10.3.10",
         "@prisma/client": "5.18.0",
+        "@sentry/nestjs": "^8.48.0",
+        "@sentry/profiling-node": "^8.48.0",
         "@usewaypoint/email-builder": "^0.0.8",
         "axios": "^1.7.7",
         "class-transformer": "^0.5.1",

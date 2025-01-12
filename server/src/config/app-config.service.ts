@@ -176,4 +176,20 @@ export class AppConfigService {
             return null;
         }
     }
+
+    get sentryBackendDsn(): string | null {
+        try {
+            return this.get('BACKEND_SENTRY_DSN');
+        } catch (error) {
+            return null;
+        }
+    }
+
+    get sentryFrontendDsn(): string | null {
+        try {
+            return this.get('FRONTEND_SENTRY_DSN');
+        } catch (error) {
+            return null;
+        }
+    }
 }

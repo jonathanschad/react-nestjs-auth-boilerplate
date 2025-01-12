@@ -10,7 +10,7 @@ import { PasswordModule } from '@/password/password.module';
 import { FileModule } from '@/files/file.module';
 import { UserModule } from '@/user/user.module';
 import { AppController } from '@/app.controller';
-
+import { SentryModule } from '@sentry/nestjs/setup';
 @Module({
     imports: [
         DatabaseModule,
@@ -22,6 +22,7 @@ import { AppController } from '@/app.controller';
         PasswordModule,
         FileModule,
         UserModule,
+        SentryModule.forRoot(),
     ],
     controllers: [AppController],
     providers: [AppService],

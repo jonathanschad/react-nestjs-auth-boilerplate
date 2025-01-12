@@ -20,8 +20,17 @@ export class AppController {
             BACKEND_URL: new URL('/api', this.appConfigService.backendPublicUrl).href,
             PUBLIC_URL: this.appConfigService.frontendPublicUrl,
             PLAUSIBLE_HOST_URL: this.appConfigService.plausibleHostUrl,
+            SENTRY_FRONTEND_DSN: this.appConfigService.sentryFrontendDsn,
+            ENVIRONMENT_NAME: this.appConfigService.nodeEnv,
         };
     }
+
+    @Get('/debug-sentry')
+    @PublicRoute()
+    getError() {
+        throw new Error('My first Sentry error 2!');
+    }
+
     @Get('/health')
     @PublicRoute()
     async getHealth() {

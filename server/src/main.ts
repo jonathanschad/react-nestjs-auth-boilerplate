@@ -1,3 +1,5 @@
+import '@/sentry';
+
 import { NestFactory, Reflector } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { fastifyCookie } from '@fastify/cookie';
@@ -14,6 +16,7 @@ import { ExceptionFilter } from '@/util/exception.filter';
 import fastifyMultipart from '@fastify/multipart';
 import { DisabledRouteInterceptor } from '@/util/interceptors/disable-route-interceptor';
 import { serveFrontend } from '@/util/middleware/frontend.middleware';
+import { initSentry } from '@/sentry';
 
 const prettyStream = pretty({
     colorize: true,
@@ -40,6 +43,8 @@ async function bootstrap() {
 
     const appConfigService = app.get<AppConfigService>(AppConfigService);
     const reflector = app.get(Reflector);
+
+    initSentry(appConfigService);
 
     app.useGlobalFilters(new ExceptionFilter());
     app.useGlobalInterceptors(new DisabledRouteInterceptor(reflector));

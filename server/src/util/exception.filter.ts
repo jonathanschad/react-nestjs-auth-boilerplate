@@ -1,10 +1,12 @@
 import { logger } from '@/main';
 import { HTTPError } from '@/util/httpHandlers';
 import { ExceptionFilter as NestExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
+import { SentryExceptionCaptured } from '@sentry/nestjs';
 import { FastifyRequest, FastifyReply } from 'fastify';
 
 @Catch()
 export class ExceptionFilter implements NestExceptionFilter {
+    @SentryExceptionCaptured()
     catch(exception: unknown, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<FastifyReply>();
