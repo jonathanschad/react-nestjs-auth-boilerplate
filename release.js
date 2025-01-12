@@ -44,6 +44,7 @@ updatePackageJson(packageJsonPathBackend);
 
 // Create Git commit and tag
 try {
+    execSync("git push origin", { stdio: "inherit" });
     execSync(`git commit -m "Release ${version}"`, { stdio: "inherit" });
     execSync("git push origin", { stdio: "inherit" });
     execSync(`git tag -a ${version} -m "Version ${version}"`, { stdio: "inherit" });
