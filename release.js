@@ -45,7 +45,9 @@ updatePackageJson(packageJsonPathBackend);
 // Create Git commit and tag
 try {
     execSync(`git commit -m "Release ${version}"`, { stdio: "inherit" });
+    execSync("git push origin", { stdio: "inherit" });
     execSync(`git tag -a ${version} -m "Version ${version}"`, { stdio: "inherit" });
+    execSync("git push origin tag ${version}", { stdio: "inherit" });
     console.log(`Created Git tag ${version}`);
 } catch (error) {
     console.error("Error creating Git commit or tag:", error.message);
