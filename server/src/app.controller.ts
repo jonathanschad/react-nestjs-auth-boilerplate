@@ -19,6 +19,7 @@ export class AppController {
         return {
             BACKEND_URL: new URL('/api', this.appConfigService.backendPublicUrl).href,
             PUBLIC_URL: this.appConfigService.frontendPublicUrl,
+            PLAUSIBLE_HOST_URL: this.appConfigService.plausibleHostUrl,
         };
     }
     @Get('/health')

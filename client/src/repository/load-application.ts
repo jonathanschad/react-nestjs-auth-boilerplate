@@ -3,7 +3,7 @@ import api from '@/repository';
 import { renewAccessToken } from '@/repository/auth';
 
 export const loadApplication = async () => {
-    await Promise.all([renewAccessToken(), loadEnv()]);
+    await Promise.allSettled([renewAccessToken(), loadEnv()]);
 };
 
 const loadEnv = async () => {

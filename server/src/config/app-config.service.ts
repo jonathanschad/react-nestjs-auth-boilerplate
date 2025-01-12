@@ -168,4 +168,12 @@ export class AppConfigService {
     get s3Region(): string {
         return this.get('S3_REGION');
     }
+
+    get plausibleHostUrl(): string | null {
+        try {
+            return this.get('PLAUSIBLE_HOST_URL');
+        } catch (error) {
+            return null;
+        }
+    }
 }
