@@ -7,7 +7,7 @@ export const Imprint = () => {
     return (
         <div className="flex h-full flex-col items-center justify-center">
             <Translation as={'h1'}>imprint</Translation>
-            <p className="mt-4 text-center">
+            <div className="mt-4 text-center">
                 <ul>
                     <li>{config.IMPRINT_CONTACT_1}</li>
                     <li>{config.IMPRINT_CONTACT_2}</li>
@@ -15,7 +15,7 @@ export const Imprint = () => {
                     <li>{config.IMPRINT_CONTACT_4}</li>
                     <li>{config.IMPRINT_COPYRIGHT}</li>
                 </ul>
-            </p>
+            </div>
         </div>
     );
 };

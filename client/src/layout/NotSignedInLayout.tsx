@@ -9,8 +9,8 @@ export const NotSignedInLayout = () => {
     const [illustration, setIllustration] = useState<React.ReactNode | null>(null);
     return (
         <>
-            <div className="w-full lg:grid lg:h-full lg:min-h-[600px] lg:grid-cols-2 lg:overflow-auto xl:min-h-[800px]">
-                <div className="flex w-full flex-col overflow-y-auto lg:h-full">
+            <div className="h-full w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 lg:overflow-auto xl:min-h-[800px]">
+                <div className="flex h-full w-full flex-col overflow-y-auto">
                     <header className="flex h-16 flex-shrink-0 items-center gap-4 bg-background px-4 md:px-6">
                         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                             <ProjectLogo />

@@ -10,6 +10,7 @@ The boilerplate project aims to provide a solid production-ready foundation for 
 ## Features
 
 -   **Authentication**: Register, login, and logout with JWT.
+-   **Responsive Design**: Works on devices of all sizes.
 -   **Complete Signup Flow**: Register with email, verify email, and login.
     -   **Email Verification**: Verify email addresses with a unique token.
     -   **Forgot Password**: Reset passwords with a unique token.
