@@ -27,12 +27,12 @@ export class SignupService {
 
     public async signupUser({
         email,
-        acceptAgb,
+        acceptPrivacyPolicy,
         language,
     }: {
         language: Language;
     } & SignupRequestDto) {
-        if (!acceptAgb) {
+        if (!acceptPrivacyPolicy) {
             throw new HTTPError({ statusCode: HttpStatusCode.BAD_REQUEST, message: 'Incomplete Request' });
         }
 

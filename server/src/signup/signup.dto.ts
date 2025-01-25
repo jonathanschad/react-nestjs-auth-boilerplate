@@ -8,7 +8,7 @@ export class SignupRequestDto {
 
     @IsBoolean()
     @IsTrue()
-    acceptAgb: boolean = false;
+    acceptPrivacyPolicy: boolean = false;
 }
 
 export class CompleteSignupRequestDto {

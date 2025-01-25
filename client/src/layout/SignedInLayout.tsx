@@ -129,8 +129,8 @@ export const SignedInLayout = () => {
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                                <Link to="/terms" className="w-full">
-                                    <Translation>termsOfServiceShort</Translation>
+                                <Link to="/privacy-policy" className="w-full">
+                                    <Translation>privacyPolicyShort</Translation>
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem>

@@ -16,6 +16,8 @@ services:
             - "3000:3000"
         env_file:
             - .env
+        volumes:
+            - ./directory/to/your/privacy/policy:/app/server/assets/privacy-policy/files:ro
         environment:
             DATABASE_URL: "postgresql://boilerplate:mysecretpassword@db:5432/boilerplate_db"
             PORT: 3000

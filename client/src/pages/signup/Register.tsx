@@ -6,7 +6,6 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
 import { Button } from '@/components/ui/button';
-import { CheckboxInput } from '@/components/ui/checkbox-input';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
@@ -69,17 +68,11 @@ export default function Register() {
                         errorMessage={formik.touched.email && formik.errors.email}
                     />
                 </div>
-                <div className="">
-                    <CheckboxInput
-                        id="acceptAgb"
-                        name="acceptAgb"
-                        checked={formik.values.acceptAgb}
-                        onCheckedChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        label={<Translation>acceptAgb</Translation>}
-                        error={formik.touched.acceptAgb && Boolean(formik.errors.acceptAgb)}
-                        errorMessage={formik.touched.acceptAgb && formik.errors.acceptAgb}
-                    />
+                <div className="mt-4 text-sm">
+                    <Translation>acceptPrivacyPolicy</Translation>{' '}
+                    <RouterLink to="/privacy-policy" className="underline">
+                        <Translation>privacyPolicy</Translation>
+                    </RouterLink>
                 </div>
                 <Button type="submit" className="w-full">
                     <Translation>createAccount</Translation>

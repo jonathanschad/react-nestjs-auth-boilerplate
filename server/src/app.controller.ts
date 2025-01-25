@@ -1,16 +1,31 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { PublicRoute } from '@/auth/auth.guard';
 import licensesJSON from '@/assets/licenses.json';
 import { AppConfigService } from '@/config/app-config.service';
+import privacyPolicy from '@/assets/privacy-policy';
+import { SignupService } from '@/signup/signup.service';
+import { FastifyRequest } from 'fastify';
+import { Language } from '@prisma/client';
 
 @Controller()
 export class AppController {
-    constructor(private readonly appConfigService: AppConfigService) {}
+    constructor(
+        private readonly appConfigService: AppConfigService,
+        private readonly signupService: SignupService,
+    ) {}
 
     @Get('/legal/attribution')
     @PublicRoute()
     async getLegalAttribution() {
         return licensesJSON;
+    }
+
+    @Get('/legal/privacy-policy')
+    @PublicRoute()
+    async getDataPrivacyPolicy(@Req() request: FastifyRequest) {
+        const language = this.signupService.getSupportedLanguageFromRequest(request);
+
+        return privacyPolicy.get(language) ?? privacyPolicy.get(Language.EN);
     }
 
     @Get('/envs')
@@ -22,13 +37,12 @@ export class AppController {
             PLAUSIBLE_HOST_URL: this.appConfigService.plausibleHostUrl,
             SENTRY_FRONTEND_DSN: this.appConfigService.sentryFrontendDsn,
             ENVIRONMENT_NAME: this.appConfigService.nodeEnv,
+            IMPRINT_CONTACT_1: this.appConfigService.imprintContact1,
+            IMPRINT_CONTACT_2: this.appConfigService.imprintContact2,
+            IMPRINT_CONTACT_3: this.appConfigService.imprintContact3,
+            IMPRINT_CONTACT_4: this.appConfigService.imprintContact4,
+            IMPRINT_COPYRIGHT: this.appConfigService.imprintCopyright,
         };
-    }
-
-    @Get('/debug-sentry')
-    @PublicRoute()
-    getError() {
-        throw new Error('My first Sentry error 2!');
     }
 
     @Get('/health')
