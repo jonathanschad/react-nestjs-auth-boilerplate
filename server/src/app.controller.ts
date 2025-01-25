@@ -37,6 +37,11 @@ export class AppController {
             PLAUSIBLE_HOST_URL: this.appConfigService.plausibleHostUrl,
             SENTRY_FRONTEND_DSN: this.appConfigService.sentryFrontendDsn,
             ENVIRONMENT_NAME: this.appConfigService.nodeEnv,
+            IMPRINT_CONTACT_1: this.appConfigService.imprintContact1,
+            IMPRINT_CONTACT_2: this.appConfigService.imprintContact2,
+            IMPRINT_CONTACT_3: this.appConfigService.imprintContact3,
+            IMPRINT_CONTACT_4: this.appConfigService.imprintContact4,
+            IMPRINT_COPYRIGHT: this.appConfigService.imprintCopyright,
         };
     }
 

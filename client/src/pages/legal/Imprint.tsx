@@ -1,4 +1,5 @@
 import LegalSVG from '@/assets/illustrations/legal.svg?react';
+import { config } from '@/config';
 import { Translation } from '@/i18n/Translation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 
@@ -7,7 +8,13 @@ export const Imprint = () => {
         <div className="flex h-full flex-col items-center justify-center">
             <Translation as={'h1'}>imprint</Translation>
             <p className="mt-4 text-center">
-                This is a placeholder for the imprint. Please replace this page with your own imprint.
+                <ul>
+                    <li>{config.IMPRINT_CONTACT_1}</li>
+                    <li>{config.IMPRINT_CONTACT_2}</li>
+                    <li>{config.IMPRINT_CONTACT_3}</li>
+                    <li>{config.IMPRINT_CONTACT_4}</li>
+                    <li>{config.IMPRINT_COPYRIGHT}</li>
+                </ul>
             </p>
         </div>
     );
