@@ -4,7 +4,7 @@ import path from 'path';
 
 const privacyPolicies = new Map<Language, string>();
 
-const privacyPolicyFilesPath = './src/assets/privacy-policy/files';
+const privacyPolicyFilesPath = path.join(__dirname, 'files');
 Object.values(Language).forEach((language) => {
     const filePath = path.join(privacyPolicyFilesPath, `${language.toLowerCase()}.md`);
 

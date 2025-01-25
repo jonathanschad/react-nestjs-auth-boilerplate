@@ -2,6 +2,9 @@
 
 The boilerplate project aims to provide a solid production-ready foundation for building your own projects so that you can focus on building features instead of setting up the basic infrastructure. You can try out the live demo [here](https://boilerplate.jschad.de/).
 
+> [!IMPORTANT]
+> This Readme is a work in progress and will be updated over time.
+
 ## Features
 
 -   **Authentication**: Register, login, and logout with JWT.
@@ -43,4 +46,9 @@ The data protection policy files live in the `server/src/assets/privacy-policy/f
 You have 2 options to make deployment work including the privacy policy files.
 
 1. **Option 1**: Remove the `server/src/assets/privacy-policy/files/.gitignore` file and add the privacy policy files to your repository. This is the easiest way to add the privacy policy files to your deployment.
-2. **Option 2**: Mount a volume containing the privacy policy files to the `/app/server/assets/privacy-policy/files` directory. This way you can add the privacy policy files to your deployment without adding them to your repository.
+2. **Option 2**: Mount a volume containing the privacy policy files to the `/app/server/assets/privacy-policy/files` directory. This way you can add the privacy policy files to your deployment without adding them to your repository. Add this to your `docker-compose.yml` file:
+
+```
+volumes:
+    - ./directory/to/your/privacy/policy:/app/server/assets/privacy-policy/files:ro
+```
