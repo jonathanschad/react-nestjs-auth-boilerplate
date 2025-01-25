@@ -1,9 +1,11 @@
 # React Nest.js Auth Boilerplate
 
-The boilerplate project aims to provide a solid production-ready foundation for building your own projects so that you can focus on building features instead of setting up the basic infrastructure. You can try out the live demo [here](https://boilerplate.jschad.de/).
-
 > [!IMPORTANT]
 > This Readme is a work in progress and will be updated over time.
+
+The boilerplate project aims to provide a solid production-ready foundation for building your own projects so that you can focus on building features instead of setting up the basic infrastructure. You can try out the live demo [here](https://boilerplate.jschad.de/).
+
+![Login Page](resources/login-page-screenshot.png)
 
 ## Features
 
