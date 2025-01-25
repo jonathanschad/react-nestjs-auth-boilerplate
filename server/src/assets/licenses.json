@@ -1007,13 +1007,6 @@
         "path": "node_modules/@nestjs/schematics",
         "licenseFile": "node_modules/@nestjs/schematics/LICENSE"
     },
-    "@nestjs/serve-static@4.0.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/nestjs/serve-static",
-        "publisher": "Kamil Mysliwiec",
-        "path": "node_modules/@nestjs/serve-static",
-        "licenseFile": "node_modules/@nestjs/serve-static/LICENSE"
-    },
     "@nestjs/testing@10.3.10": {
         "licenses": "MIT",
         "repository": "https://github.com/nestjs/nest",
@@ -1051,6 +1044,272 @@
         "repository": "https://github.com/nuxt-contrib/opencollective",
         "path": "node_modules/@nuxtjs/opencollective",
         "licenseFile": "node_modules/@nuxtjs/opencollective/LICENSE"
+    },
+    "@opentelemetry/api-logs@0.53.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@prisma/instrumentation/node_modules/@opentelemetry/api-logs",
+        "licenseFile": "node_modules/@prisma/instrumentation/node_modules/@opentelemetry/api-logs/LICENSE"
+    },
+    "@opentelemetry/api-logs@0.56.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/api-logs",
+        "licenseFile": "node_modules/@opentelemetry/api-logs/LICENSE"
+    },
+    "@opentelemetry/api@1.9.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/api",
+        "licenseFile": "node_modules/@opentelemetry/api/LICENSE"
+    },
+    "@opentelemetry/context-async-hooks@1.30.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/context-async-hooks",
+        "licenseFile": "node_modules/@opentelemetry/context-async-hooks/LICENSE"
+    },
+    "@opentelemetry/core@1.29.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-http/node_modules/@opentelemetry/core",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-http/node_modules/@opentelemetry/core/LICENSE"
+    },
+    "@opentelemetry/core@1.30.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/core",
+        "licenseFile": "node_modules/@opentelemetry/core/LICENSE"
+    },
+    "@opentelemetry/instrumentation-amqplib@0.45.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-amqplib",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-amqplib/LICENSE"
+    },
+    "@opentelemetry/instrumentation-connect@0.42.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-connect",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-connect/LICENSE"
+    },
+    "@opentelemetry/instrumentation-dataloader@0.15.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-dataloader",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-dataloader/LICENSE"
+    },
+    "@opentelemetry/instrumentation-express@0.46.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-express",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-express/LICENSE"
+    },
+    "@opentelemetry/instrumentation-fastify@0.43.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-fastify",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-fastify/LICENSE"
+    },
+    "@opentelemetry/instrumentation-fs@0.18.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-fs",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-fs/LICENSE"
+    },
+    "@opentelemetry/instrumentation-generic-pool@0.42.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-generic-pool",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-generic-pool/LICENSE"
+    },
+    "@opentelemetry/instrumentation-graphql@0.46.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-graphql",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-graphql/LICENSE"
+    },
+    "@opentelemetry/instrumentation-hapi@0.44.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-hapi",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-hapi/LICENSE"
+    },
+    "@opentelemetry/instrumentation-http@0.56.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-http",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-http/LICENSE"
+    },
+    "@opentelemetry/instrumentation-ioredis@0.46.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-ioredis",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-ioredis/LICENSE"
+    },
+    "@opentelemetry/instrumentation-kafkajs@0.6.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-kafkajs",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-kafkajs/LICENSE"
+    },
+    "@opentelemetry/instrumentation-knex@0.43.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-knex",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-knex/LICENSE"
+    },
+    "@opentelemetry/instrumentation-koa@0.46.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-koa",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-koa/LICENSE"
+    },
+    "@opentelemetry/instrumentation-lru-memoizer@0.43.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-lru-memoizer",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-lru-memoizer/LICENSE"
+    },
+    "@opentelemetry/instrumentation-mongodb@0.50.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-mongodb",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-mongodb/LICENSE"
+    },
+    "@opentelemetry/instrumentation-mongoose@0.45.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-mongoose",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-mongoose/LICENSE"
+    },
+    "@opentelemetry/instrumentation-mysql2@0.44.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-mysql2",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-mysql2/LICENSE"
+    },
+    "@opentelemetry/instrumentation-mysql@0.44.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-mysql",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-mysql/LICENSE"
+    },
+    "@opentelemetry/instrumentation-nestjs-core@0.43.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-nestjs-core",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-nestjs-core/LICENSE"
+    },
+    "@opentelemetry/instrumentation-pg@0.49.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-pg",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-pg/LICENSE"
+    },
+    "@opentelemetry/instrumentation-redis-4@0.45.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-redis-4",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-redis-4/LICENSE"
+    },
+    "@opentelemetry/instrumentation-tedious@0.17.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-tedious",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-tedious/LICENSE"
+    },
+    "@opentelemetry/instrumentation-undici@0.9.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-undici",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-undici/LICENSE"
+    },
+    "@opentelemetry/instrumentation@0.53.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation",
+        "licenseFile": "node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/LICENSE"
+    },
+    "@opentelemetry/instrumentation@0.56.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation/LICENSE"
+    },
+    "@opentelemetry/redis-common@0.36.2": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/redis-common",
+        "licenseFile": "node_modules/@opentelemetry/redis-common/LICENSE"
+    },
+    "@opentelemetry/resources@1.30.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/resources",
+        "licenseFile": "node_modules/@opentelemetry/resources/LICENSE"
+    },
+    "@opentelemetry/sdk-trace-base@1.30.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/sdk-trace-base",
+        "licenseFile": "node_modules/@opentelemetry/sdk-trace-base/LICENSE"
+    },
+    "@opentelemetry/semantic-conventions@1.27.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/instrumentation-pg/node_modules/@opentelemetry/semantic-conventions",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation-pg/node_modules/@opentelemetry/semantic-conventions/LICENSE"
+    },
+    "@opentelemetry/semantic-conventions@1.28.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/semantic-conventions",
+        "licenseFile": "node_modules/@opentelemetry/semantic-conventions/LICENSE"
+    },
+    "@opentelemetry/sql-common@0.40.1": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/open-telemetry/opentelemetry-js-contrib",
+        "publisher": "OpenTelemetry Authors",
+        "path": "node_modules/@opentelemetry/sql-common",
+        "licenseFile": "node_modules/@opentelemetry/sql-common/LICENSE"
     },
     "@pkgjs/parseargs@0.11.0": {
         "licenses": "MIT",
@@ -1112,6 +1371,47 @@
         "email": "suchanek@prisma.io",
         "path": "node_modules/@prisma/get-platform",
         "licenseFile": "node_modules/@prisma/get-platform/LICENSE"
+    },
+    "@prisma/instrumentation@5.22.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/prisma/prisma",
+        "path": "node_modules/@prisma/instrumentation",
+        "licenseFile": "node_modules/@prisma/instrumentation/LICENSE"
+    },
+    "@sentry/core@8.48.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/getsentry/sentry-javascript",
+        "publisher": "Sentry",
+        "path": "node_modules/@sentry/core",
+        "licenseFile": "node_modules/@sentry/core/LICENSE"
+    },
+    "@sentry/nestjs@8.48.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/getsentry/sentry-javascript",
+        "publisher": "Sentry",
+        "path": "node_modules/@sentry/nestjs",
+        "licenseFile": "node_modules/@sentry/nestjs/LICENSE"
+    },
+    "@sentry/node@8.48.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/getsentry/sentry-javascript",
+        "publisher": "Sentry",
+        "path": "node_modules/@sentry/node",
+        "licenseFile": "node_modules/@sentry/node/LICENSE"
+    },
+    "@sentry/opentelemetry@8.48.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/getsentry/sentry-javascript",
+        "publisher": "Sentry",
+        "path": "node_modules/@sentry/opentelemetry",
+        "licenseFile": "node_modules/@sentry/opentelemetry/LICENSE"
+    },
+    "@sentry/profiling-node@8.48.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/getsentry/sentry-javascript",
+        "publisher": "Sentry",
+        "path": "node_modules/@sentry/profiling-node",
+        "licenseFile": "node_modules/@sentry/profiling-node/LICENSE"
     },
     "@sinclair/typebox@0.27.8": {
         "licenses": "MIT",
@@ -1552,6 +1852,12 @@
         "path": "node_modules/@types/babel__traverse",
         "licenseFile": "node_modules/@types/babel__traverse/LICENSE"
     },
+    "@types/connect@3.4.36": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "path": "node_modules/@types/connect",
+        "licenseFile": "node_modules/@types/connect/LICENSE"
+    },
     "@types/cookiejar@2.1.5": {
         "licenses": "MIT",
         "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
@@ -1624,6 +1930,18 @@
         "path": "node_modules/@types/methods",
         "licenseFile": "node_modules/@types/methods/LICENSE"
     },
+    "@types/mime-types@2.1.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "path": "node_modules/@types/mime-types",
+        "licenseFile": "node_modules/@types/mime-types/LICENSE"
+    },
+    "@types/mysql@2.15.26": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "path": "node_modules/@types/mysql",
+        "licenseFile": "node_modules/@types/mysql/LICENSE"
+    },
     "@types/node@20.14.10": {
         "licenses": "MIT",
         "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
@@ -1635,6 +1953,30 @@
         "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
         "path": "node_modules/@types/nodemailer",
         "licenseFile": "node_modules/@types/nodemailer/LICENSE"
+    },
+    "@types/pg-pool@2.0.6": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "path": "node_modules/@types/pg-pool",
+        "licenseFile": "node_modules/@types/pg-pool/LICENSE"
+    },
+    "@types/pg@8.11.10": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "path": "node_modules/@types/pg-pool/node_modules/@types/pg",
+        "licenseFile": "node_modules/@types/pg-pool/node_modules/@types/pg/LICENSE"
+    },
+    "@types/pg@8.6.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "path": "node_modules/@types/pg",
+        "licenseFile": "node_modules/@types/pg/LICENSE"
+    },
+    "@types/shimmer@1.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "path": "node_modules/@types/shimmer",
+        "licenseFile": "node_modules/@types/shimmer/LICENSE"
     },
     "@types/stack-utils@2.0.3": {
         "licenses": "MIT",
@@ -1653,6 +1995,12 @@
         "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
         "path": "node_modules/@types/supertest",
         "licenseFile": "node_modules/@types/supertest/LICENSE"
+    },
+    "@types/tedious@4.0.14": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "path": "node_modules/@types/tedious",
+        "licenseFile": "node_modules/@types/tedious/LICENSE"
     },
     "@types/uuid@10.0.0": {
         "licenses": "MIT",
@@ -1732,6 +2080,78 @@
         "publisher": "Andrea Giammarchi",
         "path": "node_modules/@ungap/structured-clone",
         "licenseFile": "node_modules/@ungap/structured-clone/LICENSE"
+    },
+    "@usewaypoint/block-avatar@0.0.3": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-avatar",
+        "licenseFile": "node_modules/@usewaypoint/block-avatar/LICENSE"
+    },
+    "@usewaypoint/block-button@0.0.3": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-button",
+        "licenseFile": "node_modules/@usewaypoint/block-button/LICENSE"
+    },
+    "@usewaypoint/block-columns-container@0.0.3": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-columns-container",
+        "licenseFile": "node_modules/@usewaypoint/block-columns-container/LICENSE"
+    },
+    "@usewaypoint/block-container@0.0.2": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-container",
+        "licenseFile": "node_modules/@usewaypoint/block-container/LICENSE"
+    },
+    "@usewaypoint/block-divider@0.0.4": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-divider",
+        "licenseFile": "node_modules/@usewaypoint/block-divider/LICENSE"
+    },
+    "@usewaypoint/block-heading@0.0.3": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-heading",
+        "licenseFile": "node_modules/@usewaypoint/block-heading/LICENSE"
+    },
+    "@usewaypoint/block-html@0.0.3": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-html",
+        "licenseFile": "node_modules/@usewaypoint/block-html/LICENSE"
+    },
+    "@usewaypoint/block-image@0.0.5": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-image",
+        "licenseFile": "node_modules/@usewaypoint/block-image/LICENSE"
+    },
+    "@usewaypoint/block-spacer@0.0.3": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-spacer",
+        "licenseFile": "node_modules/@usewaypoint/block-spacer/LICENSE"
+    },
+    "@usewaypoint/block-text@0.0.6": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/block-text",
+        "licenseFile": "node_modules/@usewaypoint/block-text/LICENSE"
+    },
+    "@usewaypoint/document-core@0.0.6": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/document-core",
+        "licenseFile": "node_modules/@usewaypoint/document-core/LICENSE"
+    },
+    "@usewaypoint/email-builder@0.0.8": {
+        "licenses": "MIT",
+        "publisher": "carlos@usewaypoint.com",
+        "path": "node_modules/@usewaypoint/email-builder",
+        "licenseFile": "node_modules/@usewaypoint/email-builder/LICENSE"
     },
     "@webassemblyjs/ast@1.12.1": {
         "licenses": "MIT",
@@ -1940,8 +2360,8 @@
         "licenses": "MIT",
         "repository": "https://github.com/ajv-validator/ajv",
         "publisher": "Evgeny Poberezkin",
-        "path": "node_modules/@fastify/ajv-compiler/node_modules/ajv",
-        "licenseFile": "node_modules/@fastify/ajv-compiler/node_modules/ajv/LICENSE"
+        "path": "node_modules/ajv-formats/node_modules/ajv",
+        "licenseFile": "node_modules/ajv-formats/node_modules/ajv/LICENSE"
     },
     "ansi-colors@4.1.3": {
         "licenses": "MIT",
@@ -2067,6 +2487,14 @@
         "publisher": "Fedor Indutny",
         "path": "node_modules/asn1.js",
         "licenseFile": "node_modules/asn1.js/LICENSE"
+    },
+    "assignment@2.0.0": {
+        "licenses": "MIT*",
+        "repository": "https://github.com/bevacqua/assignment",
+        "publisher": "Nicolas Bevacqua",
+        "email": "nicolasbevacqua@gmail.com",
+        "path": "node_modules/assignment",
+        "licenseFile": "node_modules/assignment/license"
     },
     "asynckit@0.4.0": {
         "licenses": "MIT",
@@ -2352,6 +2780,13 @@
         "licenses": "MIT",
         "repository": "https://github.com/nodejs/cjs-module-lexer",
         "publisher": "Guy Bedford",
+        "path": "node_modules/jest-runtime/node_modules/cjs-module-lexer",
+        "licenseFile": "node_modules/jest-runtime/node_modules/cjs-module-lexer/LICENSE"
+    },
+    "cjs-module-lexer@1.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/nodejs/cjs-module-lexer",
+        "publisher": "Guy Bedford",
         "path": "node_modules/cjs-module-lexer",
         "licenseFile": "node_modules/cjs-module-lexer/LICENSE"
     },
@@ -2628,6 +3063,13 @@
         "publisher": "Josh Junon",
         "path": "node_modules/debug",
         "licenseFile": "node_modules/debug/LICENSE"
+    },
+    "debug@4.4.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/debug-js/debug",
+        "publisher": "Josh Junon",
+        "path": "node_modules/require-in-the-middle/node_modules/debug",
+        "licenseFile": "node_modules/require-in-the-middle/node_modules/debug/LICENSE"
     },
     "dedent@1.5.3": {
         "licenses": "MIT",
@@ -3269,6 +3711,13 @@
         "path": "node_modules/formidable",
         "licenseFile": "node_modules/formidable/LICENSE"
     },
+    "forwarded-parse@2.1.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/lpinca/forwarded-parse",
+        "publisher": "Luigi Pinca",
+        "path": "node_modules/forwarded-parse",
+        "licenseFile": "node_modules/forwarded-parse/LICENSE"
+    },
     "forwarded@0.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/jshttp/forwarded",
@@ -3499,6 +3948,13 @@
         "path": "node_modules/hasown",
         "licenseFile": "node_modules/hasown/LICENSE"
     },
+    "he@0.5.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/mathiasbynens/he",
+        "publisher": "Mathias Bynens",
+        "path": "node_modules/he",
+        "licenseFile": "node_modules/he/LICENSE-MIT.txt"
+    },
     "helmet@7.1.0": {
         "licenses": "MIT",
         "repository": "https://github.com/helmetjs/helmet",
@@ -3584,6 +4040,15 @@
         "path": "node_modules/import-fresh",
         "licenseFile": "node_modules/import-fresh/license"
     },
+    "import-in-the-middle@1.12.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/nodejs/import-in-the-middle",
+        "publisher": "Bryan English",
+        "email": "bryan.english@datadoghq.com",
+        "path": "node_modules/import-in-the-middle",
+        "licenseFile": "node_modules/import-in-the-middle/LICENSE",
+        "noticeFile": "node_modules/import-in-the-middle/NOTICE"
+    },
     "import-local@3.1.0": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/import-local",
@@ -3630,6 +4095,14 @@
         "path": "node_modules/@angular-devkit/schematics-cli/node_modules/inquirer",
         "licenseFile": "node_modules/@angular-devkit/schematics-cli/node_modules/inquirer/LICENSE"
     },
+    "insane@2.6.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bevacqua/insane",
+        "publisher": "Nicolas Bevacqua",
+        "email": "nicolasbevacqua@gmail.com",
+        "path": "node_modules/insane",
+        "licenseFile": "node_modules/insane/license"
+    },
     "ipaddr.js@1.9.1": {
         "licenses": "MIT",
         "repository": "https://github.com/whitequark/ipaddr.js",
@@ -3665,8 +4138,8 @@
         "repository": "https://github.com/inspect-js/is-core-module",
         "publisher": "Jordan Harband",
         "email": "ljharb@gmail.com",
-        "path": "node_modules/is-core-module",
-        "licenseFile": "node_modules/is-core-module/LICENSE"
+        "path": "node_modules/jest-resolve/node_modules/is-core-module",
+        "licenseFile": "node_modules/jest-resolve/node_modules/is-core-module/LICENSE"
     },
     "is-core-module@2.15.1": {
         "licenses": "MIT",
@@ -3675,6 +4148,14 @@
         "email": "ljharb@gmail.com",
         "path": "node_modules/normalize-package-data/node_modules/is-core-module",
         "licenseFile": "node_modules/normalize-package-data/node_modules/is-core-module/LICENSE"
+    },
+    "is-core-module@2.16.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/inspect-js/is-core-module",
+        "publisher": "Jordan Harband",
+        "email": "ljharb@gmail.com",
+        "path": "node_modules/is-core-module",
+        "licenseFile": "node_modules/is-core-module/LICENSE"
     },
     "is-extglob@2.1.1": {
         "licenses": "MIT",
@@ -4305,6 +4786,14 @@
         "path": "node_modules/log-symbols",
         "licenseFile": "node_modules/log-symbols/license"
     },
+    "loose-envify@1.4.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/zertosh/loose-envify",
+        "publisher": "Andres Suarez",
+        "email": "zertosh@gmail.com",
+        "path": "node_modules/loose-envify",
+        "licenseFile": "node_modules/loose-envify/LICENSE"
+    },
     "lru-cache@10.3.1": {
         "licenses": "ISC",
         "repository": "https://github.com/isaacs/node-lru-cache",
@@ -4359,6 +4848,13 @@
         "email": "n@daaku.org",
         "path": "node_modules/makeerror",
         "licenseFile": "node_modules/makeerror/license"
+    },
+    "marked@12.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/markedjs/marked",
+        "publisher": "Christopher Jeffrey",
+        "path": "node_modules/marked",
+        "licenseFile": "node_modules/marked/LICENSE.md"
     },
     "memfs@3.6.0": {
         "licenses": "Unlicense",
@@ -4487,6 +4983,14 @@
         "path": "node_modules/fast-jwt/node_modules/mnemonist",
         "licenseFile": "node_modules/fast-jwt/node_modules/mnemonist/LICENSE.txt"
     },
+    "module-details-from-path@1.0.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/watson/module-details-from-path",
+        "publisher": "Thomas Watson Steen",
+        "email": "w@tson.dk",
+        "path": "node_modules/module-details-from-path",
+        "licenseFile": "node_modules/module-details-from-path/LICENSE"
+    },
     "ms@2.1.2": {
         "licenses": "MIT",
         "repository": "https://github.com/zeit/ms",
@@ -4532,6 +5036,13 @@
         "repository": "https://github.com/suguru03/neo-async",
         "path": "node_modules/neo-async",
         "licenseFile": "node_modules/neo-async/LICENSE"
+    },
+    "node-abi@3.71.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/electron/node-abi",
+        "publisher": "Lukas Geiger",
+        "path": "node_modules/node-abi",
+        "licenseFile": "node_modules/node-abi/LICENSE"
     },
     "node-abort-controller@3.1.1": {
         "licenses": "MIT",
@@ -4629,6 +5140,14 @@
         "publisher": "Guillaume Plique",
         "path": "node_modules/obliterator",
         "licenseFile": "node_modules/obliterator/LICENSE.txt"
+    },
+    "obuf@1.1.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/indutny/offset-buffer",
+        "publisher": "Fedor Indutny",
+        "email": "fedor@indutny.com",
+        "path": "node_modules/obuf",
+        "licenseFile": "node_modules/obuf/LICENSE"
     },
     "on-exit-leak-free@2.1.2": {
         "licenses": "MIT",
@@ -4782,12 +5301,6 @@
         "path": "node_modules/path-scurry",
         "licenseFile": "node_modules/path-scurry/LICENSE.md"
     },
-    "path-to-regexp@0.2.5": {
-        "licenses": "MIT",
-        "repository": "https://github.com/component/path-to-regexp",
-        "path": "node_modules/@nestjs/serve-static/node_modules/path-to-regexp",
-        "licenseFile": "node_modules/@nestjs/serve-static/node_modules/path-to-regexp/LICENSE"
-    },
     "path-to-regexp@3.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/pillarjs/path-to-regexp",
@@ -4807,6 +5320,38 @@
         "email": "sindresorhus@gmail.com",
         "path": "node_modules/path-type",
         "licenseFile": "node_modules/path-type/license"
+    },
+    "pg-int8@1.0.1": {
+        "licenses": "ISC",
+        "repository": "https://github.com/charmander/pg-int8",
+        "path": "node_modules/pg-int8",
+        "licenseFile": "node_modules/pg-int8/LICENSE"
+    },
+    "pg-numeric@1.0.2": {
+        "licenses": "ISC",
+        "repository": "https://github.com/charmander/pg-numeric",
+        "path": "node_modules/pg-numeric",
+        "licenseFile": "node_modules/pg-numeric/LICENSE"
+    },
+    "pg-protocol@1.7.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/brianc/node-postgres",
+        "path": "node_modules/pg-protocol",
+        "licenseFile": "node_modules/pg-protocol/LICENSE"
+    },
+    "pg-types@2.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/brianc/node-pg-types",
+        "publisher": "Brian M. Carlson",
+        "path": "node_modules/pg-types",
+        "licenseFile": "node_modules/pg-types/README.md"
+    },
+    "pg-types@4.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/brianc/node-pg-types",
+        "publisher": "Brian M. Carlson",
+        "path": "node_modules/@types/pg-pool/node_modules/pg-types",
+        "licenseFile": "node_modules/@types/pg-pool/node_modules/pg-types/README.md"
     },
     "picocolors@1.0.1": {
         "licenses": "ISC",
@@ -4892,6 +5437,78 @@
         "email": "hello@blakeembrey.com",
         "path": "node_modules/pluralize",
         "licenseFile": "node_modules/pluralize/LICENSE"
+    },
+    "postgres-array@2.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bendrucker/postgres-array",
+        "publisher": "Ben Drucker",
+        "email": "bvdrucker@gmail.com",
+        "path": "node_modules/postgres-array",
+        "licenseFile": "node_modules/postgres-array/license"
+    },
+    "postgres-array@3.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bendrucker/postgres-array",
+        "publisher": "Ben Drucker",
+        "email": "bvdrucker@gmail.com",
+        "path": "node_modules/@types/pg-pool/node_modules/postgres-array",
+        "licenseFile": "node_modules/@types/pg-pool/node_modules/postgres-array/license"
+    },
+    "postgres-bytea@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bendrucker/postgres-bytea",
+        "publisher": "Ben Drucker",
+        "email": "bvdrucker@gmail.com",
+        "path": "node_modules/postgres-bytea",
+        "licenseFile": "node_modules/postgres-bytea/license"
+    },
+    "postgres-bytea@3.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bendrucker/postgres-bytea",
+        "publisher": "Ben Drucker",
+        "email": "bvdrucker@gmail.com",
+        "path": "node_modules/@types/pg-pool/node_modules/postgres-bytea",
+        "licenseFile": "node_modules/@types/pg-pool/node_modules/postgres-bytea/license"
+    },
+    "postgres-date@1.0.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bendrucker/postgres-date",
+        "publisher": "Ben Drucker",
+        "email": "bvdrucker@gmail.com",
+        "path": "node_modules/postgres-date",
+        "licenseFile": "node_modules/postgres-date/license"
+    },
+    "postgres-date@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bendrucker/postgres-date",
+        "publisher": "Ben Drucker",
+        "email": "bvdrucker@gmail.com",
+        "path": "node_modules/@types/pg-pool/node_modules/postgres-date",
+        "licenseFile": "node_modules/@types/pg-pool/node_modules/postgres-date/license"
+    },
+    "postgres-interval@1.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bendrucker/postgres-interval",
+        "publisher": "Ben Drucker",
+        "email": "bvdrucker@gmail.com",
+        "path": "node_modules/postgres-interval",
+        "licenseFile": "node_modules/postgres-interval/license"
+    },
+    "postgres-interval@3.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/bendrucker/postgres-interval",
+        "publisher": "Ben Drucker",
+        "email": "bvdrucker@gmail.com",
+        "path": "node_modules/@types/pg-pool/node_modules/postgres-interval",
+        "licenseFile": "node_modules/@types/pg-pool/node_modules/postgres-interval/license"
+    },
+    "postgres-range@1.1.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/martianboy/postgres-range",
+        "publisher": "Abbas Mashayekh",
+        "email": "martianboy2005@gmail.com",
+        "path": "node_modules/postgres-range",
+        "licenseFile": "node_modules/postgres-range/LICENSE"
     },
     "prelude-ls@1.2.1": {
         "licenses": "MIT",
@@ -5019,11 +5636,23 @@
         "path": "node_modules/randombytes",
         "licenseFile": "node_modules/randombytes/LICENSE"
     },
+    "react-dom@18.3.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "path": "node_modules/react-dom",
+        "licenseFile": "node_modules/react-dom/LICENSE"
+    },
     "react-is@18.3.1": {
         "licenses": "MIT",
         "repository": "https://github.com/facebook/react",
         "path": "node_modules/react-is",
         "licenseFile": "node_modules/react-is/LICENSE"
+    },
+    "react@18.3.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "path": "node_modules/react",
+        "licenseFile": "node_modules/react/LICENSE"
     },
     "read-installed-packages@2.0.1": {
         "licenses": "ISC",
@@ -5099,6 +5728,14 @@
         "path": "node_modules/require-from-string",
         "licenseFile": "node_modules/require-from-string/license"
     },
+    "require-in-the-middle@7.4.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/elastic/require-in-the-middle",
+        "publisher": "Thomas Watson Steen",
+        "email": "w@tson.dk",
+        "path": "node_modules/require-in-the-middle",
+        "licenseFile": "node_modules/require-in-the-middle/LICENSE"
+    },
     "resolve-cwd@3.0.0": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/resolve-cwd",
@@ -5131,13 +5768,21 @@
         "path": "node_modules/resolve.exports",
         "licenseFile": "node_modules/resolve.exports/license"
     },
-    "resolve@1.22.8": {
+    "resolve@1.22.10": {
         "licenses": "MIT",
         "repository": "https://github.com/browserify/resolve",
         "publisher": "James Halliday",
         "email": "mail@substack.net",
         "path": "node_modules/resolve",
         "licenseFile": "node_modules/resolve/LICENSE"
+    },
+    "resolve@1.22.8": {
+        "licenses": "MIT",
+        "repository": "https://github.com/browserify/resolve",
+        "publisher": "James Halliday",
+        "email": "mail@substack.net",
+        "path": "node_modules/jest-resolve/node_modules/resolve",
+        "licenseFile": "node_modules/jest-resolve/node_modules/resolve/LICENSE"
     },
     "restore-cursor@3.1.0": {
         "licenses": "MIT",
@@ -5242,6 +5887,12 @@
         "path": "node_modules/safer-buffer",
         "licenseFile": "node_modules/safer-buffer/LICENSE"
     },
+    "scheduler@0.23.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "path": "node_modules/scheduler",
+        "licenseFile": "node_modules/scheduler/LICENSE"
+    },
     "schema-utils@3.3.0": {
         "licenses": "MIT",
         "repository": "https://github.com/webpack/schema-utils",
@@ -5273,8 +5924,8 @@
         "licenses": "ISC",
         "repository": "https://github.com/npm/node-semver",
         "publisher": "GitHub Inc.",
-        "path": "node_modules/sharp/node_modules/semver",
-        "licenseFile": "node_modules/sharp/node_modules/semver/LICENSE"
+        "path": "node_modules/@opentelemetry/instrumentation/node_modules/semver",
+        "licenseFile": "node_modules/@opentelemetry/instrumentation/node_modules/semver/LICENSE"
     },
     "serialize-javascript@6.0.2": {
         "licenses": "BSD-3-Clause",
@@ -5283,12 +5934,6 @@
         "email": "edf@ericf.me",
         "path": "node_modules/serialize-javascript",
         "licenseFile": "node_modules/serialize-javascript/LICENSE"
-    },
-    "server@0.0.1": {
-        "licenses": "MIT",
-        "publisher": "Jonathan Schad",
-        "path": "",
-        "licenseFile": "README.md"
     },
     "set-cookie-parser@2.6.0": {
         "licenses": "MIT",
@@ -5335,6 +5980,14 @@
         "email": "sindresorhus@gmail.com",
         "path": "node_modules/shebang-regex",
         "licenseFile": "node_modules/shebang-regex/license"
+    },
+    "shimmer@1.2.1": {
+        "licenses": "BSD-2-Clause",
+        "repository": "https://github.com/othiym23/shimmer",
+        "publisher": "Forrest L Norvell",
+        "email": "ogd@aoaioxxysz.net",
+        "path": "node_modules/shimmer",
+        "licenseFile": "node_modules/shimmer/LICENSE"
     },
     "side-channel@1.0.6": {
         "licenses": "MIT",
@@ -5537,8 +6190,8 @@
         "repository": "https://github.com/sindresorhus/string-width",
         "publisher": "Sindre Sorhus",
         "email": "sindresorhus@gmail.com",
-        "path": "node_modules/string-width-cjs",
-        "licenseFile": "node_modules/string-width-cjs/license"
+        "path": "node_modules/string-width",
+        "licenseFile": "node_modules/string-width/license"
     },
     "string-width@5.1.2": {
         "licenses": "MIT",
@@ -6151,5 +6804,13 @@
         "email": "sindresorhus@gmail.com",
         "path": "node_modules/yocto-queue",
         "licenseFile": "node_modules/yocto-queue/license"
+    },
+    "zod@3.23.8": {
+        "licenses": "MIT",
+        "repository": "https://github.com/colinhacks/zod",
+        "publisher": "Colin McDonnell",
+        "email": "colin@colinhacks.com",
+        "path": "node_modules/zod",
+        "licenseFile": "node_modules/zod/LICENSE"
     }
 }

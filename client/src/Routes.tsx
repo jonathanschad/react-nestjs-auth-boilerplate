@@ -10,7 +10,7 @@ import { PasswordReset } from '@/pages/auth/PasswordReset';
 import { Home } from '@/pages/Home';
 import { Imprint, NotSignedInImprint } from '@/pages/legal/Imprint';
 import { License, NotSignedInLicense } from '@/pages/legal/License';
-import { NotSignedInTermsOfService, TermsOfService } from '@/pages/legal/TermsOfService';
+import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPolicy';
 import { GeneralSettings } from '@/pages/settings/GeneralSettings';
 import { NotificationSettings } from '@/pages/settings/NotificationSettings';
 import { ProfileSettings } from '@/pages/settings/ProfileSettings';
@@ -45,7 +45,7 @@ const routesFactory = (userState: UserState | undefined | null) => {
                     <Route path="*" element={<GeneralSettings />} />
                 </Route>
                 <Route path="imprint" element={<Imprint />} />
-                <Route path="terms" element={<TermsOfService />} />
+                <Route path="privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="licenses" element={<License />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>,
@@ -64,7 +64,7 @@ const routesFactory = (userState: UserState | undefined | null) => {
                 <Route path="verify-email-token" element={<ConfirmEmail />} />
                 <Route path="google-oauth/connect-accounts" element={<ConnectGoogleAccountCompletion />} />
                 <Route path="imprint" element={<NotSignedInImprint />} />
-                <Route path="terms" element={<NotSignedInTermsOfService />} />
+                <Route path="privacy-policy" element={<NotSignedInPrivacyPolicy />} />
                 <Route path="licenses" element={<NotSignedInLicense />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>,
