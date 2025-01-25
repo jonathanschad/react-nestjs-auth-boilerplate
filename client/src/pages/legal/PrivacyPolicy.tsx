@@ -1,8 +1,8 @@
-import Markdown from 'react-markdown';
 import { useQuery } from 'react-query';
 
 import LegalSVG from '@/assets/illustrations/legal.svg?react';
-import { Translation } from '@/i18n/Translation';
+import { Loading } from '@/components/Loading';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { getDataPrivacyPolicy } from '@/repository/privacy-policy';
 
@@ -12,12 +12,12 @@ export const PrivacyPolicy = () => {
         retry: false,
     });
 
-    if (isLoading) return <div>Loading...</div>;
     return (
-        <div className="h-full pb-12">
-            <Translation element={'h1'}>privacyPolicy</Translation>
-            <Markdown>{data}</Markdown>
-        </div>
+        <Loading isLoading={isLoading}>
+            <div className="h-full pb-12">
+                <MarkdownRenderer>{data}</MarkdownRenderer>
+            </div>
+        </Loading>
     );
 };
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Loading } from '@/components/Loading';
 import { Translation } from '@/i18n/Translation';
 import { loadApplication } from '@/repository/load-application';
 
@@ -23,10 +23,9 @@ const LoadingApplication = ({ children }: { children: React.ReactNode }) => {
 
     if (loadingComplete) return children;
     return (
-        <div className="flex h-full w-full flex-col items-center justify-center">
-            <LoadingSpinner size={64} />
-            <Translation as={'h2'}>loadingApplication</Translation>
-        </div>
+        <Loading isLoading={true} loadingMessage={<Translation as={'h2'}>loadingApplication</Translation>}>
+            {children}
+        </Loading>
     );
 };
 
