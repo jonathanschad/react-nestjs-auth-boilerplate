@@ -27,6 +27,16 @@ The boilerplate project aims to provide a solid production-ready foundation for 
 
 Fork this repository and start coding your application. Please read this Documentation to understand how the boilerplate works and how you can customize it to your needs.
 
+## Imprint
+
+The data displayed on the imprint page is loaded from the following environment variables. In addition this data is also included all emails sent by the application.
+
+-   `IMPRINT_CONTACT_1`
+-   `IMPRINT_CONTACT_2`
+-   `IMPRINT_CONTACT_3`
+-   `IMPRINT_CONTACT_4`
+-   `IMPRINT_COPYRIGHT`
+
 ## Privacy Policy
 
 This application includes a dedicated endpoint to serve the privacy policy in different languages based on the user's request. This ensures compliance with data protection regulations like GDPR while offering a localized experience for users. The privacy policy itself is not included and must be provided separately.
