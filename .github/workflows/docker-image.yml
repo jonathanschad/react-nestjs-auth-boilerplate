@@ -50,7 +50,8 @@ jobs:
                       jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
                       jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
                       jonathanschad/react-nestjs-boilerplate:latest
-                      - name: Upload backend sourcemaps to Sentry
+
+            - name: Upload backend sourcemaps to Sentry
               env:
                   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
                   SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
