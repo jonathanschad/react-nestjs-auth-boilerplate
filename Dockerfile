@@ -9,7 +9,7 @@ RUN yarn build
 # Copy sourcemaps to a separate directory
 RUN mkdir -p /sourcemaps 
 RUN cp dist/assets/*.map /sourcemaps
-RUN rm dist/*.map
+RUN rm dist/assets/*.map
 
 # Stage 2: Build the NestJS server
 FROM node:20-alpine3.20 AS server-builder
