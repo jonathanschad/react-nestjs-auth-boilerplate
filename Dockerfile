@@ -1,19 +1,23 @@
 # Stage 1: Build the React app
 FROM node:20-alpine3.20 AS client-builder
 WORKDIR /app
+RUN npm install -g @sentry/cli
 COPY client/package.json client/yarn.lock ./
 RUN yarn install
 COPY client ./
 RUN yarn build
+RUN npx @sentry/cli releases files $VERSION upload-sourcemaps ./dist --url-prefix '~/public'
 
 # Stage 2: Build the NestJS server
 FROM node:20-alpine3.20 AS server-builder
 WORKDIR /app
+RUN npm install -g @sentry/cli
 COPY server/package.json server/yarn.lock ./
 RUN yarn install
 COPY server ./
 RUN npx prisma generate
 RUN yarn build
+RUN npx @sentry/cli releases files $VERSION upload-sourcemaps ./dist --url-prefix '~/server'
 
 # Stage 3: Production container
 FROM node:20-alpine3.20
