@@ -61,7 +61,7 @@ jobs:
                   curl -sL https://sentry.io/get-cli/ | bash
 
                   # Define the release version
-                  RELEASE="react-nestjs-boilerplate@${{ env.VERSION }}"
+                  RELEASE="react-nestjs-boilerplate/backend@${{ env.VERSION }}"
 
                   # Associate the release with Sentry
                   sentry-cli releases new "$RELEASE"
@@ -70,6 +70,9 @@ jobs:
                   sentry-cli releases files "$RELEASE" upload-sourcemaps /sourcemaps-server \
                       --rewrite --url-prefix "~/assets" --validate
 
+                  # Finalize the release
+                  sentry-cli releases finalize "$RELEASE"
+
             - name: Upload frontend sourcemaps to Sentry
               env:
                   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -77,7 +80,10 @@ jobs:
                   SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_FRONTEND }}
               run: |
                   # Define the release version
-                  RELEASE="react-nestjs-boilerplate@${{ env.VERSION }}"
+                  RELEASE="react-nestjs-boilerplate/frontend@${{ env.VERSION }}"
+
+                  # Associate the release with Sentry
+                  sentry-cli releases new "$RELEASE"
 
                   # Upload client sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps /sourcemaps-client \
