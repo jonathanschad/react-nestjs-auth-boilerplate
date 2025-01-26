@@ -1,9 +1,10 @@
 name: Build and Push Docker Image
 
 on:
+    pull_request:
+        branches:
+            - "task/upload-sourcemaps" # Trigger on PRs to main branch
     push:
-        branch:
-            - task/upload-sourcemaps
         tags:
             - "v*" # Trigger only on version tags like v1.0.0
 
