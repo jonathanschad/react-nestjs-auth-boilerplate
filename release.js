@@ -2,7 +2,7 @@
 const fs = require("fs");
 const { execSync } = require("child_process");
 // Get version from command-line arguments
-const version = process.argv[2];
+const version = process.argv[2].replace(/^v/, "");
 
 if (!version) {
     console.error("Usage: yarn release <version>");
@@ -45,11 +45,11 @@ updatePackageJson(packageJsonPathBackend);
 // Create Git commit and tag
 try {
     execSync("git push origin", { stdio: "inherit" });
-    execSync(`git commit -m "Release ${version}"`, { stdio: "inherit" });
+    execSync(`git commit -m "Release v${version}"`, { stdio: "inherit" });
     execSync("git push origin", { stdio: "inherit" });
-    execSync(`git tag -a ${version} -m "Version ${version}"`, { stdio: "inherit" });
-    execSync(`git push origin ${version}`, { stdio: "inherit" });
-    console.log(`Created Git tag ${version}`);
+    execSync(`git tag -a v${version} -m "Version v${version}"`, { stdio: "inherit" });
+    execSync(`git push origin v${version}`, { stdio: "inherit" });
+    console.log(`Created Git tag v${version}`);
 } catch (error) {
     console.error("Error creating Git commit or tag:", error.message);
     process.exit(1);
