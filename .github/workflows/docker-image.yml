@@ -35,9 +35,9 @@ jobs:
               id: version
               run: |
                   VERSION=${GITHUB_REF#refs/tags/v}
-                  echo "VERSION=${VERSION}" >> $GITHUB_ENV
-                  echo "MAJOR=${VERSION%%.*}" >> $GITHUB_ENV
-                  echo "MINOR=${VERSION%.*}" >> $GITHUB_ENV
+                  echo "VERSION=1" >> $GITHUB_ENV
+                  echo "MAJOR=1" >> $GITHUB_ENV
+                  echo "MINOR=1" >> $GITHUB_ENV
 
             - name: Build and Push Docker Image with Multiple Tags and Architectures
               uses: docker/build-push-action@v4
