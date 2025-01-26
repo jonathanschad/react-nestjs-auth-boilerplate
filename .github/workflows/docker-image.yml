@@ -61,7 +61,7 @@ jobs:
                   curl -sL https://sentry.io/get-cli/ | bash
 
                   # Define the release version
-                  RELEASE="react-nestjs-boilerplate/backend@${{ env.VERSION }}"
+                  RELEASE="react-nestjs-boilerplate-backend@${{ env.VERSION }}"
 
                   # Associate the release with Sentry
                   sentry-cli releases new "$RELEASE"
@@ -80,7 +80,7 @@ jobs:
                   SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_FRONTEND }}
               run: |
                   # Define the release version
-                  RELEASE="react-nestjs-boilerplate/frontend@${{ env.VERSION }}"
+                  RELEASE="react-nestjs-boilerplate-frontend@${{ env.VERSION }}"
 
                   # Associate the release with Sentry
                   sentry-cli releases new "$RELEASE"
