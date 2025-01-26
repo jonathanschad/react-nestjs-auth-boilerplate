@@ -15,6 +15,10 @@ export default defineConfig({
         supported: {
             'top-level-await': true, //browsers can handle top-level-await features
         },
+        sourcemap: true,
+    },
+    build: {
+        sourcemap: true,
     },
     envDir: path.resolve(__dirname, '../'),
 });

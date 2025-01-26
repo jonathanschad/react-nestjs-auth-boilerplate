@@ -39,39 +39,57 @@ jobs:
                   echo "MAJOR=${VERSION%%.*}" >> $GITHUB_ENV
                   echo "MINOR=${VERSION%.*}" >> $GITHUB_ENV
 
-            - name: Build Docker Image with Sentry Sourcemaps
-              id: build
-              uses: docker/build-push-action@v4
-              with:
-                  context: .
-                  push: false # Build locally for source map uploads
-                  platforms: linux/amd64,linux/arm64
-                  tags: |
-                      jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
-                      jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
-                      jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
-                      jonathanschad/react-nestjs-boilerplate:latest
-
-            - name: Upload Sentry Sourcemaps
-              env:
-                  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-                  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-                  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-              run: |
-                  export VERSION=${{ env.VERSION }}
-                  npx @sentry/cli releases new $VERSION
-                  npx @sentry/cli releases files $VERSION upload-sourcemaps --url-prefix '~/public' ./client/dist
-                  npx @sentry/cli releases files $VERSION upload-sourcemaps --url-prefix '~/server' ./server/dist
-                  npx @sentry/cli releases finalize $VERSION
-
-            - name: Push Docker Image
+            - name: Build and Push Docker Image with Multiple Tags and Architectures
               uses: docker/build-push-action@v4
               with:
                   context: .
                   push: true
-                  platforms: linux/amd64,linux/arm64
+                  platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
                   tags: |
                       jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
                       jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
                       jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
                       jonathanschad/react-nestjs-boilerplate:latest
+                      - name: Upload backend sourcemaps to Sentry
+              env:
+                  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+                  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+                  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_BACKEND }}
+              run: |
+                  # Install Sentry CLI
+                  curl -sL https://sentry.io/get-cli/ | bash
+
+                  # Define the release version
+                  RELEASE="jonathanschad/react-nestjs-boilerplate@${{ env.VERSION }}"
+
+                  # Associate the release with Sentry
+                  sentry-cli releases new "$RELEASE"
+
+                  # Upload client sourcemaps
+                  sentry-cli releases files "$RELEASE" upload-sourcemaps /sourcemaps-client \
+                      --rewrite --url-prefix "~/assets" --validate
+
+                  # Finalize the release
+                  sentry-cli releases finalize "$RELEASE"
+
+            - name: Upload frontend sourcemaps to Sentry
+              env:
+                  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+                  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+                  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_FRONTEND }}
+              run: |
+                  # Install Sentry CLI
+                  curl -sL https://sentry.io/get-cli/ | bash
+
+                  # Define the release version
+                  RELEASE="jonathanschad/react-nestjs-boilerplate@${{ env.VERSION }}"
+
+                  # Associate the release with Sentry
+                  sentry-cli releases new "$RELEASE"
+
+                  # Upload client sourcemaps
+                  sentry-cli releases files "$RELEASE" upload-sourcemaps /sourcemaps-client \
+                      --rewrite --url-prefix "~/assets" --validate
+
+                  # Finalize the release
+                  sentry-cli releases finalize "$RELEASE"

@@ -1,23 +1,26 @@
 # Stage 1: Build the React app
 FROM node:20-alpine3.20 AS client-builder
 WORKDIR /app
-RUN npm install -g @sentry/cli
 COPY client/package.json client/yarn.lock ./
 RUN yarn install
 COPY client ./
 RUN yarn build
-RUN npx @sentry/cli releases files $VERSION upload-sourcemaps ./dist --url-prefix '~/public'
+
+# Copy sourcemaps to a separate directory
+RUN mkdir -p /sourcemaps 
+RUN cp dist/assets/*.map /sourcemaps
+RUN rm dist/*.map
 
 # Stage 2: Build the NestJS server
 FROM node:20-alpine3.20 AS server-builder
 WORKDIR /app
-RUN npm install -g @sentry/cli
 COPY server/package.json server/yarn.lock ./
 RUN yarn install
 COPY server ./
 RUN npx prisma generate
 RUN yarn build
-RUN npx @sentry/cli releases files $VERSION upload-sourcemaps ./dist --url-prefix '~/server'
+RUN mkdir -p /sourcemaps 
+RUN find dist -name "*.map" | tar -cf - --files-from=- | tar -xpf - -C /sourcemaps/
 
 # Stage 3: Production container
 FROM node:20-alpine3.20
@@ -30,6 +33,11 @@ COPY --from=server-builder /app/prisma ./prisma
 
 # Copy client build for static file serving
 COPY --from=client-builder /app/dist ./public
+
+# Expose sourcemaps as a build artifact
+COPY --from=client-builder /sourcemaps /sourcemaps-client
+COPY --from=server-builder /sourcemaps/dist /sourcemaps-server
+
 # Set environment variables
 ENV PORT=3000
 EXPOSE 3000
