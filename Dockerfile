@@ -2,8 +2,8 @@
 FROM node:20-alpine3.20 AS client-builder
 WORKDIR /app
 COPY client/package.json client/yarn.lock ./
-RUN yarn install
 COPY client ./
+RUN yarn install
 RUN yarn build
 
 # Copy sourcemaps to a separate directory
@@ -15,8 +15,8 @@ RUN rm dist/assets/*.map
 FROM node:20-alpine3.20 AS server-builder
 WORKDIR /app
 COPY server/package.json server/yarn.lock ./
-RUN yarn install
 COPY server ./
+RUN yarn install
 RUN npx prisma generate
 RUN yarn build
 RUN mkdir -p /sourcemaps 
@@ -43,4 +43,4 @@ ENV PORT=3000
 EXPOSE 3000
 
 # Start the NestJS server
-CMD ["sh", "-c", "npx prisma migrate deploy && node server/main.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node server/src/main.js"]

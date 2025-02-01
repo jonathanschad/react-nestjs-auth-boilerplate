@@ -4,7 +4,16 @@
     "sourceRoot": "src",
     "compilerOptions": {
         "deleteOutDir": true,
-        "assets": ["**/*.html", "**/*.json", "**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.svg", "**/*.md"],
+        "tsConfigPath": "tsconfig.build.json",
+        "assets": [
+            "src/**/*.html",
+            "src/**/*.json",
+            "src/**/*.png",
+            "src/**/*.jpg",
+            "src/**/*.jpeg",
+            "src/**/*.svg",
+            "src/**/*.md"
+        ],
         "watchAssets": true
     }
 }

@@ -35,21 +35,25 @@ jobs:
               id: version
               run: |
                   VERSION=${GITHUB_REF#refs/tags/v}
-                  echo "VERSION=1.2" >> $GITHUB_ENV
+                  echo "VERSION=1.2.1" >> $GITHUB_ENV
                   echo "MAJOR=1" >> $GITHUB_ENV
                   echo "MINOR=2" >> $GITHUB_ENV
 
-            - name: Build and Push Docker Image with Multiple Tags and Architectures
+            - name: Build Docker Image (Without Pushing)
               uses: docker/build-push-action@v4
               with:
                   context: .
                   push: false
-                  platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
-                  tags: |
-                      jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
-                      jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
-                      jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
-                      jonathanschad/react-nestjs-boilerplate:latest
+                  load: true # Required to use docker cp in the next step
+                  platforms: linux/amd64 # Only use a single platform for local extraction
+                  tags: temp-build
+
+            - name: Copy Sourcemaps from Container
+              run: |
+                  CONTAINER_ID=$(docker create temp-build)
+                  docker cp $CONTAINER_ID:/app/sourcemaps-server ./sourcemaps-server
+                  docker cp $CONTAINER_ID:/app/sourcemaps-client ./sourcemaps-client
+                  docker rm $CONTAINER_ID
 
             - name: Upload backend sourcemaps to Sentry
               env:
@@ -67,7 +71,7 @@ jobs:
                   sentry-cli releases new "$RELEASE"
 
                   # Upload server sourcemaps
-                  sentry-cli releases files "$RELEASE" upload-sourcemaps /sourcemaps-server \
+                  sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-server \
                       --rewrite --url-prefix "~/assets" --validate
 
                   # Finalize the release
@@ -86,8 +90,20 @@ jobs:
                   sentry-cli releases new "$RELEASE"
 
                   # Upload client sourcemaps
-                  sentry-cli releases files "$RELEASE" upload-sourcemaps /sourcemaps-client \
+                  sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-client \
                       --rewrite --url-prefix "~/assets" --validate
 
                   # Finalize the release
                   sentry-cli releases finalize "$RELEASE"
+
+            - name: Push Docker Image
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  push: true
+                  platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
+                  tags: |
+                      jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
+                      jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
+                      jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
+                      jonathanschad/react-nestjs-boilerplate:latest
