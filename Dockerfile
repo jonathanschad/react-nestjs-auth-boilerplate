@@ -8,7 +8,7 @@ RUN yarn build
 
 # Copy sourcemaps to a separate directory
 RUN mkdir -p /sourcemaps 
-RUN cp dist/assets/*.map /sourcemaps
+RUN cp -R dist/assets/ /sourcemaps
 RUN rm dist/assets/*.map
 
 # Stage 2: Build the NestJS server
@@ -20,7 +20,7 @@ RUN yarn install
 RUN npx prisma generate
 RUN yarn build
 RUN mkdir -p /sourcemaps 
-RUN find dist -name "*.map" | tar -cf - --files-from=- | tar -xpf - -C /sourcemaps/
+RUN cp -R dist/ /sourcemaps
 
 # Stage 3: Production container
 FROM node:20-alpine3.20
