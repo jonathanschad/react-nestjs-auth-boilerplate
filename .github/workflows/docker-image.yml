@@ -70,7 +70,7 @@ jobs:
 
                   # Upload server sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-server \
-                      --rewrite --url-prefix "~/assets" --validate
+                      --rewrite --validate
 
                   # Finalize the release
                   sentry-cli releases finalize "$RELEASE"
@@ -89,7 +89,7 @@ jobs:
 
                   # Upload client sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-client \
-                      --rewrite --url-prefix "~/assets" --validate
+                      --rewrite --validate
 
                   # Finalize the release
                   sentry-cli releases finalize "$RELEASE"
