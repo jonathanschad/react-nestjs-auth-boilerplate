@@ -2360,8 +2360,8 @@
         "licenses": "MIT",
         "repository": "https://github.com/ajv-validator/ajv",
         "publisher": "Evgeny Poberezkin",
-        "path": "node_modules/ajv-formats/node_modules/ajv",
-        "licenseFile": "node_modules/ajv-formats/node_modules/ajv/LICENSE"
+        "path": "node_modules/@fastify/ajv-compiler/node_modules/ajv",
+        "licenseFile": "node_modules/@fastify/ajv-compiler/node_modules/ajv/LICENSE"
     },
     "ansi-colors@4.1.3": {
         "licenses": "MIT",
@@ -5935,6 +5935,12 @@
         "path": "node_modules/serialize-javascript",
         "licenseFile": "node_modules/serialize-javascript/LICENSE"
     },
+    "server@0.1.5": {
+        "licenses": "MIT",
+        "publisher": "Jonathan Schad",
+        "path": "",
+        "licenseFile": "README.md"
+    },
     "set-cookie-parser@2.6.0": {
         "licenses": "MIT",
         "repository": "https://github.com/nfriedly/set-cookie-parser",
@@ -6190,8 +6196,8 @@
         "repository": "https://github.com/sindresorhus/string-width",
         "publisher": "Sindre Sorhus",
         "email": "sindresorhus@gmail.com",
-        "path": "node_modules/string-width",
-        "licenseFile": "node_modules/string-width/license"
+        "path": "node_modules/string-width-cjs",
+        "licenseFile": "node_modules/string-width-cjs/license"
     },
     "string-width@5.1.2": {
         "licenses": "MIT",

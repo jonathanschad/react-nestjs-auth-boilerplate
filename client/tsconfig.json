@@ -24,7 +24,9 @@
         "paths": {
             "@/*": ["src/*"]
         },
-        "types": ["vite-plugin-svgr/client"]
+        "sourceMap": true,
+        "types": ["vite-plugin-svgr/client"],
+        "inlineSources": true
     },
     "include": ["src"],
     "references": [
