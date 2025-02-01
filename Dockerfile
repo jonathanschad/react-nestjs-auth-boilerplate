@@ -32,7 +32,7 @@ COPY --from=server-builder /app/node_modules ./node_modules
 COPY --from=server-builder /app/prisma ./prisma 
 
 # Copy client build for static file serving
-COPY --from=client-builder /app/dist ./public
+COPY --from=client-builder /app/dist ./server/public
 
 # Expose sourcemaps as a build artifact
 COPY --from=client-builder /sourcemaps /sourcemaps-client
