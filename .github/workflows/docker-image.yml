@@ -2,10 +2,8 @@ name: Build and Push Docker Image
 
 on:
     push:
-        branches:
-            - task/upload-sourcemaps # Trigger on every push to this branch
         tags:
-            - "v*" # Also trigger on version tags
+            - "v*" # Trigger only on version tags like v1.0.0
 
 jobs:
     build-and-push:
@@ -35,9 +33,9 @@ jobs:
               id: version
               run: |
                   VERSION=${GITHUB_REF#refs/tags/v}
-                  echo "VERSION=1.2.2" >> $GITHUB_ENV
-                  echo "MAJOR=1" >> $GITHUB_ENV
-                  echo "MINOR=2" >> $GITHUB_ENV
+                  echo "VERSION=${VERSION}" >> $GITHUB_ENV
+                  echo "MAJOR=${VERSION%%.*}" >> $GITHUB_ENV
+                  echo "MINOR=${VERSION%.*}" >> $GITHUB_ENV
 
             - name: Build Docker Image (Without Pushing)
               uses: docker/build-push-action@v4
@@ -96,14 +94,14 @@ jobs:
                   # Finalize the release
                   sentry-cli releases finalize "$RELEASE"
 
-            # - name: Push Docker Image
-            #   uses: docker/build-push-action@v4
-            #   with:
-            #       context: .
-            #       push: true
-            #       platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
-            #       tags: |
-            #           jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
-            #           jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
-            #           jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
-            #           jonathanschad/react-nestjs-boilerplate:latest
+            - name: Push Docker Image
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  push: true
+                  platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
+                  tags: |
+                      jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
+                      jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
+                      jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
+                      jonathanschad/react-nestjs-boilerplate:latest
