@@ -5,6 +5,9 @@ import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType }
 
 import { config } from '@/config';
 
+// eslint-disable-next-line no-restricted-imports
+import packageJson from '../package.json';
+
 export const Analytics = () => {
     const plausible = useRef<ReturnType<typeof Plausible> | null>(null);
     const sentryClient = useRef<ReturnType<typeof Sentry.init> | null>(null);
@@ -30,6 +33,7 @@ export const Analytics = () => {
         sentryClient.current = Sentry.init({
             dsn: config.SENTRY_FRONTEND_DSN,
             environment: config.ENVIRONMENT_NAME,
+            release: `react-nestjs-boilerplate-frontend@${packageJson.version}`,
             integrations: [
                 // See docs for support of different versions of variation of react router
                 // https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/
