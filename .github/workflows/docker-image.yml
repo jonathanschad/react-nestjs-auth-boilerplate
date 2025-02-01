@@ -35,7 +35,7 @@ jobs:
               id: version
               run: |
                   VERSION=${GITHUB_REF#refs/tags/v}
-                  echo "VERSION=1.2.1" >> $GITHUB_ENV
+                  echo "VERSION=1.2.2" >> $GITHUB_ENV
                   echo "MAJOR=1" >> $GITHUB_ENV
                   echo "MINOR=2" >> $GITHUB_ENV
 

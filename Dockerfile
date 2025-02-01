@@ -21,6 +21,7 @@ RUN npx prisma generate
 RUN yarn build
 RUN mkdir -p /sourcemaps 
 RUN cp -R dist/ /sourcemaps
+RUN cp -R src/ /sourcemaps/src
 
 # Stage 3: Production container
 FROM node:20-alpine3.20
