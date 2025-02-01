@@ -6,13 +6,38 @@
         "deleteOutDir": true,
         "tsConfigPath": "tsconfig.build.json",
         "assets": [
-            "src/**/*.html",
-            "src/**/*.json",
-            "src/**/*.png",
-            "src/**/*.jpg",
-            "src/**/*.jpeg",
-            "src/**/*.svg",
-            "src/**/*.md"
+            {
+                "include": "assets/**/*",
+                "outDir": "dist/src"
+            },
+            {
+                "include": "**/*.json",
+                "outDir": "dist/src"
+            },
+            {
+                "include": "**/*.html",
+                "outDir": "dist/src"
+            },
+            {
+                "include": "**/*.png",
+                "outDir": "dist/src"
+            },
+            {
+                "include": "**/*.jpg",
+                "outDir": "dist/src"
+            },
+            {
+                "include": "**/*.jpeg",
+                "outDir": "dist/src"
+            },
+            {
+                "include": "**/*.svg",
+                "outDir": "dist/src"
+            },
+            {
+                "include": "**/*.md",
+                "outDir": "dist/src"
+            }
         ],
         "watchAssets": true
     }
