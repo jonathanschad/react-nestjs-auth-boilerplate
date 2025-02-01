@@ -96,14 +96,14 @@ jobs:
                   # Finalize the release
                   sentry-cli releases finalize "$RELEASE"
 
-            - name: Push Docker Image
-              uses: docker/build-push-action@v4
-              with:
-                  context: .
-                  push: true
-                  platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
-                  tags: |
-                      jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
-                      jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
-                      jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
-                      jonathanschad/react-nestjs-boilerplate:latest
+            # - name: Push Docker Image
+            #   uses: docker/build-push-action@v4
+            #   with:
+            #       context: .
+            #       push: true
+            #       platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
+            #       tags: |
+            #           jonathanschad/react-nestjs-boilerplate:${{ env.VERSION }}
+            #           jonathanschad/react-nestjs-boilerplate:${{ env.MAJOR }}
+            #           jonathanschad/react-nestjs-boilerplate:${{ env.MINOR }}
+            #           jonathanschad/react-nestjs-boilerplate:latest
