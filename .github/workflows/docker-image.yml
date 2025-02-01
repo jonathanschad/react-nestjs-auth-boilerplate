@@ -51,8 +51,8 @@ jobs:
             - name: Copy Sourcemaps from Container
               run: |
                   CONTAINER_ID=$(docker create temp-build)
-                  docker cp $CONTAINER_ID:/app/sourcemaps-server ./sourcemaps-server
-                  docker cp $CONTAINER_ID:/app/sourcemaps-client ./sourcemaps-client
+                  docker cp $CONTAINER_ID:/sourcemaps-server ./sourcemaps-server
+                  docker cp $CONTAINER_ID:/sourcemaps-client ./sourcemaps-client
                   docker rm $CONTAINER_ID
 
             - name: Upload backend sourcemaps to Sentry
