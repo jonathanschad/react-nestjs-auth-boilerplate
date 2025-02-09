@@ -6,7 +6,14 @@ import mime from 'mime-types';
 
 const rootDir = path.resolve(dirname(process.argv[1]), '..', 'public');
 const resolvePath = (file: string) => path.resolve(rootDir, file);
-const staticFiles = readdirSync(rootDir).map((file) => `/${file}`);
+const staticFiles = (() => {
+    try {
+        return readdirSync(rootDir).map((file) => `/${file}`);
+    } catch (error) {
+        console.log(`Error reading static files from ${rootDir}`, error);
+        return [];
+    }
+})();
 
 export const serveFrontend = (req: FastifyRequest['raw'], res: FastifyReply['raw'], next: () => void) => {
     const { url } = req;
