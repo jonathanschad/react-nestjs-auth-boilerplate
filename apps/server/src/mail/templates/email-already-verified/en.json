@@ -1,0 +1,10 @@
+{
+    "subject": "Email Already Verified",
+    "headline": "Your Email is Already Verified",
+    "body1": "Hello,",
+    "body2": "Our records show that your email address has already been verified.",
+    "body3": "You do not need to take any further action. You can log in to your account using the link below:",
+    "login": "Log In Here",
+    "body4": "If you have any issues accessing your account or did not request this verification, please contact us for support.",
+    "contactHeadline": "Contact"
+}

@@ -1,0 +1,100 @@
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+
+import RegisterSVG from '@client/assets/illustrations/register.svg?react';
+import { Button } from '@client/components/ui/button';
+import { Input } from '@client/components/ui/input';
+import { Label } from '@client/components/ui/label';
+import {
+    completeRegisterFormValidationSchema,
+    CompleteRegisterFormValues,
+    initialCompleteRegisterFormValues,
+} from '@client/forms/complete-register-form';
+import { Translation } from '@client/i18n/Translation';
+import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
+import { completeRegistration } from '@client/repository/login';
+import { useStore } from '@client/store/store';
+
+const RegisterIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
+
+export default function CompleteRegister() {
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
+    const registeredEmail = useStore((state) => state.decodedAccessToken()?.email);
+    const registerMutation = useMutation({
+        mutationFn: completeRegistration,
+        onSuccess: () => {
+            console.log('Registration complete');
+            queryClient.invalidateQueries();
+            navigate('/');
+        },
+    });
+
+    const handleSubmit = (data: CompleteRegisterFormValues) => {
+        console.log(data);
+        registerMutation.mutate(data);
+    };
+    const { t } = useTranslation('common');
+
+    const formik = useFormik({
+        initialValues: initialCompleteRegisterFormValues,
+        validationSchema: completeRegisterFormValidationSchema(t),
+        onSubmit: handleSubmit,
+    });
+
+    useSetNotSignedInLayoutIllustration(RegisterIllustration);
+    return (
+        <div className="mx-auto grid w-[350px] gap-6">
+            <div className="grid gap-2 text-center">
+                <Translation element="h1">completeRegistration.completeRegistration</Translation>
+                <Translation element="p" as="mutedText" translationParams={{ email: registeredEmail }}>
+                    completeRegistration.registerCompleteSubHeadline
+                </Translation>
+            </div>
+            <form onSubmit={formik.handleSubmit} className="grid gap-4">
+                <div className="grid gap-2">
+                    <Label htmlFor="name">
+                        <Translation>name</Translation>
+                    </Label>
+                    <Input
+                        id="name"
+                        name="name"
+                        autoComplete="given-name"
+                        type="name"
+                        placeholder={t('namePlaceholder')}
+                        required
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.name && Boolean(formik.errors.name)}
+                        errorMessage={formik.touched.name && formik.errors.name}
+                    />
+                </div>
+                <div className="grid gap-2">
+                    <div className="flex items-center">
+                        <Label htmlFor="password">
+                            <Translation>password</Translation>
+                        </Label>
+                    </div>
+                    <Input
+                        id="password"
+                        type="password"
+                        required
+                        name="password"
+                        autoComplete="current-password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        errorMessage={formik.touched.password && formik.errors.password}
+                    />
+                </div>
+                <Button type="submit" className="w-full">
+                    <Translation>completeRegistration.completeRegistration</Translation>
+                </Button>
+            </form>
+        </div>
+    );
+}

@@ -1,0 +1,18 @@
+{
+    "extends": "../../tsconfig.json", // Extend the config options from the root
+    "compilerOptions": {
+        "module": "commonjs",
+        "declaration": true,
+        "removeComments": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ES2023",
+        "sourceMap": true,
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "strict": true,
+        "resolveJsonModule": true,
+        "inlineSources": true
+    },
+    "files": ["src/types/types.d.ts"],
+    "include": ["src/**/*"]
+}

@@ -1,0 +1,10 @@
+{
+    "subject": "Confirm Your Email Address",
+    "headline": "Please Confirm Your Account",
+    "body1": "Hello,",
+    "body2": "Thank you for registering with us. Please confirm your email address to activate your account.",
+    "body3": "Click the link below to confirm your email:",
+    "confirmEmail": "Confirm Email",
+    "body4": "If you did not register for an account, please ignore this email. If you have any questions, feel free to contact us.",
+    "contactHeadline": "Contact"
+}

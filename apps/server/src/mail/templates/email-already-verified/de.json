@@ -1,0 +1,10 @@
+{
+    "subject": "E-Mail bereits verifiziert",
+    "headline": "Ihre E-Mail ist bereits verifiziert",
+    "body1": "Hallo,",
+    "body2": "Unsere Aufzeichnungen zeigen, dass Ihre E-Mail-Adresse bereits verifiziert wurde.",
+    "body3": "Sie müssen keine weiteren Schritte unternehmen. Sie können sich über den untenstehenden Link in Ihr Konto einloggen:",
+    "login": "Hier einloggen",
+    "body4": "Wenn Sie Probleme beim Zugriff auf Ihr Konto haben oder diese Verifizierung nicht angefordert haben, kontaktieren Sie uns bitte für Unterstützung.",
+    "contactHeadline": "Kontakt"
+}

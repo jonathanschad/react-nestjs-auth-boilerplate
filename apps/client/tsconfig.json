@@ -1,0 +1,29 @@
+{
+    "extends": "../../tsconfig.json", // Extend the config options from the root
+    "compilerOptions": {
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "skipLibCheck": true,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+
+        "baseUrl": ".",
+        "sourceMap": true,
+        "types": ["vite-plugin-svgr/client"],
+        "inlineSources": true
+    },
+    "include": ["src/**/*"],
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ]
+}

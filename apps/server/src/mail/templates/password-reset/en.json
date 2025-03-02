@@ -1,0 +1,10 @@
+{
+    "subject": "Password reset",
+    "headline": "Please reset your password",
+    "body1": "Hello,",
+    "body2": "We have sent you this email in response to your request to reset your password.",
+    "body3": "To reset your password, please follow the link below:",
+    "resetPassword": "Reset your password",
+    "body4": "Please ignore this email if you have not requested a password reset.",
+    "contactHeadline": "Contact"
+}
