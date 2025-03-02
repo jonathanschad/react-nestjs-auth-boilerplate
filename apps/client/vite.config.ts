@@ -21,5 +21,5 @@ export default defineConfig({
     build: {
         sourcemap: true,
     },
-    envDir: path.resolve(__dirname, '../'),
+    envDir: path.resolve(__dirname, '../../'),
 });
