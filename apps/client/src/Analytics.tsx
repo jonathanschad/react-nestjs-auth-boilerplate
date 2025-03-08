@@ -3,10 +3,10 @@ import { useEffect, useRef } from 'react';
 import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 
-import { config } from '@client/config';
-
 // eslint-disable-next-line no-restricted-imports
 import packageJson from '../package.json';
+
+import { config } from '@/config';
 
 export const Analytics = () => {
     const plausible = useRef<ReturnType<typeof Plausible> | null>(null);

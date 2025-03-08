@@ -3,14 +3,15 @@ import * as crypto from 'crypto';
 import { FastifyReply } from 'fastify';
 import { Injectable } from '@nestjs/common';
 
-import { SingInDTO } from '@server/auth/auth.dto';
-import { AccessTokenService } from '@server/database/access-token/access-token.service';
-import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
-import { PrismaService } from '@server/database/prisma.service';
-import { RefreshTokenService } from '@server/database/refresh-token/refresh-token.service';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
 import { User } from '@boilerplate/prisma';
+
+import { SingInDTO } from '@/auth/auth.dto';
+import { AccessTokenService } from '@/database/access-token/access-token.service';
+import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
+import { PrismaService } from '@/database/prisma.service';
+import { RefreshTokenService } from '@/database/refresh-token/refresh-token.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()
 export class AuthService {

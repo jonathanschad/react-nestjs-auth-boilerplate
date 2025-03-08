@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { Typography, TypographyElement, TypographyProps } from '@client/components/ui/typography';
+import { Typography, TypographyElement, TypographyProps } from '@/components/ui/typography';
 
 interface TranslationProps<T extends TypographyElement, U extends Record<string, unknown>> extends TypographyProps<T> {
     children: string;

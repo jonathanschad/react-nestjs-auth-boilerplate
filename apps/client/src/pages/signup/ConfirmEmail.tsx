@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom';
 
-import CertificationSVG from '@client/assets/illustrations/certification.svg?react';
-import { ResendEmailConfirmation } from '@client/components/ResendEmailConfirmation';
-import { LoadingSpinner } from '@client/components/ui/loading-spinner';
-import { Translation } from '@client/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
-import { confirmEmail } from '@client/repository/login';
+import CertificationSVG from '@/assets/illustrations/certification.svg?react';
+import { ResendEmailConfirmation } from '@/components/ResendEmailConfirmation';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Translation } from '@/i18n/Translation';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
+import { confirmEmail } from '@/repository/login';
 
 const ConfirmEmailIllustration = <CertificationSVG className="w-1/2" />;
 

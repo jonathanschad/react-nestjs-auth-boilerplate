@@ -4,16 +4,17 @@ import { FastifyReply } from 'fastify';
 import * as uuid from 'uuid';
 import { Injectable } from '@nestjs/common';
 
-import { CompleteGoogleAccountConnectionDTO } from '@server/auth/auth.dto';
-import { AuthService } from '@server/auth/auth.service';
-import { JWTService } from '@server/auth/jwt.service';
-import { AppConfigService } from '@server/config/app-config.service';
-import { ConnectGoogleAccountTokenService } from '@server/database/connect-google-account-token/connect-google-account-token.service';
-import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import { UserService } from '@server/user/user.service';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
 import { Language, UserState } from '@boilerplate/prisma';
+
+import { CompleteGoogleAccountConnectionDTO } from '@/auth/auth.dto';
+import { AuthService } from '@/auth/auth.service';
+import { JWTService } from '@/auth/jwt.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
+import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import { UserService } from '@/user/user.service';
+import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 type GoogleTokenExchangeResponse = {
     access_token: string;

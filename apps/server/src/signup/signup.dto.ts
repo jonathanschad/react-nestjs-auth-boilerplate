@@ -1,6 +1,6 @@
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-import { IsTrue } from '@server/util/validators/is-true';
+import { IsTrue } from '@/util/validators/is-true';
 export class SignupRequestDto {
     @IsEmail()
     @IsNotEmpty()

@@ -1,10 +1,10 @@
 import { useQuery } from 'react-query';
 
-import LegalSVG from '@client/assets/illustrations/legal.svg?react';
-import { Loading } from '@client/components/Loading';
-import { MarkdownRenderer } from '@client/components/MarkdownRenderer';
-import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
-import { getDataPrivacyPolicy } from '@client/repository/privacy-policy';
+import LegalSVG from '@/assets/illustrations/legal.svg?react';
+import { Loading } from '@/components/Loading';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
+import { getDataPrivacyPolicy } from '@/repository/privacy-policy';
 
 export const PrivacyPolicy = () => {
     const { isLoading, data } = useQuery({

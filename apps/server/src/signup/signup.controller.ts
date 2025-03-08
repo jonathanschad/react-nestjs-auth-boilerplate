@@ -1,20 +1,21 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
 
-import { PublicRoute, RequireUserState, User } from '@server/auth/auth.guard';
-import { AuthService } from '@server/auth/auth.service';
-import { JWTService } from '@server/auth/jwt.service';
-import { PrismaService } from '@server/database/prisma.service';
+import { UserState } from '@boilerplate/prisma';
+
+import { PublicRoute, RequireUserState, User } from '@/auth/auth.guard';
+import { AuthService } from '@/auth/auth.service';
+import { JWTService } from '@/auth/jwt.service';
+import { PrismaService } from '@/database/prisma.service';
 import {
     CompleteSignupRequestDto,
     ResendVerificationDto,
     SignupRequestDto,
     VerifyEmailTokenDto,
-} from '@server/signup/signup.dto';
-import { SignupService } from '@server/signup/signup.service';
-import { UserWithSettings } from '@server/types/prisma';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
-import { UserState } from '@boilerplate/prisma';
+} from '@/signup/signup.dto';
+import { SignupService } from '@/signup/signup.service';
+import { UserWithSettings } from '@/types/prisma';
+import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Controller('signup')
 export class SignupController {

@@ -1,15 +1,15 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '@client/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '@client/components/ui/dropdown-menu';
-import { Typography } from '@client/components/ui/typography';
-import { Translation } from '@client/i18n/Translation';
+} from '@/components/ui/dropdown-menu';
+import { Typography } from '@/components/ui/typography';
+import { Translation } from '@/i18n/Translation';
 
 const mapLanguageToFlag = (language: string) => {
     switch (language) {

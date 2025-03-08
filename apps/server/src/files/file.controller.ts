@@ -1,12 +1,12 @@
 import { FastifyRequest } from 'fastify';
 import { Controller, Get, HttpCode, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 
-import { OptionalUser, PublicRoute, User } from '@server/auth/auth.guard';
-import { GetFileDTO } from '@server/files/file.dto';
-import { FileService } from '@server/files/file.service';
-import { UserWithSettings } from '@server/types/prisma';
-import { Disabled } from '@server/util/decorators/disabled';
-import { HTTPError } from '@server/util/httpHandlers';
+import { OptionalUser, PublicRoute, User } from '@/auth/auth.guard';
+import { GetFileDTO } from '@/files/file.dto';
+import { FileService } from '@/files/file.service';
+import { UserWithSettings } from '@/types/prisma';
+import { Disabled } from '@/util/decorators/disabled';
+import { HTTPError } from '@/util/httpHandlers';
 @Controller('file')
 export class FileController {
     constructor(private readonly fileService: FileService) {}

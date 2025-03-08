@@ -3,7 +3,7 @@ import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } fro
 import { MultipartFile } from '@fastify/multipart';
 import { StreamableFile } from '@nestjs/common';
 
-import { AppConfigService } from '@server/config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import {
     FileDeleteOptions,
     FileDeleteResponse,
@@ -11,7 +11,7 @@ import {
     FileGetResponse,
     FileUploadOptions,
     FileUploadResponse,
-} from '@server/files/storage.service';
+} from '@/files/storage.service';
 
 export class S3Service {
     private s3Client: S3Client;

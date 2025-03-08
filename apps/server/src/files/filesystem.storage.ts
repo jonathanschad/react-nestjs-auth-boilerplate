@@ -4,7 +4,7 @@ import { pipeline } from 'stream';
 import { MultipartFile } from '@fastify/multipart';
 import { StreamableFile } from '@nestjs/common';
 
-import { AppConfigService } from '@server/config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import {
     FileDeleteOptions,
     FileDeleteResponse,
@@ -12,7 +12,7 @@ import {
     FileGetResponse,
     FileUploadOptions,
     FileUploadResponse,
-} from '@server/files/storage.service';
+} from '@/files/storage.service';
 
 export class FileSystemService {
     constructor(private appConfigService: AppConfigService) {}

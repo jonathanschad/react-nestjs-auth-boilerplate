@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as uuid from 'uuid';
 
-import api from '@client/repository';
+import api from '@/repository';
 const FileUpload = () => {
     const [file, setFile] = useState<File>();
     const [uploadStatus, setUploadStatus] = useState('');

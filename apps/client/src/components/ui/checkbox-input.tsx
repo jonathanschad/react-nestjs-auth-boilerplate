@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
-import { Checkbox, CheckboxProps } from '@client/components/ui/checkbox';
+import { Checkbox, CheckboxProps } from '@/components/ui/checkbox';
 
 export interface CheckboxInputProps extends CheckboxProps {
     error?: boolean;

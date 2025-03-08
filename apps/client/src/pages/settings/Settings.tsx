@@ -2,12 +2,12 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-import { Translation } from '@client/i18n/Translation';
+import { Translation } from '@/i18n/Translation';
 import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
-} from '@client/layout/useSetSignedInCurrentActiveRoute';
-import { CurrentSettingsRouteOptions } from '@client/pages/settings/useSetSettingsCurrentActiveRoute';
+} from '@/layout/useSetSignedInCurrentActiveRoute';
+import { CurrentSettingsRouteOptions } from '@/pages/settings/useSetSettingsCurrentActiveRoute';
 
 export const Settings = () => {
     useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.SETTINGS);

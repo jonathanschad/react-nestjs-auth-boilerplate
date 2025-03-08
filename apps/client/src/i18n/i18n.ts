@@ -1,8 +1,8 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import de from '@client/i18n/de';
-import en from '@client/i18n/en';
+import de from '@/i18n/de';
+import en from '@/i18n/en';
 
 const AVAILABLE_LANGUAGES = ['en', 'de'] as const;
 const getUserLanguage = () => {

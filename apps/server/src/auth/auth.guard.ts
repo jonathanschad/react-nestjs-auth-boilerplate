@@ -3,11 +3,12 @@ import { FastifyRequest } from 'fastify';
 import { CanActivate, createParamDecorator, ExecutionContext, Injectable, SetMetadata } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
-import { JWTService } from '@server/auth/jwt.service';
-import { AppConfigService } from '@server/config/app-config.service';
-import { UserWithSettings } from '@server/types/prisma';
-import { InvalidAccessTokenError } from '@server/util/httpHandlers';
 import { UserState } from '@boilerplate/prisma';
+
+import { JWTService } from '@/auth/jwt.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { UserWithSettings } from '@/types/prisma';
+import { InvalidAccessTokenError } from '@/util/httpHandlers';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

@@ -1,16 +1,17 @@
 import * as uuid from 'uuid';
 import { Injectable } from '@nestjs/common';
 
-import { AuthService } from '@server/auth/auth.service';
-import { JWTService } from '@server/auth/jwt.service';
-import { AppConfigService } from '@server/config/app-config.service';
-import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
-import { PrismaService } from '@server/database/prisma.service';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import { MailService } from '@server/mail/mail.service';
-import { UserWithSettings } from '@server/types/prisma';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
 import { Language } from '@boilerplate/prisma';
+
+import { AuthService } from '@/auth/auth.service';
+import { JWTService } from '@/auth/jwt.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
+import { PrismaService } from '@/database/prisma.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import { MailService } from '@/mail/mail.service';
+import { UserWithSettings } from '@/types/prisma';
+import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()
 export class PasswordService {

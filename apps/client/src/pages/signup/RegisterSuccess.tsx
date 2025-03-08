@@ -1,9 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import RegisterSVG from '@client/assets/illustrations/register.svg?react';
-import { ResendEmailConfirmation } from '@client/components/ResendEmailConfirmation';
-import { Translation } from '@client/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
+import RegisterSVG from '@/assets/illustrations/register.svg?react';
+import { ResendEmailConfirmation } from '@/components/ResendEmailConfirmation';
+import { Translation } from '@/i18n/Translation';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 
 const RegisterSuccessIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 

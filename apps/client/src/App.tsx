@@ -1,11 +1,11 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { Analytics } from '@client/Analytics';
-import LoadingApplication from '@client/pages/LoadingApplication';
-import { Routes } from '@client/Routes';
-
-import '@client/i18n/i18n';
+import '@/i18n/i18n';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
+
+import { Analytics } from '@/Analytics';
+import LoadingApplication from '@/pages/LoadingApplication';
+import { Routes } from '@/Routes';
 const queryClient = new QueryClient();
 
 function App() {

@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@client/components/ui/loading-spinner';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 type LoadingProps = {
     isLoading: boolean;

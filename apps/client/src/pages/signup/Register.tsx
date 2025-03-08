@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import RegisterSVG from '@client/assets/illustrations/register.svg?react';
-import { GoogleOAuthButton } from '@client/components/google-oauth-button/GoogleOAuthButton';
-import { Button } from '@client/components/ui/button';
-import { Input } from '@client/components/ui/input';
-import { Label } from '@client/components/ui/label';
-import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@client/forms/register-form';
-import { Translation } from '@client/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
-import { register } from '@client/repository/login';
+import RegisterSVG from '@/assets/illustrations/register.svg?react';
+import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
+import { Translation } from '@/i18n/Translation';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
+import { register } from '@/repository/login';
 
 const RegisterIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 

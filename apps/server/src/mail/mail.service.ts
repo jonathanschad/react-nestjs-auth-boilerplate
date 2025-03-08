@@ -6,12 +6,13 @@ import * as path from 'path';
 import { Injectable } from '@nestjs/common';
 import { renderToStaticMarkup, TReaderDocument } from '@usewaypoint/email-builder';
 
-import { AppConfigService } from '@server/config/app-config.service';
-import { PrismaService } from '@server/database/prisma.service';
-import { defaultEmailTemplateFactory } from '@server/mail/templates/default-template';
-import { templates } from '@server/mail/templates/templates';
-import { UserWithSettings } from '@server/types/prisma';
 import { Language } from '@boilerplate/prisma';
+
+import { AppConfigService } from '@/config/app-config.service';
+import { PrismaService } from '@/database/prisma.service';
+import { defaultEmailTemplateFactory } from '@/mail/templates/default-template';
+import { templates } from '@/mail/templates/templates';
+import { UserWithSettings } from '@/types/prisma';
 export interface MailTemplate {
     templateFactory: (translations: any) => TReaderDocument; // TODO type this
     translations: Record<Language, EmailTranslation>;

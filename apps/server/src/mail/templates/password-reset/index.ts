@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { EmailTranslation, MailTemplate } from '@server/mail/mail.service';
-import { passwordResetFactory } from '@server/mail/templates/password-reset/password-reset';
+import { EmailTranslation, MailTemplate } from '@/mail/mail.service';
+import { passwordResetFactory } from '@/mail/templates/password-reset/password-reset';
 
 export const passwordResetTemplate: MailTemplate = {
     templateFactory: passwordResetFactory,

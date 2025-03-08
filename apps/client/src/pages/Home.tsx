@@ -1,11 +1,11 @@
 import { useMutation } from 'react-query';
 
-import { ProfilePictureEditor } from '@client/components/ProfilePictureEditor';
+import { ProfilePictureEditor } from '@/components/ProfilePictureEditor';
 import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
-} from '@client/layout/useSetSignedInCurrentActiveRoute';
-import { logout } from '@client/repository/login';
+} from '@/layout/useSetSignedInCurrentActiveRoute';
+import { logout } from '@/repository/login';
 
 export const Home = () => {
     const logoutMutatiuon = useMutation({

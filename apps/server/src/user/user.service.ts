@@ -1,12 +1,13 @@
 import sharp from 'sharp';
 import { Injectable } from '@nestjs/common';
 
-import { AppConfigService } from '@server/config/app-config.service';
-import { DatabaseFileService } from '@server/database/database-file/database-file.service';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import { FileService } from '@server/files/file.service';
-import { UserWithSettings } from '@server/types/prisma';
 import { File, FileAccess, User } from '@boilerplate/prisma';
+
+import { AppConfigService } from '@/config/app-config.service';
+import { DatabaseFileService } from '@/database/database-file/database-file.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import { FileService } from '@/files/file.service';
+import { UserWithSettings } from '@/types/prisma';
 
 @Injectable()
 export class UserService {

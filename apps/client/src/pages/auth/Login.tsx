@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom';
 
-import LoginSVG from '@client/assets/illustrations/login.svg?react';
-import { GoogleOAuthButton } from '@client/components/google-oauth-button/GoogleOAuthButton';
-import { Button } from '@client/components/ui/button';
-import { Input } from '@client/components/ui/input';
-import { Label } from '@client/components/ui/label';
-import { initialLoginFormValues, loginFormValidationSchema } from '@client/forms/login-form';
-import { Translation } from '@client/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
-import { login } from '@client/repository/login';
+import LoginSVG from '@/assets/illustrations/login.svg?react';
+import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { initialLoginFormValues, loginFormValidationSchema } from '@/forms/login-form';
+import { Translation } from '@/i18n/Translation';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
+import { login } from '@/repository/login';
 
 const LoginIllustration = <LoginSVG className="m-8 w-full max-w-full" />;
 

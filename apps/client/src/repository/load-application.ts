@@ -1,6 +1,6 @@
-import { config } from '@client/config';
-import api from '@client/repository';
-import { renewAccessToken } from '@client/repository/auth';
+import { config } from '@/config';
+import api from '@/repository';
+import { renewAccessToken } from '@/repository/auth';
 
 export const loadApplication = async () => {
     await Promise.allSettled([renewAccessToken(), loadEnv()]);

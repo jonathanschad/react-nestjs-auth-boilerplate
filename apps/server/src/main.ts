@@ -10,13 +10,13 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
-import { AppModule } from '@server/app.module';
-import { AppConfigService } from '@server/config/app-config.service';
-import { initSentry } from '@server/sentry';
-import { ExceptionFilter } from '@server/util/exception.filter';
-import { DisabledRouteInterceptor } from '@server/util/interceptors/disable-route-interceptor';
+import '@/sentry';
 
-import '@server/sentry';
+import { AppModule } from '@/app.module';
+import { AppConfigService } from '@/config/app-config.service';
+import { initSentry } from '@/sentry';
+import { ExceptionFilter } from '@/util/exception.filter';
+import { DisabledRouteInterceptor } from '@/util/interceptors/disable-route-interceptor';
 
 const prettyStream = pretty({
     colorize: true,

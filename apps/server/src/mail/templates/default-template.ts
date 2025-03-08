@@ -1,6 +1,6 @@
 import { TReaderDocument } from '@usewaypoint/email-builder';
 
-import { generateSocials } from '@server/mail/templates/generate-socials';
+import { generateSocials } from '@/mail/templates/generate-socials';
 
 export const EMAIL_TEXT_PRIMARY_COLOR = '#FAFAFA';
 export const EMAIL_TEXT_DISABLED_COLOR = '#A3A3A3';

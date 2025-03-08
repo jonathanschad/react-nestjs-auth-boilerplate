@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-import { config } from '@client/config';
-import i18n from '@client/i18n/i18n';
-import { renewAccessToken } from '@client/repository/auth';
-import { useStore } from '@client/store/store';
+import { config } from '@/config';
+import i18n from '@/i18n/i18n';
+import { renewAccessToken } from '@/repository/auth';
+import { useStore } from '@/store/store';
 
 export const BASE_URL = new URL('/api', config.BACKEND_URL).href;
 

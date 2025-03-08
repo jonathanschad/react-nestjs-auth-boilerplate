@@ -2,17 +2,18 @@ import { FastifyRequest } from 'fastify';
 import * as uuid from 'uuid';
 import { Injectable } from '@nestjs/common';
 
-import { AuthService } from '@server/auth/auth.service';
-import { JWTService } from '@server/auth/jwt.service';
-import { AppConfigService } from '@server/config/app-config.service';
-import { EmailVerificationTokenService } from '@server/database/email-verification-token/email-verification-token.service';
-import { PrismaService } from '@server/database/prisma.service';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import { MailService } from '@server/mail/mail.service';
-import { SignupRequestDto } from '@server/signup/signup.dto';
-import { UserWithSettings } from '@server/types/prisma';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
 import { Language, Prisma, TokenType, User, UserState } from '@boilerplate/prisma';
+
+import { AuthService } from '@/auth/auth.service';
+import { JWTService } from '@/auth/jwt.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { EmailVerificationTokenService } from '@/database/email-verification-token/email-verification-token.service';
+import { PrismaService } from '@/database/prisma.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import { MailService } from '@/mail/mail.service';
+import { SignupRequestDto } from '@/signup/signup.dto';
+import { UserWithSettings } from '@/types/prisma';
+import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()
 export class SignupService {

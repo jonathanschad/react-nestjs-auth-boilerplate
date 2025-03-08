@@ -1,10 +1,10 @@
-import { Button } from '@client/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@client/components/ui/card';
-import { Input } from '@client/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import {
     CurrentSettingsRouteOptions,
     useSetSettingsCurrentActiveRoute,
-} from '@client/pages/settings/useSetSettingsCurrentActiveRoute';
+} from '@/pages/settings/useSetSettingsCurrentActiveRoute';
 
 export const GeneralSettings = () => {
     useSetSettingsCurrentActiveRoute(CurrentSettingsRouteOptions.GENERAL);

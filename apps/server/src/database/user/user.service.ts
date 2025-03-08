@@ -1,9 +1,10 @@
 import { assert } from 'console';
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from '@server/database/prisma.service';
-import { UserWithSettings } from '@server/types/prisma';
 import { Prisma, Token, TokenType, User, UserState } from '@boilerplate/prisma';
+
+import { PrismaService } from '@/database/prisma.service';
+import { UserWithSettings } from '@/types/prisma';
 
 type SanitizedUser = Omit<
     UserWithSettings,

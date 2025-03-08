@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-import ForgotPasswordSVG from '@client/assets/illustrations/forgot-password.svg?react';
-import { Button } from '@client/components/ui/button';
-import { Input } from '@client/components/ui/input';
-import { Label } from '@client/components/ui/label';
-import { initialPasswordForgotFormValues, passwordForgotFormValidationSchema } from '@client/forms/password-forgot-form';
-import { Translation } from '@client/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
-import { passwordForgot } from '@client/repository/password';
+import ForgotPasswordSVG from '@/assets/illustrations/forgot-password.svg?react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { initialPasswordForgotFormValues, passwordForgotFormValidationSchema } from '@/forms/password-forgot-form';
+import { Translation } from '@/i18n/Translation';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
+import { passwordForgot } from '@/repository/password';
 
 const PasswordForgotIllustration = <ForgotPasswordSVG className="w-1/2 max-w-full" />;
 

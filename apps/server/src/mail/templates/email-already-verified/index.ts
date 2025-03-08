@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { EmailTranslation, MailTemplate } from '@server/mail/mail.service';
-import { emailAlreadyVerifiedFactory } from '@server/mail/templates/email-already-verified/email-already-verified';
+import { EmailTranslation, MailTemplate } from '@/mail/mail.service';
+import { emailAlreadyVerifiedFactory } from '@/mail/templates/email-already-verified/email-already-verified';
 
 export const emailAlreadyVerifiedTemplate: MailTemplate = {
     templateFactory: emailAlreadyVerifiedFactory,

@@ -4,9 +4,9 @@ import * as React from 'react';
 import { useMutation } from 'react-query';
 import { Link, Outlet } from 'react-router-dom';
 
-import { ProfilePicture } from '@client/components/ProfilePicture';
-import { ProjectLogo } from '@client/components/ProjectLogo';
-import { Button } from '@client/components/ui/button';
+import { ProfilePicture } from '@/components/ProfilePicture';
+import { ProjectLogo } from '@/components/ProjectLogo';
+import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,11 +14,11 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@client/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger } from '@client/components/ui/sheet';
-import { Translation } from '@client/i18n/Translation';
-import { CurrentlySelectedRouteOptions } from '@client/layout/useSetSignedInCurrentActiveRoute';
-import { logout } from '@client/repository/login';
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Translation } from '@/i18n/Translation';
+import { CurrentlySelectedRouteOptions } from '@/layout/useSetSignedInCurrentActiveRoute';
+import { logout } from '@/repository/login';
 
 export const SignedInLayout = () => {
     const [currentlySelectedRoute, setCurrentlySelectedRoute] = React.useState<CurrentlySelectedRouteOptions | null>(

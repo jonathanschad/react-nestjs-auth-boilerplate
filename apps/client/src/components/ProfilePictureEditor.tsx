@@ -3,7 +3,7 @@ import AvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
 import * as uuid from 'uuid';
 
-import api from '@client/repository';
+import api from '@/repository';
 
 export const ProfilePictureEditor = () => {
     const [image, setImage] = useState<File>();

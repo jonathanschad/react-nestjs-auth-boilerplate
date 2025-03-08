@@ -3,12 +3,13 @@ import sharp from 'sharp';
 import { MultipartFile } from '@fastify/multipart';
 import { Injectable, StreamableFile } from '@nestjs/common';
 
-import { AppConfigService } from '@server/config/app-config.service';
-import { DatabaseFileService } from '@server/database/database-file/database-file.service';
-import { FileUploadResponse, StorageService } from '@server/files/storage.service';
-import { logger } from '@server/main';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
 import { File, FileAccess, User, UserState } from '@boilerplate/prisma';
+
+import { AppConfigService } from '@/config/app-config.service';
+import { DatabaseFileService } from '@/database/database-file/database-file.service';
+import { FileUploadResponse, StorageService } from '@/files/storage.service';
+import { logger } from '@/main';
+import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()
 export class FileService {

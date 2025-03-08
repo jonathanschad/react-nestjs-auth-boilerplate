@@ -1,12 +1,13 @@
 import { FastifyRequest } from 'fastify';
 import { Controller, Get, Req } from '@nestjs/common';
 
-import licensesJSON from '@server/assets/licenses.json';
-import privacyPolicy from '@server/assets/privacy-policy';
-import { PublicRoute } from '@server/auth/auth.guard';
-import { AppConfigService } from '@server/config/app-config.service';
-import { SignupService } from '@server/signup/signup.service';
 import { Language } from '@boilerplate/prisma';
+
+import licensesJSON from '@/assets/licenses.json';
+import privacyPolicy from '@/assets/privacy-policy';
+import { PublicRoute } from '@/auth/auth.guard';
+import { AppConfigService } from '@/config/app-config.service';
+import { SignupService } from '@/signup/signup.service';
 
 @Controller()
 export class AppController {

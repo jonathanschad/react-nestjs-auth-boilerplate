@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 
-import { Loading } from '@client/components/Loading';
-import { Translation } from '@client/i18n/Translation';
-import { loadApplication } from '@client/repository/load-application';
+import { Loading } from '@/components/Loading';
+import { Translation } from '@/i18n/Translation';
+import { loadApplication } from '@/repository/load-application';
 
 const LoadingApplication = ({ children }: { children: React.ReactNode }) => {
     const [loadingComplete, setLoadingComplete] = useState(false);

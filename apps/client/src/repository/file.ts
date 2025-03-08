@@ -1,4 +1,4 @@
-import api from '@client/repository';
+import api from '@/repository';
 
 export const getFile = async (fileUuid?: string | null): Promise<Blob | null> => {
     if (!fileUuid) {

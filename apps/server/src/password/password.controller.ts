@@ -1,16 +1,16 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
 
-import { PublicRoute } from '@server/auth/auth.guard';
-import { AuthService } from '@server/auth/auth.service';
+import { PublicRoute } from '@/auth/auth.guard';
+import { AuthService } from '@/auth/auth.service';
 import {
     PasswordChangePasswordDto,
     PasswordChangeTokenDto,
     PasswordForgotDto,
     PasswordForgotValidateDto,
-} from '@server/password/password.dto';
-import { PasswordService } from '@server/password/password.service';
-import { SignupService } from '@server/signup/signup.service';
+} from '@/password/password.dto';
+import { PasswordService } from '@/password/password.service';
+import { SignupService } from '@/signup/signup.service';
 
 @Controller('password')
 export class PasswordController {

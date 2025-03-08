@@ -1,26 +1,26 @@
 import { ReactElement, useMemo } from 'react';
 import { BrowserRouter, Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 
-import { NotSignedInLayout } from '@client/layout/NotSignedInLayout';
-import { SignedInLayout } from '@client/layout/SignedInLayout';
-import { Login } from '@client/pages/auth/Login';
-import { PasswordForgot } from '@client/pages/auth/PasswordForgot';
-import { PasswordForgotSuccess } from '@client/pages/auth/PasswordForgotSuccess';
-import { PasswordReset } from '@client/pages/auth/PasswordReset';
-import { Home } from '@client/pages/Home';
-import { Imprint, NotSignedInImprint } from '@client/pages/legal/Imprint';
-import { License, NotSignedInLicense } from '@client/pages/legal/License';
-import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@client/pages/legal/PrivacyPolicy';
-import { GeneralSettings } from '@client/pages/settings/GeneralSettings';
-import { NotificationSettings } from '@client/pages/settings/NotificationSettings';
-import { ProfileSettings } from '@client/pages/settings/ProfileSettings';
-import { Settings } from '@client/pages/settings/Settings';
-import CompleteRegister from '@client/pages/signup/CompleteRegister';
-import { ConfirmEmail } from '@client/pages/signup/ConfirmEmail';
-import ConnectGoogleAccountCompletion from '@client/pages/signup/google/ConnectGoogleAccountCompletion';
-import Register from '@client/pages/signup/Register';
-import { RegisterSuccess } from '@client/pages/signup/RegisterSuccess';
-import { UserState, useStore } from '@client/store/store';
+import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
+import { SignedInLayout } from '@/layout/SignedInLayout';
+import { Login } from '@/pages/auth/Login';
+import { PasswordForgot } from '@/pages/auth/PasswordForgot';
+import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
+import { PasswordReset } from '@/pages/auth/PasswordReset';
+import { Home } from '@/pages/Home';
+import { Imprint, NotSignedInImprint } from '@/pages/legal/Imprint';
+import { License, NotSignedInLicense } from '@/pages/legal/License';
+import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPolicy';
+import { GeneralSettings } from '@/pages/settings/GeneralSettings';
+import { NotificationSettings } from '@/pages/settings/NotificationSettings';
+import { ProfileSettings } from '@/pages/settings/ProfileSettings';
+import { Settings } from '@/pages/settings/Settings';
+import CompleteRegister from '@/pages/signup/CompleteRegister';
+import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
+import ConnectGoogleAccountCompletion from '@/pages/signup/google/ConnectGoogleAccountCompletion';
+import Register from '@/pages/signup/Register';
+import { RegisterSuccess } from '@/pages/signup/RegisterSuccess';
+import { UserState, useStore } from '@/store/store';
 
 const routesFactory = (userState: UserState | undefined | null) => {
     const isLoggedIn = Boolean(userState);

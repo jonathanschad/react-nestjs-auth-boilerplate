@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { EmailTranslation, MailTemplate } from '@server/mail/mail.service';
-import { emailDoesNotExistConfirmationFactory } from '@server/mail/templates/email-doesnot-exist-confirmation-mail/email-doesnot-exist-confirmation-mail';
+import { EmailTranslation, MailTemplate } from '@/mail/mail.service';
+import { emailDoesNotExistConfirmationFactory } from '@/mail/templates/email-doesnot-exist-confirmation-mail/email-doesnot-exist-confirmation-mail';
 
 export const emailDoesNotExistConformationMailTemplate: MailTemplate = {
     templateFactory: emailDoesNotExistConfirmationFactory,

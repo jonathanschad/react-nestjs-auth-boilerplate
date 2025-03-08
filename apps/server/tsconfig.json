@@ -8,10 +8,14 @@
         "target": "ES2023",
         "sourceMap": true,
         "outDir": "./dist",
+        "rootDir": "./src",
         "esModuleInterop": true,
         "strict": true,
         "resolveJsonModule": true,
-        "inlineSources": true
+        "inlineSources": true,
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
     "files": ["src/types/types.d.ts"],
     "include": ["src/**/*"]

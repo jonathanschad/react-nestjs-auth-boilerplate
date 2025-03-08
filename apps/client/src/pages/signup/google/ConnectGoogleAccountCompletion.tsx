@@ -5,18 +5,18 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
-import RegisterSVG from '@client/assets/illustrations/register.svg?react';
-import { Button } from '@client/components/ui/button';
-import { Input } from '@client/components/ui/input';
-import { Label } from '@client/components/ui/label';
+import RegisterSVG from '@/assets/illustrations/register.svg?react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
     connectGoogleAccountFormValidationSchema,
     ConnectGoogleAccountFormValues,
     initialConnectGoogleAccountFormValues,
-} from '@client/forms/connect-google-account-form';
-import { Translation } from '@client/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
-import { completeGoogleAccountConnection } from '@client/repository/login';
+} from '@/forms/connect-google-account-form';
+import { Translation } from '@/i18n/Translation';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
+import { completeGoogleAccountConnection } from '@/repository/login';
 
 type ConnectTokenType = { googleOAuthId: string; googleEmail: string; name: string; secret: string };
 const ConnectGoogleAccountCompletionIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;

@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { EmailTranslation, MailTemplate } from '@server/mail/mail.service';
-import { emailAlreadyExistsFactory } from '@server/mail/templates/email-already-exists/email-already-exists';
+import { EmailTranslation, MailTemplate } from '@/mail/mail.service';
+import { emailAlreadyExistsFactory } from '@/mail/templates/email-already-exists/email-already-exists';
 
 export const emailAlreadyExistsTemplate: MailTemplate = {
     templateFactory: emailAlreadyExistsFactory,

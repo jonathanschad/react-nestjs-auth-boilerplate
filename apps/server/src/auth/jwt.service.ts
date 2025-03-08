@@ -3,11 +3,12 @@ import { FastifyRequest } from 'fastify';
 import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
 
-import { AppConfigService } from '@server/config/app-config.service';
-import { PrismaService } from '@server/database/prisma.service';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import HttpStatusCode, { HTTPError, InvalidAccessTokenError } from '@server/util/httpHandlers';
 import { User } from '@boilerplate/prisma';
+
+import { AppConfigService } from '@/config/app-config.service';
+import { PrismaService } from '@/database/prisma.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import HttpStatusCode, { HTTPError, InvalidAccessTokenError } from '@/util/httpHandlers';
 
 interface JWTData {
     userId: string;

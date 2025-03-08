@@ -1,5 +1,5 @@
-import api, { BASE_URL } from '@client/repository';
-import { SanitizedUser } from '@client/types/user';
+import api, { BASE_URL } from '@/repository';
+import { SanitizedUser } from '@/types/user';
 
 export const getUser = async () => {
     try {

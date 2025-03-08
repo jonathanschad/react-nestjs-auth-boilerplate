@@ -5,15 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
-import ResetPasswordSVG from '@client/assets/illustrations/reset-password.svg?react';
-import { Alert, AlertDescription } from '@client/components/ui/alert';
-import { Button } from '@client/components/ui/button';
-import { Input } from '@client/components/ui/input';
-import { Label } from '@client/components/ui/label';
-import { initialPasswordResetFormValues, passwordResetFormValidationSchema } from '@client/forms/password-reset';
-import { Translation } from '@client/i18n/Translation';
-import { useSetNotSignedInLayoutIllustration } from '@client/layout/useSetNotSignedInLayoutIllustration';
-import { passwordChangeToken, passwordForgotTokenValidation } from '@client/repository/password';
+import ResetPasswordSVG from '@/assets/illustrations/reset-password.svg?react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { initialPasswordResetFormValues, passwordResetFormValidationSchema } from '@/forms/password-reset';
+import { Translation } from '@/i18n/Translation';
+import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
+import { passwordChangeToken, passwordForgotTokenValidation } from '@/repository/password';
 
 const PasswordResetIllustration = <ResetPasswordSVG className="w-1/2 max-w-full" />;
 

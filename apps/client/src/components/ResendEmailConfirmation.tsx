@@ -4,16 +4,16 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 
-import { Alert, AlertDescription } from '@client/components/ui/alert';
-import { Button } from '@client/components/ui/button';
-import { Input } from '@client/components/ui/input';
-import { Label } from '@client/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
     resendEmailConfirmationFormValidationSchema,
     ResendEmailConfirmationFormValues,
-} from '@client/forms/resend-email-confirmation';
-import { Translation } from '@client/i18n/Translation';
-import { resendVerificationEmail } from '@client/repository/login';
+} from '@/forms/resend-email-confirmation';
+import { Translation } from '@/i18n/Translation';
+import { resendVerificationEmail } from '@/repository/login';
 const SECONDS_UNTIL_EMAIL_CAN_BE_RESENT = 10 as const;
 
 export const ResendEmailConfirmation = ({ email }: { email?: string | null }) => {
