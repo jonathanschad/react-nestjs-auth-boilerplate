@@ -1,8 +1,9 @@
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { ArgumentsHost, Catch, ExceptionFilter as NestExceptionFilter, HttpException } from '@nestjs/common';
+import { SentryExceptionCaptured } from '@sentry/nestjs';
+
 import { logger } from '@server/main';
 import { HTTPError } from '@server/util/httpHandlers';
-import { ExceptionFilter as NestExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
-import { SentryExceptionCaptured } from '@sentry/nestjs';
-import { FastifyRequest, FastifyReply } from 'fastify';
 
 @Catch()
 export class ExceptionFilter implements NestExceptionFilter {

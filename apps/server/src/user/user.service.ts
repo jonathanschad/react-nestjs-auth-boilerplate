@@ -1,11 +1,12 @@
+import sharp from 'sharp';
 import { Injectable } from '@nestjs/common';
+
 import { AppConfigService } from '@server/config/app-config.service';
 import { DatabaseFileService } from '@server/database/database-file/database-file.service';
-import { File, FileAccess, User } from '@boilerplate/prisma';
-import sharp from 'sharp';
-import { FileService } from '@server/files/file.service';
 import { DatabaseUserService } from '@server/database/user/user.service';
+import { FileService } from '@server/files/file.service';
 import { UserWithSettings } from '@server/types/prisma';
+import { File, FileAccess, User } from '@boilerplate/prisma';
 
 @Injectable()
 export class UserService {
@@ -27,7 +28,7 @@ export class UserService {
     }): Promise<UserWithSettings> {
         const DIMENSIONS = { width: 128, height: 128 } as const;
 
-        const sharpImage = await sharp(fileBuffer)
+        const sharpImage = sharp(fileBuffer)
             .resize({
                 width: DIMENSIONS.width,
                 height: DIMENSIONS.height,

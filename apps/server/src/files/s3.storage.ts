@@ -1,4 +1,8 @@
-import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { Readable } from 'stream';
+import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { MultipartFile } from '@fastify/multipart';
+import { StreamableFile } from '@nestjs/common';
+
 import { AppConfigService } from '@server/config/app-config.service';
 import {
     FileDeleteOptions,
@@ -8,9 +12,6 @@ import {
     FileUploadOptions,
     FileUploadResponse,
 } from '@server/files/storage.service';
-import { Readable } from 'stream';
-import { StreamableFile } from '@nestjs/common';
-import { MultipartFile } from '@fastify/multipart';
 
 export class S3Service {
     private s3Client: S3Client;

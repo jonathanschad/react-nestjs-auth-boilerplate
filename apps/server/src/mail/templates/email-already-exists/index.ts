@@ -1,13 +1,14 @@
-import { MailTemplate } from '@server/mail/mail.service';
-import { emailAlreadyExistsFactory } from '@server/mail/templates/email-already-exists/email-already-exists';
 import * as fs from 'fs';
 import * as path from 'path';
+
+import { EmailTranslation, MailTemplate } from '@server/mail/mail.service';
+import { emailAlreadyExistsFactory } from '@server/mail/templates/email-already-exists/email-already-exists';
 
 export const emailAlreadyExistsTemplate: MailTemplate = {
     templateFactory: emailAlreadyExistsFactory,
     translations: {
-        DE: JSON.parse(fs.readFileSync(path.join(__dirname, 'de.json'), 'utf8')),
-        EN: JSON.parse(fs.readFileSync(path.join(__dirname, 'en.json'), 'utf8')),
+        DE: JSON.parse(fs.readFileSync(path.join(__dirname, 'de.json'), 'utf8')) as EmailTranslation,
+        EN: JSON.parse(fs.readFileSync(path.join(__dirname, 'en.json'), 'utf8')) as EmailTranslation,
     },
     images: [
         {

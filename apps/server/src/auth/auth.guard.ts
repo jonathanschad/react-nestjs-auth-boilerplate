@@ -1,12 +1,13 @@
+import { assert } from 'console';
+import { FastifyRequest } from 'fastify';
+import { CanActivate, createParamDecorator, ExecutionContext, Injectable, SetMetadata } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+
 import { JWTService } from '@server/auth/jwt.service';
 import { AppConfigService } from '@server/config/app-config.service';
 import { UserWithSettings } from '@server/types/prisma';
 import { InvalidAccessTokenError } from '@server/util/httpHandlers';
-import { CanActivate, createParamDecorator, ExecutionContext, Injectable, SetMetadata } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
 import { UserState } from '@boilerplate/prisma';
-import { assert } from 'console';
-import { FastifyRequest } from 'fastify';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -63,14 +64,14 @@ export const USER_STATE_KEY = 'userState';
 export const RequireUserState = (state: UserState | UserState[]) => SetMetadata(USER_STATE_KEY, state);
 
 export const User = createParamDecorator((_data: unknown, ctx: ExecutionContext): UserWithSettings => {
-    const request = ctx.switchToHttp().getRequest();
+    const request = ctx.switchToHttp().getRequest<FastifyRequest>();
     assert(request.user, 'User not found in request');
     return request.user as UserWithSettings;
 });
 
 export const OptionalUser = createParamDecorator(
     (_data: unknown, ctx: ExecutionContext): UserWithSettings | undefined => {
-        const request = ctx.switchToHttp().getRequest();
+        const request = ctx.switchToHttp().getRequest<FastifyRequest>();
         return request.user as UserWithSettings | undefined;
     },
 );

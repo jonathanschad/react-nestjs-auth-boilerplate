@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@server/database/prisma.service';
-import { File, FileAccess, FilePermission, FilePermissionType, Prisma, User } from '@boilerplate/prisma';
+
 import { AppConfigService } from '@server/config/app-config.service';
+import { PrismaService } from '@server/database/prisma.service';
 import { logger } from '@server/main';
+import { File, FileAccess, FilePermission, FilePermissionType, Prisma, User } from '@boilerplate/prisma';
 
 export const READ_PERMISSIONS: readonly FilePermissionType[] = [
     FilePermissionType.READ,

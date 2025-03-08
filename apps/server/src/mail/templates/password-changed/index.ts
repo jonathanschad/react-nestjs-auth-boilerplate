@@ -1,14 +1,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { MailTemplate } from '@server/mail/mail.service';
+import { EmailTranslation, MailTemplate } from '@server/mail/mail.service';
 import { passwordChangedFactory } from '@server/mail/templates/password-changed/password-changed';
 
 export const passwordChangedTemplate: MailTemplate = {
     templateFactory: passwordChangedFactory,
     translations: {
-        DE: JSON.parse(fs.readFileSync(path.join(__dirname, 'de.json'), 'utf8')),
-        EN: JSON.parse(fs.readFileSync(path.join(__dirname, 'en.json'), 'utf8')),
+        DE: JSON.parse(fs.readFileSync(path.join(__dirname, 'de.json'), 'utf8')) as EmailTranslation,
+        EN: JSON.parse(fs.readFileSync(path.join(__dirname, 'en.json'), 'utf8')) as EmailTranslation,
     },
     images: [
         {

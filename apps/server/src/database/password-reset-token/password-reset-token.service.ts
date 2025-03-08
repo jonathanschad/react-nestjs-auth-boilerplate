@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@server/database/prisma.service';
+
 import { AppConfigService } from '@server/config/app-config.service';
-import { Token, TokenType } from '@boilerplate/prisma';
+import { PrismaService } from '@server/database/prisma.service';
 import { UserWithSettings } from '@server/types/prisma';
+import { Token, TokenType } from '@boilerplate/prisma';
 
 interface PasswordResetTokenWithUser extends Token {
     user: UserWithSettings;

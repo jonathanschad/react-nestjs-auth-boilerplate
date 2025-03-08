@@ -1,3 +1,6 @@
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
+
 import { CompleteGoogleAccountConnectionDTO, GoogleOAuthDTO } from '@server/auth/auth.dto';
 import { PublicRoute } from '@server/auth/auth.guard';
 import { AuthService } from '@server/auth/auth.service';
@@ -7,8 +10,6 @@ import { AppConfigService } from '@server/config/app-config.service';
 import { ConnectGoogleAccountTokenService } from '@server/database/connect-google-account-token/connect-google-account-token.service';
 import { DatabaseUserService } from '@server/database/user/user.service';
 import { SignupService } from '@server/signup/signup.service';
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
 
 @Controller('auth/google')
 export class GoogleAuthController {
@@ -25,7 +26,7 @@ export class GoogleAuthController {
     @PublicRoute()
     @HttpCode(HttpStatus.OK)
     @Get('/')
-    async signIn() {
+    signIn() {
         const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${this.appConfigService.googleOAuthClientId}&redirect_uri=${this.googleOAuthService.buildGoogleOAuthRedirectUrl()}&response_type=code&scope=profile email`;
         return { redirectUrl: url };
     }

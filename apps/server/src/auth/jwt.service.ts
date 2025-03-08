@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { FastifyRequest } from 'fastify';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import * as jwt from 'jsonwebtoken';
-import { AppConfigService } from '@server/config/app-config.service';
 import * as crypto from 'crypto';
-import HttpStatusCode, { HTTPError, InvalidAccessTokenError } from '@server/util/httpHandlers';
+import { FastifyRequest } from 'fastify';
+import * as jwt from 'jsonwebtoken';
+import { Injectable } from '@nestjs/common';
+
+import { AppConfigService } from '@server/config/app-config.service';
 import { PrismaService } from '@server/database/prisma.service';
+import { DatabaseUserService } from '@server/database/user/user.service';
+import HttpStatusCode, { HTTPError, InvalidAccessTokenError } from '@server/util/httpHandlers';
 import { User } from '@boilerplate/prisma';
 
 interface JWTData {
@@ -138,9 +139,9 @@ export class JWTService {
 
     public verifyToken = async <T = unknown>(token: string): Promise<T> => {
         return new Promise<T>((resolve, reject) => {
-            jwt.verify(token, this.appConfigService.jwtTokenSecret, async (err: unknown, decoded: unknown) => {
+            jwt.verify(token, this.appConfigService.jwtTokenSecret, (err: unknown, decoded: unknown) => {
                 if (err) {
-                    return reject(new HTTPError({ statusCode: HttpStatusCode.BAD_REQUEST, message: 'Invalid token' }));
+                    reject(new HTTPError({ statusCode: HttpStatusCode.BAD_REQUEST, message: 'Invalid token' }));
                 }
                 resolve(decoded as T);
             });

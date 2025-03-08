@@ -1,16 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@server/database/prisma.service';
 import * as nodemailer from 'nodemailer';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { MailOptions } from 'nodemailer/lib/sendmail-transport';
 import * as SMTPTransport from 'nodemailer/lib/smtp-transport';
-import { AppConfigService } from '@server/config/app-config.service';
-import { Language } from '@boilerplate/prisma';
-import { UserWithSettings } from '@server/types/prisma';
-import { templates } from '@server/mail/templates/templates';
 import * as path from 'path';
+import { Injectable } from '@nestjs/common';
 import { renderToStaticMarkup, TReaderDocument } from '@usewaypoint/email-builder';
+
+import { AppConfigService } from '@server/config/app-config.service';
+import { PrismaService } from '@server/database/prisma.service';
 import { defaultEmailTemplateFactory } from '@server/mail/templates/default-template';
+import { templates } from '@server/mail/templates/templates';
+import { UserWithSettings } from '@server/types/prisma';
+import { Language } from '@boilerplate/prisma';
 export interface MailTemplate {
     templateFactory: (translations: any) => TReaderDocument; // TODO type this
     translations: Record<Language, EmailTranslation>;

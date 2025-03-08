@@ -1,19 +1,19 @@
+import assert from 'assert';
+import axios from 'axios';
+import { FastifyReply } from 'fastify';
+import * as uuid from 'uuid';
 import { Injectable } from '@nestjs/common';
 
-import axios from 'axios';
-import { AppConfigService } from '@server/config/app-config.service';
-import { Language, UserState } from '@boilerplate/prisma';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
-import { JWTService } from '@server/auth/jwt.service';
-import { FastifyReply } from 'fastify';
-import { AuthService } from '@server/auth/auth.service';
 import { CompleteGoogleAccountConnectionDTO } from '@server/auth/auth.dto';
+import { AuthService } from '@server/auth/auth.service';
+import { JWTService } from '@server/auth/jwt.service';
+import { AppConfigService } from '@server/config/app-config.service';
 import { ConnectGoogleAccountTokenService } from '@server/database/connect-google-account-token/connect-google-account-token.service';
-import assert from 'assert';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
+import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
+import { DatabaseUserService } from '@server/database/user/user.service';
 import { UserService } from '@server/user/user.service';
-import * as uuid from 'uuid';
+import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
+import { Language, UserState } from '@boilerplate/prisma';
 
 type GoogleTokenExchangeResponse = {
     access_token: string;
@@ -91,7 +91,7 @@ export class GoogleAuthService {
             },
         });
 
-        const profilePicture = await axios.get(picture, {
+        const profilePicture = await axios.get<ArrayBufferLike>(picture, {
             responseType: 'arraybuffer',
         });
         const userWithPicture = await this.userService.updateUserProfilePicture({

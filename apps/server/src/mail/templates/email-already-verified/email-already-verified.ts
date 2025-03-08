@@ -1,5 +1,6 @@
-import { EMAIL_ACCENT_COLOR, EMAIL_TEXT_DISABLED_COLOR } from '@server/mail/templates/default-template';
 import { TReaderDocument } from '@usewaypoint/email-builder';
+
+import { EMAIL_ACCENT_COLOR, EMAIL_TEXT_DISABLED_COLOR } from '@server/mail/templates/default-template';
 
 export const emailAlreadyVerifiedFactory = (translations: {
     body1: string;

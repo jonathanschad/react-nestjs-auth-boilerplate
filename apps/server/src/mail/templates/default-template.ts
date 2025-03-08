@@ -1,5 +1,6 @@
-import { generateSocials } from '@server/mail/templates/generate-socials';
 import { TReaderDocument } from '@usewaypoint/email-builder';
+
+import { generateSocials } from '@server/mail/templates/generate-socials';
 
 export const EMAIL_TEXT_PRIMARY_COLOR = '#FAFAFA';
 export const EMAIL_TEXT_DISABLED_COLOR = '#A3A3A3';
@@ -131,6 +132,7 @@ const generateImprint = (translations: TEmailTemplateFactory): TReaderDocument =
                     left: 24,
                 },
             },
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             props: {
                 columnsCount: 2,
                 columnsGap: 16,

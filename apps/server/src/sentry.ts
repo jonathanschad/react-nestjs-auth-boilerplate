@@ -1,7 +1,9 @@
 // Import with `const Sentry = require("@sentry/nestjs");` if you are using CJS
-import { AppConfigService } from '@server/config/app-config.service';
 import * as Sentry from '@sentry/nestjs';
 import { nodeProfilingIntegration } from '@sentry/profiling-node';
+
+import { AppConfigService } from '@server/config/app-config.service';
+
 // eslint-disable-next-line no-restricted-imports
 import packageJson from '../package.json';
 

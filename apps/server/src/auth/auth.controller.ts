@@ -1,12 +1,13 @@
-import { Body, Controller, Post, HttpCode, HttpStatus, Res, Get, Req } from '@nestjs/common';
-import { AuthService } from '@server/auth/auth.service';
-import { SingInDTO } from '@server/auth/auth.dto';
-import { PrismaService } from '@server/database/prisma.service';
-import { PublicRoute } from '@server/auth/auth.guard';
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res } from '@nestjs/common';
+
+import { SingInDTO } from '@server/auth/auth.dto';
+import { PublicRoute } from '@server/auth/auth.guard';
+import { AuthService } from '@server/auth/auth.service';
 import { JWTService } from '@server/auth/jwt.service';
-import { InvalidRefreshTokenError } from '@server/util/httpHandlers';
+import { PrismaService } from '@server/database/prisma.service';
 import { RefreshTokenService } from '@server/database/refresh-token/refresh-token.service';
+import { InvalidRefreshTokenError } from '@server/util/httpHandlers';
 
 @Controller('auth')
 export class AuthController {
@@ -53,7 +54,7 @@ export class AuthController {
                 remember: refreshTokenDb.rememberUser,
             });
             return accessToken;
-        } catch (error) {
+        } catch (_error) {
             throw new InvalidRefreshTokenError();
         }
     }

@@ -1,11 +1,12 @@
+import { FastifyRequest } from 'fastify';
+import { Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
+
 import { User } from '@server/auth/auth.guard';
 import { DatabaseUserService } from '@server/database/user/user.service';
 import { UserWithSettings } from '@server/types/prisma';
 import { UpdateUserProfilePictureDTO } from '@server/user/user.dto';
 import { UserService } from '@server/user/user.service';
 import { HTTPError } from '@server/util/httpHandlers';
-import { Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
-import { FastifyRequest } from 'fastify';
 
 @Controller('user')
 export class UserController {
@@ -45,7 +46,7 @@ export class UserController {
     }
 
     @Get()
-    async getUser(@User() user: UserWithSettings) {
+    getUser(@User() user: UserWithSettings) {
         return this.databaseUserService.sanitizeUser(user);
     }
 }

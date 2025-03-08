@@ -1,15 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import { PrismaService } from '@server/database/prisma.service';
 import * as uuid from 'uuid';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
+import { Injectable } from '@nestjs/common';
+
 import { AuthService } from '@server/auth/auth.service';
+import { JWTService } from '@server/auth/jwt.service';
+import { AppConfigService } from '@server/config/app-config.service';
+import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
+import { PrismaService } from '@server/database/prisma.service';
+import { DatabaseUserService } from '@server/database/user/user.service';
 import { MailService } from '@server/mail/mail.service';
 import { UserWithSettings } from '@server/types/prisma';
-import { AppConfigService } from '@server/config/app-config.service';
-import { JWTService } from '@server/auth/jwt.service';
+import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
 import { Language } from '@boilerplate/prisma';
-import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
 
 @Injectable()
 export class PasswordService {
@@ -28,7 +29,7 @@ export class PasswordService {
         if (user) {
             await this.initiatePasswordReset(user);
         } else {
-            await this.mailService.sendEmailDoesNotExistPasswordResetEmail(email, language);
+            this.mailService.sendEmailDoesNotExistPasswordResetEmail(email, language);
         }
     }
 
@@ -92,7 +93,7 @@ export class PasswordService {
         if (invalidateAllSessions) {
             await this.authService.invalidateAllSessions(user.id);
         }
-        await this.mailService.sendPasswordChangedEmail(user);
+        this.mailService.sendPasswordChangedEmail(user);
     }
 
     public async initiatePasswordReset(user: UserWithSettings): Promise<void> {
@@ -104,6 +105,6 @@ export class PasswordService {
             hashedSecret: this.jwtService.getSha256Hash(secret),
             expiresAt,
         });
-        await this.mailService.sendPasswordResetEmail(user, token);
+        this.mailService.sendPasswordResetEmail(user, token);
     }
 }

@@ -1,7 +1,7 @@
-import * as Sentry from '@sentry/react';
 import Plausible from 'plausible-tracker';
 import { useEffect, useRef } from 'react';
 import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType } from 'react-router-dom';
+import * as Sentry from '@sentry/react';
 
 import { config } from '@client/config';
 

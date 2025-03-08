@@ -1,10 +1,11 @@
-import { Controller, Get, Req } from '@nestjs/common';
-import { PublicRoute } from '@server/auth/auth.guard';
-import licensesJSON from '@server/assets/licenses.json';
-import { AppConfigService } from '@server/config/app-config.service';
-import privacyPolicy from '@server/assets/privacy-policy';
-import { SignupService } from '@server/signup/signup.service';
 import { FastifyRequest } from 'fastify';
+import { Controller, Get, Req } from '@nestjs/common';
+
+import licensesJSON from '@server/assets/licenses.json';
+import privacyPolicy from '@server/assets/privacy-policy';
+import { PublicRoute } from '@server/auth/auth.guard';
+import { AppConfigService } from '@server/config/app-config.service';
+import { SignupService } from '@server/signup/signup.service';
 import { Language } from '@boilerplate/prisma';
 
 @Controller()
@@ -16,13 +17,13 @@ export class AppController {
 
     @Get('/legal/attribution')
     @PublicRoute()
-    async getLegalAttribution() {
+    getLegalAttribution() {
         return licensesJSON;
     }
 
     @Get('/legal/privacy-policy')
     @PublicRoute()
-    async getDataPrivacyPolicy(@Req() request: FastifyRequest) {
+    getDataPrivacyPolicy(@Req() request: FastifyRequest) {
         const language = this.signupService.getSupportedLanguageFromRequest(request);
 
         return privacyPolicy.get(language) ?? privacyPolicy.get(Language.EN);
@@ -30,7 +31,7 @@ export class AppController {
 
     @Get('/envs')
     @PublicRoute()
-    async getFrontendEnvs() {
+    getFrontendEnvs() {
         return {
             BACKEND_URL: new URL('/api', this.appConfigService.backendPublicUrl).href,
             PUBLIC_URL: this.appConfigService.frontendPublicUrl,
@@ -47,7 +48,7 @@ export class AppController {
 
     @Get('/health')
     @PublicRoute()
-    async getHealth() {
+    getHealth() {
         return {
             health: 'up',
             version: process.env.npm_package_version,

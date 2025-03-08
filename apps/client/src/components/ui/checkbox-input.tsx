@@ -1,5 +1,5 @@
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import * as React from 'react';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 import { Checkbox, CheckboxProps } from '@client/components/ui/checkbox';
 

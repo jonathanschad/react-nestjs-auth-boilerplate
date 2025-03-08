@@ -1,6 +1,7 @@
-import { Language } from '@boilerplate/prisma';
 import fs from 'fs';
 import path from 'path';
+
+import { Language } from '@boilerplate/prisma';
 
 const privacyPolicies = new Map<Language, string>();
 

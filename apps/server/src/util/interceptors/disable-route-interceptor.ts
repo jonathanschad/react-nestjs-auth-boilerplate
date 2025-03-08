@@ -1,7 +1,8 @@
-import { DISABLED_ROUTE } from '@server/util/decorators/disabled';
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor, ForbiddenException } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
+import { CallHandler, ExecutionContext, ForbiddenException, Injectable, NestInterceptor } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+
+import { DISABLED_ROUTE } from '@server/util/decorators/disabled';
 
 @Injectable()
 export class DisabledRouteInterceptor implements NestInterceptor {

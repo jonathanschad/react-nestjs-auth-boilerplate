@@ -1,9 +1,10 @@
-import { Injectable, StreamableFile } from '@nestjs/common';
-import { AppConfigService } from '@server/config/app-config.service';
-import { File } from '@boilerplate/prisma';
-import { S3Service } from '@server/files/s3.storage';
-import { FileSystemService } from '@server/files/filesystem.storage';
 import { MultipartFile } from '@fastify/multipart';
+import { Injectable, StreamableFile } from '@nestjs/common';
+
+import { AppConfigService } from '@server/config/app-config.service';
+import { FileSystemService } from '@server/files/filesystem.storage';
+import { S3Service } from '@server/files/s3.storage';
+import { File } from '@boilerplate/prisma';
 
 export type FileUploadOptions<T extends Buffer | MultipartFile = Buffer | MultipartFile> = {
     path: string;

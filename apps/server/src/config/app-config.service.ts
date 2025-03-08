@@ -1,13 +1,13 @@
+import assert from 'assert';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import assert from 'assert';
 
 @Injectable()
 export class AppConfigService {
     constructor(private configService: ConfigService) {}
 
     get(key: string): string {
-        const envValue = this.configService.get(key);
+        const envValue = this.configService.get<string>(key);
         assert(envValue, `Config error: ${key} is not defined`);
         return envValue;
     }

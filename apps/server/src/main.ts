@@ -1,21 +1,22 @@
-import '@server/sentry';
-
-import { NestFactory, Reflector } from '@nestjs/core';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { fastifyCookie } from '@fastify/cookie';
-import fastifyHelmet from '@fastify/helmet';
-import fastifyAccepts from '@fastify/accepts';
-import fastifyCors from '@fastify/cors';
-import { AppConfigService } from '@server/config/app-config.service';
-import fastifyJwt from '@fastify/jwt';
 import pino from 'pino';
 import pretty from 'pino-pretty';
-import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from '@server/app.module';
-import { ExceptionFilter } from '@server/util/exception.filter';
+import fastifyAccepts from '@fastify/accepts';
+import { fastifyCookie } from '@fastify/cookie';
+import fastifyCors from '@fastify/cors';
+import fastifyHelmet from '@fastify/helmet';
+import fastifyJwt from '@fastify/jwt';
 import fastifyMultipart from '@fastify/multipart';
-import { DisabledRouteInterceptor } from '@server/util/interceptors/disable-route-interceptor';
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+
+import { AppModule } from '@server/app.module';
+import { AppConfigService } from '@server/config/app-config.service';
 import { initSentry } from '@server/sentry';
+import { ExceptionFilter } from '@server/util/exception.filter';
+import { DisabledRouteInterceptor } from '@server/util/interceptors/disable-route-interceptor';
+
+import '@server/sentry';
 
 const prettyStream = pretty({
     colorize: true,

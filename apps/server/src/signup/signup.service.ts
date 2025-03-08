@@ -1,17 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import { PrismaService } from '@server/database/prisma.service';
 import { FastifyRequest } from 'fastify';
-import { Language, Prisma, TokenType, User, UserState } from '@boilerplate/prisma';
 import * as uuid from 'uuid';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
+import { Injectable } from '@nestjs/common';
+
 import { AuthService } from '@server/auth/auth.service';
-import { MailService } from '@server/mail/mail.service';
-import { UserWithSettings } from '@server/types/prisma';
-import { AppConfigService } from '@server/config/app-config.service';
 import { JWTService } from '@server/auth/jwt.service';
+import { AppConfigService } from '@server/config/app-config.service';
 import { EmailVerificationTokenService } from '@server/database/email-verification-token/email-verification-token.service';
+import { PrismaService } from '@server/database/prisma.service';
+import { DatabaseUserService } from '@server/database/user/user.service';
+import { MailService } from '@server/mail/mail.service';
 import { SignupRequestDto } from '@server/signup/signup.dto';
+import { UserWithSettings } from '@server/types/prisma';
+import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
+import { Language, Prisma, TokenType, User, UserState } from '@boilerplate/prisma';
 
 @Injectable()
 export class SignupService {
@@ -42,7 +43,7 @@ export class SignupService {
             if (existingUser.state === UserState.UNVERIFIED || existingUser.state === UserState.VERIFIED) {
                 await this.initiateEmailVerification(existingUser);
             } else {
-                await this.mailService.sendEmailAlreadyExistsEmail(existingUser);
+                this.mailService.sendEmailAlreadyExistsEmail(existingUser);
             }
             return true;
         } else {

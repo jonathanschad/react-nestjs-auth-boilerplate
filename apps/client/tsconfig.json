@@ -15,7 +15,8 @@
         "noEmit": true,
         "jsx": "react-jsx",
 
-        "baseUrl": ".",
+        "rootDir": "./src",
+        "outDir": "./dist",
         "sourceMap": true,
         "types": ["vite-plugin-svgr/client"],
         "inlineSources": true

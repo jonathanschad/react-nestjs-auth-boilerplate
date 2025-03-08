@@ -1,5 +1,5 @@
-import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
+import { ColumnDef } from '@tanstack/react-table';
 
 import LegalSVG from '@client/assets/illustrations/legal.svg?react';
 import licenseClarificationsJSON from '@client/assets/license-clarifications.json';

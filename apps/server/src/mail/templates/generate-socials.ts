@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { TReaderDocument } from '@usewaypoint/email-builder';
 
 export const generateSocials = (socials: { name: string; url: string }[]): TReaderDocument => {

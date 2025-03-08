@@ -1,8 +1,9 @@
 import { Global, Module } from '@nestjs/common';
+
 import { AppConfigModule } from '@server/config/app-config.module';
 import { DatabaseModule } from '@server/database/database.module';
-import { FileService } from '@server/files/file.service';
 import { FileController } from '@server/files/file.controller';
+import { FileService } from '@server/files/file.service';
 import { StorageService } from '@server/files/storage.service';
 
 @Global()

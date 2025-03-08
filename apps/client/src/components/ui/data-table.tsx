@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
     ColumnDef,
     flexRender,
@@ -9,7 +10,6 @@ import {
     SortingState,
     useReactTable,
 } from '@tanstack/react-table';
-import { useState } from 'react';
 
 import { Button } from '@client/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@client/components/ui/table';

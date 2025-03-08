@@ -1,15 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { DatabaseUserService } from '@server/database/user/user.service';
-import { User } from '@boilerplate/prisma';
-import * as crypto from 'crypto';
-import { SingInDTO } from '@server/auth/auth.dto';
-import { PrismaService } from '@server/database/prisma.service';
-import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
-import { FastifyReply } from 'fastify';
-import { AccessTokenService } from '@server/database/access-token/access-token.service';
-import { RefreshTokenService } from '@server/database/refresh-token/refresh-token.service';
-import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
 import assert from 'assert';
+import * as crypto from 'crypto';
+import { FastifyReply } from 'fastify';
+import { Injectable } from '@nestjs/common';
+
+import { SingInDTO } from '@server/auth/auth.dto';
+import { AccessTokenService } from '@server/database/access-token/access-token.service';
+import { PasswordResetTokenService } from '@server/database/password-reset-token/password-reset-token.service';
+import { PrismaService } from '@server/database/prisma.service';
+import { RefreshTokenService } from '@server/database/refresh-token/refresh-token.service';
+import { DatabaseUserService } from '@server/database/user/user.service';
+import HttpStatusCode, { HTTPError } from '@server/util/httpHandlers';
+import { User } from '@boilerplate/prisma';
 
 @Injectable()
 export class AuthService {
@@ -21,8 +22,8 @@ export class AuthService {
         readonly prisma: PrismaService,
     ) {}
 
-    public async signIn(res: FastifyReply, { email, password, remember }: SingInDTO): Promise<any> {
-        const FAIL_MESSAGE = 'Incorrect username or password.' as const;
+    public async signIn(res: FastifyReply, { email, password, remember }: SingInDTO) {
+        const FAIL_MESSAGE = 'Incorrect username or password.';
         try {
             const user = await this.databaseUserService.findByEmail(email);
             assert(user);

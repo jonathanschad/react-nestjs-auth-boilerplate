@@ -25,7 +25,7 @@ const omittedProperties: Array<keyof Store> = ['accessToken'];
 
 export const useStore = create<Store>()(
     persist(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
         (set, get) => ({
             accessToken: null,
             isLoggedIn: false,
