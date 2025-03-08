@@ -1,46 +1,27 @@
-# Stage 1: Build the React app
-FROM node:20-alpine3.20 AS client-builder
-WORKDIR /app
-COPY client/package.json client/yarn.lock ./
-COPY client ./
-RUN yarn install
-RUN yarn build
+FROM node:20-slim AS base
+# Install pnpm explicitly
+RUN npm install -g pnpm@latest
 
-# Copy sourcemaps to a separate directory
-RUN mkdir -p /sourcemaps 
-RUN cp -R dist/assets/ /sourcemaps
-RUN rm dist/assets/*.map
+# Set environment variables for pnpm
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-# Stage 2: Build the NestJS server
-FROM node:20-alpine3.20 AS server-builder
-WORKDIR /app
-COPY server/package.json server/yarn.lock ./
-COPY server ./
-RUN yarn install
-RUN npx prisma generate
-RUN yarn build
-RUN mkdir -p /sourcemaps 
-RUN cp -R dist/ /sourcemaps
+FROM base AS build
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run -r build
+RUN pnpm deploy --filter=client --prod /prod/client
+RUN pnpm deploy --filter=server --prod /prod/server
 
-# Stage 3: Production container
-FROM node:20-alpine3.20
-WORKDIR /app
+FROM base AS client
+COPY --from=build /prod/client /prod/client
+WORKDIR /prod/client
+EXPOSE 8000
+CMD [ "pnpm", "start" ]
 
-# Copy server build
-COPY --from=server-builder /app/dist ./server
-COPY --from=server-builder /app/node_modules ./node_modules
-COPY --from=server-builder /app/prisma ./prisma 
-
-# Copy client build for static file serving
-COPY --from=client-builder /app/dist ./server/public
-
-# Expose sourcemaps as a build artifact
-COPY --from=client-builder /sourcemaps /sourcemaps-client
-COPY --from=server-builder /sourcemaps/dist /sourcemaps-server
-
-# Set environment variables
-ENV PORT=3000
-EXPOSE 3000
-
-# Start the NestJS server
-CMD ["sh", "-c", "npx prisma migrate deploy && node server/src/main.js"]
+FROM base AS server
+COPY --from=build /prod/server /prod/server
+WORKDIR /prod/server
+EXPOSE 8001
+CMD [ "pnpm", "start" ]

@@ -4,6 +4,7 @@
     "description": "",
     "scripts": {
         "dev": "pnpm --filter database db:generate && pnpm run --parallel dev",
+        "build": "pnpm --filter database db:generate && pnpm run --parallel build",
         "lint": "pnpm run --parallel lint",
         "lint:fix": "pnpm run --parallel lint:fix"
     },

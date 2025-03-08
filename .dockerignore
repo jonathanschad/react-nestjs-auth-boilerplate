@@ -3,13 +3,13 @@
 **/dist
 
 # Environment files
-client/.env
-server/.env
+**/.env
+.env
 
 # Build artifacts
-client/build
-client/dist
-server/dist
+apps/client/build
+apps/client/dist
+apps/server/dist
 
 # Logs
 **/*.log
@@ -26,5 +26,5 @@ docker-compose.yml
 Thumbs.db
 
 # Prisma directory - make sure to exclude specific files if necessary, not the directory itself
-!server/prisma/
-!server/prisma/schema.prisma
+!packages/database/prisma/
+!packages/database/prisma/schema.prisma
