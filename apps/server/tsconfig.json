@@ -13,6 +13,7 @@
         "strict": true,
         "resolveJsonModule": true,
         "inlineSources": true,
+        "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]
         }

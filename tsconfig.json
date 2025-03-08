@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "incremental": true,
@@ -10,9 +9,6 @@
         "strictBindCallApply": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
-        "resolveJsonModule": true,
-        "paths": {
-            "@boilerplate/prisma": ["./packages/database"]
-        }
+        "resolveJsonModule": true
     }
 }

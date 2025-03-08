@@ -19,7 +19,12 @@
         "outDir": "./dist",
         "sourceMap": true,
         "types": ["vite-plugin-svgr/client"],
-        "inlineSources": true
+        "inlineSources": true,
+
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
     "include": ["src/**/*"],
     "references": [
