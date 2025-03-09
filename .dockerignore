@@ -26,5 +26,5 @@ docker-compose.yml
 Thumbs.db
 
 # Prisma directory - make sure to exclude specific files if necessary, not the directory itself
-!packages/database/prisma/
-!packages/database/prisma/schema.prisma
+!packages/prisma/prisma/
+!packages/prisma/prisma/schema.prisma

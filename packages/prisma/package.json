@@ -1,0 +1,24 @@
+{
+    "name": "@boilerplate/prisma",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "db:generate": "prisma generate",
+        "db:migrate": "dotenv -e ../../.env -- prisma migrate dev"
+    },
+    "dependencies": {
+        "@prisma/client": "^6.4.1",
+        "prisma": "^6.4.1"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.7",
+        "copyfiles": "^2.4.1",
+        "dotenv-cli": "^8.0.0",
+        "tsx": "^4.19.3",
+        "typescript": "^5.7.3"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

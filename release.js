@@ -22,7 +22,8 @@ try {
 }
 const packageJsonPathWebsite = './apps/server/package.json';
 const packageJsonPathBackend = './apps/client/package.json';
-const packageJsonPathDatabase = './packages/database/package.json';
+const packageJsonPathDatabase = './packages/prisma/package.json';
+const packageJsonPathRoot = './package.json';
 
 const updatePackageJson = (packageJsonPath) => {
     // Update package.json version
@@ -43,6 +44,7 @@ const updatePackageJson = (packageJsonPath) => {
 updatePackageJson(packageJsonPathWebsite);
 updatePackageJson(packageJsonPathBackend);
 updatePackageJson(packageJsonPathDatabase);
+updatePackageJson(packageJsonPathRoot);
 
 // Create Git commit and tag
 try {
