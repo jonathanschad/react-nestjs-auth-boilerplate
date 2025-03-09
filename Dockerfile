@@ -60,4 +60,3 @@ ENV PRISMA_SCHEMA_PATH=/apps/database/prisma/schema.prisma
 
 # Start the NestJS server
 CMD ["sh", "-c", "cd /apps/database && npx prisma migrate deploy --schema $PRISMA_SCHEMA_PATH && cd ../server && node dist/main.js"]
-#CMD ["sh", "-c", "tail -f /dev/null"]

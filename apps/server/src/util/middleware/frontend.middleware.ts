@@ -4,7 +4,7 @@ import mime from 'mime-types';
 import { dirname } from 'node:path';
 import path from 'path';
 
-const rootDir = path.resolve(dirname(process.argv[1]), '..', 'public');
+const rootDir = path.resolve(dirname(process.argv[1]), 'public');
 const resolvePath = (file: string) => path.resolve(rootDir, file);
 const staticFiles = (() => {
     try {
