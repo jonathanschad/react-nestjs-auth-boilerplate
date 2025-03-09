@@ -1,12 +1,14 @@
 {
     "name": "react-nestjs-auth-boilerplate",
-    "version": "1.0.0",
+    "version": "0.3",
     "description": "",
     "scripts": {
-        "dev": "pnpm --filter @boilerplate/prisma db:generate && pnpm run --parallel dev",
-        "build": "pnpm --filter @boilerplate/prisma db:generate && pnpm run --parallel build",
+        "dev": "pnpm generate:prisma && pnpm run --parallel dev",
+        "build": "pnpm generate:prisma && pnpm run --parallel build",
         "lint": "pnpm run --parallel lint",
-        "lint:fix": "pnpm run --parallel lint:fix"
+        "lint:fix": "pnpm run --parallel lint:fix",
+        "postinstall": "pnpm generate:prisma",
+        "generate:prisma": "pnpm --filter @boilerplate/prisma db:generate"
     },
     "keywords": [],
     "author": "",
