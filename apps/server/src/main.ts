@@ -17,6 +17,7 @@ import { AppConfigService } from '@/config/app-config.service';
 import { initSentry } from '@/sentry';
 import { ExceptionFilter } from '@/util/exception.filter';
 import { DisabledRouteInterceptor } from '@/util/interceptors/disable-route-interceptor';
+import { serveFrontend } from '@/util/middleware/frontend.middleware';
 
 const prettyStream = pretty({
     colorize: true,
@@ -82,6 +83,7 @@ async function bootstrap() {
         secret: appConfigService.jwtTokenSecret,
     });
     await app.register(fastifyMultipart);
+    app.use(serveFrontend);
 
     await app.listen(appConfigService.port, appConfigService.host);
 }
