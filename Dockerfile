@@ -25,12 +25,12 @@ RUN pnpm deploy --filter=@boilerplate/prisma --prod /prod/database
 
 # Extract sourcemaps for client
 RUN mkdir -p /sourcemaps-client
-RUN cp -R /prod/client/dist /sourcemaps-client
+RUN cp -R /prod/client/dist/* /sourcemaps-client
 RUN rm /prod/client/dist/assets/*.map
 RUN find /prod/client/dist/assets -name "index-*.js" -exec sed -i '/\/\/# sourceMappingURL=.*\.map/d' {} \;
 # Extract sourcemaps for server
 RUN mkdir -p /sourcemaps-server
-RUN cp -R /prod/server/dist /sourcemaps-server
+RUN cp -R /prod/server/dist/* /sourcemaps-server
 
 
 # Production stage

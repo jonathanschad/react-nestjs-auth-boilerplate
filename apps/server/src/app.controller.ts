@@ -55,4 +55,10 @@ export class AppController {
             version: process.env.npm_package_version,
         };
     }
+
+    @Get('/sentry-test')
+    @PublicRoute()
+    getSentryTest() {
+        throw new Error('Test error');
+    }
 }

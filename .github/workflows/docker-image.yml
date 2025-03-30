@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
     push:
         tags:
-            - "v*" # Trigger only on version tags like v1.0.0
+            - 'v*' # Trigger only on version tags like v1.0.0
 
 jobs:
     build-and-push:
@@ -70,7 +70,7 @@ jobs:
 
                   # Upload server sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-server \
-                      --rewrite --validate
+                      --rewrite --validate --url-prefix '~/apps/server/dist/'
 
                   # Finalize the release
                   sentry-cli releases finalize "$RELEASE"
