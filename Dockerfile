@@ -25,17 +25,16 @@ RUN pnpm deploy --filter=@boilerplate/prisma --prod /prod/database
 
 # Extract sourcemaps for client
 RUN mkdir -p /sourcemaps-client
-RUN cp -R /prod/client/dist/assets/*.map /sourcemaps-client
+RUN cp -R /prod/client/dist /sourcemaps-client
 RUN rm /prod/client/dist/assets/*.map
-
+RUN find /prod/client/dist/assets -name "index-*.js" -exec sed -i '/\/\/# sourceMappingURL=.*\.map/d' {} \;
 # Extract sourcemaps for server
 RUN mkdir -p /sourcemaps-server
-RUN cp -R /prod/server/dist/*.map /sourcemaps-server
-RUN rm /prod/server/dist/*.map
+RUN cp -R /prod/server/dist /sourcemaps-server
+
 
 # Production stage
 FROM node:20-alpine3.20 AS production
-#RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /apps
 
 # Copy server build
@@ -52,7 +51,6 @@ COPY --from=build /sourcemaps-client /sourcemaps-client
 COPY --from=build /sourcemaps-server /sourcemaps-server
 
 # Set environment variables
-ENV PORT=3000
 EXPOSE 3000
 
 # Set the Prisma schema path explicitly

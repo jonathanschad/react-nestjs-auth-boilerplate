@@ -10,7 +10,9 @@ const staticFiles = (() => {
     try {
         return readdirSync(rootDir).map((file) => `/${file}`);
     } catch (error) {
-        console.log(`Error reading static files from ${rootDir}`, error);
+        if (process.env.NODE_ENV === 'production') {
+            console.log(`Error reading static files from ${rootDir}`, error);
+        }
         return [];
     }
 })();

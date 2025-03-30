@@ -15,7 +15,7 @@ export const Analytics = () => {
         if (!config.PUBLIC_URL || !config.PLAUSIBLE_HOST_URL) return;
 
         plausible.current = Plausible({
-            domain: config.PUBLIC_URL,
+            domain: new URL(config.PUBLIC_URL).hostname,
             apiHost: config.PLAUSIBLE_HOST_URL ?? undefined,
             trackLocalhost: true,
         });

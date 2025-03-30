@@ -46,11 +46,11 @@ This application includes a dedicated endpoint to serve the privacy policy in di
 
 ### Initial Setup
 
-The data protection policy files live in the `server/src/assets/privacy-policy/files` directory. On startup tries to read files of supported languages. Supported languages are defined in the `prisma.schema` file in the Language enum. For example, if `Language.DE` is defined you should have a `de.md` file in the `server/src/assets/privacy-policy/files` directory. By default the application will serve the `en.md` version if the requested language could not be loaded.
+The data protection policy files live in the `apps/server/dist/assets/privacy-policy/files` directory. On startup tries to read files of supported languages. Supported languages are defined in the `prisma.schema` file in the Language enum. For example, if `Language.DE` is defined you should have a `de.md` file in the `server/src/assets/privacy-policy/files` directory. By default the application will serve the `en.md` version if the requested language could not be loaded.
 
 ### During Development
 
--   Place your `.md` files in the `server/src/assets/privacy-policy/files` directory.
+-   Place your `.md` files in the `apps/server/dist/assets/privacy-policy/files` directory.
     -   Example: `de.md` for German, `en.md` for English.
     -   Note: The filenames should be in lowercase and match the language codes.
 
