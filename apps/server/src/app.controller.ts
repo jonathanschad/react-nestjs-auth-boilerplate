@@ -3,12 +3,14 @@ import { Controller, Get, Req } from '@nestjs/common';
 
 import { Language } from '@boilerplate/prisma';
 
+// eslint-disable-next-line no-restricted-imports
+import packageJson from '../package.json';
+
 import licensesJSON from '@/assets/licenses.json';
 import privacyPolicy from '@/assets/privacy-policy';
 import { PublicRoute } from '@/auth/auth.guard';
 import { AppConfigService } from '@/config/app-config.service';
 import { SignupService } from '@/signup/signup.service';
-
 @Controller()
 export class AppController {
     constructor(
@@ -52,7 +54,7 @@ export class AppController {
     getHealth() {
         return {
             health: 'up',
-            version: process.env.npm_package_version,
+            version: packageJson.version,
         };
     }
 
