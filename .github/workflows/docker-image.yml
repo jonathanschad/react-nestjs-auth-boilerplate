@@ -56,9 +56,9 @@ jobs:
             - name: Upload backend sourcemaps to Sentry
               env:
                   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-                  SENTRY_ORG: ${{ env.SENTRY_ORG }}
-                  SENTRY_PROJECT: ${{ env.SENTRY_PROJECT_BACKEND }}
-                  SENTRY_URL: ${{ env.SENTRY_URL }}
+                  SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+                  SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT_BACKEND }}
+                  SENTRY_URL: ${{ vars.SENTRY_URL }}
               run: |
                   # Install Sentry CLI
                   curl -sL https://sentry.io/get-cli/ | bash
@@ -79,9 +79,9 @@ jobs:
             - name: Upload frontend sourcemaps to Sentry
               env:
                   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-                  SENTRY_ORG: ${{ env.SENTRY_ORG }}
-                  SENTRY_PROJECT: ${{ env.SENTRY_PROJECT_FRONTEND }}
-                  SENTRY_URL: ${{ env.SENTRY_URL }}
+                  SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+                  SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT_FRONTEND }}
+                  SENTRY_URL: ${{ vars.SENTRY_URL }}
               run: |
                   # Define the release version
                   RELEASE="react-nestjs-boilerplate-frontend@${{ env.VERSION }}"
