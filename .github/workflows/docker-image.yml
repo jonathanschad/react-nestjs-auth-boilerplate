@@ -64,16 +64,17 @@ jobs:
 
                   RELEASE="react-nestjs-boilerplate@${{ env.VERSION }}"
 
-                  sentry-cli releases new -p ${{ vars.SENTRY_PROJECT_BACKEND }} -p ${{ vars.SENTRY_PROJECT_FRONTEND }} "$RELEASE"
+                  sentry-cli releases new -p ${{ vars.SENTRY_PROJECT_FRONTEND }} "$RELEASE"
+                  sentry-cli releases new -p ${{ vars.SENTRY_PROJECT_BACKEND }} "$RELEASE"
                   sentry-cli releases set-commits --commit "${{ github.sha }}" "$RELEASE"
 
                   # Upload server sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-server \
-                      --rewrite --validate --url-prefix '~/apps/server/dist/'
+                      --rewrite --validate -p ${{ vars.SENTRY_PROJECT_BACKEND }} --url-prefix '~/apps/server/dist/'
 
                   # Upload frontend sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-client \
-                      --rewrite --validate
+                      --rewrite --validate -p ${{ vars.SENTRY_PROJECT_FRONTEND }}
 
                   # Finalize the release
                   sentry-cli releases finalize "$RELEASE"
