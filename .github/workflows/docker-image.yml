@@ -66,7 +66,7 @@ jobs:
 
                   sentry-cli releases new -p ${{ vars.SENTRY_PROJECT_FRONTEND }} "$RELEASE"
                   sentry-cli releases new -p ${{ vars.SENTRY_PROJECT_BACKEND }} "$RELEASE"
-                  sentry-cli releases set-commits --commit "${{ github.sha }}" "$RELEASE"
+                  sentry-cli releases set-commits --commit "${{ github.repository }}@${{ github.sha }}" "$RELEASE"
 
                   # Upload server sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-server \
