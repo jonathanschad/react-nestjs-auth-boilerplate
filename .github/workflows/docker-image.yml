@@ -67,7 +67,7 @@ jobs:
                   RELEASE="react-nestjs-boilerplate-backend@${{ env.VERSION }}"
 
                   # Associate the release with Sentry
-                  sentry-cli releases new "$RELEASE"
+                  sentry-cli releases new "$RELEASE" --commit "${{ github.sha }}"
 
                   # Upload server sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-server \
@@ -87,7 +87,7 @@ jobs:
                   RELEASE="react-nestjs-boilerplate-frontend@${{ env.VERSION }}"
 
                   # Associate the release with Sentry
-                  sentry-cli releases new "$RELEASE"
+                  sentry-cli releases new "$RELEASE" --commit "${{ github.sha }}"
 
                   # Upload client sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-client \
