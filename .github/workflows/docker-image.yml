@@ -53,43 +53,25 @@ jobs:
                   docker cp $CONTAINER_ID:/sourcemaps-client ./sourcemaps-client
                   docker rm $CONTAINER_ID
 
-            - name: Upload backend sourcemaps to Sentry
+            - name: Upload Sourcemaps to Sentry
               env:
                   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
                   SENTRY_ORG: ${{ vars.SENTRY_ORG }}
-                  SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT_BACKEND }}
                   SENTRY_URL: ${{ vars.SENTRY_URL }}
               run: |
                   # Install Sentry CLI
                   curl -sL https://sentry.io/get-cli/ | bash
 
-                  # Define the release version
-                  RELEASE="react-nestjs-boilerplate-backend@${{ env.VERSION }}"
+                  RELEASE="react-nestjs-boilerplate@${{ env.VERSION }}"
 
-                  # Associate the release with Sentry
-                  sentry-cli releases new "$RELEASE" --commit "${{ github.sha }}"
+                  sentry-cli releases new -p ${{ vars.SENTRY_PROJECT_BACKEND }} -p ${{ vars.SENTRY_PROJECT_FRONTEND }} "$RELEASE"
+                  sentry-cli releases set-commits --commit "${{ github.sha }}" "$RELEASE"
 
                   # Upload server sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-server \
                       --rewrite --validate --url-prefix '~/apps/server/dist/'
 
-                  # Finalize the release
-                  sentry-cli releases finalize "$RELEASE"
-
-            - name: Upload frontend sourcemaps to Sentry
-              env:
-                  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-                  SENTRY_ORG: ${{ vars.SENTRY_ORG }}
-                  SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT_FRONTEND }}
-                  SENTRY_URL: ${{ vars.SENTRY_URL }}
-              run: |
-                  # Define the release version
-                  RELEASE="react-nestjs-boilerplate-frontend@${{ env.VERSION }}"
-
-                  # Associate the release with Sentry
-                  sentry-cli releases new "$RELEASE" --commit "${{ github.sha }}"
-
-                  # Upload client sourcemaps
+                  # Upload frontend sourcemaps
                   sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-client \
                       --rewrite --validate
 
