@@ -18,18 +18,24 @@ interface OTelTransportOptions extends TransportStreamOptions {
     otelUrl: string;
     otelHeaders: Record<string, string>;
     environmentName: string;
+    hostName: string;
+    serviceName: string;
 }
 // Custom OTel HTTP Transport for Winston
 export class OTelTransport extends Transport {
     private otelUrl: string;
     private otelHeaders: Record<string, string>;
     private environmentName: string;
+    private hostName: string;
+    private serviceName: string;
 
     constructor(opts: OTelTransportOptions) {
         super(opts);
         this.otelUrl = opts.otelUrl;
         this.otelHeaders = opts.otelHeaders || {};
         this.environmentName = opts.environmentName;
+        this.hostName = opts.hostName;
+        this.serviceName = opts.serviceName;
     }
 
     log(
@@ -55,10 +61,13 @@ export class OTelTransport extends Transport {
         const logEntry: SigNozLogEntry = {
             attributes: {
                 ...meta,
-                service_name: this.environmentName,
             },
             body: message,
-            resources: {},
+            resources: {
+                'service.name': this.serviceName,
+                'host.name': this.hostName,
+                'deployment.environment': this.environmentName,
+            },
             severity_number: this.convertLogSeverityToSigNozLog(level),
             severity_text: level.toUpperCase(),
             span_id: spanContext?.spanId || '',

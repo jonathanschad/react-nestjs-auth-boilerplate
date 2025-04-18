@@ -34,11 +34,6 @@ export class WinstonLogger implements LoggerService {
 
         // Create transports array
         const transports: winston.transport[] = [
-            new winston.transports.File({
-                filename: 'error.log',
-                level: 'error',
-            }),
-            new winston.transports.File({ filename: 'combined.log' }),
             new winston.transports.Console({
                 format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
             }),
@@ -52,7 +47,9 @@ export class WinstonLogger implements LoggerService {
                     otelUrl: process.env.OTEL_BASE_URL,
                     otelHeaders: otelHeaders,
                     level: 'info',
-                    environmentName: process.env.ENVIRONMENT_NAME || 'nest-application',
+                    environmentName: process.env.ENVIRONMENT_NAME ?? 'local',
+                    hostName: process.env.HOST ?? 'localhost',
+                    serviceName: process.env.PROJECT_NAME ?? 'boilerplate',
                 }),
             );
         }
@@ -63,12 +60,15 @@ export class WinstonLogger implements LoggerService {
             format: winston.format.combine(
                 winston.format.timestamp(),
                 winston.format.errors({ stack: true }),
-                winston.format.json(),
+                winston.format.printf((info) => {
+                    const { timestamp, level, message, context, ...rest } = info;
+                    const contextStr = context
+                        ? `[${typeof context === 'object' ? JSON.stringify(context) : String(context)}]`
+                        : '';
+                    const restStr = Object.keys(rest).length ? JSON.stringify(rest) : '';
+                    return `${String(timestamp)} ${String(level)}: ${contextStr} ${String(message)} ${restStr}`.trim();
+                }),
             ),
-            defaultMeta: {
-                service: process.env.ENVIRONMENT_NAME || 'nest-application',
-                environment: process.env.NODE_ENV || 'development',
-            },
             transports,
         });
 
