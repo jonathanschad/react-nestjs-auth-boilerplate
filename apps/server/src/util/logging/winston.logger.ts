@@ -17,10 +17,10 @@ export class WinstonLogger implements LoggerService {
     constructor() {
         // Parse OTel headers if provided
         const otelHeaders: Record<string, string> = {};
-        if (process.env.LOGGING_OTEL_HEADERS) {
+        if (process.env.OTEL_HEADERS) {
             try {
                 // Headers format: "key1=value1,key2=value2"
-                process.env.LOGGING_OTEL_HEADERS.split(',').forEach((pair) => {
+                process.env.OTEL_HEADERS.split(',').forEach((pair) => {
                     const [key, ...rest] = pair.split('=');
                     const value = rest.join('=');
                     if (key && value) {
@@ -28,7 +28,7 @@ export class WinstonLogger implements LoggerService {
                     }
                 });
             } catch (e) {
-                console.error('Failed to parse LOGGING_OTEL_HEADERS', e);
+                console.error('Failed to parse OTEL_HEADERS', e);
             }
         }
 
@@ -45,11 +45,11 @@ export class WinstonLogger implements LoggerService {
         ];
 
         // Add OTel transport if URL is provided
-        if (process.env.LOGGING_OTEL_URL) {
-            console.log('Adding OTel transport', process.env.LOGGING_OTEL_URL);
+        if (process.env.OTEL_BASE_URL) {
+            console.log('Adding OTel transport', process.env.OTEL_BASE_URL);
             transports.push(
                 new OTelTransport({
-                    otelUrl: process.env.LOGGING_OTEL_URL,
+                    otelUrl: process.env.OTEL_BASE_URL,
                     otelHeaders: otelHeaders,
                     level: 'info',
                 }),
