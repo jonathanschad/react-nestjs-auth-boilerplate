@@ -52,6 +52,7 @@ export class WinstonLogger implements LoggerService {
                     otelUrl: process.env.OTEL_BASE_URL,
                     otelHeaders: otelHeaders,
                     level: 'info',
+                    environmentName: process.env.ENVIRONMENT_NAME || 'nest-application',
                 }),
             );
         }
