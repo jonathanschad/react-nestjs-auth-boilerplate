@@ -1,6 +1,8 @@
 import winston from 'winston';
 import { Injectable, LoggerService, Scope } from '@nestjs/common';
 
+import { OTelTransport } from '@/util/logging/otel.transport';
+
 const originalConsole = {
     log: console.log,
     info: console.info,
@@ -12,41 +14,67 @@ const originalConsole = {
 export class WinstonLogger implements LoggerService {
     private winstonInstance: winston.Logger;
 
-    // Inject the Winston instance or create it here
     constructor() {
-        // You can reuse your createLogger logic here or pass an instance
+        // Parse OTel headers if provided
+        const otelHeaders: Record<string, string> = {};
+        if (process.env.LOGGING_OTEL_HEADERS) {
+            try {
+                // Headers format: "key1=value1,key2=value2"
+                process.env.LOGGING_OTEL_HEADERS.split(',').forEach((pair) => {
+                    const [key, ...rest] = pair.split('=');
+                    const value = rest.join('=');
+                    if (key && value) {
+                        otelHeaders[key.trim()] = value.trim();
+                    }
+                });
+            } catch (e) {
+                console.error('Failed to parse LOGGING_OTEL_HEADERS', e);
+            }
+        }
+
+        // Create transports array
+        const transports: winston.transport[] = [
+            new winston.transports.File({
+                filename: 'error.log',
+                level: 'error',
+            }),
+            new winston.transports.File({ filename: 'combined.log' }),
+            new winston.transports.Console({
+                format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
+            }),
+        ];
+
+        // Add OTel transport if URL is provided
+        if (process.env.LOGGING_OTEL_URL) {
+            console.log('Adding OTel transport', process.env.LOGGING_OTEL_URL);
+            transports.push(
+                new OTelTransport({
+                    otelUrl: process.env.LOGGING_OTEL_URL,
+                    otelHeaders: otelHeaders,
+                    level: 'info',
+                }),
+            );
+        }
+
+        // Create Winston logger
         this.winstonInstance = winston.createLogger({
             level: process.env.LOG_LEVEL || 'info',
             format: winston.format.combine(
                 winston.format.timestamp(),
-                winston.format.errors({ stack: true }), // Good practice to include stack traces
+                winston.format.errors({ stack: true }),
                 winston.format.json(),
             ),
-            defaultMeta: { service: process.env.ENVIRONMENT_NAME }, // Optional: Add service context
-            transports: [
-                new winston.transports.File({
-                    filename: 'error.log',
-                    level: 'error',
-                }),
-                new winston.transports.File({ filename: 'combined.log' }),
-                new winston.transports.Console({
-                    format: winston.format.combine(
-                        winston.format.colorize(),
-                        winston.format.simple(), // Or winston.format.prettyPrint() for dev
-                    ),
-                }),
-            ],
+            defaultMeta: {
+                service: process.env.ENVIRONMENT_NAME || 'nest-application',
+                environment: process.env.NODE_ENV || 'development',
+            },
+            transports,
         });
 
-        // --- Console Override Logic ---
-        // It's generally better to handle console overrides separately
-        // or avoid them if possible, letting NestJS and Winston manage logging.
-        // If you MUST override, do it carefully after logger setup.
         this.overrideConsole();
     }
 
     log(message: unknown, context?: string) {
-        // NestJS's default log maps to 'info' level in Winston
         this.winstonInstance.info(String(message), { context });
     }
 
@@ -66,32 +94,29 @@ export class WinstonLogger implements LoggerService {
         this.winstonInstance.verbose(String(message), { context });
     }
 
-    // --- Optional: Console Override Method ---
     private overrideConsole() {
-        // Important Fix: Use spread (...) operator for args
         console.log = (...args: unknown[]) => {
             this.winstonInstance.info(args.map(String).join(' '), {
                 source: 'console.log',
             });
-            originalConsole.log.apply(console, args); // Preserve original behavior
+            originalConsole.log(...args);
         };
 
         console.info = (...args: unknown[]) => {
             this.winstonInstance.info(args.map(String).join(' '), {
                 source: 'console.info',
             });
-            originalConsole.info.apply(console, args);
+            originalConsole.info(...args);
         };
 
         console.warn = (...args: unknown[]) => {
             this.winstonInstance.warn(args.map(String).join(' '), {
                 source: 'console.warn',
             });
-            originalConsole.warn.apply(console, args);
+            originalConsole.warn(...args);
         };
 
         console.error = (...args: unknown[]) => {
-            // Log the error object correctly if present
             const errorArg = args.find((arg) => arg instanceof Error);
             const message = args
                 .filter((arg) => !(arg instanceof Error))
@@ -101,11 +126,10 @@ export class WinstonLogger implements LoggerService {
                 error: errorArg,
                 source: 'console.error',
             });
-            originalConsole.error.apply(console, args);
+            originalConsole.error(...args);
         };
     }
 
-    // Expose the raw winston instance if needed elsewhere (optional)
     getWinstonInstance(): winston.Logger {
         return this.winstonInstance;
     }
