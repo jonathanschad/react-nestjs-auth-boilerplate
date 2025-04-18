@@ -20,6 +20,7 @@ interface OTelTransportOptions extends TransportStreamOptions {
     environmentName: string;
     hostName: string;
     serviceName: string;
+    defaultLevel: string;
 }
 // Custom OTel HTTP Transport for Winston
 export class OTelTransport extends Transport {
@@ -28,7 +29,7 @@ export class OTelTransport extends Transport {
     private environmentName: string;
     private hostName: string;
     private serviceName: string;
-
+    private defaultLevel: string;
     constructor(opts: OTelTransportOptions) {
         super(opts);
         this.otelUrl = opts.otelUrl;
@@ -36,6 +37,7 @@ export class OTelTransport extends Transport {
         this.environmentName = opts.environmentName;
         this.hostName = opts.hostName;
         this.serviceName = opts.serviceName;
+        this.defaultLevel = opts.defaultLevel;
     }
 
     log(
@@ -52,7 +54,7 @@ export class OTelTransport extends Transport {
             return;
         }
 
-        const { level, message, timestamp, ...meta } = info;
+        const { level = this.defaultLevel, message, timestamp, ...meta } = info;
 
         // Prepare log entry in OTLP format
         const activeSpan = context.active().getValue(Symbol.for('OpenTelemetry Context Key SPAN')) as Span | undefined;

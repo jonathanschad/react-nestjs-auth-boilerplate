@@ -33,23 +33,49 @@ export class WinstonLogger implements LoggerService {
         }
 
         // Create transports array
+        const customFormat = winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.errors({ stack: true }),
+            winston.format.colorize(),
+            winston.format.printf((info) => {
+                const { timestamp, level, message, context, ...rest } = info;
+
+                /* eslint-disable @typescript-eslint/no-base-to-string */
+                const contextStr = context
+                    ? `[${typeof context === 'object' ? JSON.stringify(context) : String(context)}]`
+                    : '';
+                /* eslint-enable @typescript-eslint/no-base-to-string */
+
+                const restStr = Object.keys(rest).length ? JSON.stringify(rest) : '';
+                // Use ANSI color codes directly
+                const gray = '\x1b[90m';
+                const cyan = '\x1b[36m';
+                const reset = '\x1b[0m';
+                return ` ${String(level)} ${cyan}${contextStr}${reset} ${gray}${String(timestamp)}${reset} ${String(message)} ${restStr}`.trim();
+            }),
+        );
+
         const transports: winston.transport[] = [
             new winston.transports.Console({
-                format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
+                format: customFormat,
             }),
         ];
 
         // Add OTel transport if URL is provided
         if (process.env.OTEL_BASE_URL) {
-            console.log('Adding OTel transport', process.env.OTEL_BASE_URL);
             transports.push(
                 new OTelTransport({
                     otelUrl: process.env.OTEL_BASE_URL,
                     otelHeaders: otelHeaders,
-                    level: 'info',
-                    environmentName: process.env.ENVIRONMENT_NAME ?? 'local',
+                    defaultLevel: 'info',
+                    environmentName: process.env.ENVIRONMENT_NAME ?? 'development',
                     hostName: process.env.HOST ?? 'localhost',
                     serviceName: process.env.PROJECT_NAME ?? 'boilerplate',
+                    format: winston.format.combine(
+                        winston.format.timestamp(),
+                        winston.format.errors({ stack: true }),
+                        winston.format.json(),
+                    ),
                 }),
             );
         }
@@ -57,18 +83,6 @@ export class WinstonLogger implements LoggerService {
         // Create Winston logger
         this.winstonInstance = winston.createLogger({
             level: process.env.LOG_LEVEL || 'info',
-            format: winston.format.combine(
-                winston.format.timestamp(),
-                winston.format.errors({ stack: true }),
-                winston.format.printf((info) => {
-                    const { timestamp, level, message, context, ...rest } = info;
-                    const contextStr = context
-                        ? `[${typeof context === 'object' ? JSON.stringify(context) : String(context)}]`
-                        : '';
-                    const restStr = Object.keys(rest).length ? JSON.stringify(rest) : '';
-                    return `${String(timestamp)} ${String(level)}: ${contextStr} ${String(message)} ${restStr}`.trim();
-                }),
-            ),
             transports,
         });
 
