@@ -111,21 +111,21 @@ export class WinstonLogger implements LoggerService {
 
     private overrideConsole() {
         console.log = (...args: unknown[]) => {
-            this.winstonInstance.info(args.map(String).join(' '), {
+            this.winstonInstance.info(this.consoleLogMessageMapper(...args), {
                 source: 'console.log',
             });
             originalConsole.log(...args);
         };
 
         console.info = (...args: unknown[]) => {
-            this.winstonInstance.info(args.map(String).join(' '), {
+            this.winstonInstance.info(this.consoleLogMessageMapper(...args), {
                 source: 'console.info',
             });
             originalConsole.info(...args);
         };
 
         console.warn = (...args: unknown[]) => {
-            this.winstonInstance.warn(args.map(String).join(' '), {
+            this.winstonInstance.warn(this.consoleLogMessageMapper(...args), {
                 source: 'console.warn',
             });
             originalConsole.warn(...args);
@@ -133,16 +133,28 @@ export class WinstonLogger implements LoggerService {
 
         console.error = (...args: unknown[]) => {
             const errorArg = args.find((arg) => arg instanceof Error);
-            const message = args
-                .filter((arg) => !(arg instanceof Error))
-                .map(String)
-                .join(' ');
+            const message = this.consoleLogMessageMapper(...args);
             this.winstonInstance.error(message, {
                 error: errorArg,
                 source: 'console.error',
             });
             originalConsole.error(...args);
         };
+    }
+    private consoleLogMessageMapper(...args: unknown[]) {
+        return args
+            .map((arg) => {
+                if (arg instanceof Error) {
+                    return arg.stack;
+                }
+
+                if (typeof arg === 'object' && arg !== null) {
+                    return JSON.stringify(arg);
+                }
+
+                return String(arg);
+            })
+            .join(' ');
     }
 
     getWinstonInstance(): winston.Logger {
