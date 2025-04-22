@@ -79,13 +79,20 @@ export class OTelTransport extends Transport {
 
         this.logStack.push(logEntry);
 
+        if (this.logStack.length > 100) {
+            void this.flush();
+        }
+
         callback();
     }
 
     private async flush() {
-        if (this.logStack.length > 0) {
+        const logStack = this.logStack;
+        this.logStack = [];
+
+        if (logStack.length > 0) {
             try {
-                await axios.post(this.otelUrl, this.logStack, {
+                await axios.post(this.otelUrl, logStack, {
                     headers: {
                         'Content-Type': 'application/json',
                         ...this.otelHeaders,
@@ -94,12 +101,10 @@ export class OTelTransport extends Transport {
             } catch (err) {
                 Sentry.captureException(err, {
                     extra: {
-                        logStack: this.logStack,
+                        logStack,
                     },
                 });
             }
-
-            this.logStack = [];
         }
     }
 
