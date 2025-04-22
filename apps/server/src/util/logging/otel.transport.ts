@@ -1,13 +1,9 @@
 import axios from 'axios';
 import Transport, { TransportStreamOptions } from 'winston-transport';
-import { context, Span, TraceFlags } from '@opentelemetry/api';
 import * as Sentry from '@sentry/nestjs';
 
 interface SigNozLogEntry {
     timestamp: number; // in nanoseconds
-    trace_id: string;
-    span_id: string;
-    trace_flags: number;
     severity_text: string;
     severity_number: number;
     attributes: Record<string, unknown>;
@@ -30,6 +26,10 @@ export class OTelTransport extends Transport {
     private hostName: string;
     private serviceName: string;
     private defaultLevel: string;
+
+    private logStack: SigNozLogEntry[] = [];
+    private interval: NodeJS.Timeout | null;
+
     constructor(opts: OTelTransportOptions) {
         super(opts);
         this.otelUrl = opts.otelUrl;
@@ -38,9 +38,15 @@ export class OTelTransport extends Transport {
         this.hostName = opts.hostName;
         this.serviceName = opts.serviceName;
         this.defaultLevel = opts.defaultLevel;
+
+        this.interval = setInterval(() => {
+            if (this.logStack.length > 0) {
+                void this.flush();
+            }
+        }, 10000);
     }
 
-    log(
+    public log(
         info: {
             level: string;
             message: string;
@@ -56,10 +62,6 @@ export class OTelTransport extends Transport {
 
         const { level = this.defaultLevel, message, timestamp, ...meta } = info;
 
-        // Prepare log entry in OTLP format
-        const activeSpan = context.active().getValue(Symbol.for('OpenTelemetry Context Key SPAN')) as Span | undefined;
-        const spanContext = activeSpan?.spanContext();
-
         const logEntry: SigNozLogEntry = {
             attributes: {
                 ...meta,
@@ -72,26 +74,33 @@ export class OTelTransport extends Transport {
             },
             severity_number: this.convertLogSeverityToSigNozLog(level),
             severity_text: level.toUpperCase(),
-            span_id: spanContext?.spanId || '',
-            trace_flags: spanContext?.traceFlags || TraceFlags.NONE,
-            trace_id: spanContext?.traceId || '',
             timestamp: new Date(timestamp).getTime() * 1000000,
         };
 
-        axios
-            .post(this.otelUrl, [logEntry], {
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...this.otelHeaders,
-                },
-            })
-            .then(() => {
-                callback();
-            })
-            .catch((err) => {
-                Sentry.captureException(err);
-                callback();
-            });
+        this.logStack.push(logEntry);
+
+        callback();
+    }
+
+    private async flush() {
+        if (this.logStack.length > 0) {
+            try {
+                await axios.post(this.otelUrl, this.logStack, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...this.otelHeaders,
+                    },
+                });
+            } catch (err) {
+                Sentry.captureException(err, {
+                    extra: {
+                        logStack: this.logStack,
+                    },
+                });
+            }
+
+            this.logStack = [];
+        }
     }
 
     private convertLogSeverityToSigNozLog(level: string): number {
@@ -114,6 +123,15 @@ export class OTelTransport extends Transport {
                 return 4;
             default:
                 return 12;
+        }
+    }
+
+    public close() {
+        void this.flush();
+
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
         }
     }
 }
