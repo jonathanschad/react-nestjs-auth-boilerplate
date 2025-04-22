@@ -9,6 +9,11 @@ if (!version) {
     process.exit(1);
 }
 
+if (version.split('.').length !== 3) {
+    console.error('Release version must be in the format x.x.x');
+    process.exit(1);
+}
+
 // Check if tag already exists in Git
 try {
     const existingTags = execSync('git tag', { encoding: 'utf8' }).split('\n');

@@ -25,6 +25,7 @@ The boilerplate project aims to provide a solid production-ready foundation for 
 -   **Diagnostic Tools**: Optional support for monitoring and debugging.
     -   **Sentry**: Monitor and fix crashes in real-time.
     -   **Plausible**: Track user interactions without compromising privacy.
+    -   **Logging**: Log errors and other important events to the console or remote logging services.
 
 ## Getting Started
 
@@ -65,3 +66,7 @@ You have 2 options to make deployment work including the privacy policy files.
 volumes:
     - ./directory/to/your/privacy/policy:/app/server/assets/privacy-policy/files:ro
 ```
+
+## Logging
+
+This application uses [Winston](https://github.com/winstonjs/winston) for logging. The logging can be configured to put logs to the console or to a remote logging service like [SigNoz](https://signoz.io/). If `LOGGING_OTEL_URL` is set, the application will put logs to the remote logging service. You can add `LOGGING_OTEL_HEADERS` if you need to add additional headers to the logs. Currently the remote logging service is only tested with a on premises SigNoz instance. If you need different logging behavior, you can implement your own solution by editing the `src/util/logging/otel.transport.ts` file.

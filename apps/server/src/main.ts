@@ -1,5 +1,3 @@
-import pino from 'pino';
-import pretty from 'pino-pretty';
 import fastifyAccepts from '@fastify/accepts';
 import { fastifyCookie } from '@fastify/cookie';
 import fastifyCors from '@fastify/cors';
@@ -17,45 +15,15 @@ import { AppConfigService } from '@/config/app-config.service';
 import { initSentry } from '@/sentry';
 import { ExceptionFilter } from '@/util/exception.filter';
 import { DisabledRouteInterceptor } from '@/util/interceptors/disable-route-interceptor';
+import { WinstonLogger } from '@/util/logging/winston.logger';
 import { serveFrontend } from '@/util/middleware/frontend.middleware';
 
-const prettyStream = pretty({
-    colorize: true,
-    translateTime: true,
-    ignore: 'pid,hostname',
-});
-export const logger = pino(
-    {
-        transport: {
-            target: 'pino-pretty',
-            options: {
-                colorize: true,
-                translateTime: true,
-                singleLine: true,
-                ignore: 'pid,hostname',
-            },
-        },
-    },
-    prettyStream,
-);
+const customLogger = new WinstonLogger();
 
 async function bootstrap() {
-    const app = await NestFactory.create<NestFastifyApplication>(
-        AppModule,
-        new FastifyAdapter({
-            logger: {
-                transport: {
-                    target: 'pino-pretty',
-                    options: {
-                        colorize: true,
-                        translateTime: true,
-                        singleLine: true,
-                        ignore: 'pid,hostname',
-                    },
-                },
-            },
-        }),
-    );
+    const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
+        logger: customLogger,
+    });
 
     const appConfigService = app.get<AppConfigService>(AppConfigService);
     const reflector = app.get(Reflector);
@@ -66,7 +34,6 @@ async function bootstrap() {
     app.useGlobalInterceptors(new DisabledRouteInterceptor(reflector));
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
     app.setGlobalPrefix('api');
-
     await app.register(fastifyCookie);
     await app.register(fastifyHelmet, {
         contentSecurityPolicy: {
