@@ -1,0 +1,15 @@
+{
+    "name": "@boilerplate/utils",
+    "version": "1.0.0",
+    "description": "",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@boilerplate/ts-config": "workspace:*"
+    },
+    "packageManager": "pnpm@10.8.1"
+}

@@ -1,16 +1,20 @@
 {
-    "name": "react-nestjs-auth-boilerplate",
-    "version": "0.4.1",
-    "description": "",
-    "scripts": {
-        "dev": "pnpm generate:prisma && pnpm run --parallel dev",
-        "build": "pnpm generate:prisma && pnpm run --parallel build",
-        "lint": "pnpm run --parallel lint",
-        "lint:fix": "pnpm run --parallel lint:fix",
-        "postinstall": "pnpm generate:prisma",
-        "generate:prisma": "pnpm --filter @boilerplate/prisma db:generate"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+  "name": "react-nestjs-auth-boilerplate",
+  "version": "0.4.1",
+  "description": "",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "pnpm generate:prisma && pnpm run --parallel build",
+    "lint": "pnpm run --parallel lint",
+    "lint:fix": "pnpm run --parallel lint:fix",
+    "postinstall": "pnpm generate:prisma",
+    "generate:prisma": "pnpm --filter @boilerplate/prisma db:generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "turbo": "^2.5.0"
+  },
+  "packageManager": "pnpm@10.8.1"
 }

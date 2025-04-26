@@ -1,18 +1,8 @@
 {
-    "extends": "../../tsconfig.json", // Extend the config options from the root
+    "extends": "@boilerplate/ts-config/nestjs.json",
     "compilerOptions": {
-        "module": "commonjs",
-        "declaration": true,
-        "removeComments": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "ES2023",
-        "sourceMap": true,
         "outDir": "./dist",
         "rootDir": "./src",
-        "esModuleInterop": true,
-        "strict": true,
-        "resolveJsonModule": true,
-        "inlineSources": true,
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]

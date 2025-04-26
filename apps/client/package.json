@@ -48,6 +48,7 @@
         "zustand": "^4.5.2"
     },
     "devDependencies": {
+        "@boilerplate/ts-config": "workspace:*",
         "@tanstack/eslint-plugin-query": "^5.28.11",
         "@types/node": "^20.14.12",
         "@types/react": "^18.2.66",

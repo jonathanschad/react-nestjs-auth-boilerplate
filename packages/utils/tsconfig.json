@@ -1,0 +1,10 @@
+{
+    "extends": "@boilerplate/ts-config/base.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@boilerplate/utils/*": ["./*"]
+        }
+    },
+    "exclude": ["node_modules"]
+}
