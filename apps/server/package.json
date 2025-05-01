@@ -6,7 +6,7 @@
     "private": true,
     "license": "MIT",
     "scripts": {
-        "build": "yarn generate-license-attribution && nest build",
+        "build": "pnpm generate-license-attribution && nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "dev": "nodemon",
         "start:prod": "node dist/main",
