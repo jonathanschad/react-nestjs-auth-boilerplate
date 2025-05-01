@@ -2,6 +2,7 @@ import { FastifyRequest } from 'fastify';
 import { Controller, Get, Req } from '@nestjs/common';
 
 import { Language } from '@boilerplate/prisma';
+import { logSomeStuff } from '@boilerplate/utils';
 
 // eslint-disable-next-line no-restricted-imports
 import packageJson from '../package.json';
@@ -52,6 +53,7 @@ export class AppController {
     @Get('/health')
     @PublicRoute()
     getHealth() {
+        logSomeStuff();
         return {
             health: 'up',
             version: packageJson.version,

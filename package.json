@@ -12,5 +12,9 @@
     },
     "keywords": [],
     "author": "",
-    "license": "ISC"
+    "license": "MIT",
+    "packageManager": "pnpm@10.8.1",
+    "engines": {
+        "node": ">=22.4.0"
+    }
 }

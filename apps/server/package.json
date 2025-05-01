@@ -6,9 +6,9 @@
     "private": true,
     "license": "MIT",
     "scripts": {
-        "build": "yarn generate-license-attribution && nest build",
+        "build": "pnpm generate-license-attribution && nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-        "dev": "nest start --watch",
+        "dev": "nodemon",
         "start:prod": "node dist/main",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
         "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -17,6 +17,7 @@
     "dependencies": {
         "@aws-sdk/client-s3": "^3.669.0",
         "@boilerplate/prisma": "workspace:*",
+        "@boilerplate/utils": "workspace:*",
         "@fastify/accepts": "^5.0.2",
         "@fastify/cookie": "^11.0.2",
         "@fastify/cors": "^11.0.0",
@@ -52,6 +53,7 @@
         "zod": "^3.24.2"
     },
     "devDependencies": {
+        "@boilerplate/ts-config": "workspace:*",
         "@eslint/eslintrc": "^3.2.0",
         "@eslint/js": "^9.18.0",
         "@nestjs/cli": "^11.0.5",

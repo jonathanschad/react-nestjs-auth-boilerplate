@@ -1,5 +1,5 @@
 # Base image with pnpm installed
-FROM node:20-alpine3.20 AS base
+FROM node:22-alpine3.20 AS base
 #RUN apt-get update -y && apt-get install -y openssl
 RUN npm install -g pnpm@latest
 
@@ -34,7 +34,7 @@ RUN cp -R /prod/server/dist/* /sourcemaps-server
 
 
 # Production stage
-FROM node:20-alpine3.20 AS production
+FROM node:22-alpine3.20 AS production
 WORKDIR /apps
 
 # Copy server build

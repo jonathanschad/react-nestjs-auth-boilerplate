@@ -1,0 +1,9 @@
+{
+    "name": "@boilerplate/ts-config",
+    "version": "0.4.1",
+    "private": true,
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    }
+}
