@@ -3,7 +3,11 @@
     "tasks": {
         "dev": {
             "persistent": true,
-            "cache": false
+            "cache": false,
+            "dependsOn": ["^dev"],
+            "inputs": ["src/**/*.ts", "package.json", "tsconfig.json"],
+            "outputs": ["dist/**"],
+            "env": ["NODE_ENV"]
         }
     }
 }

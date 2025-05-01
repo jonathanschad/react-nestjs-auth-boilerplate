@@ -1,0 +1,8 @@
+{
+    "$schema": "https://json.schemastore.org/nodemon.json",
+    "watch": ["src", "node_modules/@boilerplate/"],
+    "ext": "ts,json,js,html,css,md,png,jpeg,jpg,pdf,svg,ico,webp,avif,gif,txt",
+    "ignore": ["src/**/*.spec.ts", "node_modules/**/node_modules", ".git", "dist"],
+    "exec": "nest start",
+    "signal": "SIGTERM"
+}
