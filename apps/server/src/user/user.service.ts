@@ -7,7 +7,7 @@ import { AppConfigService } from '@/config/app-config.service';
 import { DatabaseFileService } from '@/database/database-file/database-file.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 import { FileService } from '@/files/file.service';
-import { UserWithSettings } from '@/types/prisma';
+import type { UserWithSettings } from '@/types/prisma';
 
 @Injectable()
 export class UserService {

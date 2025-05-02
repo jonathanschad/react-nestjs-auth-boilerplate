@@ -34,3 +34,5 @@ dist-ssr
 tsconfig.tsbuildinfo
 
 packages/prisma/src/generated
+
+.turbo

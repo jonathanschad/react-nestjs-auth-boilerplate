@@ -4,7 +4,7 @@ import { Token, TokenType } from '@boilerplate/prisma';
 
 import { AppConfigService } from '@/config/app-config.service';
 import { PrismaService } from '@/database/prisma.service';
-import { UserWithSettings } from '@/types/prisma';
+import type { UserWithSettings } from '@/types/prisma';
 
 interface PasswordResetTokenWithUser extends Token {
     user: UserWithSettings;

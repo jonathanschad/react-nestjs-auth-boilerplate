@@ -1,10 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { File, FileAccess, FilePermission, FilePermissionType, Prisma, User } from '@boilerplate/prisma';
 
 import { AppConfigService } from '@/config/app-config.service';
 import { PrismaService } from '@/database/prisma.service';
-import { logger } from '@/main';
 
 export const READ_PERMISSIONS: readonly FilePermissionType[] = [
     FilePermissionType.READ,
@@ -47,10 +46,9 @@ export class PermissionError extends Error {
 
 @Injectable()
 export class DatabaseFileService {
-    constructor(
-        private prisma: PrismaService,
-        private configService: AppConfigService,
-    ) {}
+    private readonly logger = new Logger(DatabaseFileService.name);
+
+    constructor(private prisma: PrismaService) {}
 
     async find({ user, fileUuid }: { user: { id: string } | undefined; fileUuid: string }): Promise<File | null> {
         const dbFile = await this.prisma.file.findFirst({
@@ -68,7 +66,7 @@ export class DatabaseFileService {
                 return dbFile;
             }
         } else {
-            logger.warn('Tried to access a private file without a user');
+            this.logger.warn('Tried to access a private file without a user');
         }
         return null;
     }

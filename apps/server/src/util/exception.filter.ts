@@ -1,12 +1,19 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { ArgumentsHost, Catch, ExceptionFilter as NestExceptionFilter, HttpException } from '@nestjs/common';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import {
+    type ArgumentsHost,
+    Catch,
+    ExceptionFilter as NestExceptionFilter,
+    HttpException,
+    Logger,
+} from '@nestjs/common';
 import { SentryExceptionCaptured } from '@sentry/nestjs';
 
-import { logger } from '@/main';
 import { HTTPError } from '@/util/httpHandlers';
 
 @Catch()
 export class ExceptionFilter implements NestExceptionFilter {
+    private readonly logger = new Logger(ExceptionFilter.name);
+
     @SentryExceptionCaptured()
     catch(exception: unknown, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
@@ -27,7 +34,7 @@ export class ExceptionFilter implements NestExceptionFilter {
             message = exception.message;
             wasSet = true;
         } else {
-            logger.error(exception);
+            this.logger.error(exception);
         }
 
         if (!wasSet) {

@@ -1,4 +1,4 @@
-import { FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
 import { Controller, Get, Req } from '@nestjs/common';
 
 import { Language } from '@boilerplate/prisma';

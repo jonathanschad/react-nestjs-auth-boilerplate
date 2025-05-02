@@ -5,14 +5,7 @@
         "declaration": true,
         "removeComments": true,
         "allowSyntheticDefaultImports": true,
-        "target": "ES2023",
-        "sourceMap": true,
-        "esModuleInterop": true,
-        "strict": true,
-        "resolveJsonModule": true,
-        "inlineSources": true,
-        "module": "NodeNext",
-        "moduleDetection": "force",
-        "moduleResolution": "NodeNext"
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     }
 }

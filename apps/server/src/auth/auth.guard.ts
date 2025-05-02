@@ -7,7 +7,7 @@ import { UserState } from '@boilerplate/prisma';
 
 import { JWTService } from '@/auth/jwt.service';
 import { AppConfigService } from '@/config/app-config.service';
-import { UserWithSettings } from '@/types/prisma';
+import type { UserWithSettings } from '@/types/prisma';
 import { InvalidAccessTokenError } from '@/util/httpHandlers';
 
 @Injectable()

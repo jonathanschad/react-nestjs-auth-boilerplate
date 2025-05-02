@@ -3,13 +3,22 @@
     "version": "1.0.0",
     "description": "",
     "exports": {
-        ".": "./src/index.ts"
+        ".": {
+            "types": "./src/index.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc -w",
+        "lint": "eslint . --max-warnings 0"
     },
     "keywords": [],
     "author": "",
     "license": "MIT",
     "devDependencies": {
         "@boilerplate/ts-config": "workspace:*",
+        "eslint": "^9.25.1",
         "typescript": "^5.8.3"
     },
     "packageManager": "pnpm@10.8.1"

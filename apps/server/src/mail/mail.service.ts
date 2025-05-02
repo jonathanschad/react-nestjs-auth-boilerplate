@@ -12,7 +12,7 @@ import { AppConfigService } from '@/config/app-config.service';
 import { PrismaService } from '@/database/prisma.service';
 import { defaultEmailTemplateFactory } from '@/mail/templates/default-template';
 import { templates } from '@/mail/templates/templates';
-import { UserWithSettings } from '@/types/prisma';
+import type { UserWithSettings } from '@/types/prisma';
 export interface MailTemplate {
     templateFactory: (translations: any) => TReaderDocument; // TODO type this
     translations: Record<Language, EmailTranslation>;

@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
 
 import { UserState } from '@boilerplate/prisma';
@@ -14,7 +14,7 @@ import {
     VerifyEmailTokenDto,
 } from '@/signup/signup.dto';
 import { SignupService } from '@/signup/signup.service';
-import { UserWithSettings } from '@/types/prisma';
+import type { UserWithSettings } from '@/types/prisma';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Controller('signup')

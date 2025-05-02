@@ -1,8 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
     "compilerOptions": {
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
         "incremental": true,
         "skipLibCheck": true,
         "strictNullChecks": true,
@@ -10,6 +8,16 @@
         "strictBindCallApply": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+        "target": "ES2022",
+        "moduleDetection": "force",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "strict": true,
+        "inlineSources": true,
     }
 }
