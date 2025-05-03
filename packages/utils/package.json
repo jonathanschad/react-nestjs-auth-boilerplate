@@ -11,12 +11,14 @@
     "scripts": {
         "build": "tsc",
         "dev": "tsc -w",
-        "lint": "eslint . --max-warnings 0"
+        "lint": "eslint . --max-warnings 0",
+        "lint:fix": "eslint . --max-warnings 0 --fix"
     },
     "keywords": [],
     "author": "",
     "license": "MIT",
     "devDependencies": {
+        "@boilerplate/eslint-config": "workspace:*",
         "@boilerplate/ts-config": "workspace:*",
         "eslint": "^9.25.1",
         "typescript": "^5.8.3"

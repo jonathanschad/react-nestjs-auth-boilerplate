@@ -1,0 +1,24 @@
+{
+    "name": "@boilerplate/eslint-config",
+    "version": "0.4.1",
+    "private": true,
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "eslint.config.mjs"
+    ],
+    "devDependencies": {
+        "@eslint/js": "^9.18.0",
+        "@typescript-eslint/parser": "^7.1.0",
+        "@typescript-eslint/eslint-plugin": "^7.1.0",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-prettier": "^5.2.6",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
+        "globals": "^15.14.0",
+        "typescript": "^5.8.3",
+        "prettier": "^3.5.3",
+        "typescript-eslint": "^8.20.0"
+    }
+}
