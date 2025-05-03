@@ -9,37 +9,70 @@ The boilerplate project aims to provide a solid production-ready foundation for 
 
 ## Features
 
--   **Authentication**: Register, login, and logout with JWT.
--   **Responsive Design**: Works on devices of all sizes.
--   **Complete Signup Flow**: Register with email, verify email, and login.
-    -   **Email Verification**: Verify email addresses with a unique token.
-    -   **Forgot Password**: Reset passwords with a unique token.
-    -   **Google OAuth**: Login with Google.
--   **User Management**: View and edit profile details.
-    -   **Upload Profile Picture**: Upload and crop profile pictures.
--   **Store Files**: Upload and download files.
-    -   **S3 Storage**: Store files on S3-compatible storage.
-    -   **Local Storage**: Alternatively store files on the local filesystem.
--   **Deployment**: Docker and docker-compose files for easy deployment.
--   **Internationalization**: Serve your application in different languages.
--   **Diagnostic Tools**: Optional support for monitoring and debugging.
-    -   **Sentry**: Monitor and fix crashes in real-time.
-    -   **Plausible**: Track user interactions without compromising privacy.
-    -   **Logging**: Log errors and other important events to the console or remote logging services.
+- **Authentication**: Register, login, and logout with JWT.
+- **Responsive Design**: Works on devices of all sizes.
+- **Turborepo**: Uses a Monorepo setup powered by Turborepo and pnpm workspaces.
+- **Complete Signup Flow**: Register with email, verify email, and login.
+    - **Email Verification**: Verify email addresses with a unique token.
+    - **Forgot Password**: Reset passwords with a unique token.
+    - **Google OAuth**: Login with Google.
+- **User Management**: View and edit profile details.
+    - **Upload Profile Picture**: Upload and crop profile pictures.
+- **Store Files**: Upload and download files.
+    - **S3 Storage**: Store files on S3-compatible storage.
+    - **Local Storage**: Alternatively store files on the local filesystem.
+- **Deployment**: Docker and docker-compose files for easy deployment.
+- **Internationalization**: Serve your application in different languages.
+- **Diagnostic Tools**: Optional support for monitoring and debugging.
+    - **Sentry**: Monitor and fix crashes in real-time.
+    - **Plausible**: Track user interactions without compromising privacy.
+    - **Logging**: Log errors and other important events to the console or remote logging services.
 
 ## Getting Started
 
 Fork this repository and start coding your application. Please read this Documentation to understand how the boilerplate works and how you can customize it to your needs.
 
+## Development
+
+To get started with the development server, you first need to copy the `.env.template` file to `.env` and set the required environment variables.
+
+```bash
+cp .env.template .env
+```
+
+Then install the dependencies and start the development server.
+
+```bash
+pnpm install
+```
+
+```bash
+pnpm dev
+```
+
+## IDE Settings
+
+If you are using a VSCode based IDE, you should add the following settings to your IDE settings to ensure ESLint is working correctly.
+
+```json
+{
+    "eslint.workingDirectories": [
+        {
+            "mode": "auto"
+        }
+    ]
+}
+```
+
 ## Imprint
 
 The data displayed on the imprint page is loaded from the following environment variables. In addition this data is also included all emails sent by the application.
 
--   `IMPRINT_CONTACT_1`
--   `IMPRINT_CONTACT_2`
--   `IMPRINT_CONTACT_3`
--   `IMPRINT_CONTACT_4`
--   `IMPRINT_COPYRIGHT`
+- `IMPRINT_CONTACT_1`
+- `IMPRINT_CONTACT_2`
+- `IMPRINT_CONTACT_3`
+- `IMPRINT_CONTACT_4`
+- `IMPRINT_COPYRIGHT`
 
 ## Privacy Policy
 
@@ -51,9 +84,9 @@ The data protection policy files live in the `apps/server/dist/assets/privacy-po
 
 ### During Development
 
--   Place your `.md` files in the `apps/server/dist/assets/privacy-policy/files` directory.
-    -   Example: `de.md` for German, `en.md` for English.
-    -   Note: The filenames should be in lowercase and match the language codes.
+- Place your `.md` files in the `apps/server/dist/assets/privacy-policy/files` directory.
+    - Example: `de.md` for German, `en.md` for English.
+    - Note: The filenames should be in lowercase and match the language codes.
 
 ### During Deployment
 
