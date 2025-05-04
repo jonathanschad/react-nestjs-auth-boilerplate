@@ -1,18 +1,8 @@
-module.exports = {
-    root: true,
-    env: { browser: true, es2020: true },
-    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'],
-    ignorePatterns: ['dist', '.eslintrc.cjs'],
-    parser: '@typescript-eslint/parser',
-    plugins: ['react-refresh', 'simple-import-sort'],
+// @ts-check
+import tseslint from 'typescript-eslint';
+import reactConfig from '@boilerplate/eslint-config/react.config.mjs';
+export default tseslint.config(...reactConfig, {
     rules: {
-        'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-        'no-restricted-imports': [
-            'error',
-            {
-                patterns: ['.*'],
-            },
-        ],
         'simple-import-sort/imports': [
             'error',
             {
@@ -40,4 +30,4 @@ module.exports = {
             },
         ],
     },
-};
+});
