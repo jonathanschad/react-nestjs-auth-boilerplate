@@ -6,7 +6,12 @@
         "path": "node_modules/@aws-sdk/client-s3",
         "licenseFile": "node_modules/@aws-sdk/client-s3/LICENSE"
     },
-    "@boilerplate/prisma@0.4.1": {
+    "@boilerplate/eslint-config@0.4.1": {
+        "licenses": "UNLICENSED",
+        "private": true,
+        "path": "node_modules/@boilerplate/eslint-config"
+    },
+    "@boilerplate/prisma@0.5.0": {
         "licenses": "ISC",
         "path": "node_modules/@boilerplate/prisma"
     },
@@ -31,6 +36,12 @@
         "repository": "https://github.com/eslint/eslint",
         "path": "node_modules/@eslint/js",
         "licenseFile": "node_modules/@eslint/js/LICENSE"
+    },
+    "@eslint/js@9.26.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/eslint/eslint",
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js/LICENSE"
     },
     "@fastify/accepts@5.0.2": {
         "licenses": "MIT",
@@ -229,17 +240,17 @@
         "path": "node_modules/@types/uuid",
         "licenseFile": "node_modules/@types/uuid/LICENSE"
     },
-    "@typescript-eslint/eslint-plugin@7.18.0": {
+    "@typescript-eslint/eslint-plugin@8.31.1": {
         "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
-        "path": "node_modules/@typescript-eslint/eslint-plugin",
-        "licenseFile": "node_modules/@typescript-eslint/eslint-plugin/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/@typescript-eslint/eslint-plugin",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@typescript-eslint/eslint-plugin/LICENSE"
     },
-    "@typescript-eslint/parser@7.18.0": {
-        "licenses": "BSD-2-Clause",
+    "@typescript-eslint/parser@8.31.1": {
+        "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
-        "path": "node_modules/@typescript-eslint/parser",
-        "licenseFile": "node_modules/@typescript-eslint/parser/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/@typescript-eslint/parser",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@typescript-eslint/parser/LICENSE"
     },
     "@usewaypoint/email-builder@0.0.8": {
         "licenses": "MIT",
@@ -268,26 +279,39 @@
         "path": "node_modules/class-validator",
         "licenseFile": "node_modules/class-validator/LICENSE"
     },
-    "eslint-config-prettier@10.0.2": {
+    "eslint-config-prettier@10.1.2": {
         "licenses": "MIT",
         "repository": "https://github.com/prettier/eslint-config-prettier",
         "publisher": "Simon Lydell",
-        "path": "node_modules/eslint-config-prettier",
-        "licenseFile": "node_modules/eslint-config-prettier/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-config-prettier",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-config-prettier/LICENSE"
     },
-    "eslint-plugin-prettier@5.2.3": {
+    "eslint-plugin-prettier@5.3.0": {
         "licenses": "MIT",
         "repository": "https://github.com/prettier/eslint-plugin-prettier",
         "publisher": "Teddy Katz",
-        "path": "node_modules/eslint-plugin-prettier",
-        "licenseFile": "node_modules/eslint-plugin-prettier/LICENSE.md"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-prettier",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-prettier/LICENSE.md"
+    },
+    "eslint-plugin-react-hooks@5.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-hooks",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-hooks/LICENSE"
+    },
+    "eslint-plugin-react-refresh@0.4.20": {
+        "licenses": "MIT",
+        "repository": "https://github.com/ArnaudBarre/eslint-plugin-react-refresh",
+        "publisher": "Arnaud Barré",
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-refresh",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-refresh/LICENSE"
     },
     "eslint-plugin-simple-import-sort@12.1.1": {
         "licenses": "MIT",
         "repository": "https://github.com/lydell/eslint-plugin-simple-import-sort",
         "publisher": "Simon Lydell",
-        "path": "node_modules/eslint-plugin-simple-import-sort",
-        "licenseFile": "node_modules/eslint-plugin-simple-import-sort/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-simple-import-sort",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-simple-import-sort/LICENSE"
     },
     "eslint@9.21.0": {
         "licenses": "MIT",
@@ -296,6 +320,14 @@
         "email": "nicholas+npm@nczconsulting.com",
         "path": "node_modules/eslint",
         "licenseFile": "node_modules/eslint/LICENSE"
+    },
+    "eslint@9.25.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/eslint/eslint",
+        "publisher": "Nicholas C. Zakas",
+        "email": "nicholas+npm@nczconsulting.com",
+        "path": "node_modules/@boilerplate/utils/node_modules/eslint",
+        "licenseFile": "node_modules/@boilerplate/utils/node_modules/eslint/LICENSE"
     },
     "fastify@5.2.1": {
         "licenses": "MIT",
@@ -347,7 +379,7 @@
         "path": "node_modules/nodemailer",
         "licenseFile": "node_modules/nodemailer/LICENSE"
     },
-    "prettier@3.5.2": {
+    "prettier@3.5.3": {
         "licenses": "MIT",
         "repository": "https://github.com/prettier/prettier",
         "publisher": "James Long",
@@ -382,7 +414,7 @@
         "path": "node_modules/rxjs",
         "licenseFile": "node_modules/rxjs/LICENSE.txt"
     },
-    "server@0.4.1": {
+    "server@0.5.0": {
         "licenses": "UNLICENSED",
         "private": true,
         "path": ""
@@ -439,11 +471,11 @@
         "path": "node_modules/tsconfig-paths",
         "licenseFile": "node_modules/tsconfig-paths/LICENSE"
     },
-    "typescript-eslint@8.25.0": {
+    "typescript-eslint@8.31.1": {
         "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
-        "path": "node_modules/typescript-eslint",
-        "licenseFile": "node_modules/typescript-eslint/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/typescript-eslint",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/typescript-eslint/LICENSE"
     },
     "typescript@5.8.3": {
         "licenses": "Apache-2.0",
