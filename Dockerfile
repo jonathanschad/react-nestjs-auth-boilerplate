@@ -16,6 +16,7 @@ COPY . .
 
 # Install dependencies and build all apps/packages
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm turbo telemetry disable
 RUN pnpm build
 
 # Deploy production builds for client and server
@@ -41,7 +42,7 @@ WORKDIR /apps
 COPY --from=build /prod/server ./server
 
 # Copy client build for static file serving
-COPY --from=build /prod/client/dist ./server/dist/public
+COPY --from=build /prod/client/dist ./server/dist/src/public
 
 # Copy the @boilerplate/database package (for Prisma CLI and schema)
 COPY --from=build /prod/database ./database
@@ -57,4 +58,4 @@ EXPOSE 3000
 ENV PRISMA_SCHEMA_PATH=/apps/database/prisma/schema.prisma
 
 # Start the NestJS server
-CMD ["sh", "-c", "cd /apps/database && npx prisma migrate deploy --schema $PRISMA_SCHEMA_PATH && cd ../server && node dist/main.js"]
+CMD ["sh", "-c", "cd /apps/database && npx prisma migrate deploy --schema $PRISMA_SCHEMA_PATH && cd ../server && node dist/src/main.js"]
