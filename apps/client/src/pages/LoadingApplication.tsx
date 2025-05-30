@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 
-import { Loading } from '@/components/Loading';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+
+import { Loading } from '@/components/Loading';
 import { loadApplication } from '@/repository/load-application';
 
 const LoadingApplication = ({ children }: { children: React.ReactNode }) => {

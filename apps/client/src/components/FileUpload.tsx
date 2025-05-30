@@ -12,7 +12,7 @@ const FileUpload = () => {
     };
 
     // Handle file upload
-    const handleFileUpload = async () => {
+    const handleFileUpload = async (): Promise<void> => {
         if (!file) {
             setUploadStatus('No file selected');
             return;
@@ -42,7 +42,7 @@ const FileUpload = () => {
         <div>
             <h2>Upload a File</h2>
             <input type="file" onChange={handleFileChange} />
-            <button onClick={handleFileUpload}>Upload File</button>
+            <button onClick={() => void handleFileUpload()}>Upload File</button>
             {uploadStatus && <p>{uploadStatus}</p>}
         </div>
     );

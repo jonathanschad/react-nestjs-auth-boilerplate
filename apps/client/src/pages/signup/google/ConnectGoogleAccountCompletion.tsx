@@ -5,16 +5,17 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
-import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { Button } from '@boilerplate/ui/components/button';
 import { Input } from '@boilerplate/ui/components/input';
 import { Label } from '@boilerplate/ui/components/label';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
+
+import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import {
     connectGoogleAccountFormValidationSchema,
     ConnectGoogleAccountFormValues,
     initialConnectGoogleAccountFormValues,
 } from '@/forms/connect-google-account-form';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { completeGoogleAccountConnection } from '@/repository/login';
 
@@ -35,8 +36,8 @@ export default function ConnectGoogleAccountCompletion() {
 
     const registerMutation = useMutation({
         mutationFn: completeGoogleAccountConnection,
-        onSuccess: () => {
-            queryClient.invalidateQueries();
+        onSuccess: async () => {
+            await queryClient.invalidateQueries();
             navigate('/');
         },
     });

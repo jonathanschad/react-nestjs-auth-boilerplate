@@ -35,7 +35,7 @@ api.interceptors.request.use(
 
 // Response interceptor to handle automatic token refresh if token expired
 api.interceptors.response.use(
-    (response: AxiosResponse) => {
+    (response: AxiosResponse<{ accessToken: string | null; refreshToken: string | null }>) => {
         if (response.data.accessToken !== undefined) {
             useStore.getState().setAccessToken(response.data.accessToken);
 
@@ -66,7 +66,7 @@ api.interceptors.response.use(
                 await renewAccessToken();
                 return api(originalRequest);
             } catch (refreshError) {
-                return Promise.reject(refreshError);
+                return Promise.reject(refreshError as Error);
             }
         }
 

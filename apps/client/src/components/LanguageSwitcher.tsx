@@ -39,11 +39,11 @@ export const LanguageSwitcher = () => {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => i18n.changeLanguage('de')} className="flex items-center">
+                <DropdownMenuItem onClick={() => void i18n.changeLanguage('de')} className="flex items-center">
                     <FlagIcon flag="de" className="mr-4" />
                     <span>Deutsch</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => i18n.changeLanguage('en')} className="flex items-center">
+                <DropdownMenuItem onClick={() => void i18n.changeLanguage('en')} className="flex items-center">
                     <span className="fi fi-gb mr-4"></span>
                     <span>English</span>
                 </DropdownMenuItem>

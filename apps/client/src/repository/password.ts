@@ -1,8 +1,7 @@
 import api, { BASE_URL } from '@/repository';
 
-export const passwordForgot = async ({ email }: { email: string }) => {
-    const data = await api.post(BASE_URL + '/password/forgot', { email });
-    return data.data;
+export const passwordForgot = async ({ email }: { email: string }): Promise<void> => {
+    await api.post<{ success: boolean }>(BASE_URL + '/password/forgot', { email });
 };
 export type PasswordChangeTokenDto = {
     token: string;

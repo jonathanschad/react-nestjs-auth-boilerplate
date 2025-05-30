@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import RegisterSVG from '@/assets/illustrations/register.svg?react';
-import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
 import { Button } from '@boilerplate/ui/components/button';
 import { Input } from '@boilerplate/ui/components/input';
 import { Label } from '@boilerplate/ui/components/label';
-import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+
+import RegisterSVG from '@/assets/illustrations/register.svg?react';
+import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
+import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { register } from '@/repository/login';
 
@@ -20,8 +21,8 @@ export default function Register() {
     const navigate = useNavigate();
     const registerMutatation = useMutation({
         mutationFn: register,
-        onSuccess: () => {
-            queryClient.invalidateQueries();
+        onSuccess: async () => {
+            await queryClient.invalidateQueries();
             navigate('/register/success');
         },
     });

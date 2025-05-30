@@ -5,7 +5,7 @@ export const getFile = async (fileUuid?: string | null): Promise<Blob | null> =>
         return null;
     }
     try {
-        const axiosImageResponse = await api.get(`file/${fileUuid}`, {
+        const axiosImageResponse = await api.get<Blob>(`file/${fileUuid}`, {
             responseType: 'blob', // Ensure we receive the image as a Blob
         });
 
