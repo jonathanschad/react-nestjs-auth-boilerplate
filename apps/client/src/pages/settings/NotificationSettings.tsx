@@ -1,8 +1,8 @@
-import { Checkbox } from '@radix-ui/react-checkbox';
-
 import { Button } from '@boilerplate/ui/components/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@boilerplate/ui/components/card';
+import { Checkbox } from '@boilerplate/ui/components/checkbox';
 import { Input } from '@boilerplate/ui/components/input';
+
 import {
     CurrentSettingsRouteOptions,
     useSetSettingsCurrentActiveRoute,
