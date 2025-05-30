@@ -7,13 +7,17 @@
         "licenseFile": "node_modules/@aws-sdk/client-s3/LICENSE"
     },
     "@boilerplate/eslint-config@0.4.1": {
-        "licenses": "UNLICENSED",
-        "private": true,
+        "licenses": "MIT",
         "path": "node_modules/@boilerplate/eslint-config"
     },
     "@boilerplate/prisma@0.5.0": {
         "licenses": "ISC",
         "path": "node_modules/@boilerplate/prisma"
+    },
+    "@boilerplate/server@0.5.0": {
+        "licenses": "UNLICENSED",
+        "private": true,
+        "path": ""
     },
     "@boilerplate/ts-config@0.4.1": {
         "licenses": "UNLICENSED",
@@ -414,11 +418,6 @@
         "path": "node_modules/rxjs",
         "licenseFile": "node_modules/rxjs/LICENSE.txt"
     },
-    "server@0.5.0": {
-        "licenses": "UNLICENSED",
-        "private": true,
-        "path": ""
-    },
     "sharp@0.33.5": {
         "licenses": "Apache-2.0",
         "repository": "https://github.com/lovell/sharp",
@@ -489,6 +488,13 @@
         "repository": "https://github.com/uuidjs/uuid",
         "path": "node_modules/uuid",
         "licenseFile": "node_modules/uuid/LICENSE.md"
+    },
+    "vite-plugin-svgr@4.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/pd4d10/vite-plugin-svgr",
+        "publisher": "Rongjian Zhang",
+        "path": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr",
+        "licenseFile": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr/LICENSE"
     },
     "winston-transport@4.9.0": {
         "licenses": "MIT",
