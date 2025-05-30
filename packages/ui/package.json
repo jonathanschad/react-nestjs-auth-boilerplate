@@ -2,7 +2,7 @@
     "name": "@boilerplate/ui",
     "version": "1.0.0",
     "description": "",
-    "private": false,
+    "private": "true",
     "license": "MIT",
     "scripts": {
         "lint": "eslint .",
@@ -17,8 +17,14 @@
             "./src/hooks/*.ts",
             "./src/hooks/*.tsx"
         ],
-        "./components/*": "./src/components/*.tsx",
-        "./i18n/*": "./src/i18n/*.tsx"
+        "./components/*": [
+            "./src/components/*.tsx",
+            "./src/components/*.ts"
+        ],
+        "./i18n/*": [
+            "./src/i18n/*.tsx",
+            "./src/i18n/*.ts"
+        ]
     },
     "dependencies": {
         "@boilerplate/eslint-config": "workspace:*",
