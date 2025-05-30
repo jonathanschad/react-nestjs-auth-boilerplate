@@ -5,11 +5,11 @@ import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom';
 
 import LoginSVG from '@/assets/illustrations/login.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '@boilerplate/ui/components/button';
+import { Input } from '@boilerplate/ui/components/input';
+import { Label } from '@boilerplate/ui/components/label';
 import { initialLoginFormValues, loginFormValidationSchema } from '@/forms/login-form';
-import { Translation } from '@/i18n/Translation';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { login } from '@/repository/login';
 

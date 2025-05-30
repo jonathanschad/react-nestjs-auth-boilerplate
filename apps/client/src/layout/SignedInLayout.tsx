@@ -6,7 +6,7 @@ import { Link, Outlet } from 'react-router-dom';
 
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { ProjectLogo } from '@/components/ProjectLogo';
-import { Button } from '@/components/ui/button';
+import { Button } from '@boilerplate/ui/components/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,9 +14,9 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Translation } from '@/i18n/Translation';
+} from '@boilerplate/ui/components/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from '@boilerplate/ui/components/sheet';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { CurrentlySelectedRouteOptions } from '@/layout/useSetSignedInCurrentActiveRoute';
 import { logout } from '@/repository/login';
 

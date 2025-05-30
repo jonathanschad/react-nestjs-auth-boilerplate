@@ -1,0 +1,59 @@
+{
+    "name": "@boilerplate/ui",
+    "version": "1.0.0",
+    "description": "",
+    "private": false,
+    "license": "MIT",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "exports": {
+        "./globals.css": "./src/globals.css",
+        "./postcss.config": "./postcss.config.mjs",
+        "./tailwind.config": "./tailwind.config.ts",
+        "./lib/*": "./src/lib/*.ts",
+        "./hooks/*": [
+            "./src/hooks/*.ts",
+            "./src/hooks/*.tsx"
+        ],
+        "./components/*": "./src/components/*.tsx",
+        "./i18n/*": "./src/i18n/*.tsx"
+    },
+    "dependencies": {
+        "@boilerplate/eslint-config": "workspace:*",
+        "@boilerplate/ts-config": "workspace:*",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "catalog:frontend",
+        "@tanstack/react-table": "catalog:frontend",
+        "lucide-react": "catalog:frontend",
+        "@radix-ui/react-avatar": "^1.1.1",
+        "@radix-ui/react-checkbox": "^1.1.1",
+        "@radix-ui/react-dialog": "^1.1.2",
+        "@radix-ui/react-dropdown-menu": "^2.1.2",
+        "@radix-ui/react-label": "^2.1.0",
+        "@radix-ui/react-slot": "^1.1.0",
+        "react-dom": "catalog:react18",
+        "tailwind-merge": "catalog:frontend",
+        "tailwindcss-animate": "catalog:frontend",
+        "react-i18next": "catalog:frontend",
+        "react": "catalog:react18"
+    },
+    "devDependencies": {
+        "tailwindcss": "catalog:frontend",
+        "typescript-eslint": "^8.31.1",
+        "typescript": "catalog:",
+        "eslint": "catalog:",
+        "prettier-plugin-tailwindcss": "^0.6.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-react-refresh": "^0.4.20",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
+        "@typescript-eslint/eslint-plugin": "^8.31.1",
+        "@types/react": "catalog:react18",
+        "@typescript-eslint/parser": "^8.31.1",
+        "vite-plugin-svgr": "catalog:frontend",
+        "@types/react-dom": "catalog:react18"
+    },
+    "keywords": [],
+    "author": "",
+    "packageManager": "pnpm@10.8.1"
+}

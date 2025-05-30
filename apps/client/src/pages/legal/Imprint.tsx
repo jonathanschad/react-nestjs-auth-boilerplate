@@ -1,6 +1,6 @@
 import LegalSVG from '@/assets/illustrations/legal.svg?react';
 import { config } from '@/config';
-import { Translation } from '@/i18n/Translation';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 
 export const Imprint = () => {

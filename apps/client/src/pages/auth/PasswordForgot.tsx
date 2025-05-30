@@ -4,11 +4,11 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import ForgotPasswordSVG from '@/assets/illustrations/forgot-password.svg?react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '@boilerplate/ui/components/button';
+import { Input } from '@boilerplate/ui/components/input';
+import { Label } from '@boilerplate/ui/components/label';
 import { initialPasswordForgotFormValues, passwordForgotFormValidationSchema } from '@/forms/password-forgot-form';
-import { Translation } from '@/i18n/Translation';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { passwordForgot } from '@/repository/password';
 

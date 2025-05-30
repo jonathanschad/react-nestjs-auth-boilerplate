@@ -1,6 +1,6 @@
 import Markdown from 'react-markdown';
 
-import { Typography } from '@/components/ui/typography';
+import { Typography } from '@boilerplate/ui/components/typography';
 
 export const MarkdownRenderer = ({ children }: { children?: string | null | undefined }) => {
     return (

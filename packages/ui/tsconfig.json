@@ -1,18 +1,11 @@
 {
     "extends": "@boilerplate/ts-config/react.json",
     "compilerOptions": {
-        "rootDir": "./src",
-        "outDir": "./dist",
-
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@boilerplate/ui/*": ["./src/*"]
         }
     },
     "include": ["src/**/*", "postcss.config.mjs"],
-    "references": [
-        {
-            "path": "./tsconfig.node.json"
-        }
-    ]
+    "exclude": ["node_modules"]
 }
