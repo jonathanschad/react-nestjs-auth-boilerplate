@@ -1,5 +1,9 @@
-import * as postcssConfig from '@boilerplate/ui/postcss.config';
+/** @type {import('postcss-load-config').Config} */
 
-console.log('postcssConfig', postcssConfig);
+import postcssConfig from '@boilerplate/ui/postcss.config';
 
-export default postcssConfig;
+const config = {
+    ...postcssConfig,
+};
+
+export default config;

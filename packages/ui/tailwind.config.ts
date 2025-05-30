@@ -1,9 +1,20 @@
 import type { Config } from 'tailwindcss';
 import tailwindcssAnimate from 'tailwindcss-animate';
 
+export const getUIContentBasePaths = (relativePath: string): string[] => {
+    if (relativePath.endsWith('/')) {
+        relativePath = relativePath.slice(0, -1);
+    }
+    if (relativePath.endsWith('src')) {
+        relativePath = relativePath.slice(0, -3);
+    }
+
+    return [`${relativePath}/src/**/*.{js,ts,jsx,tsx,mdx}`];
+};
+
 const config = {
     darkMode: ['class'],
-    content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
+    content: [], // Apps should override this with their own content paths and append getUIContentBasePaths to the array
     prefix: '',
     theme: {
         container: {
