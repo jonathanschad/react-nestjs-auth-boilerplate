@@ -5,6 +5,8 @@
     "scripts": {
         "build": "turbo build",
         "dev": "turbo dev",
+        "dev:client": "turbo dev --filter=@boilerplate/client",
+        "dev:server": "turbo dev --filter=@boilerplate/server",
         "lint": "turbo lint",
         "lint:fix": "turbo lint:fix",
         "format": "prettier --write \"**/*.{ts,tsx,md,js,json}\"",

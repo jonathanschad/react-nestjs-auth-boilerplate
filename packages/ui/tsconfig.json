@@ -6,6 +6,6 @@
             "@boilerplate/ui/*": ["./src/*"]
         }
     },
-    "include": ["src/**/*", "postcss.config.mjs"],
+    "include": ["src/**/*", "postcss.config.mjs", "tailwind.config.ts"],
     "exclude": ["node_modules"]
 }

@@ -8,7 +8,7 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "exports": {
-        "./globals.css": "./src/globals.css",
+        "./globals.css": "./src/assets/global.css",
         "./postcss.config": "./postcss.config.mjs",
         "./tailwind.config": "./tailwind.config.ts",
         "./lib/*": "./src/lib/*.ts",
