@@ -20,8 +20,8 @@
     "devDependencies": {
         "@boilerplate/eslint-config": "workspace:*",
         "@boilerplate/ts-config": "workspace:*",
-        "eslint": "^9.25.1",
-        "typescript": "^5.8.3"
+        "eslint": "catalog:",
+        "typescript": "catalog:"
     },
     "packageManager": "pnpm@10.8.1"
 }
