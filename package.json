@@ -9,6 +9,7 @@
         "dev:server": "turbo dev --filter=@boilerplate/server",
         "lint": "turbo lint",
         "lint:fix": "turbo lint:fix",
+        "tsc": "turbo tsc",
         "format": "prettier --write \"**/*.{ts,tsx,md,js,json}\"",
         "postinstall": "pnpm generate:prisma",
         "generate:prisma": "pnpm --filter @boilerplate/prisma db:generate"

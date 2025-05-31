@@ -10,7 +10,8 @@
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
         "preview": "vite preview",
-        "generate-license-attribution": "license-checker-rseidelsohn --relativeLicensePath --relativeModulePath --json  --out src/assets/licenses.json"
+        "generate-license-attribution": "license-checker-rseidelsohn --relativeLicensePath --relativeModulePath --json  --out src/assets/licenses.json",
+        "tsc": "tsc --noEmit"
     },
     "dependencies": {
         "@sentry/react": "^8.48.0",

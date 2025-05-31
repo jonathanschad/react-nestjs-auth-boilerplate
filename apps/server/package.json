@@ -12,7 +12,8 @@
         "start:prod": "node dist/src/main",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
         "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-        "generate-license-attribution": "license-checker-rseidelsohn --json --relativeLicensePath --relativeModulePath --out src/assets/licenses.json"
+        "generate-license-attribution": "license-checker-rseidelsohn --json --relativeLicensePath --relativeModulePath --out src/assets/licenses.json",
+        "tsc": "tsc --noEmit"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.669.0",

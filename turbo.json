@@ -12,6 +12,10 @@
         "lint:fix": {
             "dependsOn": ["^lint:fix"]
         },
+        "tsc": {
+            "dependsOn": ["^tsc"],
+            "cache": false
+        },
         "dev": {
             "cache": false,
             "persistent": true

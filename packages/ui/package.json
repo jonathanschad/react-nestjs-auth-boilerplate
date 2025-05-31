@@ -6,7 +6,8 @@
     "license": "MIT",
     "scripts": {
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix"
+        "lint:fix": "eslint . --fix",
+        "tsc": "tsc --noEmit"
     },
     "exports": {
         "./globals.css": "./src/assets/global.css",
