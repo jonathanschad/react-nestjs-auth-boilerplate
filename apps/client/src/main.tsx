@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import '@/assets/global.css';
+import '@boilerplate/ui/globals.css';
 
 import App from '@/App';
 

@@ -1,6 +1,37 @@
 #!/usr/bin/env node
 const fs = require('fs');
+const path = require('path');
 const { execSync } = require('child_process');
+
+// Function to recursively find all package.json files in a directory
+const findPackageJsonFiles = (dir) => {
+    let packageJsonFiles = [];
+
+    if (!fs.existsSync(dir)) {
+        return packageJsonFiles;
+    }
+
+    const files = fs.readdirSync(dir);
+
+    const subDirs = files
+        .map((file) => {
+            const filePath = path.join(dir, file);
+            return [filePath, fs.statSync(filePath)];
+        })
+        .filter((file) => file[1].isDirectory());
+
+    for (const [subDirPath, subDirStat] of subDirs) {
+        if (subDirStat.isDirectory()) {
+            const packageJsonPath = path.join(subDirPath, 'package.json');
+            if (fs.existsSync(packageJsonPath)) {
+                packageJsonFiles.push(packageJsonPath);
+            }
+        }
+    }
+
+    return packageJsonFiles;
+};
+
 // Get version from command-line arguments
 const version = process.argv[2].replace(/^v/, '');
 
@@ -25,10 +56,15 @@ try {
     console.error('Error checking Git tags:', error.message);
     process.exit(1);
 }
-const packageJsonPathWebsite = './apps/server/package.json';
-const packageJsonPathBackend = './apps/client/package.json';
-const packageJsonPathDatabase = './packages/prisma/package.json';
-const packageJsonPathRoot = './package.json';
+
+// Find all package.json files
+const packageJsonFiles = [
+    './package.json', // Root package.json
+    ...findPackageJsonFiles('./apps'),
+    ...findPackageJsonFiles('./packages'),
+];
+
+console.log('Found package.json files:', packageJsonFiles);
 
 const updatePackageJson = (packageJsonPath) => {
     // Update package.json version
@@ -39,17 +75,15 @@ const updatePackageJson = (packageJsonPath) => {
 
         execSync(`git add ${packageJsonPath}`);
 
-        console.log(`Updated package.json version to ${version}`);
+        console.log(`Updated ${packageJsonPath} version to ${version}`);
     } catch (error) {
-        console.error('Error updating package.json:', error.message);
+        console.error(`Error updating ${packageJsonPath}:`, error.message);
         process.exit(1);
     }
 };
 
-updatePackageJson(packageJsonPathWebsite);
-updatePackageJson(packageJsonPathBackend);
-updatePackageJson(packageJsonPathDatabase);
-updatePackageJson(packageJsonPathRoot);
+// Update all found package.json files
+packageJsonFiles.forEach(updatePackageJson);
 
 // Create Git commit and tag
 try {

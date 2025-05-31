@@ -1,6 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { Button } from '@boilerplate/ui/components/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@boilerplate/ui/components/card';
+import { Input } from '@boilerplate/ui/components/input';
+
 import {
     CurrentSettingsRouteOptions,
     useSetSettingsCurrentActiveRoute,

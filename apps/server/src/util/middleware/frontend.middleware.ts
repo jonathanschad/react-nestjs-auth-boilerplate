@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import { createReadStream, readdirSync } from 'fs';
 import mime from 'mime-types';
 import { dirname } from 'node:path';

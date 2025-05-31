@@ -1,12 +1,13 @@
 import { ArrowUpDown } from 'lucide-react';
 import { ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@boilerplate/ui/components/button';
+import { DataTable } from '@boilerplate/ui/components/data-table';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
+
 import LegalSVG from '@/assets/illustrations/legal.svg?react';
 import licenseClarificationsJSON from '@/assets/license-clarifications.json';
 import licensesJSON from '@/assets/licenses.json';
-import { Button } from '@/components/ui/button';
-import { DataTable } from '@/components/ui/data-table';
-import { Translation } from '@/i18n/Translation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 
 interface License {

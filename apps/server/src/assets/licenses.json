@@ -6,9 +6,18 @@
         "path": "node_modules/@aws-sdk/client-s3",
         "licenseFile": "node_modules/@aws-sdk/client-s3/LICENSE"
     },
-    "@boilerplate/prisma@0.4.1": {
+    "@boilerplate/eslint-config@0.4.1": {
+        "licenses": "MIT",
+        "path": "node_modules/@boilerplate/eslint-config"
+    },
+    "@boilerplate/prisma@0.5.0": {
         "licenses": "ISC",
         "path": "node_modules/@boilerplate/prisma"
+    },
+    "@boilerplate/server@0.5.0": {
+        "licenses": "UNLICENSED",
+        "private": true,
+        "path": ""
     },
     "@boilerplate/ts-config@0.4.1": {
         "licenses": "UNLICENSED",
@@ -31,6 +40,12 @@
         "repository": "https://github.com/eslint/eslint",
         "path": "node_modules/@eslint/js",
         "licenseFile": "node_modules/@eslint/js/LICENSE"
+    },
+    "@eslint/js@9.26.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/eslint/eslint",
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js/LICENSE"
     },
     "@fastify/accepts@5.0.2": {
         "licenses": "MIT",
@@ -145,6 +160,14 @@
         "path": "node_modules/@nestjs/testing",
         "licenseFile": "node_modules/@nestjs/testing/LICENSE"
     },
+    "@prisma/client@6.4.1": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/prisma/prisma",
+        "publisher": "Tim Suchanek",
+        "email": "suchanek@prisma.io",
+        "path": "node_modules/@boilerplate/prisma/node_modules/@prisma/client",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/@prisma/client/LICENSE"
+    },
     "@sentry/nestjs@9.3.0": {
         "licenses": "MIT",
         "repository": "https://github.com/getsentry/sentry-javascript",
@@ -205,7 +228,7 @@
         "path": "node_modules/@types/mime-types",
         "licenseFile": "node_modules/@types/mime-types/LICENSE"
     },
-    "@types/node@22.13.8": {
+    "@types/node@20.17.22": {
         "licenses": "MIT",
         "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
         "path": "node_modules/@types/node",
@@ -229,14 +252,14 @@
         "path": "node_modules/@types/uuid",
         "licenseFile": "node_modules/@types/uuid/LICENSE"
     },
-    "@typescript-eslint/eslint-plugin@7.18.0": {
+    "@typescript-eslint/eslint-plugin@8.31.1": {
         "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
         "path": "node_modules/@typescript-eslint/eslint-plugin",
         "licenseFile": "node_modules/@typescript-eslint/eslint-plugin/LICENSE"
     },
-    "@typescript-eslint/parser@7.18.0": {
-        "licenses": "BSD-2-Clause",
+    "@typescript-eslint/parser@8.31.1": {
+        "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
         "path": "node_modules/@typescript-eslint/parser",
         "licenseFile": "node_modules/@typescript-eslint/parser/LICENSE"
@@ -268,19 +291,45 @@
         "path": "node_modules/class-validator",
         "licenseFile": "node_modules/class-validator/LICENSE"
     },
-    "eslint-config-prettier@10.0.2": {
+    "copyfiles@2.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/calvinmetcalf/copyfiles",
+        "path": "node_modules/@boilerplate/prisma/node_modules/copyfiles",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/copyfiles/license.md"
+    },
+    "dotenv-cli@8.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/entropitor/dotenv-cli",
+        "publisher": "entropitor",
+        "path": "node_modules/@boilerplate/prisma/node_modules/dotenv-cli",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/dotenv-cli/LICENSE"
+    },
+    "eslint-config-prettier@10.1.2": {
         "licenses": "MIT",
         "repository": "https://github.com/prettier/eslint-config-prettier",
         "publisher": "Simon Lydell",
         "path": "node_modules/eslint-config-prettier",
         "licenseFile": "node_modules/eslint-config-prettier/LICENSE"
     },
-    "eslint-plugin-prettier@5.2.3": {
+    "eslint-plugin-prettier@5.3.0": {
         "licenses": "MIT",
         "repository": "https://github.com/prettier/eslint-plugin-prettier",
         "publisher": "Teddy Katz",
         "path": "node_modules/eslint-plugin-prettier",
         "licenseFile": "node_modules/eslint-plugin-prettier/LICENSE.md"
+    },
+    "eslint-plugin-react-hooks@5.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-hooks",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-hooks/LICENSE"
+    },
+    "eslint-plugin-react-refresh@0.4.20": {
+        "licenses": "MIT",
+        "repository": "https://github.com/ArnaudBarre/eslint-plugin-react-refresh",
+        "publisher": "Arnaud Barré",
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-refresh",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-refresh/LICENSE"
     },
     "eslint-plugin-simple-import-sort@12.1.1": {
         "licenses": "MIT",
@@ -289,7 +338,7 @@
         "path": "node_modules/eslint-plugin-simple-import-sort",
         "licenseFile": "node_modules/eslint-plugin-simple-import-sort/LICENSE"
     },
-    "eslint@9.21.0": {
+    "eslint@9.26.0": {
         "licenses": "MIT",
         "repository": "https://github.com/eslint/eslint",
         "publisher": "Nicholas C. Zakas",
@@ -347,12 +396,20 @@
         "path": "node_modules/nodemailer",
         "licenseFile": "node_modules/nodemailer/LICENSE"
     },
-    "prettier@3.5.2": {
+    "prettier@3.5.3": {
         "licenses": "MIT",
         "repository": "https://github.com/prettier/prettier",
         "publisher": "James Long",
         "path": "node_modules/prettier",
         "licenseFile": "node_modules/prettier/LICENSE"
+    },
+    "prisma@6.4.1": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/prisma/prisma",
+        "publisher": "Tim Suchanek",
+        "email": "suchanek@prisma.io",
+        "path": "node_modules/@boilerplate/prisma/node_modules/prisma",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/prisma/LICENSE"
     },
     "react-dom@18.3.1": {
         "licenses": "MIT",
@@ -381,11 +438,6 @@
         "email": "ben@benlesh.com",
         "path": "node_modules/rxjs",
         "licenseFile": "node_modules/rxjs/LICENSE.txt"
-    },
-    "server@0.4.1": {
-        "licenses": "UNLICENSED",
-        "private": true,
-        "path": ""
     },
     "sharp@0.33.5": {
         "licenses": "Apache-2.0",
@@ -439,7 +491,15 @@
         "path": "node_modules/tsconfig-paths",
         "licenseFile": "node_modules/tsconfig-paths/LICENSE"
     },
-    "typescript-eslint@8.25.0": {
+    "tsx@4.19.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/privatenumber/tsx",
+        "publisher": "Hiroki Osame",
+        "email": "hiroki.osame@gmail.com",
+        "path": "node_modules/@boilerplate/prisma/node_modules/tsx",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/tsx/LICENSE"
+    },
+    "typescript-eslint@8.31.1": {
         "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
         "path": "node_modules/typescript-eslint",
@@ -457,6 +517,13 @@
         "repository": "https://github.com/uuidjs/uuid",
         "path": "node_modules/uuid",
         "licenseFile": "node_modules/uuid/LICENSE.md"
+    },
+    "vite-plugin-svgr@4.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/pd4d10/vite-plugin-svgr",
+        "publisher": "Rongjian Zhang",
+        "path": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr",
+        "licenseFile": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr/LICENSE"
     },
     "winston-transport@4.9.0": {
         "licenses": "MIT",

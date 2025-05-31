@@ -32,5 +32,8 @@ dist-ssr
 .vite
 
 tsconfig.tsbuildinfo
+tsconfig.build.tsbuildinfo
 
 packages/prisma/src/generated
+
+.turbo

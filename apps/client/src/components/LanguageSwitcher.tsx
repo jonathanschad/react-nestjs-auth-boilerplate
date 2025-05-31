@@ -1,15 +1,15 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@boilerplate/ui/components/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Typography } from '@/components/ui/typography';
-import { Translation } from '@/i18n/Translation';
+} from '@boilerplate/ui/components/dropdown-menu';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 const mapLanguageToFlag = (language: string) => {
     switch (language) {
@@ -39,11 +39,11 @@ export const LanguageSwitcher = () => {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => i18n.changeLanguage('de')} className="flex items-center">
+                <DropdownMenuItem onClick={() => void i18n.changeLanguage('de')} className="flex items-center">
                     <FlagIcon flag="de" className="mr-4" />
                     <span>Deutsch</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => i18n.changeLanguage('en')} className="flex items-center">
+                <DropdownMenuItem onClick={() => void i18n.changeLanguage('en')} className="flex items-center">
                     <span className="fi fi-gb mr-4"></span>
                     <span>English</span>
                 </DropdownMenuItem>

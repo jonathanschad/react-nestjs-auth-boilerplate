@@ -5,13 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
+import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
+import { Button } from '@boilerplate/ui/components/button';
+import { Input } from '@boilerplate/ui/components/input';
+import { Label } from '@boilerplate/ui/components/label';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
+
 import ResetPasswordSVG from '@/assets/illustrations/reset-password.svg?react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { initialPasswordResetFormValues, passwordResetFormValidationSchema } from '@/forms/password-reset';
-import { Translation } from '@/i18n/Translation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { passwordChangeToken, passwordForgotTokenValidation } from '@/repository/password';
 
@@ -29,8 +30,8 @@ export function PasswordReset() {
     });
     const passwordChangeMutation = useMutation({
         mutationFn: passwordChangeToken,
-        onSuccess: () => {
-            queryClient.invalidateQueries();
+        onSuccess: async () => {
+            await queryClient.invalidateQueries();
             navigate('/');
         },
         onError: () => {

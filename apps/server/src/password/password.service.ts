@@ -10,7 +10,7 @@ import { PasswordResetTokenService } from '@/database/password-reset-token/passw
 import { PrismaService } from '@/database/prisma.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 import { MailService } from '@/mail/mail.service';
-import { UserWithSettings } from '@/types/prisma';
+import type { UserWithSettings } from '@/types/prisma';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()

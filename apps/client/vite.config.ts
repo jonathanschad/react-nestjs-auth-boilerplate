@@ -10,6 +10,16 @@ export default defineConfig({
         alias: {
             '@': path.resolve(__dirname, './src'), // Adjust './src' as needed
             '@client': path.resolve(__dirname, './src'), // Adjust './src' as needed
+            '@boilerplate/ui/i18n': path.resolve(__dirname, '../../packages/ui/src/i18n'),
+            '@boilerplate/ui/components': path.resolve(__dirname, '../../packages/ui/src/components'),
+        },
+    },
+    optimizeDeps: {
+        exclude: ['@boilerplate/ui'],
+    },
+    server: {
+        watch: {
+            ignored: ['!**/@boilerplate/ui/**'],
         },
     },
     esbuild: {

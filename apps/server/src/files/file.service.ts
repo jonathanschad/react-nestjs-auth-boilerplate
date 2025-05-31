@@ -1,20 +1,19 @@
 import { join } from 'path';
 import sharp from 'sharp';
 import { MultipartFile } from '@fastify/multipart';
-import { Injectable, StreamableFile } from '@nestjs/common';
+import { Injectable, Logger, StreamableFile } from '@nestjs/common';
 
 import { File, FileAccess, User, UserState } from '@boilerplate/prisma';
 
-import { AppConfigService } from '@/config/app-config.service';
 import { DatabaseFileService } from '@/database/database-file/database-file.service';
 import { FileUploadResponse, StorageService } from '@/files/storage.service';
-import { logger } from '@/main';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()
 export class FileService {
+    private readonly logger = new Logger(FileService.name);
+
     constructor(
-        private readonly appConfigService: AppConfigService,
         private readonly databaseFileService: DatabaseFileService,
         private readonly storageService: StorageService,
     ) {}
@@ -28,7 +27,7 @@ export class FileService {
         try {
             return this.storageService.getFile(dbFile);
         } catch (error) {
-            logger.error('Error while reading file', error);
+            this.logger.error('Error while reading file', error);
             throw new HTTPError({ statusCode: HttpStatusCode.NOT_FOUND, message: 'Could not read file' });
         }
     }

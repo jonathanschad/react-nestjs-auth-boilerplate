@@ -2,7 +2,8 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-import { Translation } from '@/i18n/Translation';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
+
 import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,

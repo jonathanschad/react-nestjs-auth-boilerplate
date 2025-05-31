@@ -19,11 +19,11 @@ export const ProfilePictureEditor = () => {
 
         const imageBlob = await new Promise<Blob>((res, rej) => {
             if (editorRef.current === null) {
-                return rej();
+                return rej(new Error('Editor reference is null'));
             }
             editorRef.current.getImageScaledToCanvas().toBlob(
                 (imageBlob) => {
-                    if (!imageBlob) return rej();
+                    if (!imageBlob) return rej(new Error('Image blob is null'));
                     res(imageBlob);
                 },
                 'image/webp',
@@ -58,7 +58,7 @@ export const ProfilePictureEditor = () => {
                 )}
             </Dropzone>
 
-            <button className="mt-8" onClick={handleFileUpload}>
+            <button className="mt-8" onClick={() => void handleFileUpload()}>
                 Upload File
             </button>
         </div>

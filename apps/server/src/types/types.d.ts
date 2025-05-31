@@ -1,4 +1,4 @@
-import { UserWithSettings } from '@/types/prisma';
+import type { UserWithSettings } from '@/types/prisma';
 
 declare global {
     namespace fastify {

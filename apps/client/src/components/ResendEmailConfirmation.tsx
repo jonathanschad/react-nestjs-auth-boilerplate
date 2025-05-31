@@ -4,21 +4,22 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
+import { Button } from '@boilerplate/ui/components/button';
+import { Input } from '@boilerplate/ui/components/input';
+import { Label } from '@boilerplate/ui/components/label';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
+
 import {
     resendEmailConfirmationFormValidationSchema,
     ResendEmailConfirmationFormValues,
 } from '@/forms/resend-email-confirmation';
-import { Translation } from '@/i18n/Translation';
 import { resendVerificationEmail } from '@/repository/login';
 const SECONDS_UNTIL_EMAIL_CAN_BE_RESENT = 10 as const;
 
 export const ResendEmailConfirmation = ({ email }: { email?: string | null }) => {
     const [lastSendEmail, setLastSendEmail] = useState<string | undefined>();
-    const registeredEmail = email ?? (sessionStorage.getItem('registerEmail') as string | null);
+    const registeredEmail = email ?? sessionStorage.getItem('registerEmail');
     const [registerEmailSentAt, setRegisterEmailSentAt] = useState(
         new Date(parseInt(sessionStorage.getItem('registerEmailSentAt') ?? '0')),
     );

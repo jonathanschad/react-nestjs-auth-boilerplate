@@ -4,39 +4,38 @@
     "sourceRoot": "src",
     "compilerOptions": {
         "deleteOutDir": true,
-        "builder": "swc",
         "assets": [
             {
                 "include": "assets/**/*",
-                "outDir": "dist"
+                "outDir": "dist/src"
             },
             {
                 "include": "**/*.json",
-                "outDir": "dist"
+                "outDir": "dist/src"
             },
             {
                 "include": "**/*.html",
-                "outDir": "dist"
+                "outDir": "dist/src"
             },
             {
                 "include": "**/*.png",
-                "outDir": "dist"
+                "outDir": "dist/src"
             },
             {
                 "include": "**/*.jpg",
-                "outDir": "dist"
+                "outDir": "dist/src"
             },
             {
                 "include": "**/*.jpeg",
-                "outDir": "dist"
+                "outDir": "dist/src"
             },
             {
                 "include": "**/*.svg",
-                "outDir": "dist"
+                "outDir": "dist/src"
             },
             {
                 "include": "**/*.md",
-                "outDir": "dist"
+                "outDir": "dist/src"
             }
         ],
         "watchAssets": true

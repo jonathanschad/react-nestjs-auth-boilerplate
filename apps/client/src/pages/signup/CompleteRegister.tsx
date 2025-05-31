@@ -3,16 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
+import { Button } from '@boilerplate/ui/components/button';
+import { Input } from '@boilerplate/ui/components/input';
+import { Label } from '@boilerplate/ui/components/label';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
+
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
     completeRegisterFormValidationSchema,
     CompleteRegisterFormValues,
     initialCompleteRegisterFormValues,
 } from '@/forms/complete-register-form';
-import { Translation } from '@/i18n/Translation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { completeRegistration } from '@/repository/login';
 import { useStore } from '@/store/store';
@@ -25,9 +26,9 @@ export default function CompleteRegister() {
     const registeredEmail = useStore((state) => state.decodedAccessToken()?.email);
     const registerMutation = useMutation({
         mutationFn: completeRegistration,
-        onSuccess: () => {
+        onSuccess: async () => {
             console.log('Registration complete');
-            queryClient.invalidateQueries();
+            await queryClient.invalidateQueries();
             navigate('/');
         },
     });

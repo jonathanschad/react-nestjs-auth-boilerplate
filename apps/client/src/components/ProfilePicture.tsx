@@ -1,7 +1,8 @@
 import { CircleUser } from 'lucide-react';
 
-import { AuthenticatedImage } from '@/components/ui/authenticated-image';
-import { Avatar } from '@/components/ui/avatar';
+import { Avatar } from '@boilerplate/ui/components/avatar';
+
+import { AuthenticatedImage } from '@/components/authenticated-image';
 import { useUser } from '@/store/async-store';
 
 interface ProfilePictureProps {

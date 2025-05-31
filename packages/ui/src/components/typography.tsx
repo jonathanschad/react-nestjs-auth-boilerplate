@@ -1,7 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@boilerplate/ui/lib/utils';
 const variants = {
     h1: 'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl',
     h2: 'scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0',

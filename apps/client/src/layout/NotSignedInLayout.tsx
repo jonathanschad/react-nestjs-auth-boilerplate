@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
+import { Translation } from '@boilerplate/ui/i18n/Translation';
+
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ProjectLogo } from '@/components/ProjectLogo';
-import { Translation } from '@/i18n/Translation';
 
 export const NotSignedInLayout = () => {
     const [illustration, setIllustration] = useState<React.ReactNode | null>(null);

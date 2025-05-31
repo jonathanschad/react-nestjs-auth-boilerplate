@@ -15,7 +15,7 @@ export const GoogleOAuthButton = () => {
     const googleOAuthMutation = useMutation({
         mutationFn: startGoogleOAuthFlow,
         onSuccess: () => {
-            queryClient.invalidateQueries();
+            void queryClient.invalidateQueries();
         },
     });
     return (
