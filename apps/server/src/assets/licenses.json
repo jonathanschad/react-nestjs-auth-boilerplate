@@ -160,6 +160,14 @@
         "path": "node_modules/@nestjs/testing",
         "licenseFile": "node_modules/@nestjs/testing/LICENSE"
     },
+    "@prisma/client@6.4.1": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/prisma/prisma",
+        "publisher": "Tim Suchanek",
+        "email": "suchanek@prisma.io",
+        "path": "node_modules/@boilerplate/prisma/node_modules/@prisma/client",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/@prisma/client/LICENSE"
+    },
     "@sentry/nestjs@9.3.0": {
         "licenses": "MIT",
         "repository": "https://github.com/getsentry/sentry-javascript",
@@ -220,7 +228,7 @@
         "path": "node_modules/@types/mime-types",
         "licenseFile": "node_modules/@types/mime-types/LICENSE"
     },
-    "@types/node@22.13.8": {
+    "@types/node@20.17.22": {
         "licenses": "MIT",
         "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
         "path": "node_modules/@types/node",
@@ -247,14 +255,14 @@
     "@typescript-eslint/eslint-plugin@8.31.1": {
         "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
-        "path": "node_modules/@boilerplate/eslint-config/node_modules/@typescript-eslint/eslint-plugin",
-        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@typescript-eslint/eslint-plugin/LICENSE"
+        "path": "node_modules/@typescript-eslint/eslint-plugin",
+        "licenseFile": "node_modules/@typescript-eslint/eslint-plugin/LICENSE"
     },
     "@typescript-eslint/parser@8.31.1": {
         "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
-        "path": "node_modules/@boilerplate/eslint-config/node_modules/@typescript-eslint/parser",
-        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@typescript-eslint/parser/LICENSE"
+        "path": "node_modules/@typescript-eslint/parser",
+        "licenseFile": "node_modules/@typescript-eslint/parser/LICENSE"
     },
     "@usewaypoint/email-builder@0.0.8": {
         "licenses": "MIT",
@@ -283,19 +291,32 @@
         "path": "node_modules/class-validator",
         "licenseFile": "node_modules/class-validator/LICENSE"
     },
+    "copyfiles@2.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/calvinmetcalf/copyfiles",
+        "path": "node_modules/@boilerplate/prisma/node_modules/copyfiles",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/copyfiles/license.md"
+    },
+    "dotenv-cli@8.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/entropitor/dotenv-cli",
+        "publisher": "entropitor",
+        "path": "node_modules/@boilerplate/prisma/node_modules/dotenv-cli",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/dotenv-cli/LICENSE"
+    },
     "eslint-config-prettier@10.1.2": {
         "licenses": "MIT",
         "repository": "https://github.com/prettier/eslint-config-prettier",
         "publisher": "Simon Lydell",
-        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-config-prettier",
-        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-config-prettier/LICENSE"
+        "path": "node_modules/eslint-config-prettier",
+        "licenseFile": "node_modules/eslint-config-prettier/LICENSE"
     },
     "eslint-plugin-prettier@5.3.0": {
         "licenses": "MIT",
         "repository": "https://github.com/prettier/eslint-plugin-prettier",
         "publisher": "Teddy Katz",
-        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-prettier",
-        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-prettier/LICENSE.md"
+        "path": "node_modules/eslint-plugin-prettier",
+        "licenseFile": "node_modules/eslint-plugin-prettier/LICENSE.md"
     },
     "eslint-plugin-react-hooks@5.2.0": {
         "licenses": "MIT",
@@ -314,24 +335,16 @@
         "licenses": "MIT",
         "repository": "https://github.com/lydell/eslint-plugin-simple-import-sort",
         "publisher": "Simon Lydell",
-        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-simple-import-sort",
-        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-simple-import-sort/LICENSE"
+        "path": "node_modules/eslint-plugin-simple-import-sort",
+        "licenseFile": "node_modules/eslint-plugin-simple-import-sort/LICENSE"
     },
-    "eslint@9.21.0": {
+    "eslint@9.26.0": {
         "licenses": "MIT",
         "repository": "https://github.com/eslint/eslint",
         "publisher": "Nicholas C. Zakas",
         "email": "nicholas+npm@nczconsulting.com",
         "path": "node_modules/eslint",
         "licenseFile": "node_modules/eslint/LICENSE"
-    },
-    "eslint@9.25.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/eslint/eslint",
-        "publisher": "Nicholas C. Zakas",
-        "email": "nicholas+npm@nczconsulting.com",
-        "path": "node_modules/@boilerplate/utils/node_modules/eslint",
-        "licenseFile": "node_modules/@boilerplate/utils/node_modules/eslint/LICENSE"
     },
     "fastify@5.2.1": {
         "licenses": "MIT",
@@ -389,6 +402,14 @@
         "publisher": "James Long",
         "path": "node_modules/prettier",
         "licenseFile": "node_modules/prettier/LICENSE"
+    },
+    "prisma@6.4.1": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/prisma/prisma",
+        "publisher": "Tim Suchanek",
+        "email": "suchanek@prisma.io",
+        "path": "node_modules/@boilerplate/prisma/node_modules/prisma",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/prisma/LICENSE"
     },
     "react-dom@18.3.1": {
         "licenses": "MIT",
@@ -470,11 +491,19 @@
         "path": "node_modules/tsconfig-paths",
         "licenseFile": "node_modules/tsconfig-paths/LICENSE"
     },
+    "tsx@4.19.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/privatenumber/tsx",
+        "publisher": "Hiroki Osame",
+        "email": "hiroki.osame@gmail.com",
+        "path": "node_modules/@boilerplate/prisma/node_modules/tsx",
+        "licenseFile": "node_modules/@boilerplate/prisma/node_modules/tsx/LICENSE"
+    },
     "typescript-eslint@8.31.1": {
         "licenses": "MIT",
         "repository": "https://github.com/typescript-eslint/typescript-eslint",
-        "path": "node_modules/@boilerplate/eslint-config/node_modules/typescript-eslint",
-        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/typescript-eslint/LICENSE"
+        "path": "node_modules/typescript-eslint",
+        "licenseFile": "node_modules/typescript-eslint/LICENSE"
     },
     "typescript@5.8.3": {
         "licenses": "Apache-2.0",
