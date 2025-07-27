@@ -8,7 +8,7 @@ import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 import LoginSVG from '@/assets/illustrations/login.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
-import { createLoginFormSchema, initialLoginFormValues } from '@/forms/login-form';
+import { loginFormOptions } from '@/forms/login-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { login } from '@/repository/login';
 
@@ -29,10 +29,7 @@ export function Login() {
     const { t } = useTranslation('common');
 
     const form = useAppForm({
-        defaultValues: initialLoginFormValues,
-        validators: {
-            onSubmit: createLoginFormSchema(t),
-        },
+        ...loginFormOptions(t),
         onSubmit: async ({ value }) => {
             await loginMutation.mutateAsync(value);
         },
