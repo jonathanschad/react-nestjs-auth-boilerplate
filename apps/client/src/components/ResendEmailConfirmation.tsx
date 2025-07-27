@@ -50,7 +50,7 @@ export const ResendEmailConfirmation = ({ email }: { email?: string | null }) =>
     }, [registerEmailSentAt]);
 
     const form = useAppForm({
-        ...resendEmailConfirmationFormOptions(),
+        ...resendEmailConfirmationFormOptions(t),
         defaultValues: { email: registeredEmail ?? '' },
         onSubmit: ({ value }) => {
             handleResendEmail(value);

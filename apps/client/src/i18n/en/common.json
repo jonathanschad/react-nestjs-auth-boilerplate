@@ -60,6 +60,8 @@
     "resendEmailConfirmation.emailResend": "Another email has been sent to {{lastSendEmail}}. Please check your inbox.",
     "resendEmailConfirmation.resendButton": "Send confirmation email again",
     "resendEmailConfirmation.resendButtonDisabled": "Send confirmation email again in {{secondsUntilEmailCanBeResent}}s",
+    "resendEmailConfirmation.emailInvalid": "Enter a valid email",
+    "resendEmailConfirmation.emailRequired": "Email is required",
     "settings": "Settings",
     "signInWithGoogle": "Sign in with Google",
     "signup": "Sign up",

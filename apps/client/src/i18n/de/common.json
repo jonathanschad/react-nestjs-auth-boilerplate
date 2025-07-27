@@ -60,6 +60,8 @@
     "resendEmailConfirmation.emailResend": "Eine weitere Email wurde an {{lastSendEmail}} gesendet. Bitte überprüfen Sie Ihren Posteingang.",
     "resendEmailConfirmation.resendButton": "Bestätigungsmail erneut senden",
     "resendEmailConfirmation.resendButtonDisabled": "Bestätigungsmail erneut senden in {{secondsUntilEmailCanBeResent}}s",
+    "resendEmailConfirmation.emailInvalid": "Gib eine gültige Email ein",
+    "resendEmailConfirmation.emailRequired": "Email ist erforderlich",
     "settings": "Einstellungen",
     "signInWithGoogle": "Über Google anmelden",
     "signup": "Registrieren",

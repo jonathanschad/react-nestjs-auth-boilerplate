@@ -1,9 +1,13 @@
+import { TFunction } from 'i18next';
 import { z } from 'zod';
 import { formOptions } from '@tanstack/react-form/nextjs';
 
-const createResendEmailConfirmationFormSchema = () =>
+const createResendEmailConfirmationFormSchema = (t: TFunction) =>
     z.object({
-        email: z.string().email('Enter a valid email').min(1, 'Email is required'),
+        email: z
+            .string()
+            .email(t('resendEmailConfirmation.emailInvalid'))
+            .min(1, t('resendEmailConfirmation.emailRequired')),
     });
 
 export type ResendEmailConfirmationFormValues = z.infer<ReturnType<typeof createResendEmailConfirmationFormSchema>>;
@@ -12,10 +16,10 @@ const initialResendEmailConfirmationFormValues: ResendEmailConfirmationFormValue
     email: '',
 };
 
-export const resendEmailConfirmationFormOptions = () =>
+export const resendEmailConfirmationFormOptions = (t: TFunction) =>
     formOptions({
         defaultValues: initialResendEmailConfirmationFormValues,
         validators: {
-            onSubmit: createResendEmailConfirmationFormSchema(),
+            onSubmit: createResendEmailConfirmationFormSchema(t),
         },
     });
