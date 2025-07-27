@@ -45,6 +45,9 @@ if (version.split('.').length !== 3) {
     process.exit(1);
 }
 
+execSync('git checkout main');
+execSync('git pull');
+
 // Check if tag already exists in Git
 try {
     const existingTags = execSync('git tag', { encoding: 'utf8' }).split('\n');
