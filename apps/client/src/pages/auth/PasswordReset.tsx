@@ -1,4 +1,3 @@
-import { useFormik } from 'formik';
 import { AlertCircle } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,12 +6,11 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
 import { Button } from '@boilerplate/ui/components/button';
-import { Input } from '@boilerplate/ui/components/input';
-import { Label } from '@boilerplate/ui/components/label';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 import ResetPasswordSVG from '@/assets/illustrations/reset-password.svg?react';
-import { initialPasswordResetFormValues, passwordResetFormValidationSchema } from '@/forms/password-reset';
+import { passwordResetFormOptions } from '@/forms/password-reset';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { passwordChangeToken, passwordForgotTokenValidation } from '@/repository/password';
 
@@ -39,11 +37,11 @@ export function PasswordReset() {
         },
     });
     const { t } = useTranslation('common');
-    const formik = useFormik({
-        initialValues: initialPasswordResetFormValues,
-        validationSchema: passwordResetFormValidationSchema(t),
-        onSubmit: (values) => {
-            passwordChangeMutation.mutate({ ...values, token: token as string });
+
+    const form = useAppForm({
+        ...passwordResetFormOptions(t),
+        onSubmit: ({ value }) => {
+            passwordChangeMutation.mutate({ ...value, token: token as string });
         },
     });
 
@@ -74,45 +72,30 @@ export function PasswordReset() {
                         </Link>
                     </>
                 ) : (
-                    <form onSubmit={formik.handleSubmit} className="grid gap-4">
-                        <div className="grid gap-2">
-                            <div className="flex items-center">
-                                <Label htmlFor="password">
-                                    <Translation>password</Translation>
-                                </Label>
-                            </div>
-                            <Input
-                                id="password"
-                                type="password"
-                                required
-                                name="password"
-                                autoComplete="new-password"
-                                value={formik.values.password}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.password && Boolean(formik.errors.password)}
-                                errorMessage={formik.touched.password && formik.errors.password}
-                            />
-                        </div>
-                        <div className="grid gap-2">
-                            <div className="flex items-center">
-                                <Label htmlFor="password">
-                                    <Translation>passwordRepeat</Translation>
-                                </Label>
-                            </div>
-                            <Input
-                                id="passwordRepeat"
-                                type="password"
-                                required
-                                name="passwordRepeat"
-                                autoComplete="new-password"
-                                value={formik.values.passwordRepeat}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.passwordRepeat && Boolean(formik.errors.passwordRepeat)}
-                                errorMessage={formik.touched.passwordRepeat && formik.errors.passwordRepeat}
-                            />
-                        </div>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            void form.handleSubmit();
+                        }}
+                        className="grid gap-4"
+                    >
+                        <form.AppField
+                            name="password"
+                            children={(field) => (
+                                <field.TextField type="password" autoComplete="new-password" label={t('password')} />
+                            )}
+                        />
+                        <form.AppField
+                            name="passwordRepeat"
+                            children={(field) => (
+                                <field.TextField
+                                    type="password"
+                                    autoComplete="new-password"
+                                    label={t('passwordRepeat')}
+                                />
+                            )}
+                        />
                         <Button type="submit" className="w-full" disabled={!isPasswordResetTokenValid}>
                             <Translation>passwordReset</Translation>
                         </Button>

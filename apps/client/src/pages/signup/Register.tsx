@@ -1,16 +1,14 @@
-import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { Button } from '@boilerplate/ui/components/button';
-import { Input } from '@boilerplate/ui/components/input';
-import { Label } from '@boilerplate/ui/components/label';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
-import { initialRegisterFormValues, registerFormValidationSchema, RegisterFormValues } from '@/forms/register-form';
+import { registerFormOptions, RegisterFormValues } from '@/forms/register-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { register } from '@/repository/login';
 
@@ -19,7 +17,7 @@ const RegisterIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 export default function Register() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-    const registerMutatation = useMutation({
+    const registerMutation = useMutation({
         mutationFn: register,
         onSuccess: async () => {
             await queryClient.invalidateQueries();
@@ -31,14 +29,16 @@ export default function Register() {
         sessionStorage.setItem('registerEmail', data.email);
         sessionStorage.setItem('registerEmailSentAt', String(new Date().getTime()));
         console.log(data);
-        registerMutatation.mutate(data);
+        registerMutation.mutate(data);
     };
+
     const { t } = useTranslation('common');
 
-    const formik = useFormik({
-        initialValues: initialRegisterFormValues,
-        validationSchema: registerFormValidationSchema(t),
-        onSubmit: handleSubmit,
+    const form = useAppForm({
+        ...registerFormOptions(t),
+        onSubmit: ({ value }) => {
+            handleSubmit(value);
+        },
     });
 
     useSetNotSignedInLayoutIllustration(RegisterIllustration);
@@ -50,31 +50,40 @@ export default function Register() {
                     registerSubHeadline
                 </Translation>
             </div>
-            <form onSubmit={formik.handleSubmit} className="grid gap-4">
-                <div className="grid gap-2">
-                    <Label htmlFor="email">
-                        <Translation>email</Translation>
-                    </Label>
-                    <Input
-                        id="email"
-                        name="email"
-                        autoComplete="email"
-                        type="email"
-                        placeholder={t('emailPlaceholder')}
-                        required
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.email && Boolean(formik.errors.email)}
-                        errorMessage={formik.touched.email && formik.errors.email}
-                    />
-                </div>
-                <div className="mt-4 text-sm">
-                    <Translation>acceptPrivacyPolicy</Translation>{' '}
-                    <RouterLink to="/privacy-policy" className="underline">
-                        <Translation>privacyPolicy</Translation>
-                    </RouterLink>
-                </div>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    void form.handleSubmit();
+                }}
+                className="grid gap-4"
+            >
+                <form.AppField
+                    name="email"
+                    children={(field) => (
+                        <field.TextField
+                            type="email"
+                            autoComplete="email"
+                            label={t('email')}
+                            placeholder={t('emailPlaceholder')}
+                        />
+                    )}
+                />
+                <form.AppField
+                    name="acceptPrivacyPolicy"
+                    children={(field) => (
+                        <field.Checkbox
+                            label={
+                                <div className="text-sm">
+                                    <Translation>acceptPrivacyPolicy</Translation>{' '}
+                                    <RouterLink to="/privacy-policy" className="underline">
+                                        <Translation>privacyPolicy</Translation>
+                                    </RouterLink>
+                                </div>
+                            }
+                        />
+                    )}
+                />
                 <Button type="submit" className="w-full">
                     <Translation>createAccount</Translation>
                 </Button>

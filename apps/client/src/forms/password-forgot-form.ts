@@ -1,13 +1,22 @@
 import { TFunction } from 'i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
+import { formOptions } from '@tanstack/react-form/nextjs';
 
-export type PasswordForgotFormValues = yup.Asserts<ReturnType<typeof passwordForgotFormValidationSchema>>;
-
-export const passwordForgotFormValidationSchema = (t: TFunction) =>
-    yup.object({
-        email: yup.string().email(t('formik.emailInvalid')).required(t('formik.emailRequired')),
+const createPasswordForgotFormSchema = (t: TFunction) =>
+    z.object({
+        email: z.string().email(t('formik.emailInvalid')).min(1, t('formik.emailRequired')),
     });
 
-export const initialPasswordForgotFormValues: PasswordForgotFormValues = {
+export type PasswordForgotFormValues = z.infer<ReturnType<typeof createPasswordForgotFormSchema>>;
+
+const initialPasswordForgotFormValues: PasswordForgotFormValues = {
     email: '',
 };
+
+export const passwordForgotFormOptions = (t: TFunction) =>
+    formOptions({
+        defaultValues: initialPasswordForgotFormValues,
+        validators: {
+            onSubmit: createPasswordForgotFormSchema(t),
+        },
+    });

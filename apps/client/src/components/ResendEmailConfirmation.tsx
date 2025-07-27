@@ -1,4 +1,3 @@
-import { useFormik } from 'formik';
 import { Send } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,15 +5,15 @@ import { useMutation } from 'react-query';
 
 import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
 import { Button } from '@boilerplate/ui/components/button';
-import { Input } from '@boilerplate/ui/components/input';
-import { Label } from '@boilerplate/ui/components/label';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 import {
-    resendEmailConfirmationFormValidationSchema,
+    resendEmailConfirmationFormOptions,
     ResendEmailConfirmationFormValues,
 } from '@/forms/resend-email-confirmation';
 import { resendVerificationEmail } from '@/repository/login';
+
 const SECONDS_UNTIL_EMAIL_CAN_BE_RESENT = 10 as const;
 
 export const ResendEmailConfirmation = ({ email }: { email?: string | null }) => {
@@ -50,10 +49,12 @@ export const ResendEmailConfirmation = ({ email }: { email?: string | null }) =>
         };
     }, [registerEmailSentAt]);
 
-    const formik = useFormik({
-        initialValues: { email: registeredEmail ?? '' },
-        validationSchema: resendEmailConfirmationFormValidationSchema,
-        onSubmit: handleResendEmail,
+    const form = useAppForm({
+        ...resendEmailConfirmationFormOptions(),
+        defaultValues: { email: registeredEmail ?? '' },
+        onSubmit: ({ value }) => {
+            handleResendEmail(value);
+        },
     });
 
     return (
@@ -68,31 +69,32 @@ export const ResendEmailConfirmation = ({ email }: { email?: string | null }) =>
                     </AlertDescription>
                 </Alert>
             )}
-            <form onSubmit={formik.handleSubmit}>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    void form.handleSubmit();
+                }}
+            >
                 {!registeredEmail && (
                     <div className="mt-4">
-                        <Label htmlFor="email">
-                            <Translation>email</Translation>
-                        </Label>
-                        <Input
-                            id="email"
+                        <form.AppField
                             name="email"
-                            autoComplete="email"
-                            type="email"
-                            placeholder={t('emailPlaceholder')}
-                            required
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            errorMessage={formik.touched.email && formik.errors.email}
+                            children={(field) => (
+                                <field.TextField
+                                    type="email"
+                                    autoComplete="email"
+                                    label={t('email')}
+                                    placeholder={t('emailPlaceholder')}
+                                />
+                            )}
                         />
                     </div>
                 )}
                 <Button
                     className="mt-4 w-full"
                     type="submit"
-                    disabled={!formik.isValid || secondsUntilEmailCanBeResent > 0}
+                    disabled={!form.state.isValid || secondsUntilEmailCanBeResent > 0}
                 >
                     <Translation translationParams={{ secondsUntilEmailCanBeResent }}>
                         {secondsUntilEmailCanBeResent > 0

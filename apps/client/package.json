@@ -21,7 +21,6 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "flag-icons": "^7.2.3",
-        "formik": "^2.4.6",
         "i18next": "^23.11.4",
         "jwt-decode": "^4.0.0",
         "localforage": "^1.10.0",
@@ -40,7 +39,6 @@
         "tailwind-merge": "catalog:frontend",
         "tailwindcss-animate": "catalog:frontend",
         "uuid": "^10.0.0",
-        "yup": "^1.4.0",
         "zod": "^3.24.2",
         "zustand": "^5.0.6"
     },
