@@ -1,11 +1,25 @@
-import * as yup from "yup";
+import { TFunction } from 'i18next';
+import { z } from 'zod';
+import { formOptions } from '@tanstack/react-form/nextjs';
 
-export type ResendEmailConfirmationFormValues = yup.Asserts<typeof resendEmailConfirmationFormValidationSchema>;
+const createResendEmailConfirmationFormSchema = (t: TFunction) =>
+    z.object({
+        email: z
+            .string()
+            .email(t('resendEmailConfirmation.emailInvalid'))
+            .min(1, t('resendEmailConfirmation.emailRequired')),
+    });
 
-export const resendEmailConfirmationFormValidationSchema = yup.object({
-    email: yup.string().email("Enter a valid email").required("Email is required"),
-});
+export type ResendEmailConfirmationFormValues = z.infer<ReturnType<typeof createResendEmailConfirmationFormSchema>>;
 
-export const initialResendEmailConfirmationFormValues: ResendEmailConfirmationFormValues = {
-    email: "",
+const initialResendEmailConfirmationFormValues: ResendEmailConfirmationFormValues = {
+    email: '',
 };
+
+export const resendEmailConfirmationFormOptions = (t: TFunction) =>
+    formOptions({
+        defaultValues: initialResendEmailConfirmationFormValues,
+        validators: {
+            onSubmit: createResendEmailConfirmationFormSchema(t),
+        },
+    });

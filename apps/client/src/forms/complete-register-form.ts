@@ -1,15 +1,24 @@
 import { TFunction } from 'i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
+import { formOptions } from '@tanstack/react-form/nextjs';
 
-export type CompleteRegisterFormValues = yup.Asserts<ReturnType<typeof completeRegisterFormValidationSchema>>;
-
-export const completeRegisterFormValidationSchema = (t: TFunction) =>
-    yup.object({
-        password: yup.string().required(t('formik.passwordRequired')),
-        name: yup.string().required(t('formik.nameRequired')),
+const createCompleteRegisterFormSchema = (t: TFunction) =>
+    z.object({
+        password: z.string().min(1, t('formik.passwordRequired')),
+        name: z.string().min(1, t('formik.nameRequired')),
     });
 
-export const initialCompleteRegisterFormValues: CompleteRegisterFormValues = {
+export type CompleteRegisterFormValues = z.infer<ReturnType<typeof createCompleteRegisterFormSchema>>;
+
+const initialCompleteRegisterFormValues: CompleteRegisterFormValues = {
     password: '',
     name: '',
 };
+
+export const completeRegisterFormOptions = (t: TFunction) =>
+    formOptions({
+        defaultValues: initialCompleteRegisterFormValues,
+        validators: {
+            onSubmit: createCompleteRegisterFormSchema(t),
+        },
+    });

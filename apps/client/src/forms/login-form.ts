@@ -1,17 +1,26 @@
 import { TFunction } from 'i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
+import { formOptions } from '@tanstack/react-form/nextjs';
 
-export type LoginFormValues = yup.Asserts<ReturnType<typeof loginFormValidationSchema>>;
-
-export const loginFormValidationSchema = (t: TFunction) =>
-    yup.object({
-        email: yup.string().email(t('formik.emailInvalid')).required(t('formik.emailRequired')),
-        password: yup.string().required(t('formik.passwordRequired')),
-        remember: yup.boolean().required(t('formik.rememberMeRequired')),
+const createLoginFormSchema = (t: TFunction) =>
+    z.object({
+        email: z.string().email(t('formik.emailInvalid')).min(1, t('formik.emailRequired')),
+        password: z.string().min(1, t('formik.passwordRequired')),
+        remember: z.boolean(),
     });
 
-export const initialLoginFormValues: LoginFormValues = {
+export type LoginFormValues = z.infer<ReturnType<typeof createLoginFormSchema>>;
+
+const initialLoginFormValues: LoginFormValues = {
     email: '',
     password: '',
     remember: false,
 };
+
+export const loginFormOptions = (t: TFunction) =>
+    formOptions({
+        defaultValues: initialLoginFormValues,
+        validators: {
+            onSubmit: createLoginFormSchema(t),
+        },
+    });

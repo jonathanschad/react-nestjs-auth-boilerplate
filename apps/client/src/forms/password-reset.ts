@@ -1,18 +1,29 @@
 import { TFunction } from 'i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
+import { formOptions } from '@tanstack/react-form/nextjs';
 
-export type PasswordResetFormValues = yup.Asserts<ReturnType<typeof passwordResetFormValidationSchema>>;
+const createPasswordResetFormSchema = (t: TFunction) =>
+    z
+        .object({
+            password: z.string().min(1, t('formik.passwordRequired')),
+            passwordRepeat: z.string().min(1, t('formik.passwordRequired')),
+        })
+        .refine((data) => data.password === data.passwordRepeat, {
+            message: t('formik.passwordsMustMatch'),
+            path: ['passwordRepeat'],
+        });
 
-export const passwordResetFormValidationSchema = (t: TFunction) =>
-    yup.object({
-        password: yup.string().required(t('formik.passwordRequired')),
-        passwordRepeat: yup
-            .string()
-            .required(t('formik.passwordRequired'))
-            .oneOf([yup.ref('password')], t('formik.passwordsMustMatch')),
-    });
+export type PasswordResetFormValues = z.infer<ReturnType<typeof createPasswordResetFormSchema>>;
 
-export const initialPasswordResetFormValues: PasswordResetFormValues = {
+const initialPasswordResetFormValues: PasswordResetFormValues = {
     password: '',
     passwordRepeat: '',
 };
+
+export const passwordResetFormOptions = (t: TFunction) =>
+    formOptions({
+        defaultValues: initialPasswordResetFormValues,
+        validators: {
+            onSubmit: createPasswordResetFormSchema(t),
+        },
+    });

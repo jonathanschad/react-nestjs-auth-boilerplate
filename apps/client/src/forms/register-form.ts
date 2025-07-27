@@ -1,15 +1,26 @@
 import { TFunction } from 'i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
+import { formOptions } from '@tanstack/react-form/nextjs';
 
-export type RegisterFormValues = yup.Asserts<ReturnType<typeof registerFormValidationSchema>>;
-
-export const registerFormValidationSchema = (t: TFunction) =>
-    yup.object({
-        email: yup.string().email(t('formik.emailInvalid')).required(t('formik.emailRequired')),
-        acceptPrivacyPolicy: yup.boolean().oneOf([true], t('formik.privacyPolicy')).required(),
+const createRegisterFormSchema = (t: TFunction) =>
+    z.object({
+        email: z.string().email(t('formik.emailInvalid')).min(1, t('formik.emailRequired')),
+        acceptPrivacyPolicy: z.boolean().refine((val) => val === true, {
+            message: t('formik.privacyPolicy'),
+        }),
     });
 
-export const initialRegisterFormValues: RegisterFormValues = {
+export type RegisterFormValues = z.infer<ReturnType<typeof createRegisterFormSchema>>;
+
+const initialRegisterFormValues: RegisterFormValues = {
     email: '',
     acceptPrivacyPolicy: true,
 };
+
+export const registerFormOptions = (t: TFunction) =>
+    formOptions({
+        defaultValues: initialRegisterFormValues,
+        validators: {
+            onSubmit: createRegisterFormSchema(t),
+        },
+    });

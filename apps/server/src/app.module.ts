@@ -11,7 +11,6 @@ import { FileModule } from '@/files/file.module';
 import { MailModule } from '@/mail/mail.module';
 import { PasswordModule } from '@/password/password.module';
 import { SignupModule } from '@/signup/signup.module';
-import { TrpcModule } from '@/trpc/trpc.module';
 import { UserModule } from '@/user/user.module';
 
 @Module({
@@ -25,7 +24,6 @@ import { UserModule } from '@/user/user.module';
         PasswordModule,
         FileModule,
         UserModule,
-        TrpcModule,
         SentryModule.forRoot(),
     ],
     controllers: [AppController],
