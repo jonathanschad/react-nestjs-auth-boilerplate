@@ -34,7 +34,6 @@
         "@nestjs/platform-fastify": "^11.0.11",
         "@sentry/nestjs": "^9.3.0",
         "@sentry/profiling-node": "^9.3.0",
-        "@trpc/server": "^10.45.2",
         "@usewaypoint/email-builder": "^0.0.8",
         "axios": "catalog:",
         "class-transformer": "^0.5.1",

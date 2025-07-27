@@ -25,6 +25,10 @@
         "./i18n/*": [
             "./src/i18n/*.tsx",
             "./src/i18n/*.ts"
+        ],
+        "./form/*": [
+            "./src/form/*.tsx",
+            "./src/form/*.ts"
         ]
     },
     "dependencies": {
@@ -33,6 +37,7 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "catalog:frontend",
         "@tanstack/react-table": "catalog:frontend",
+        "@tanstack/react-form": "catalog:frontend",
         "lucide-react": "catalog:frontend",
         "@radix-ui/react-avatar": "^1.1.1",
         "@radix-ui/react-checkbox": "^1.1.1",

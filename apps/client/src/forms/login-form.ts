@@ -1,14 +1,14 @@
 import { TFunction } from 'i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
 
-export type LoginFormValues = yup.Asserts<ReturnType<typeof loginFormValidationSchema>>;
-
-export const loginFormValidationSchema = (t: TFunction) =>
-    yup.object({
-        email: yup.string().email(t('formik.emailInvalid')).required(t('formik.emailRequired')),
-        password: yup.string().required(t('formik.passwordRequired')),
-        remember: yup.boolean().required(t('formik.rememberMeRequired')),
+export const createLoginFormSchema = (t: TFunction) =>
+    z.object({
+        email: z.string().email(t('formik.emailInvalid')).min(1, t('formik.emailRequired')),
+        password: z.string().min(1, t('formik.passwordRequired')),
+        remember: z.boolean(),
     });
+
+export type LoginFormValues = z.infer<ReturnType<typeof createLoginFormSchema>>;
 
 export const initialLoginFormValues: LoginFormValues = {
     email: '',

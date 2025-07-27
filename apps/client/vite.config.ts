@@ -12,6 +12,7 @@ export default defineConfig({
             '@client': path.resolve(__dirname, './src'), // Adjust './src' as needed
             '@boilerplate/ui/i18n': path.resolve(__dirname, '../../packages/ui/src/i18n'),
             '@boilerplate/ui/components': path.resolve(__dirname, '../../packages/ui/src/components'),
+            '@boilerplate/ui/form': path.resolve(__dirname, '../../packages/ui/src/form'),
         },
     },
     optimizeDeps: {
