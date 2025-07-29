@@ -1,10 +1,11 @@
 import { type FastifyRequest } from 'fastify';
-import { Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 
 import { User } from '@/auth/auth.guard';
 import { DatabaseUserService } from '@/database/user/user.service';
+import { PasswordService } from '@/password/password.service';
 import { type UserWithSettings } from '@/types/prisma';
-import { UpdateUserProfilePictureDTO } from '@/user/user.dto';
+import { ChangePasswordDTO, UpdateUserNameDTO, UpdateUserProfilePictureDTO } from '@/user/user.dto';
 import { UserService } from '@/user/user.service';
 import { HTTPError } from '@/util/httpHandlers';
 
@@ -13,6 +14,7 @@ export class UserController {
     constructor(
         private readonly userService: UserService,
         private readonly databaseUserService: DatabaseUserService,
+        private readonly passwordService: PasswordService,
     ) {}
 
     @Patch('/profile-picture/:idempotencyKey')
@@ -48,5 +50,20 @@ export class UserController {
     @Get()
     getUser(@User() user: UserWithSettings) {
         return this.databaseUserService.sanitizeUser(user);
+    }
+
+    @Patch('/name')
+    async updateUserName(@Body() { name }: UpdateUserNameDTO, @User() user: UserWithSettings) {
+        const updatedUser = await this.databaseUserService.updateName({
+            userId: user.id,
+            name,
+        });
+        return this.databaseUserService.sanitizeUser(updatedUser);
+    }
+
+    @Patch('/password')
+    async changePassword(@Body() { currentPassword, newPassword }: ChangePasswordDTO, @User() user: UserWithSettings) {
+        await this.passwordService.changePasswordWithPassword(user.email, currentPassword, newPassword);
+        return { success: true };
     }
 }
