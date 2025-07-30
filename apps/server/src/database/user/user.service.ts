@@ -139,6 +139,26 @@ export class DatabaseUserService {
         });
     }
 
+    async updateName({
+        userId,
+        name,
+    }: {
+        userId: string;
+        name: string;
+    }): Promise<UserWithSettings> {
+        return await this.prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                name,
+            },
+            include: {
+                settings: true,
+            },
+        });
+    }
+
     async create(data: Prisma.UserCreateInput): Promise<UserWithSettings> {
         data.email = data.email.toLowerCase();
         const createdUser = await this.prisma.user.create({

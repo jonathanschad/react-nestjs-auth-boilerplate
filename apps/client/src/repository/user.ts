@@ -9,3 +9,16 @@ export const getUser = async () => {
         return null;
     }
 };
+
+export const updateUserName = async (name: string): Promise<SanitizedUser> => {
+    const response = await api.patch<SanitizedUser>(BASE_URL + `/user/name`, { name });
+    return response.data;
+};
+
+export const changePassword = async (currentPassword: string, newPassword: string): Promise<{ success: boolean }> => {
+    const response = await api.patch<{ success: boolean }>(BASE_URL + `/user/password`, {
+        currentPassword,
+        newPassword,
+    });
+    return response.data;
+};
