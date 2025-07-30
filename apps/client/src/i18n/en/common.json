@@ -31,6 +31,7 @@
     "licenses": "Licenses",
     "loadingApplication": "Loading Application",
     "login": "Login",
+    "loginError": "Your email or password is incorrect",
     "loginSubHeadline": "Enter your email below to login to your account",
     "logout": "Logout",
     "myAccount": "My Account",

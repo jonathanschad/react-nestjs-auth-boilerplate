@@ -31,6 +31,7 @@
     "licenses": "Lizenzen",
     "loadingApplication": "Anwendung wird geladen",
     "login": "Login",
+    "loginError": "Deine Email oder dein Passwort ist falsch",
     "loginSubHeadline": "Geben Sie unten Ihre E-Mail-Adresse ein, um sich in Ihr Konto einzuloggen",
     "logout": "Abmelden",
     "myAccount": "Mein Account",

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom';
 
+import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
 import { Button } from '@boilerplate/ui/components/button';
 import { useAppForm } from '@boilerplate/ui/form/useAppForm';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
@@ -89,7 +90,14 @@ export function Login() {
                     name="remember"
                     children={(field) => <field.Checkbox label={<Translation>rememberMe</Translation>} />}
                 />
-                <Button type="submit" className="w-full">
+                {loginMutation.isError && (
+                    <Alert variant="destructive">
+                        <AlertDescription>
+                            <Translation>loginError</Translation>
+                        </AlertDescription>
+                    </Alert>
+                )}
+                <Button type="submit" className="w-full" loading={loginMutation.isLoading}>
                     <Translation>login</Translation>
                 </Button>
                 <GoogleOAuthButton />
