@@ -7,6 +7,8 @@
     "scripts": {
         "dev": "vite",
         "build": "pnpm generate-license-attribution && tsc && vite build",
+        "format:verify": "biome format",
+        "format": "biome format --write",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
         "preview": "vite preview",
@@ -44,6 +46,7 @@
     },
     "devDependencies": {
         "@boilerplate/eslint-config": "workspace:*",
+        "@boilerplate/biome": "workspace:*",
         "@boilerplate/ts-config": "workspace:*",
         "@boilerplate/ui": "workspace:*",
         "@tanstack/eslint-plugin-query": "^5.74.7",

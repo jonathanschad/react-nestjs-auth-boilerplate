@@ -5,6 +5,8 @@
     "private": "true",
     "license": "MIT",
     "scripts": {
+        "format:verify": "biome format",
+        "format": "biome format --write",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "tsc": "tsc --noEmit"
@@ -21,6 +23,7 @@
     },
     "dependencies": {
         "@boilerplate/eslint-config": "workspace:*",
+        "@boilerplate/biome": "workspace:*",
         "@boilerplate/ts-config": "workspace:*",
         "class-variance-authority": "^0.7.0",
         "clsx": "catalog:frontend",

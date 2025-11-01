@@ -4,10 +4,13 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "format:verify": "biome format",
+        "format": "biome format --write",
         "tsc": "tsc --noEmit"
     },
     "devDependencies": {
         "@boilerplate/eslint-config": "workspace:*",
+        "@boilerplate/biome": "workspace:*",
         "@boilerplate/ts-config": "workspace:*",
         "eslint": "catalog:",
         "typescript": "catalog:"

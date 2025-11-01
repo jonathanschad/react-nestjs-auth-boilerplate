@@ -9,8 +9,8 @@
         "dev:server": "turbo dev --filter=@boilerplate/server",
         "lint": "turbo lint",
         "lint:fix": "turbo lint:fix",
-        "format:verify": "biome format",
-        "format": "biome format --write",
+        "format:verify": "turbo format:verify",
+        "format": "turbo format",
         "tsc": "turbo tsc",
         "postinstall": "pnpm generate:prisma",
         "generate:prisma": "pnpm --filter @boilerplate/prisma db:generate"
@@ -23,7 +23,7 @@
         "node": ">=22.4.0"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.3.2",
+        "@biomejs/biome": "catalog:",
         "turbo": "^2.5.2",
         "typescript": "catalog:"
     }
