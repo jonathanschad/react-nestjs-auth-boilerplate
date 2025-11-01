@@ -10,8 +10,6 @@
     },
     "scripts": {
         "build": "tsc",
-        "format:verify": "biome format",
-        "format": "biome format --write",
         "lint": "eslint . --max-warnings 0",
         "lint:fix": "eslint . --max-warnings 0 --fix",
         "tsc": "tsc --noEmit"
@@ -21,7 +19,6 @@
     "license": "MIT",
     "devDependencies": {
         "@boilerplate/eslint-config": "workspace:*",
-        "@boilerplate/biome": "workspace:*",
         "@boilerplate/ts-config": "workspace:*",
         "eslint": "catalog:",
         "typescript": "catalog:"

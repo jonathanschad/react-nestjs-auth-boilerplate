@@ -11,13 +11,9 @@
         "@eslint/js": "^9.26.0",
         "@typescript-eslint/parser": "catalog:",
         "@typescript-eslint/eslint-plugin": "catalog:",
-        "eslint-config-prettier": "catalog:",
-        "eslint-plugin-prettier": "catalog:",
-        "eslint-plugin-simple-import-sort": "catalog:",
         "eslint-plugin-react-hooks": "catalog:",
         "eslint-plugin-react-refresh": "catalog:",
         "globals": "catalog:",
-        "prettier": "catalog:",
         "typescript": "catalog:",
         "typescript-eslint": "catalog:"
     }
