@@ -4,8 +4,8 @@ import type { MultipartFile } from '@fastify/multipart';
 import { Injectable, Logger, type StreamableFile } from '@nestjs/common';
 import sharp from 'sharp';
 
-import type { DatabaseFileService } from '@/database/database-file/database-file.service';
-import type { FileUploadResponse, StorageService } from '@/files/storage.service';
+import { DatabaseFileService } from '@/database/database-file/database-file.service';
+import { FileUploadResponse, StorageService } from '@/files/storage.service';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()

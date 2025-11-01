@@ -42,6 +42,14 @@
             "tailwindDirectives": true
         }
     },
+    "linter": {
+        "enabled": false,
+        "rules": {
+            "style": {
+                "useImportType": "off"
+            }
+        }
+    },
     "assist": {
         "enabled": true,
         "actions": { "source": { "organizeImports": "on" } }

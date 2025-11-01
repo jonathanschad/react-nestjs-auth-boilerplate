@@ -8,7 +8,7 @@ import {
 } from '@boilerplate/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 
-import type { PrismaService } from '@/database/prisma.service';
+import { PrismaService } from '@/database/prisma.service';
 
 export const READ_PERMISSIONS: readonly FilePermissionType[] = [
     FilePermissionType.READ,

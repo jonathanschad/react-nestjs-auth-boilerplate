@@ -2,10 +2,10 @@ import { Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
 
 import { User } from '@/auth/auth.guard';
-import type { DatabaseUserService } from '@/database/user/user.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import type { UserWithSettings } from '@/types/prisma';
-import type { UpdateUserProfilePictureDTO } from '@/user/user.dto';
-import type { UserService } from '@/user/user.service';
+import { UpdateUserProfilePictureDTO } from '@/user/user.dto';
+import { UserService } from '@/user/user.service';
 import { HTTPError } from '@/util/httpHandlers';
 
 @Controller('user')

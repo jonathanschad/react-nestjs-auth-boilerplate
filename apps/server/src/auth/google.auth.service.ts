@@ -5,14 +5,14 @@ import axios from 'axios';
 import type { FastifyReply } from 'fastify';
 import * as uuid from 'uuid';
 
-import type { CompleteGoogleAccountConnectionDTO } from '@/auth/auth.dto';
-import type { AuthService } from '@/auth/auth.service';
-import type { JWTService } from '@/auth/jwt.service';
-import type { AppConfigService } from '@/config/app-config.service';
-import type { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
-import type { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
-import type { DatabaseUserService } from '@/database/user/user.service';
-import type { UserService } from '@/user/user.service';
+import { CompleteGoogleAccountConnectionDTO } from '@/auth/auth.dto';
+import { AuthService } from '@/auth/auth.service';
+import { JWTService } from '@/auth/jwt.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
+import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import { UserService } from '@/user/user.service';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 type GoogleTokenExchangeResponse = {

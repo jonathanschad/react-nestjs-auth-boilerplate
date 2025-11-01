@@ -1,8 +1,8 @@
 import { TokenType } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 
-import type { AppConfigService } from '@/config/app-config.service';
-import type { PrismaService } from '@/database/prisma.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { PrismaService } from '@/database/prisma.service';
 
 @Injectable()
 export class EmailVerificationTokenService {

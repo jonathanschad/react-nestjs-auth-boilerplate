@@ -3,14 +3,14 @@ import { Injectable } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
 import * as uuid from 'uuid';
 
-import type { AuthService } from '@/auth/auth.service';
-import type { JWTService } from '@/auth/jwt.service';
-import type { AppConfigService } from '@/config/app-config.service';
-import type { EmailVerificationTokenService } from '@/database/email-verification-token/email-verification-token.service';
-import type { PrismaService } from '@/database/prisma.service';
-import type { DatabaseUserService } from '@/database/user/user.service';
-import type { MailService } from '@/mail/mail.service';
-import type { SignupRequestDto } from '@/signup/signup.dto';
+import { AuthService } from '@/auth/auth.service';
+import { JWTService } from '@/auth/jwt.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { EmailVerificationTokenService } from '@/database/email-verification-token/email-verification-token.service';
+import { PrismaService } from '@/database/prisma.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import { MailService } from '@/mail/mail.service';
+import { SignupRequestDto } from '@/signup/signup.dto';
 import type { UserWithSettings } from '@/types/prisma';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 

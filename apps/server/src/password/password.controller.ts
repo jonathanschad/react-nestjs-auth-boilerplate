@@ -2,15 +2,15 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } fr
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import { PublicRoute } from '@/auth/auth.guard';
-import type { AuthService } from '@/auth/auth.service';
-import type {
+import { AuthService } from '@/auth/auth.service';
+import {
     PasswordChangePasswordDto,
     PasswordChangeTokenDto,
     PasswordForgotDto,
     PasswordForgotValidateDto,
 } from '@/password/password.dto';
-import type { PasswordService } from '@/password/password.service';
-import type { SignupService } from '@/signup/signup.service';
+import { PasswordService } from '@/password/password.service';
+import { SignupService } from '@/signup/signup.service';
 
 @Controller('password')
 export class PasswordController {

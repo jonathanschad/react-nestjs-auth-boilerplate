@@ -7,13 +7,14 @@ import type { Attachment } from 'nodemailer/lib/mailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
 import type * as SMTPTransport from 'nodemailer/lib/smtp-transport';
 
-import type { AppConfigService } from '@/config/app-config.service';
-import type { PrismaService } from '@/database/prisma.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { PrismaService } from '@/database/prisma.service';
 import { defaultEmailTemplateFactory } from '@/mail/templates/default-template';
 import { templates } from '@/mail/templates/templates';
 import type { UserWithSettings } from '@/types/prisma';
 export interface MailTemplate {
-    templateFactory: (translations: unknown) => TReaderDocument; // TODO type this
+    // biome-ignore lint/suspicious/noExplicitAny: types from this library are not good
+    templateFactory: (translations: any) => TReaderDocument; // TODO type this
     translations: Record<Language, EmailTranslation>;
     images: Attachment[];
     headlineIconUrl: string;

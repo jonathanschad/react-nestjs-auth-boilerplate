@@ -2,8 +2,8 @@ import { Controller, Get, HttpCode, HttpStatus, Param, Patch, Req } from '@nestj
 import type { FastifyRequest } from 'fastify';
 
 import { OptionalUser, PublicRoute, User } from '@/auth/auth.guard';
-import type { GetFileDTO } from '@/files/file.dto';
-import type { FileService } from '@/files/file.service';
+import { GetFileDTO } from '@/files/file.dto';
+import { FileService } from '@/files/file.service';
 import type { UserWithSettings } from '@/types/prisma';
 import { Disabled } from '@/util/decorators/disabled';
 import { HTTPError } from '@/util/httpHandlers';

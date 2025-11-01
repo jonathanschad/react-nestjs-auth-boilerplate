@@ -5,11 +5,11 @@ import { Injectable } from '@nestjs/common';
 import type { FastifyReply } from 'fastify';
 
 import type { SingInDTO } from '@/auth/auth.dto';
-import type { AccessTokenService } from '@/database/access-token/access-token.service';
-import type { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
-import type { PrismaService } from '@/database/prisma.service';
-import type { RefreshTokenService } from '@/database/refresh-token/refresh-token.service';
-import type { DatabaseUserService } from '@/database/user/user.service';
+import { AccessTokenService } from '@/database/access-token/access-token.service';
+import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
+import { PrismaService } from '@/database/prisma.service';
+import { RefreshTokenService } from '@/database/refresh-token/refresh-token.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()

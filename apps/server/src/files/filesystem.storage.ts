@@ -12,7 +12,7 @@ import { pipeline } from 'node:stream';
 import type { MultipartFile } from '@fastify/multipart';
 import { StreamableFile } from '@nestjs/common';
 
-import type { AppConfigService } from '@/config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import type {
     FileDeleteOptions,
     FileDeleteResponse,

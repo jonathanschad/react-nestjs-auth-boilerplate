@@ -1,11 +1,11 @@
 import { assert } from 'node:console';
 import { UserState } from '@boilerplate/prisma';
 import { type CanActivate, createParamDecorator, type ExecutionContext, Injectable, SetMetadata } from '@nestjs/common';
-import type { Reflector } from '@nestjs/core';
+import { Reflector } from '@nestjs/core';
 import type { FastifyRequest } from 'fastify';
 
-import type { JWTService } from '@/auth/jwt.service';
-import type { AppConfigService } from '@/config/app-config.service';
+import { JWTService } from '@/auth/jwt.service';
+import { AppConfigService } from '@/config/app-config.service';
 import type { UserWithSettings } from '@/types/prisma';
 import { InvalidAccessTokenError } from '@/util/httpHandlers';
 

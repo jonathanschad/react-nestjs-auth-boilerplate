@@ -3,7 +3,7 @@ import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } fro
 import type { MultipartFile } from '@fastify/multipart';
 import { StreamableFile } from '@nestjs/common';
 
-import type { AppConfigService } from '@/config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import type {
     FileDeleteOptions,
     FileDeleteResponse,

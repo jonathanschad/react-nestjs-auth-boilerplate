@@ -3,16 +3,16 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } fr
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import { PublicRoute, RequireUserState, User } from '@/auth/auth.guard';
-import type { AuthService } from '@/auth/auth.service';
-import type { JWTService } from '@/auth/jwt.service';
-import type { PrismaService } from '@/database/prisma.service';
-import type {
+import { AuthService } from '@/auth/auth.service';
+import { JWTService } from '@/auth/jwt.service';
+import { PrismaService } from '@/database/prisma.service';
+import {
     CompleteSignupRequestDto,
     ResendVerificationDto,
     SignupRequestDto,
     VerifyEmailTokenDto,
 } from '@/signup/signup.dto';
-import type { SignupService } from '@/signup/signup.service';
+import { SignupService } from '@/signup/signup.service';
 import type { UserWithSettings } from '@/types/prisma';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 

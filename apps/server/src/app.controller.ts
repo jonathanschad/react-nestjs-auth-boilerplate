@@ -5,8 +5,8 @@ import type { FastifyRequest } from 'fastify';
 import licensesJSON from '@/assets/licenses.json';
 import privacyPolicy from '@/assets/privacy-policy';
 import { PublicRoute } from '@/auth/auth.guard';
-import type { AppConfigService } from '@/config/app-config.service';
-import type { SignupService } from '@/signup/signup.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { SignupService } from '@/signup/signup.service';
 // eslint-disable-next-line no-restricted-imports
 import packageJson from '../package.json';
 @Controller()

@@ -4,9 +4,9 @@ import { Injectable } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
 import * as jwt from 'jsonwebtoken';
 
-import type { AppConfigService } from '@/config/app-config.service';
-import type { PrismaService } from '@/database/prisma.service';
-import type { DatabaseUserService } from '@/database/user/user.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { PrismaService } from '@/database/prisma.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 import HttpStatusCode, { HTTPError, InvalidAccessTokenError } from '@/util/httpHandlers';
 
 interface JWTData {

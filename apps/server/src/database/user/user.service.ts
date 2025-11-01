@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import { type Prisma, type Token, TokenType, type User, UserState } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
-import type { PrismaService } from '@/database/prisma.service';
+import { PrismaService } from '@/database/prisma.service';
 import type { UserWithSettings } from '@/types/prisma';
 
 type SanitizedUser = Omit<
