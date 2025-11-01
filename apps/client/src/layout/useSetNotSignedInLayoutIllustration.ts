@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 export const useSetNotSignedInLayoutIllustration = (illustration: ReactNode) => {

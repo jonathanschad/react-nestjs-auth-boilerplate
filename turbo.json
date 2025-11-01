@@ -12,6 +12,12 @@
         "lint:fix": {
             "dependsOn": ["^lint:fix"]
         },
+        "format:verify": {
+            "dependsOn": ["^format:verify"]
+        },
+        "format": {
+            "dependsOn": ["^format"]
+        },
         "tsc": {
             "dependsOn": ["^tsc"],
             "cache": false

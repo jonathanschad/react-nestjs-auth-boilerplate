@@ -1,10 +1,8 @@
 import * as Sentry from '@sentry/nestjs';
 import { nodeProfilingIntegration } from '@sentry/profiling-node';
-
+import type { AppConfigService } from '@/config/app-config.service';
 // eslint-disable-next-line no-restricted-imports
 import packageJson from '../package.json';
-
-import { AppConfigService } from '@/config/app-config.service';
 
 export const initSentry = (appConfigService: AppConfigService) => {
     if (!appConfigService.sentryBackendDsn) {

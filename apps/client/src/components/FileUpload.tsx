@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import * as uuid from 'uuid';
 
 import api from '@/repository';
+
 const FileUpload = () => {
     const [file, setFile] = useState<File>();
     const [uploadStatus, setUploadStatus] = useState('');
@@ -42,7 +44,9 @@ const FileUpload = () => {
         <div>
             <h2>Upload a File</h2>
             <input type="file" onChange={handleFileChange} />
-            <button onClick={() => void handleFileUpload()}>Upload File</button>
+            <button type="button" onClick={() => void handleFileUpload()}>
+                Upload File
+            </button>
             {uploadStatus && <p>{uploadStatus}</p>}
         </div>
     );

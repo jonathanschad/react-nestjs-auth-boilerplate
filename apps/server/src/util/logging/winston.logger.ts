@@ -1,5 +1,5 @@
+import { Injectable, type LoggerService, Scope } from '@nestjs/common';
 import winston from 'winston';
-import { Injectable, LoggerService, Scope } from '@nestjs/common';
 
 import { OTelTransport } from '@/util/logging/otel.transport';
 

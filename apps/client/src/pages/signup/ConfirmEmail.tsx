@@ -1,10 +1,9 @@
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { jwtDecode } from 'jwt-decode';
 import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom';
-
-import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 import CertificationSVG from '@/assets/illustrations/certification.svg?react';
 import { ResendEmailConfirmation } from '@/components/ResendEmailConfirmation';

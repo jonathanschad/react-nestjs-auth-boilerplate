@@ -1,10 +1,10 @@
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { MultipartFile } from '@fastify/multipart';
+import type { MultipartFile } from '@fastify/multipart';
 import { StreamableFile } from '@nestjs/common';
 
-import { AppConfigService } from '@/config/app-config.service';
-import {
+import type { AppConfigService } from '@/config/app-config.service';
+import type {
     FileDeleteOptions,
     FileDeleteResponse,
     FileGetOptions,

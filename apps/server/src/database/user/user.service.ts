@@ -1,9 +1,7 @@
-import { assert } from 'console';
+import assert from 'node:assert';
+import { type Prisma, type Token, TokenType, type User, UserState } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
-
-import { Prisma, Token, TokenType, User, UserState } from '@boilerplate/prisma';
-
-import { PrismaService } from '@/database/prisma.service';
+import type { PrismaService } from '@/database/prisma.service';
 import type { UserWithSettings } from '@/types/prisma';
 
 type SanitizedUser = Omit<
@@ -163,8 +161,13 @@ export class DatabaseUserService {
     }
 
     public sanitizeUser(user: UserWithSettings): SanitizedUser {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { password, salt, createdAt, updatedAt, googleOAuthId, settingsId, ...sanitizedUser } = user;
-        return sanitizedUser;
+        return {
+            name: user.name,
+            id: user.id,
+            email: user.email,
+            state: user.state,
+            profilePictureId: user.profilePictureId,
+            settings: user.settings,
+        };
     }
 }

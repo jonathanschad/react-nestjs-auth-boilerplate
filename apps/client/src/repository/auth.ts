@@ -12,7 +12,7 @@ export const renewAccessToken = async () => {
             withCredentials: true, // Ensure cookies are sent
         });
         useStore.getState().setAccessToken(refreshResponse.data.accessToken);
-    } catch (refreshError) {
+    } catch (_refreshError) {
         useStore.getState().setAccessToken(null);
     }
 };

@@ -10,7 +10,7 @@ export const getFile = async (fileUuid?: string | null): Promise<Blob | null> =>
         });
 
         return axiosImageResponse.data;
-    } catch (error) {
+    } catch (_error) {
         return null;
     }
 };

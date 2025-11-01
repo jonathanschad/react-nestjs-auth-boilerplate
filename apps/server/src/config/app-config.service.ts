@@ -1,6 +1,6 @@
-import assert from 'assert';
+import assert from 'node:assert';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import type { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AppConfigService {
@@ -21,7 +21,7 @@ export class AppConfigService {
     }
 
     get port(): number {
-        return parseInt(this.get('PORT'));
+        return parseInt(this.get('PORT'), 10);
     }
 
     get host(): string {
@@ -45,27 +45,27 @@ export class AppConfigService {
     }
 
     get accessTokenExpiry(): number {
-        return parseInt(this.get('ACCESS_TOKEN_EXPIRY'));
+        return parseInt(this.get('ACCESS_TOKEN_EXPIRY'), 10);
     }
 
     get refreshTokenExpiry(): number {
-        return parseInt(this.get('REFRESH_TOKEN_EXPIRY'));
+        return parseInt(this.get('REFRESH_TOKEN_EXPIRY'), 10);
     }
 
     get emailVerificationTokenExpiry(): number {
-        return parseInt(this.get('EMAIL_VERIFICATION_TOKEN_EXPIRY'));
+        return parseInt(this.get('EMAIL_VERIFICATION_TOKEN_EXPIRY'), 10);
     }
 
     get emailVerificationResendInterval(): number {
-        return parseInt(this.get('EMAIL_VERIFICATION_RESEND_INTERVAL'));
+        return parseInt(this.get('EMAIL_VERIFICATION_RESEND_INTERVAL'), 10);
     }
 
     get passwordResetTokenExpiry(): number {
-        return parseInt(this.get('PASSWORT_RESET_TOKEN_EXPIRY'));
+        return parseInt(this.get('PASSWORT_RESET_TOKEN_EXPIRY'), 10);
     }
 
     get connectGoogleAccountTokenExpiry(): number {
-        return parseInt(this.get('CONNECT_GOOGLE_ACCOUNT_TOKEN_EXPIRY'));
+        return parseInt(this.get('CONNECT_GOOGLE_ACCOUNT_TOKEN_EXPIRY'), 10);
     }
 
     get smtpHost(): string {
@@ -73,7 +73,7 @@ export class AppConfigService {
     }
 
     get smtpPort(): number {
-        return parseInt(this.get('SMTP_PORT'));
+        return parseInt(this.get('SMTP_PORT'), 10);
     }
 
     get smtpUser(): string {
@@ -172,7 +172,7 @@ export class AppConfigService {
     get plausibleHostUrl(): string | null {
         try {
             return this.get('PLAUSIBLE_HOST_URL');
-        } catch (error) {
+        } catch (_error) {
             return null;
         }
     }
@@ -180,7 +180,7 @@ export class AppConfigService {
     get sentryBackendDsn(): string | null {
         try {
             return this.get('BACKEND_SENTRY_DSN');
-        } catch (error) {
+        } catch (_error) {
             return null;
         }
     }
@@ -188,7 +188,7 @@ export class AppConfigService {
     get sentryFrontendDsn(): string | null {
         try {
             return this.get('FRONTEND_SENTRY_DSN');
-        } catch (error) {
+        } catch (_error) {
             return null;
         }
     }

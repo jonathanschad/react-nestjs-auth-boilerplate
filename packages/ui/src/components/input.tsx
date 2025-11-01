@@ -1,6 +1,5 @@
-import * as React from 'react';
-
 import { cn } from '@boilerplate/ui/lib/utils';
+import * as React from 'react';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     error?: boolean;
@@ -20,7 +19,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     ref={ref}
                     {...props}
                 />
-                {error ? <p className="text-sm font-medium text-destructive">{errorMessage}</p> : <></>}
+                {error ? <p className="text-sm font-medium text-destructive">{errorMessage}</p> : null}
             </>
         );
     },

@@ -1,28 +1,16 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /* @ts-expect-error - fs is not defined */
-import fs from 'fs';
-import prettier from 'prettier';
+import fs from 'node:fs';
 /* @ts-expect-error - process is not defined */
-import process from 'process';
+import process from 'node:process';
 /* @ts-expect-error - readline is not defined */
-import readline from 'readline';
-
-async function loadPrettierConfig() {
-    const prettierrc = JSON.parse(fs.readFileSync('../../.prettierrc', 'utf8'));
-    const packageJson = JSON.parse(fs.readFileSync('../../package.json', 'utf8'));
-
-    const prettierConfig = { ...packageJson.prettier, ...prettierrc };
-    return prettierConfig;
-}
-
-const prettierConfig = loadPrettierConfig();
+import readline from 'node:readline';
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -34,22 +22,20 @@ const rl = readline.createInterface({
  * execute this script by typing 'node addTranslation' and follow the instructions
  */
 const lineReaderQuestionPromise = (question: string) => {
-    return new Promise((res, rej) => {
+    return new Promise((res, _rej) => {
         rl.question(question, (answer: string) => res(answer));
     });
 };
 
 function orderKeys(obj: Record<string, string>) {
     return Object.keys(obj)
-        .sort(function (a, b) {
-            return a.toLowerCase().localeCompare(b.toLowerCase());
-        })
+        .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
         .reduce(
-            (acc, key) => ({
-                ...acc,
-                [key]: obj[key],
-            }),
-            {},
+            (acc, key) => {
+                acc[key] = obj[key];
+                return acc;
+            },
+            {} as Record<string, string>,
         );
 }
 const locales: Record<string, Record<string, Record<string, string>>> = {};
@@ -78,20 +64,13 @@ const saveKey = async (key: string) => {
     for (const lang in translations) {
         summary += `\n ${lang}: ${translations[lang]}`;
     }
-    console.log(summary + '\n');
+    console.log(`${summary}\n`);
 
     rl.question('Is your input correct? (y/n): ', async (confirm: string) => {
         if (confirm === 'y' || confirm === 'j' || confirm === 'Y' || confirm === 'J') {
             for (const lang in translations) {
                 locales[lang][filename][key] = translations[lang];
-                fs.writeFileSync(
-                    `./${lang}/${filename}.json`,
-                    await prettier.format(JSON.stringify(orderKeys(locales[lang][filename])), {
-                        semi: false,
-                        parser: 'json',
-                        ...prettierConfig,
-                    }),
-                );
+                fs.writeFileSync(`./${lang}/${filename}.json`, JSON.stringify(orderKeys(locales[lang][filename])));
             }
         }
         rl.close();
@@ -103,20 +82,17 @@ const updateIndexFile = async (newFileName: string) => {
     for (const lang in locales) {
         let fileString = '';
 
-        translationFilesCopy.forEach((file: string) => (fileString += `import ${file} from "./${file}.json";\n`));
+        translationFilesCopy.forEach((file: string) => {
+            fileString += `import ${file} from "./${file}.json";\n`;
+        });
 
         fileString += `\n const translations = {`;
-        translationFilesCopy.forEach((file: string) => (fileString += `${file},\n`));
+        translationFilesCopy.forEach((file: string) => {
+            fileString += `${file},\n`;
+        });
         fileString += `} \n export default translations;`;
 
-        fs.writeFileSync(
-            `./${lang}/index.ts`,
-            await prettier.format(fileString, {
-                semi: false,
-                parser: 'typescript',
-                ...prettierConfig,
-            }),
-        );
+        fs.writeFileSync(`./${lang}/index.ts`, fileString);
     }
 };
 const enterNewTranslation = async () => {
@@ -136,7 +112,6 @@ const enterNewTranslation = async () => {
         }
     });
 };
-//prettier.getFileInfo("./de.json").then(res=> console.log(res));
 
 fs.readdirSync('./').forEach((file: string) => {
     const stats = fs.statSync(`./${file}`);
@@ -154,10 +129,12 @@ fs.readdirSync('./').forEach((file: string) => {
 });
 
 console.log('Enter the number if the translationfile or enter the name of a new one \n');
-translationFiles.forEach((file, index) => console.log(`${index} - ${file}`));
+translationFiles.forEach((file, index) => {
+    console.log(`${index} - ${file}`);
+});
 
 rl.question('\nNumber or new filename: ', async (filenumberLocal: string) => {
-    if (isNaN(parseInt(filenumberLocal))) {
+    if (Number.isNaN(parseInt(filenumberLocal, 10))) {
         filename = filenumberLocal;
         rl.question(`Are you sure you want to create file "${filenumberLocal}.json?" (y/n) `, async (yesNo: string) => {
             if (yesNo.toLocaleLowerCase() === 'y') {
@@ -169,7 +146,7 @@ rl.question('\nNumber or new filename: ', async (filenumberLocal: string) => {
             }
         });
     } else {
-        filename = translationFiles[parseInt(filenumberLocal)];
+        filename = translationFiles[parseInt(filenumberLocal, 10)];
         if (filename) {
             filename = filename.split('.json')[0];
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import type React from 'react';
+import { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ProjectLogo } from '@/components/ProjectLogo';

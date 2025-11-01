@@ -1,9 +1,3 @@
-import clsx from 'clsx';
-import { Hexagon, Menu } from 'lucide-react';
-import * as React from 'react';
-import { useMutation } from 'react-query';
-import { Link, Outlet } from 'react-router-dom';
-
 import { Button } from '@boilerplate/ui/components/button';
 import {
     DropdownMenu,
@@ -15,6 +9,11 @@ import {
 } from '@boilerplate/ui/components/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@boilerplate/ui/components/sheet';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import clsx from 'clsx';
+import { Hexagon, Menu } from 'lucide-react';
+import * as React from 'react';
+import { useMutation } from 'react-query';
+import { Link, Outlet } from 'react-router-dom';
 
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { ProjectLogo } from '@/components/ProjectLogo';

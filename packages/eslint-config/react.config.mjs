@@ -1,8 +1,9 @@
 // @ts-check
-import tseslint from 'typescript-eslint';
-import baseConfig from './base.config.mjs';
+
 import reactHooksConfig from 'eslint-plugin-react-hooks';
 import reactRefreshPlugin from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+import baseConfig from './base.config.mjs';
 
 export default tseslint.config(...baseConfig, reactHooksConfig.configs['recommended-latest'], {
     plugins: { 'react-refresh': reactRefreshPlugin },

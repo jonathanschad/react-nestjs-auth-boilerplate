@@ -1,6 +1,6 @@
-import { TFunction } from 'i18next';
-import { z } from 'zod';
 import { formOptions } from '@tanstack/react-form/nextjs';
+import type { TFunction } from 'i18next';
+import { z } from 'zod';
 
 const createCompleteRegisterFormSchema = (t: TFunction) =>
     z.object({

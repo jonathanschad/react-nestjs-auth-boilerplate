@@ -4,9 +4,8 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import './google-oauth-button.css';
 
-import GoogleSVG from './google.svg?react';
-
 import { startGoogleOAuthFlow } from '@/repository/login';
+import GoogleSVG from './google.svg?react';
 
 export const GoogleOAuthButton = () => {
     const { t } = useTranslation('common');
@@ -20,6 +19,7 @@ export const GoogleOAuthButton = () => {
     });
     return (
         <button
+            type="button"
             className="google-oauth-button inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-5"
             onClick={(e) => {
                 e.preventDefault();

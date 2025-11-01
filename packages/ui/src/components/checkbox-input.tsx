@@ -1,7 +1,6 @@
-import * as React from 'react';
+import { Checkbox, type CheckboxProps } from '@boilerplate/ui/components/checkbox';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-
-import { Checkbox, CheckboxProps } from '@boilerplate/ui/components/checkbox';
+import * as React from 'react';
 
 export interface CheckboxInputProps extends CheckboxProps {
     error?: boolean;
@@ -23,7 +22,7 @@ const CheckboxInput = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive
                     </label>
                 )}
             </div>
-            {error ? <p className="mt-2 text-sm font-medium text-destructive">{errorMessage}</p> : <></>}
+            {error ? <p className="mt-2 text-sm font-medium text-destructive">{errorMessage}</p> : null}
         </>
     ),
 );

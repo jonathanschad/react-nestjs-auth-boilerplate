@@ -1,16 +1,15 @@
+import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
+import { Button } from '@boilerplate/ui/components/button';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Send } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 
-import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
-import { Button } from '@boilerplate/ui/components/button';
-import { useAppForm } from '@boilerplate/ui/form/useAppForm';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
-
 import {
+    type ResendEmailConfirmationFormValues,
     resendEmailConfirmationFormOptions,
-    ResendEmailConfirmationFormValues,
 } from '@/forms/resend-email-confirmation';
 import { resendVerificationEmail } from '@/repository/login';
 
@@ -20,7 +19,7 @@ export const ResendEmailConfirmation = ({ email }: { email?: string | null }) =>
     const [lastSendEmail, setLastSendEmail] = useState<string | undefined>();
     const registeredEmail = email ?? sessionStorage.getItem('registerEmail');
     const [registerEmailSentAt, setRegisterEmailSentAt] = useState(
-        new Date(parseInt(sessionStorage.getItem('registerEmailSentAt') ?? '0')),
+        new Date(parseInt(sessionStorage.getItem('registerEmailSentAt') ?? '0', 10)),
     );
     const [secondsUntilEmailCanBeResent, setSecondsUntilEmailCanBeResent] = useState(0);
 
@@ -30,14 +29,14 @@ export const ResendEmailConfirmation = ({ email }: { email?: string | null }) =>
     });
 
     const handleResendEmail = (values: ResendEmailConfirmationFormValues) => {
-        sessionStorage.setItem('registerEmailSentAt', String(new Date().getTime()));
+        sessionStorage.setItem('registerEmailSentAt', String(Date.now()));
         setRegisterEmailSentAt(new Date());
         resendEmailVerification.mutate({ email: values.email }, { onSuccess: () => setLastSendEmail(values.email) });
     };
 
     useEffect(() => {
         const calculateTimeUntilEmailCanBeResent = () => {
-            const secondsSinceEmailWasSent = Math.floor((new Date().getTime() - registerEmailSentAt.getTime()) / 1000);
+            const secondsSinceEmailWasSent = Math.floor((Date.now() - registerEmailSentAt.getTime()) / 1000);
             const secondsUntil = Math.max(SECONDS_UNTIL_EMAIL_CAN_BE_RESENT - secondsSinceEmailWasSent, 0);
             setSecondsUntilEmailCanBeResent(secondsUntil);
         };

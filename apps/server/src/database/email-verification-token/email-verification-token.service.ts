@@ -1,15 +1,14 @@
+import { TokenType } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 
-import { TokenType } from '@boilerplate/prisma';
-
-import { AppConfigService } from '@/config/app-config.service';
-import { PrismaService } from '@/database/prisma.service';
+import type { AppConfigService } from '@/config/app-config.service';
+import type { PrismaService } from '@/database/prisma.service';
 
 @Injectable()
 export class EmailVerificationTokenService {
     constructor(
         private prisma: PrismaService,
-        private configService: AppConfigService,
+        _configService: AppConfigService,
     ) {}
 
     public async findEmailVerificationToken(hashedSecret: string) {

@@ -1,8 +1,7 @@
+import { createReadStream, readdirSync } from 'node:fs';
+import path, { dirname } from 'node:path';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { createReadStream, readdirSync } from 'fs';
 import mime from 'mime-types';
-import { dirname } from 'node:path';
-import path from 'path';
 
 const rootDir = path.resolve(dirname(process.argv[1]), 'public');
 const resolvePath = (file: string) => path.resolve(rootDir, file);
@@ -20,7 +19,7 @@ const staticFiles = (() => {
 export const serveFrontend = (req: FastifyRequest['raw'], res: FastifyReply['raw'], next: () => void) => {
     const { url } = req;
 
-    if (url && url.startsWith('/api')) {
+    if (url?.startsWith('/api')) {
         return next();
     } else {
         let filename = 'index.html';

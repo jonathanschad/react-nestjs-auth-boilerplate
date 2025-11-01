@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { getFile } from '@/repository/file';
@@ -35,7 +36,7 @@ export function AuthenticatedImage(props: AuthenticatedImageProps) {
         if (props.fallback) {
             return props.fallback;
         }
-        return <img {...imageProps} />;
+        return <img {...imageProps} alt="" />;
     }
-    return <img {...imageProps} src={imageUrl} />;
+    return <img {...imageProps} src={imageUrl} alt="" />;
 }

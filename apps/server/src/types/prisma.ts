@@ -1,3 +1,3 @@
-import { User, UserSettings } from '@boilerplate/prisma';
+import type { User, UserSettings } from '@boilerplate/prisma';
 
 export type UserWithSettings = User & { settings: UserSettings };

@@ -58,7 +58,7 @@ export const ProfilePictureEditor = () => {
                 )}
             </Dropzone>
 
-            <button className="mt-8" onClick={() => void handleFileUpload()}>
+            <button type="button" className="mt-8" onClick={() => void handleFileUpload()}>
                 Upload File
             </button>
         </div>

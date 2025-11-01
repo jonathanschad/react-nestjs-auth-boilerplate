@@ -1,15 +1,15 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
-import { CompleteGoogleAccountConnectionDTO, GoogleOAuthDTO } from '@/auth/auth.dto';
+import type { CompleteGoogleAccountConnectionDTO, GoogleOAuthDTO } from '@/auth/auth.dto';
 import { PublicRoute } from '@/auth/auth.guard';
-import { AuthService } from '@/auth/auth.service';
-import { GoogleAuthService } from '@/auth/google.auth.service';
-import { JWTService } from '@/auth/jwt.service';
-import { AppConfigService } from '@/config/app-config.service';
-import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
-import { DatabaseUserService } from '@/database/user/user.service';
-import { SignupService } from '@/signup/signup.service';
+import type { AuthService } from '@/auth/auth.service';
+import type { GoogleAuthService } from '@/auth/google.auth.service';
+import type { JWTService } from '@/auth/jwt.service';
+import type { AppConfigService } from '@/config/app-config.service';
+import type { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
+import type { DatabaseUserService } from '@/database/user/user.service';
+import type { SignupService } from '@/signup/signup.service';
 
 @Controller('auth/google')
 export class GoogleAuthController {

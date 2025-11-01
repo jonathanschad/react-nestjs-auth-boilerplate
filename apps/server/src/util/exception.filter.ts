@@ -1,12 +1,12 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
 import {
     type ArgumentsHost,
     Catch,
-    ExceptionFilter as NestExceptionFilter,
     HttpException,
     Logger,
+    type ExceptionFilter as NestExceptionFilter,
 } from '@nestjs/common';
 import { SentryExceptionCaptured } from '@sentry/nestjs';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import { HTTPError } from '@/util/httpHandlers';
 

@@ -14,22 +14,10 @@
         "./postcss.config": "./postcss.config.mjs",
         "./tailwind.config": "./tailwind.config.ts",
         "./lib/*": "./src/lib/*.ts",
-        "./hooks/*": [
-            "./src/hooks/*.ts",
-            "./src/hooks/*.tsx"
-        ],
-        "./components/*": [
-            "./src/components/*.tsx",
-            "./src/components/*.ts"
-        ],
-        "./i18n/*": [
-            "./src/i18n/*.tsx",
-            "./src/i18n/*.ts"
-        ],
-        "./form/*": [
-            "./src/form/*.tsx",
-            "./src/form/*.ts"
-        ]
+        "./hooks/*": ["./src/hooks/*.ts", "./src/hooks/*.tsx"],
+        "./components/*": ["./src/components/*.tsx", "./src/components/*.ts"],
+        "./i18n/*": ["./src/i18n/*.tsx", "./src/i18n/*.ts"],
+        "./form/*": ["./src/form/*.tsx", "./src/form/*.ts"]
     },
     "dependencies": {
         "@boilerplate/eslint-config": "workspace:*",
@@ -56,10 +44,8 @@
         "typescript-eslint": "catalog:",
         "typescript": "catalog:",
         "eslint": "catalog:",
-        "prettier-plugin-tailwindcss": "catalog:",
         "eslint-plugin-react-hooks": "catalog:",
         "eslint-plugin-react-refresh": "catalog:",
-        "eslint-plugin-simple-import-sort": "catalog:",
         "@typescript-eslint/eslint-plugin": "catalog:",
         "@types/react": "catalog:react18",
         "@typescript-eslint/parser": "catalog:",

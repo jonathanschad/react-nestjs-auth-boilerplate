@@ -1,22 +1,22 @@
-import { CompleteRegisterFormValues } from '@/forms/complete-register-form';
-import { LoginFormValues } from '@/forms/login-form';
-import { RegisterFormValues } from '@/forms/register-form';
+import type { CompleteRegisterFormValues } from '@/forms/complete-register-form';
+import type { LoginFormValues } from '@/forms/login-form';
+import type { RegisterFormValues } from '@/forms/register-form';
 import api, { BASE_URL } from '@/repository';
 
 export const login = async ({ email, password, remember }: LoginFormValues) => {
-    const data = await api.post(BASE_URL + '/auth/login', { email, password, remember }, { withCredentials: true });
+    const data = await api.post(`${BASE_URL}/auth/login`, { email, password, remember }, { withCredentials: true });
 
     return data;
 };
 
 export const logout = async () => {
-    const data = await api.post(BASE_URL + '/auth/logout');
+    const data = await api.post(`${BASE_URL}/auth/logout`);
 
     return data;
 };
 
 export const register = async (registerDTO: RegisterFormValues) => {
-    const data = await api.post(BASE_URL + '/signup', registerDTO, {
+    const data = await api.post(`${BASE_URL}/signup`, registerDTO, {
         withCredentials: true,
     });
 
@@ -24,7 +24,7 @@ export const register = async (registerDTO: RegisterFormValues) => {
 };
 
 export const completeRegistration = async (completeRegisterDTO: CompleteRegisterFormValues) => {
-    const data = await api.post(BASE_URL + '/signup/complete', completeRegisterDTO, {
+    const data = await api.post(`${BASE_URL}/signup/complete`, completeRegisterDTO, {
         withCredentials: true,
     });
 
@@ -32,7 +32,7 @@ export const completeRegistration = async (completeRegisterDTO: CompleteRegister
 };
 
 export const completeGoogleAccountConnection = async (completeRegisterDTO: { password: string; token: string }) => {
-    const data = await api.post(BASE_URL + '/auth/google/complete-account-connection', completeRegisterDTO, {
+    const data = await api.post(`${BASE_URL}/auth/google/complete-account-connection`, completeRegisterDTO, {
         withCredentials: true,
     });
 
@@ -42,23 +42,23 @@ export const completeGoogleAccountConnection = async (completeRegisterDTO: { pas
 export const confirmEmail = async ({ token }: { token?: string | null }) => {
     if (!token) return false;
     try {
-        const data = await api.get<{ success: boolean }>(BASE_URL + `/signup/verify-email-token?token=${token}`);
+        const data = await api.get<{ success: boolean }>(`${BASE_URL}/signup/verify-email-token?token=${token}`);
         return data.data.success;
-    } catch (error) {
+    } catch (_error) {
         return false;
     }
 };
 
 export const resendVerificationEmail = async ({ email }: { email: string }) => {
     try {
-        const data = await api.post<{ success: boolean }>(BASE_URL + `/signup/resend-verification`, { email });
+        const data = await api.post<{ success: boolean }>(`${BASE_URL}/signup/resend-verification`, { email });
         return data.data.success;
-    } catch (error) {
+    } catch (_error) {
         return false;
     }
 };
 
 export const startGoogleOAuthFlow = async () => {
-    const { redirectUrl } = (await api.get<{ redirectUrl: string }>(BASE_URL + '/auth/google')).data;
+    const { redirectUrl } = (await api.get<{ redirectUrl: string }>(`${BASE_URL}/auth/google`)).data;
     window.location.href = redirectUrl;
 };

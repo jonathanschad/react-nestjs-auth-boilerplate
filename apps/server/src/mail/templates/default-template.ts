@@ -1,4 +1,4 @@
-import { TReaderDocument } from '@usewaypoint/email-builder';
+import type { TReaderDocument } from '@usewaypoint/email-builder';
 
 import { generateSocials } from '@/mail/templates/generate-socials';
 
@@ -146,6 +146,7 @@ const generateImprint = (translations: TEmailTemplateFactory): TReaderDocument =
                         childrenIds: ['social-container', 'copyright'],
                     },
                 ],
+                // biome-ignore lint/suspicious/noExplicitAny: types from this library are not good
             } as any,
         },
     },
