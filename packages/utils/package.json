@@ -10,7 +10,6 @@
     },
     "scripts": {
         "build": "tsc",
-        "dev": "tsc -w",
         "lint": "eslint . --max-warnings 0",
         "lint:fix": "eslint . --max-warnings 0 --fix",
         "tsc": "tsc --noEmit"
