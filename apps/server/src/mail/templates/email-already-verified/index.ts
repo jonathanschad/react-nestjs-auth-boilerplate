@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 import type { EmailTranslation, MailTemplate } from '@/mail/mail.service';
 import { emailAlreadyVerifiedFactory } from '@/mail/templates/email-already-verified/email-already-verified';

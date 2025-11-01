@@ -11,8 +11,8 @@ import type { UserWithSettings } from '@/types/prisma';
 @Injectable()
 export class UserService {
     constructor(
-        private readonly appConfigService: AppConfigService,
-        private readonly databaseFileService: DatabaseFileService,
+        readonly _appConfigService: AppConfigService,
+        readonly _databaseFileService: DatabaseFileService,
         private readonly fileService: FileService,
         private readonly databaseUserService: DatabaseUserService,
     ) {}

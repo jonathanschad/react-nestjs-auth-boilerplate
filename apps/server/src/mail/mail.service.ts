@@ -1,3 +1,4 @@
+import * as path from 'node:path';
 import type { Language } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import { renderToStaticMarkup, type TReaderDocument } from '@usewaypoint/email-builder';
@@ -5,7 +6,6 @@ import * as nodemailer from 'nodemailer';
 import type { Attachment } from 'nodemailer/lib/mailer';
 import type { MailOptions } from 'nodemailer/lib/sendmail-transport';
 import type * as SMTPTransport from 'nodemailer/lib/smtp-transport';
-import * as path from 'path';
 
 import type { AppConfigService } from '@/config/app-config.service';
 import type { PrismaService } from '@/database/prisma.service';
@@ -13,7 +13,7 @@ import { defaultEmailTemplateFactory } from '@/mail/templates/default-template';
 import { templates } from '@/mail/templates/templates';
 import type { UserWithSettings } from '@/types/prisma';
 export interface MailTemplate {
-    templateFactory: (translations: any) => TReaderDocument; // TODO type this
+    templateFactory: (translations: unknown) => TReaderDocument; // TODO type this
     translations: Record<Language, EmailTranslation>;
     images: Attachment[];
     headlineIconUrl: string;

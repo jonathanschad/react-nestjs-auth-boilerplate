@@ -44,7 +44,9 @@ const FileUpload = () => {
         <div>
             <h2>Upload a File</h2>
             <input type="file" onChange={handleFileChange} />
-            <button onClick={() => void handleFileUpload()}>Upload File</button>
+            <button type="button" onClick={() => void handleFileUpload()}>
+                Upload File
+            </button>
             {uploadStatus && <p>{uploadStatus}</p>}
         </div>
     );

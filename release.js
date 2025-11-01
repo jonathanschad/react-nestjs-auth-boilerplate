@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+const fs = require('node:fs');
+const path = require('node:path');
+const { execSync } = require('node:child_process');
 
 // Function to recursively find all package.json files in a directory
 const findPackageJsonFiles = (dir) => {
@@ -74,7 +74,7 @@ const updatePackageJson = (packageJsonPath) => {
     try {
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
         packageJson.version = version;
-        fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4) + '\n');
+        fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 4)}\n`);
 
         execSync(`git add ${packageJsonPath}`);
 

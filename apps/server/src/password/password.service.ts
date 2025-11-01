@@ -69,7 +69,7 @@ export class PasswordService {
             const passwordResetToken = await this.passwordResetTokenService.findValidTokenBySecret(hashedSecret);
 
             return Boolean(passwordResetToken?.valid);
-        } catch (error) {
+        } catch (_error) {
             return false;
         }
     }

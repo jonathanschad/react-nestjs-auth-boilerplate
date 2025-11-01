@@ -9,8 +9,8 @@
         "dev:server": "turbo dev --filter=@boilerplate/server",
         "lint": "turbo lint",
         "lint:fix": "turbo lint:fix",
-        "format:verify": "turbo format:verify",
-        "format": "turbo format",
+        "format:verify": "biome check",
+        "format": "biome check --write",
         "tsc": "turbo tsc",
         "postinstall": "pnpm generate:prisma",
         "generate:prisma": "pnpm --filter @boilerplate/prisma db:generate"

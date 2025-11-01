@@ -1,7 +1,7 @@
+import { assert } from 'node:console';
 import { UserState } from '@boilerplate/prisma';
 import { type CanActivate, createParamDecorator, type ExecutionContext, Injectable, SetMetadata } from '@nestjs/common';
 import type { Reflector } from '@nestjs/core';
-import { assert } from 'console';
 import type { FastifyRequest } from 'fastify';
 
 import type { JWTService } from '@/auth/jwt.service';
@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     constructor(
         private jwtService: JWTService,
         private reflector: Reflector,
-        private appConfigService: AppConfigService,
+        _appConfigService: AppConfigService,
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {

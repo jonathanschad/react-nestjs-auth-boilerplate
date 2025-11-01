@@ -27,7 +27,7 @@ export default function ConnectGoogleAccountCompletion() {
     const decodedConnectToken = useMemo(() => {
         try {
             return jwtDecode<ConnectTokenType>(connectToken ?? '');
-        } catch (error) {
+        } catch (_error) {
             return;
         }
     }, [connectToken]);

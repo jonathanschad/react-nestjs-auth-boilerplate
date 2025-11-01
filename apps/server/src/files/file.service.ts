@@ -1,7 +1,7 @@
+import { join } from 'node:path';
 import { type File, type FileAccess, type User, UserState } from '@boilerplate/prisma';
 import type { MultipartFile } from '@fastify/multipart';
 import { Injectable, Logger, type StreamableFile } from '@nestjs/common';
-import { join } from 'path';
 import sharp from 'sharp';
 
 import type { DatabaseFileService } from '@/database/database-file/database-file.service';

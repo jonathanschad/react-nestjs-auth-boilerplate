@@ -26,7 +26,7 @@ export default function Register() {
 
     const handleSubmit = (data: RegisterFormValues) => {
         sessionStorage.setItem('registerEmail', data.email);
-        sessionStorage.setItem('registerEmailSentAt', String(new Date().getTime()));
+        sessionStorage.setItem('registerEmailSentAt', String(Date.now()));
         console.log(data);
         registerMutation.mutate(data);
     };

@@ -5,7 +5,7 @@ import type { AppConfigService } from '@/config/app-config.service';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
-    constructor(private appConfigService: AppConfigService) {
+    constructor(appConfigService: AppConfigService) {
         super({ datasources: { db: { url: appConfigService.databaseUrl } } });
     }
 

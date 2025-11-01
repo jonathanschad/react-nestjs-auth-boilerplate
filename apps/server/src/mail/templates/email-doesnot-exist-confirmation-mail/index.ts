@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 import type { EmailTranslation, MailTemplate } from '@/mail/mail.service';
 import { emailDoesNotExistConfirmationFactory } from '@/mail/templates/email-doesnot-exist-confirmation-mail/email-doesnot-exist-confirmation-mail';

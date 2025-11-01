@@ -1,7 +1,7 @@
+import assert from 'node:assert';
+import * as crypto from 'node:crypto';
 import type { User } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
-import assert from 'assert';
-import * as crypto from 'crypto';
 import type { FastifyReply } from 'fastify';
 
 import type { SingInDTO } from '@/auth/auth.dto';

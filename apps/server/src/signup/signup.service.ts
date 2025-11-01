@@ -146,7 +146,7 @@ export class SignupService {
         });
         if (lastestToken) {
             if (
-                (new Date().getTime() - lastestToken.createdAt.getTime()) / 1000 <
+                (Date.now() - lastestToken.createdAt.getTime()) / 1000 <
                 this.appConfigService.emailVerificationResendInterval
             ) {
                 throw new HTTPError({

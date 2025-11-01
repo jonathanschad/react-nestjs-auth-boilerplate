@@ -13,7 +13,7 @@ interface PasswordResetTokenWithUser extends Token {
 export class PasswordResetTokenService {
     constructor(
         private prisma: PrismaService,
-        private configService: AppConfigService,
+        _configService: AppConfigService,
     ) {}
 
     public async findValidTokenBySecret(hashedSecret: string): Promise<PasswordResetTokenWithUser | null> {

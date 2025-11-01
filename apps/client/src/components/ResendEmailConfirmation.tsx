@@ -19,7 +19,7 @@ export const ResendEmailConfirmation = ({ email }: { email?: string | null }) =>
     const [lastSendEmail, setLastSendEmail] = useState<string | undefined>();
     const registeredEmail = email ?? sessionStorage.getItem('registerEmail');
     const [registerEmailSentAt, setRegisterEmailSentAt] = useState(
-        new Date(parseInt(sessionStorage.getItem('registerEmailSentAt') ?? '0')),
+        new Date(parseInt(sessionStorage.getItem('registerEmailSentAt') ?? '0', 10)),
     );
     const [secondsUntilEmailCanBeResent, setSecondsUntilEmailCanBeResent] = useState(0);
 
@@ -29,14 +29,14 @@ export const ResendEmailConfirmation = ({ email }: { email?: string | null }) =>
     });
 
     const handleResendEmail = (values: ResendEmailConfirmationFormValues) => {
-        sessionStorage.setItem('registerEmailSentAt', String(new Date().getTime()));
+        sessionStorage.setItem('registerEmailSentAt', String(Date.now()));
         setRegisterEmailSentAt(new Date());
         resendEmailVerification.mutate({ email: values.email }, { onSuccess: () => setLastSendEmail(values.email) });
     };
 
     useEffect(() => {
         const calculateTimeUntilEmailCanBeResent = () => {
-            const secondsSinceEmailWasSent = Math.floor((new Date().getTime() - registerEmailSentAt.getTime()) / 1000);
+            const secondsSinceEmailWasSent = Math.floor((Date.now() - registerEmailSentAt.getTime()) / 1000);
             const secondsUntil = Math.max(SECONDS_UNTIL_EMAIL_CAN_BE_RESENT - secondsSinceEmailWasSent, 0);
             setSecondsUntilEmailCanBeResent(secondsUntil);
         };

@@ -30,7 +30,9 @@ export const Home = () => {
                 Break the world
             </button>
             <p>Version: {packageJson.version}</p>
-            <button onClick={() => logoutMutatiuon.mutate()}>Logout</button>
+            <button type="button" onClick={() => logoutMutatiuon.mutate()}>
+                Logout
+            </button>
             <ProfilePictureEditor />
         </>
     );

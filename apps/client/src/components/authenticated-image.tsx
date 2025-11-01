@@ -36,7 +36,7 @@ export function AuthenticatedImage(props: AuthenticatedImageProps) {
         if (props.fallback) {
             return props.fallback;
         }
-        return <img {...imageProps} />;
+        return <img {...imageProps} alt="" />;
     }
-    return <img {...imageProps} src={imageUrl} />;
+    return <img {...imageProps} src={imageUrl} alt="" />;
 }

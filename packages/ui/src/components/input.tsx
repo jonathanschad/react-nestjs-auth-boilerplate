@@ -19,7 +19,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     ref={ref}
                     {...props}
                 />
-                {error ? <p className="text-sm font-medium text-destructive">{errorMessage}</p> : <></>}
+                {error ? <p className="text-sm font-medium text-destructive">{errorMessage}</p> : null}
             </>
         );
     },

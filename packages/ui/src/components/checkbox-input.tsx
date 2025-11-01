@@ -22,7 +22,7 @@ const CheckboxInput = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive
                     </label>
                 )}
             </div>
-            {error ? <p className="mt-2 text-sm font-medium text-destructive">{errorMessage}</p> : <></>}
+            {error ? <p className="mt-2 text-sm font-medium text-destructive">{errorMessage}</p> : null}
         </>
     ),
 );

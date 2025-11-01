@@ -8,7 +8,7 @@ import type { PrismaService } from '@/database/prisma.service';
 export class ConnectGoogleAccountTokenService {
     constructor(
         private prisma: PrismaService,
-        private configService: AppConfigService,
+        _configService: AppConfigService,
     ) {}
 
     public async findConnectGoogleAccountToken(hashedSecret: string) {

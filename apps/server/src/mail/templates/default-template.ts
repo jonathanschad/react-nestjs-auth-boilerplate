@@ -146,6 +146,7 @@ const generateImprint = (translations: TEmailTemplateFactory): TReaderDocument =
                         childrenIds: ['social-container', 'copyright'],
                     },
                 ],
+                // biome-ignore lint/suspicious/noExplicitAny: types from this library are not good
             } as any,
         },
     },

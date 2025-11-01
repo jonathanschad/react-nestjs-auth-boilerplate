@@ -8,7 +8,7 @@ import type { PrismaService } from '@/database/prisma.service';
 export class EmailVerificationTokenService {
     constructor(
         private prisma: PrismaService,
-        private configService: AppConfigService,
+        _configService: AppConfigService,
     ) {}
 
     public async findEmailVerificationToken(hashedSecret: string) {

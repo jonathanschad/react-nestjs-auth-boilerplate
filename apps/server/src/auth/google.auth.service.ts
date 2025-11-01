@@ -1,6 +1,6 @@
+import assert from 'node:assert';
 import { type Language, UserState } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
-import assert from 'assert';
 import axios from 'axios';
 import type { FastifyReply } from 'fastify';
 import * as uuid from 'uuid';
@@ -33,7 +33,7 @@ export class GoogleAuthService {
     constructor(
         private readonly appConfigService: AppConfigService,
         private readonly databaseUserService: DatabaseUserService,
-        private readonly passwordResetTokenService: PasswordResetTokenService,
+        readonly _passwordResetTokenService: PasswordResetTokenService,
         private readonly jwtService: JWTService,
         private readonly authService: AuthService,
         private readonly userService: UserService,
