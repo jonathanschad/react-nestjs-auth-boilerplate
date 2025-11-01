@@ -1,7 +1,6 @@
-import * as React from 'react';
+import { Checkbox, type CheckboxProps } from '@boilerplate/ui/components/checkbox';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-
-import { Checkbox, CheckboxProps } from '@boilerplate/ui/components/checkbox';
+import * as React from 'react';
 
 export interface CheckboxInputProps extends CheckboxProps {
     error?: boolean;

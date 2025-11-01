@@ -1,6 +1,6 @@
-import { CompleteRegisterFormValues } from '@/forms/complete-register-form';
-import { LoginFormValues } from '@/forms/login-form';
-import { RegisterFormValues } from '@/forms/register-form';
+import type { CompleteRegisterFormValues } from '@/forms/complete-register-form';
+import type { LoginFormValues } from '@/forms/login-form';
+import type { RegisterFormValues } from '@/forms/register-form';
 import api, { BASE_URL } from '@/repository';
 
 export const login = async ({ email, password, remember }: LoginFormValues) => {

@@ -1,13 +1,12 @@
+import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
+import { Button } from '@boilerplate/ui/components/button';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { AlertCircle } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-
-import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
-import { Button } from '@boilerplate/ui/components/button';
-import { useAppForm } from '@boilerplate/ui/form/useAppForm';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 import ResetPasswordSVG from '@/assets/illustrations/reset-password.svg?react';
 import { passwordResetFormOptions } from '@/forms/password-reset';

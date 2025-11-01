@@ -1,6 +1,5 @@
-import { Link as RouterLink } from 'react-router-dom';
-
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import { Link as RouterLink } from 'react-router-dom';
 
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { ResendEmailConfirmation } from '@/components/ResendEmailConfirmation';

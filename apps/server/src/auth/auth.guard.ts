@@ -1,12 +1,11 @@
-import { assert } from 'console';
-import { FastifyRequest } from 'fastify';
-import { CanActivate, createParamDecorator, ExecutionContext, Injectable, SetMetadata } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-
 import { UserState } from '@boilerplate/prisma';
+import { type CanActivate, createParamDecorator, type ExecutionContext, Injectable, SetMetadata } from '@nestjs/common';
+import type { Reflector } from '@nestjs/core';
+import { assert } from 'console';
+import type { FastifyRequest } from 'fastify';
 
-import { JWTService } from '@/auth/jwt.service';
-import { AppConfigService } from '@/config/app-config.service';
+import type { JWTService } from '@/auth/jwt.service';
+import type { AppConfigService } from '@/config/app-config.service';
 import type { UserWithSettings } from '@/types/prisma';
 import { InvalidAccessTokenError } from '@/util/httpHandlers';
 

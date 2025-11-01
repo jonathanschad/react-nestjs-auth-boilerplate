@@ -1,14 +1,13 @@
+import { Button } from '@boilerplate/ui/components/button';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import { Button } from '@boilerplate/ui/components/button';
-import { useAppForm } from '@boilerplate/ui/form/useAppForm';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
-
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
-import { registerFormOptions, RegisterFormValues } from '@/forms/register-form';
+import { type RegisterFormValues, registerFormOptions } from '@/forms/register-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { register } from '@/repository/login';
 

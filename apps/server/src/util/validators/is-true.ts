@@ -1,7 +1,7 @@
-import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator';
+import { registerDecorator, type ValidationArguments, type ValidationOptions } from 'class-validator';
 
 export function IsTrue(validationOptions?: ValidationOptions) {
-    return function (object: object, propertyName: string) {
+    return (object: object, propertyName: string) => {
         registerDecorator({
             name: 'isTrue',
             target: object.constructor,

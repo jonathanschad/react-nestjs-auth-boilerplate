@@ -1,6 +1,3 @@
-import clsx from 'clsx';
-import { useTranslation } from 'react-i18next';
-
 import { Button } from '@boilerplate/ui/components/button';
 import {
     DropdownMenu,
@@ -10,6 +7,8 @@ import {
 } from '@boilerplate/ui/components/dropdown-menu';
 import { Typography } from '@boilerplate/ui/components/typography';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 const mapLanguageToFlag = (language: string) => {
     switch (language) {

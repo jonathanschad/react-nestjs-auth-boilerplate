@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react';
+import { type ReactElement, useMemo } from 'react';
 import { BrowserRouter, Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';

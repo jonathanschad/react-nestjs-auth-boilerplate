@@ -1,8 +1,7 @@
+import { cn } from '@boilerplate/ui/lib/utils';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { Check } from 'lucide-react';
 import * as React from 'react';
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-
-import { cn } from '@boilerplate/ui/lib/utils';
 export interface CheckboxProps
     extends Omit<React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>, 'onCheckedChange'> {
     onCheckedChange: (event: {

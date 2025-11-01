@@ -1,6 +1,5 @@
-import { CircleUser } from 'lucide-react';
-
 import { Avatar } from '@boilerplate/ui/components/avatar';
+import { CircleUser } from 'lucide-react';
 
 import { AuthenticatedImage } from '@/components/authenticated-image';
 import { useUser } from '@/store/async-store';

@@ -1,6 +1,7 @@
 // @ts-check
-import tseslint from 'typescript-eslint';
+
 import reactConfig from '@boilerplate/eslint-config/react.config.mjs';
+import tseslint from 'typescript-eslint';
 export default tseslint.config(...reactConfig, {
     rules: {
         'simple-import-sort/imports': [

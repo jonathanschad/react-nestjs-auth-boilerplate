@@ -1,6 +1,12 @@
-import { Observable } from 'rxjs';
-import { CallHandler, ExecutionContext, ForbiddenException, Injectable, NestInterceptor } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
+import {
+    type CallHandler,
+    type ExecutionContext,
+    ForbiddenException,
+    Injectable,
+    type NestInterceptor,
+} from '@nestjs/common';
+import type { Reflector } from '@nestjs/core';
+import type { Observable } from 'rxjs';
 
 import { DISABLED_ROUTE } from '@/util/decorators/disabled';
 

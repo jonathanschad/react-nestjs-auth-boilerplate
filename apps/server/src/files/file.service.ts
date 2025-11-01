@@ -1,12 +1,11 @@
+import { type File, type FileAccess, type User, UserState } from '@boilerplate/prisma';
+import type { MultipartFile } from '@fastify/multipart';
+import { Injectable, Logger, type StreamableFile } from '@nestjs/common';
 import { join } from 'path';
 import sharp from 'sharp';
-import { MultipartFile } from '@fastify/multipart';
-import { Injectable, Logger, StreamableFile } from '@nestjs/common';
 
-import { File, FileAccess, User, UserState } from '@boilerplate/prisma';
-
-import { DatabaseFileService } from '@/database/database-file/database-file.service';
-import { FileUploadResponse, StorageService } from '@/files/storage.service';
+import type { DatabaseFileService } from '@/database/database-file/database-file.service';
+import type { FileUploadResponse, StorageService } from '@/files/storage.service';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
 @Injectable()

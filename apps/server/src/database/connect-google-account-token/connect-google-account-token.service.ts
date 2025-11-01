@@ -1,9 +1,8 @@
+import { type Token, TokenType } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 
-import { Token, TokenType } from '@boilerplate/prisma';
-
-import { AppConfigService } from '@/config/app-config.service';
-import { PrismaService } from '@/database/prisma.service';
+import type { AppConfigService } from '@/config/app-config.service';
+import type { PrismaService } from '@/database/prisma.service';
 
 @Injectable()
 export class ConnectGoogleAccountTokenService {

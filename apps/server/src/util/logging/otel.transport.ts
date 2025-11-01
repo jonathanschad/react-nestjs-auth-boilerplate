@@ -1,6 +1,6 @@
-import axios from 'axios';
-import Transport, { TransportStreamOptions } from 'winston-transport';
 import * as Sentry from '@sentry/nestjs';
+import axios from 'axios';
+import Transport, { type TransportStreamOptions } from 'winston-transport';
 
 interface SigNozLogEntry {
     timestamp: number; // in nanoseconds

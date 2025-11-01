@@ -1,9 +1,8 @@
-import { ArrowUpDown } from 'lucide-react';
-import { ColumnDef } from '@tanstack/react-table';
-
 import { Button } from '@boilerplate/ui/components/button';
 import { DataTable } from '@boilerplate/ui/components/data-table';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import type { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown } from 'lucide-react';
 
 import LegalSVG from '@/assets/illustrations/legal.svg?react';
 import licenseClarificationsJSON from '@/assets/license-clarifications.json';

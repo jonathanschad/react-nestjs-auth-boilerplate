@@ -1,17 +1,19 @@
+import { Button } from '@boilerplate/ui/components/button';
+import { Input } from '@boilerplate/ui/components/input';
+import { Label } from '@boilerplate/ui/components/label';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { jwtDecode } from 'jwt-decode';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { Button } from '@boilerplate/ui/components/button';
-import { Input } from '@boilerplate/ui/components/input';
-import { Label } from '@boilerplate/ui/components/label';
-import { useAppForm } from '@boilerplate/ui/form/useAppForm';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
-
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
-import { connectGoogleAccountFormOptions, ConnectGoogleAccountFormValues } from '@/forms/connect-google-account-form';
+import {
+    type ConnectGoogleAccountFormValues,
+    connectGoogleAccountFormOptions,
+} from '@/forms/connect-google-account-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { completeGoogleAccountConnection } from '@/repository/login';
 

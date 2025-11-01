@@ -1,7 +1,6 @@
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Hexagon } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 export const ProjectLogo = () => {
     return (

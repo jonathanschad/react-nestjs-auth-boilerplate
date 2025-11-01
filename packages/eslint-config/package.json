@@ -6,9 +6,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "files": [
-        "eslint.config.mjs"
-    ],
+    "files": ["eslint.config.mjs"],
     "devDependencies": {
         "@eslint/js": "^9.26.0",
         "@typescript-eslint/parser": "catalog:",

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { TReaderDocument } from '@usewaypoint/email-builder';
+import type { TReaderDocument } from '@usewaypoint/email-builder';
 
 export const generateSocials = (socials: { name: string; url: string }[]): TReaderDocument => {
     // This is of type TReaderDocument but I do not want to deal with the types right now

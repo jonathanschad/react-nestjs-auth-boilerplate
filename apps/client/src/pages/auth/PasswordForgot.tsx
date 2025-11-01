@@ -1,10 +1,9 @@
-import { useTranslation } from 'react-i18next';
-import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-
 import { Button } from '@boilerplate/ui/components/button';
 import { useAppForm } from '@boilerplate/ui/form/useAppForm';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import ForgotPasswordSVG from '@/assets/illustrations/forgot-password.svg?react';
 import { passwordForgotFormOptions } from '@/forms/password-forgot-form';

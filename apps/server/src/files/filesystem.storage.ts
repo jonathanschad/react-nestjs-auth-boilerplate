@@ -1,11 +1,11 @@
+import type { MultipartFile } from '@fastify/multipart';
+import { StreamableFile } from '@nestjs/common';
 import { createReadStream, createWriteStream, existsSync, mkdirSync, statSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { pipeline } from 'stream';
-import { MultipartFile } from '@fastify/multipart';
-import { StreamableFile } from '@nestjs/common';
 
-import { AppConfigService } from '@/config/app-config.service';
-import {
+import type { AppConfigService } from '@/config/app-config.service';
+import type {
     FileDeleteOptions,
     FileDeleteResponse,
     FileGetOptions,

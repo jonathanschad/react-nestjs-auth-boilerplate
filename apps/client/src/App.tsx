@@ -6,6 +6,7 @@ import '/node_modules/flag-icons/css/flag-icons.min.css';
 import { Analytics } from '@/Analytics';
 import LoadingApplication from '@/pages/LoadingApplication';
 import { Routes } from '@/Routes';
+
 const queryClient = new QueryClient();
 
 function App() {

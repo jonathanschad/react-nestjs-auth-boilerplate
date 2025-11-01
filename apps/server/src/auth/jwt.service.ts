@@ -1,13 +1,12 @@
-import * as crypto from 'crypto';
-import { FastifyRequest } from 'fastify';
-import * as jwt from 'jsonwebtoken';
+import type { User } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
+import * as crypto from 'crypto';
+import type { FastifyRequest } from 'fastify';
+import * as jwt from 'jsonwebtoken';
 
-import { User } from '@boilerplate/prisma';
-
-import { AppConfigService } from '@/config/app-config.service';
-import { PrismaService } from '@/database/prisma.service';
-import { DatabaseUserService } from '@/database/user/user.service';
+import type { AppConfigService } from '@/config/app-config.service';
+import type { PrismaService } from '@/database/prisma.service';
+import type { DatabaseUserService } from '@/database/user/user.service';
 import HttpStatusCode, { HTTPError, InvalidAccessTokenError } from '@/util/httpHandlers';
 
 interface JWTData {

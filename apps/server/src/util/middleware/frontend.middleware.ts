@@ -1,7 +1,7 @@
+import { dirname } from 'node:path';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { createReadStream, readdirSync } from 'fs';
 import mime from 'mime-types';
-import { dirname } from 'node:path';
 import path from 'path';
 
 const rootDir = path.resolve(dirname(process.argv[1]), 'public');

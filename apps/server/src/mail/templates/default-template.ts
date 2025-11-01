@@ -1,4 +1,4 @@
-import { TReaderDocument } from '@usewaypoint/email-builder';
+import type { TReaderDocument } from '@usewaypoint/email-builder';
 
 import { generateSocials } from '@/mail/templates/generate-socials';
 

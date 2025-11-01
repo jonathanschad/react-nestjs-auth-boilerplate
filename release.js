@@ -5,7 +5,7 @@ const { execSync } = require('child_process');
 
 // Function to recursively find all package.json files in a directory
 const findPackageJsonFiles = (dir) => {
-    let packageJsonFiles = [];
+    const packageJsonFiles = [];
 
     if (!fs.existsSync(dir)) {
         return packageJsonFiles;

@@ -1,16 +1,15 @@
+import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
+import { Button } from '@boilerplate/ui/components/button';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Send } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 
-import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
-import { Button } from '@boilerplate/ui/components/button';
-import { useAppForm } from '@boilerplate/ui/form/useAppForm';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
-
 import {
+    type ResendEmailConfirmationFormValues,
     resendEmailConfirmationFormOptions,
-    ResendEmailConfirmationFormValues,
 } from '@/forms/resend-email-confirmation';
 import { resendVerificationEmail } from '@/repository/login';
 

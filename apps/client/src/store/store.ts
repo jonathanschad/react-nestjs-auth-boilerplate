@@ -25,7 +25,6 @@ const omittedProperties: Array<keyof Store> = ['accessToken'];
 
 export const useStore = create<Store>()(
     persist(
-         
         (set, get) => ({
             accessToken: null,
             isLoggedIn: false,

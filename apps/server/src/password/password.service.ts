@@ -1,15 +1,14 @@
-import * as uuid from 'uuid';
+import type { Language } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
+import * as uuid from 'uuid';
 
-import { Language } from '@boilerplate/prisma';
-
-import { AuthService } from '@/auth/auth.service';
-import { JWTService } from '@/auth/jwt.service';
-import { AppConfigService } from '@/config/app-config.service';
-import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
-import { PrismaService } from '@/database/prisma.service';
-import { DatabaseUserService } from '@/database/user/user.service';
-import { MailService } from '@/mail/mail.service';
+import type { AuthService } from '@/auth/auth.service';
+import type { JWTService } from '@/auth/jwt.service';
+import type { AppConfigService } from '@/config/app-config.service';
+import type { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
+import type { PrismaService } from '@/database/prisma.service';
+import type { DatabaseUserService } from '@/database/user/user.service';
+import type { MailService } from '@/mail/mail.service';
 import type { UserWithSettings } from '@/types/prisma';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 

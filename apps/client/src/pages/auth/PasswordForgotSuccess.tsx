@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
-
 import { Button } from '@boilerplate/ui/components/button';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import { Link } from 'react-router-dom';
 
 import ForgotPasswordSVG from '@/assets/illustrations/forgot-password.svg?react';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';

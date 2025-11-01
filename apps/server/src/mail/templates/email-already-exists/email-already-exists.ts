@@ -1,4 +1,4 @@
-import { TReaderDocument } from '@usewaypoint/email-builder';
+import type { TReaderDocument } from '@usewaypoint/email-builder';
 
 import { EMAIL_ACCENT_COLOR, EMAIL_TEXT_DISABLED_COLOR } from '@/mail/templates/default-template';
 

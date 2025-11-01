@@ -18,7 +18,7 @@ export default tseslint.config(
             sourceType: 'module',
             parserOptions: {
                 projectService: true,
-                // @ts-ignore
+                // @ts-expect-error
                 tsconfigRootDir: import.meta.dirname,
             },
         },

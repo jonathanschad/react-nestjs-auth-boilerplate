@@ -1,9 +1,8 @@
-import { MultipartFile } from '@fastify/multipart';
-import { Injectable, StreamableFile } from '@nestjs/common';
+import type { File } from '@boilerplate/prisma';
+import type { MultipartFile } from '@fastify/multipart';
+import { Injectable, type StreamableFile } from '@nestjs/common';
 
-import { File } from '@boilerplate/prisma';
-
-import { AppConfigService } from '@/config/app-config.service';
+import type { AppConfigService } from '@/config/app-config.service';
 import { FileSystemService } from '@/files/filesystem.storage';
 import { S3Service } from '@/files/s3.storage';
 

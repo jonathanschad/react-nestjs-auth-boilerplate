@@ -1,19 +1,18 @@
-import { useState } from 'react';
+import { Button } from '@boilerplate/ui/components/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@boilerplate/ui/components/table';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import {
-    ColumnDef,
+    type ColumnDef,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
-    PaginationState,
-    SortingState,
+    type PaginationState,
+    type SortingState,
     useReactTable,
 } from '@tanstack/react-table';
-
-import { Button } from '@boilerplate/ui/components/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@boilerplate/ui/components/table';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
+import { useState } from 'react';
 
 interface DataTableProps<T> {
     data: T[];

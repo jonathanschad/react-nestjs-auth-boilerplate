@@ -41,9 +41,7 @@ const lineReaderQuestionPromise = (question: string) => {
 
 function orderKeys(obj: Record<string, string>) {
     return Object.keys(obj)
-        .sort(function (a, b) {
-            return a.toLowerCase().localeCompare(b.toLowerCase());
-        })
+        .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
         .reduce(
             (acc, key) => ({
                 ...acc,

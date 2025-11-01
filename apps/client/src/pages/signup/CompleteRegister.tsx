@@ -1,13 +1,12 @@
+import { Button } from '@boilerplate/ui/components/button';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@boilerplate/ui/components/button';
-import { useAppForm } from '@boilerplate/ui/form/useAppForm';
-import { Translation } from '@boilerplate/ui/i18n/Translation';
-
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
-import { completeRegisterFormOptions, CompleteRegisterFormValues } from '@/forms/complete-register-form';
+import { type CompleteRegisterFormValues, completeRegisterFormOptions } from '@/forms/complete-register-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
 import { completeRegistration } from '@/repository/login';
 import { useStore } from '@/store/store';
