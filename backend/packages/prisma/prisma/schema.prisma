@@ -32,6 +32,10 @@ model User {
   accessTokens     AccessToken[]
   otherTokens      Token[]
   files            FilePermission[]
+  gamesPlayerA     Game[] @relation("PlayerA")
+  gamesPlayerB     Game[] @relation("PlayerB")
+  gameTurns        GameTurn[]
+  eloHistory       EloHistory[]
 }
 
 enum UserState {
@@ -137,4 +141,76 @@ model Token {
   updatedAt    DateTime  @updatedAt
   expiresAt    DateTime
   valid        Boolean   @default(true)
+}
+
+enum GamePlayer {
+  PLAYER_A
+  PLAYER_B
+}
+
+model EloHistory {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gameId String
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  playerId String
+  player User @relation(fields: [playerId], references: [id])
+  eloBefore Float
+  eloAfter Float
+  eloChange Float
+
+  @@unique([gameId, playerId])
+}
+
+model Game {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  playerAId String
+  playerBId String
+  playerA User @relation("PlayerA", fields: [playerAId], references: [id])
+  playerB User @relation("PlayerB", fields: [playerBId], references: [id])
+  gameStart DateTime
+  gameEnd DateTime
+  bullOffWinner GamePlayer
+  winner GamePlayer
+  turns GameTurn[]
+  gameStatistics GameStatisticsIndividual[]
+  eloHistory EloHistory[]
+}
+
+model GameStatisticsIndividual {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gameId String
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  player GamePlayer
+  wonBullOff Boolean
+  averageScore Float
+  averageUntilFirstPossibleFinish Float
+  throwsOnDouble Int
+  
+  @@unique([gameId, player])
+}
+
+model GameTurn {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gameId String
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  playerId String
+  player User @relation(fields: [playerId], references: [id])
+  turnNumber Int
+  throw1 Int?
+  throw1Multiplier Int?
+  throw2 Int?
+  throw2Multiplier Int?
+  throw3 Int?
+  throw3Multiplier Int?
+  totalScore Int
+
+  @@unique([gameId, turnNumber, playerId])
 }
