@@ -1,6 +1,7 @@
-import { type Game } from '@darts/prisma';
+import { type Game, Prisma } from '@darts/prisma';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
+import { GameWithTurns } from '@/types/prisma';
 
 @Injectable()
 export class DatabaseGameService {
@@ -29,6 +30,25 @@ export class DatabaseGameService {
             },
             orderBy: {
                 createdAt: 'desc',
+            },
+        });
+    }
+
+    async createGame(game: Prisma.GameCreateArgs['data']): Promise<Game> {
+        return this.prisma.game.create({
+            data: game,
+        });
+    }
+
+    async getGameWithTurnsById(id: string): Promise<GameWithTurns> {
+        return this.prisma.game.findFirstOrThrow({
+            where: { id },
+            include: {
+                turns: {
+                    orderBy: {
+                        turnNumber: 'asc',
+                    },
+                },
             },
         });
     }
