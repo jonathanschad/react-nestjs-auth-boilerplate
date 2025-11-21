@@ -13,7 +13,8 @@
         "format": "biome check --write",
         "tsc": "turbo tsc",
         "postinstall": "pnpm generate:prisma",
-        "generate:prisma": "pnpm --filter @darts/prisma db:generate"
+        "generate:prisma": "pnpm --filter @darts/prisma db:generate",
+        "db:migrate": "pnpm --filter @darts/prisma db:migrate"
     },
     "keywords": [],
     "author": "",

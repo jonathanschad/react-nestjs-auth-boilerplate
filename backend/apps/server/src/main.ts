@@ -45,7 +45,12 @@ async function bootstrap() {
         },
     });
     await app.register(fastifyAccepts);
-    await app.register(fastifyCors, { origin: appConfigService.frontendPublicUrl, credentials: true });
+    await app.register(fastifyCors, {
+        origin: appConfigService.frontendPublicUrl,
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    });
     await app.register(fastifyJwt, {
         secret: appConfigService.jwtTokenSecret,
     });
