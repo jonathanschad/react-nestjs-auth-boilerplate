@@ -10,10 +10,17 @@ class GameRepository {
         return ["Authorization": Configuration.basicAuthHeader]
     }
 
+    private let jsonEncoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
+    }()
+
     private init() {}
 
     func submitGameResult(
         gameId: UUID,
+        gameStartTime: Date,
         playerA: GamePlayer,
         playerB: GamePlayer,
         winner: Player
@@ -25,10 +32,15 @@ class GameRepository {
         // Combine and sort turns by turn number
         let allTurns = (turnsA + turnsB).sorted { $0.turnNumber < $1.turnNumber }
 
+        // Game end time is now
+        let gameEndTime = Date()
+
         let gameRequest = CreateGameRequest(
             playerAId: playerA.player.id,
             playerBId: playerB.player.id,
             winnerId: winner.id,
+            gameStart: gameStartTime,
+            gameEnd: gameEndTime,
             turns: allTurns
         )
 
@@ -36,7 +48,7 @@ class GameRepository {
             AF.request("\(baseURL)/dart/game/\(gameId.uuidString)",
                       method: .put,
                       parameters: gameRequest,
-                      encoder: JSONParameterEncoder.default,
+                      encoder: JSONParameterEncoder(encoder: jsonEncoder),
                       headers: authHeaders)
             .validate()
             .responseData { response in

@@ -11,6 +11,8 @@ struct CreateGameRequest: Encodable {
     let playerAId: String
     let playerBId: String
     let winnerId: String
+    let gameStart: Date
+    let gameEnd: Date
     let turns: [GameTurnRequest]
 }
 
