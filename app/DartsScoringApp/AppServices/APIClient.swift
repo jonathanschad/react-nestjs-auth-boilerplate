@@ -10,23 +10,25 @@ enum APIError: Error {
 }
 
 class APIClient {
-    private let baseURL = "https://dart-bot-stats-40bf895a4f48.herokuapp.com/api"
+    private let baseURL = Configuration.baseURL
     static let shared = APIClient()
     
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
-        // Create custom date formatter for MongoDB dates
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        // Use ISO8601 date decoding for new backend
+        decoder.dateDecodingStrategy = .iso8601
         return decoder
     }()
+
+    private var authHeaders: HTTPHeaders {
+        return ["Authorization": Configuration.basicAuthHeader]
+    }
     
     private init() {}
     
     func fetchPlayers() async throws -> [Player] {
         return try await withCheckedThrowingContinuation { continuation in
-            AF.request("\(baseURL)/players", method: .get)
+            AF.request("\(baseURL)/dart/player", method: .get, headers: authHeaders)
                 .validate()
                 .responseDecodable(of: [Player].self, decoder: decoder) { response in
                     // Log the request

@@ -1,57 +1,63 @@
 import Foundation
 import Alamofire
 
-struct GameResult: Encodable {
-    let winner: String
-    let loser: String
-    let format: GameFormat
-    
-    struct GameFormat: Encodable {
-        let type: String
-        let legs: Int
-        
-        init(startingPoints: StartingPoints, legs: Int = 1) {
-            self.type = startingPoints.displayName
-            self.legs = legs
-        }
-    }
-}
-
 class GameRepository {
     static let shared = GameRepository()
     private let apiClient = APIClient.shared
-    private let baseURL = "https://dart-bot-stats-40bf895a4f48.herokuapp.com/api"
-    
+    private let baseURL = Configuration.baseURL
+
+    private var authHeaders: HTTPHeaders {
+        return ["Authorization": Configuration.basicAuthHeader]
+    }
+
     private init() {}
-    
-    func submitGameResult(winner: Player, loser: Player, startingPoints: StartingPoints) async throws {
-        let gameResult = GameResult(
-            winner: winner.name,
-            loser: loser.name,
-            format: GameResult.GameFormat(startingPoints: startingPoints)
+
+    func submitGameResult(
+        gameId: UUID,
+        playerA: GamePlayer,
+        playerB: GamePlayer,
+        winner: Player
+    ) async throws {
+        // Convert game data to backend format
+        let turnsA = convertRoundsToTurns(rounds: playerA.rounds, playerId: playerA.player.id)
+        let turnsB = convertRoundsToTurns(rounds: playerB.rounds, playerId: playerB.player.id)
+
+        // Combine and sort turns by turn number
+        let allTurns = (turnsA + turnsB).sorted { $0.turnNumber < $1.turnNumber }
+
+        let gameRequest = CreateGameRequest(
+            playerAId: playerA.player.id,
+            playerBId: playerB.player.id,
+            winnerId: winner.id,
+            turns: allTurns
         )
-        
+
         return try await withCheckedThrowingContinuation { continuation in
-            AF.request("\(baseURL)/games",
-                      method: .post,
-                      parameters: gameResult,
-                      encoder: JSONParameterEncoder.default)
+            AF.request("\(baseURL)/dart/game/\(gameId.uuidString)",
+                      method: .put,
+                      parameters: gameRequest,
+                      encoder: JSONParameterEncoder.default,
+                      headers: authHeaders)
             .validate()
             .responseData { response in
                 // Log the request
                 print("🎮 Submitting game result:")
                 print("🌐 URL: \(String(describing: response.request?.url?.absoluteString))")
-                print("📤 Request Body: \(String(describing: gameResult))")
-                
+                print("📤 Game ID: \(gameId.uuidString)")
+                print("📤 Player A: \(playerA.player.name) (\(playerA.player.id))")
+                print("📤 Player B: \(playerB.player.name) (\(playerB.player.id))")
+                print("📤 Winner: \(winner.name) (\(winner.id))")
+                print("📤 Total Turns: \(allTurns.count)")
+
                 // Log the response
                 if let statusCode = response.response?.statusCode {
                     print("📥 Status Code: \(statusCode)")
                 }
-                
+
                 if let data = response.data, let json = try? JSONSerialization.jsonObject(with: data) {
                     print("📦 Response: \(json)")
                 }
-                
+
                 switch response.result {
                 case .success:
                     print("✅ Game result submitted successfully")
@@ -66,6 +72,23 @@ class GameRepository {
                     }
                 }
             }
+        }
+    }
+
+    private func convertRoundsToTurns(rounds: [DartRound], playerId: String) -> [GameTurnRequest] {
+        return rounds.enumerated().map { index, round in
+            let throws = round.dartThrows
+
+            return GameTurnRequest(
+                playerId: playerId,
+                turnNumber: index,
+                throw1: throws.count > 0 ? throws[0].number : nil,
+                throw1Multiplier: throws.count > 0 ? throws[0].multiplier.multiplier : nil,
+                throw2: throws.count > 1 ? throws[1].number : nil,
+                throw2Multiplier: throws.count > 1 ? throws[1].multiplier.multiplier : nil,
+                throw3: throws.count > 2 ? throws[2].number : nil,
+                throw3Multiplier: throws.count > 2 ? throws[2].multiplier.multiplier : nil
+            )
         }
     }
 } 

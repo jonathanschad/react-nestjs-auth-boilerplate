@@ -19,6 +19,7 @@ class GameViewModel: ObservableObject {
 
     // MARK: - Game State
 
+    let gameId: UUID = UUID() // Unique ID for this game session
     @Published var gameState: GameState = .playing
     @Published var selectedMultiplier: DartMultiplier = .single
     @Published var showingGameFinished: Bool = false
@@ -251,17 +252,16 @@ class GameViewModel: ObservableObject {
     internal func submitGameResult() {
         guard case .finished(let winner) = gameState else { return }
 
-        let loser = winner.id == player1.player.id ? player2.player : player1.player
-
         isSubmittingResult = true
         submitError = nil
 
         Task {
             do {
                 try await gameRepository.submitGameResult(
-                    winner: winner,
-                    loser: loser,
-                    startingPoints: gameSettings.startingPoints
+                    gameId: gameId,
+                    playerA: player1,
+                    playerB: player2,
+                    winner: winner
                 )
                 print("✅ Game result submitted successfully")
             } catch {
