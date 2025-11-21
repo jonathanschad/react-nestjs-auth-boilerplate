@@ -34,12 +34,12 @@ class APIClient {
                     // Log the request
                     print("🌐 Request: \(String(describing: response.request?.url?.absoluteString))")
                     print("📤 Headers: \(String(describing: response.request?.allHTTPHeaderFields))")
-                    
+
                     // Log the response
                     if let statusCode = response.response?.statusCode {
                         print("📥 Status Code: \(statusCode)")
                     }
-                    
+
                     switch response.result {
                     case .success(let players):
                         print("✅ Successfully decoded \(players.count) players")
@@ -53,6 +53,38 @@ class APIClient {
                             continuation.resume(throwing: APIError.serverError(serverError))
                         } else {
                             print("🔥 Network Error: \(error)")
+                            continuation.resume(throwing: APIError.networkError(error))
+                        }
+                    }
+                }
+        }
+    }
+
+    func fetchGamePreview(playerAId: String, playerBId: String) async throws -> GamePreviewResponse {
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.request("\(baseURL)/dart/game/preview/playerA/\(playerAId)/playerB/\(playerBId)",
+                      method: .get,
+                      headers: authHeaders)
+                .validate()
+                .responseDecodable(of: GamePreviewResponse.self, decoder: decoder) { response in
+                    // Log the request
+                    print("🎲 Game Preview Request: \(String(describing: response.request?.url?.absoluteString))")
+
+                    // Log the response
+                    if let statusCode = response.response?.statusCode {
+                        print("📥 Status Code: \(statusCode)")
+                    }
+
+                    switch response.result {
+                    case .success(let preview):
+                        print("✅ Successfully fetched game preview")
+                        continuation.resume(returning: preview)
+                    case .failure(let error):
+                        print("❌ Error fetching game preview: \(error.localizedDescription)")
+                        if let data = response.data, let serverError = String(data: data, encoding: .utf8) {
+                            print("🔥 Server Error: \(serverError)")
+                            continuation.resume(throwing: APIError.serverError(serverError))
+                        } else {
                             continuation.resume(throwing: APIError.networkError(error))
                         }
                     }

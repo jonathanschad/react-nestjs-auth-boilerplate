@@ -56,6 +56,11 @@ struct GameSetupView: View {
                         }
                     }
 
+                    // MARK: - Game Preview
+                    if let preview = viewModel.gamePreview {
+                        GamePreviewCard(preview: preview)
+                    }
+
                     // MARK: - Game Mode
                     VStack(alignment: .leading, spacing: DesignSystem.Spacing.lg) {
                         Text("Spielmodus")
