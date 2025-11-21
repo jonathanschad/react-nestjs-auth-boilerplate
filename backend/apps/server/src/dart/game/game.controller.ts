@@ -1,0 +1,25 @@
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Put } from '@nestjs/common';
+import { BasicAuthRoute } from '@/auth/auth.guard';
+import { CreateGameDTO, CreateGameParamsDTO, GamePreviewResponseDTO, GetGamePreviewParamsDTO } from '@/dart/game/game.dto';
+import { GameService } from '@/dart/game/game.service';
+import { DatabaseUserService } from '@/database/user/user.service';
+import { DatabaseEloHistoryService } from '@/database/elo-history/elo-history.service';
+
+@Controller('dart/game')
+export class GameController {
+    constructor(private readonly gameService: GameService, private readonly databaseUserService: DatabaseUserService, private readonly databaseEloHistoryService: DatabaseEloHistoryService) {}
+
+    @Put(':uuid')
+    @HttpCode(HttpStatus.OK)
+    @BasicAuthRoute()
+    async createGame(@Param() { uuid }: CreateGameParamsDTO, @Body() createGameDto: CreateGameDTO): Promise<void> {
+        await this.gameService.createGame(uuid, createGameDto);
+    }
+
+    @Get('preview/playerA/:playerAId/playerB/:playerBId')
+    @HttpCode(HttpStatus.OK)
+    @BasicAuthRoute()
+    async getGamePreview(@Param() { playerAId, playerBId }: GetGamePreviewParamsDTO): Promise<GamePreviewResponseDTO> {
+        return await this.gameService.getGamePreview(playerAId, playerBId);
+    }
+}

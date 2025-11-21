@@ -170,4 +170,13 @@ export class DatabaseUserService {
             settings: user.settings,
         };
     }
+
+    async findAll(): Promise<Pick<User, 'id' | 'name'>[]> {
+        return this.prisma.user.findMany({
+            select: {
+                id: true,
+                name: true,
+            },
+        });
+    }
 }

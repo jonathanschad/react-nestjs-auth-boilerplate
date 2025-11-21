@@ -1,11 +1,4 @@
-import {
-    type File,
-    FileAccess,
-    type FilePermission,
-    FilePermissionType,
-    type Prisma,
-    type User,
-} from '@darts/prisma';
+import { type File, FileAccess, type FilePermission, FilePermissionType, type Prisma, type User } from '@darts/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 
 import { PrismaService } from '@/database/prisma.service';

@@ -192,4 +192,12 @@ export class AppConfigService {
             return null;
         }
     }
+
+    get appBasicAuthUsername(): string | null {
+        return this.get('APP_BASIC_AUTH_USERNAME');
+    }
+
+    get appBasicAuthPassword(): string | null {
+        return this.get('APP_BASIC_AUTH_PASSWORD');
+    }
 }

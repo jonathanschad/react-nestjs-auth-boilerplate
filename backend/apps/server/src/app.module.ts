@@ -6,6 +6,8 @@ import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { AuthModule } from '@/auth/auth.module';
 import { AppConfigModule } from '@/config/app-config.module';
+import { GameModule } from '@/dart/game/game.module';
+import { PlayerModule } from '@/dart/player/player.module';
 import { DatabaseModule } from '@/database/database.module';
 import { FileModule } from '@/files/file.module';
 import { MailModule } from '@/mail/mail.module';
@@ -24,6 +26,8 @@ import { UserModule } from '@/user/user.module';
         PasswordModule,
         FileModule,
         UserModule,
+        GameModule,
+        PlayerModule,
         SentryModule.forRoot(),
     ],
     controllers: [AppController],
