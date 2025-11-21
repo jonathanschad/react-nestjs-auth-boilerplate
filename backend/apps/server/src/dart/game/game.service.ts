@@ -5,7 +5,6 @@ import type { CreateGameDTO, GamePreviewResponseDTO } from '@/dart/game/game.dto
 import { DatabaseEloHistoryService } from '@/database/elo-history/elo-history.service';
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseGameStatisticService } from '@/database/game/game-statistic.service';
-import { DatabaseGameTurnService } from '@/database/game/game-turn.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
 @Injectable()
@@ -14,7 +13,6 @@ export class GameService {
         private readonly databaseUserService: DatabaseUserService,
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
         private readonly databaseGameService: DatabaseGameService,
-        private readonly databaseGameTurnService: DatabaseGameTurnService,
         private readonly databaseGameStatisticService: DatabaseGameStatisticService,
     ) {}
 
