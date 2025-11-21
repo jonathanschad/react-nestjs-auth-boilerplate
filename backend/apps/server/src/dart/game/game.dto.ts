@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsInt, IsUUID, Max, Min, ValidateNested } from 'class-validator';
+import { IsDate, IsInt, IsNotEmpty, IsUUID, Max, Min, ValidateNested } from 'class-validator';
 import { AllowNull } from '@/util/validators/allow-null';
 
 export class CreateGameParamsDTO {
@@ -24,6 +24,14 @@ export class CreateGameDTO {
 
     @IsUUID()
     winnerId!: string;
+
+    @IsDate()
+    @IsNotEmpty()
+    gameStart!: Date;
+
+    @IsDate()
+    @IsNotEmpty()
+    gameEnd!: Date;
 
     @ValidateNested()
     @Type(() => GameTurnDTO)
@@ -78,8 +86,8 @@ export type GamePreviewResponseDTO = {
         id: string;
         name: string;
         elo: {
-            onWin: number; 
-            onLoss: number; 
+            onWin: number;
+            onLoss: number;
             current: number;
         };
     };
@@ -87,9 +95,9 @@ export type GamePreviewResponseDTO = {
         id: string;
         name: string;
         elo: {
-            onWin: number; 
-            onLoss: number; 
+            onWin: number;
+            onLoss: number;
             current: number;
         };
     };
-}
+};

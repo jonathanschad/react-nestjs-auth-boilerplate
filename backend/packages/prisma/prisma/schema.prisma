@@ -35,7 +35,11 @@ model User {
   gamesPlayerA     Game[] @relation("PlayerA")
   gamesPlayerB     Game[] @relation("PlayerB")
   gameTurns        GameTurn[]
+  bullOffWins      Game[] @relation("BullOffWinner")
+  wins             Game[] @relation("Winner")
+  losses           Game[] @relation("Loser")
   eloHistory       EloHistory[]
+  gameStatistics   GameStatisticsIndividual[]
 }
 
 enum UserState {
@@ -173,8 +177,12 @@ model Game {
   playerB User @relation("PlayerB", fields: [playerBId], references: [id])
   gameStart DateTime
   gameEnd DateTime
-  bullOffWinner GamePlayer
-  winner GamePlayer
+  bullOffWinnerId String
+  bullOffWinner User @relation("BullOffWinner", fields: [bullOffWinnerId], references: [id])
+  winnerId String
+  winner User @relation("Winner", fields: [winnerId], references: [id])
+  loserId String
+  loser User @relation("Loser", fields: [loserId], references: [id])
   turns GameTurn[]
   gameStatistics GameStatisticsIndividual[]
   eloHistory EloHistory[]
@@ -186,13 +194,14 @@ model GameStatisticsIndividual {
   updatedAt DateTime @updatedAt
   gameId String
   game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  player GamePlayer
+  playerId String
+  player User @relation(fields: [playerId], references: [id], onDelete: Cascade)
   wonBullOff Boolean
   averageScore Float
   averageUntilFirstPossibleFinish Float
   throwsOnDouble Int
   
-  @@unique([gameId, player])
+  @@unique([gameId, playerId])
 }
 
 model GameTurn {
