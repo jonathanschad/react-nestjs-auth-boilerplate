@@ -1,0 +1,32 @@
+services:
+    db:
+        image: 'postgres:17'
+        ports:
+            - '5432:5432'
+        environment:
+            POSTGRES_USER: 'darts'
+            POSTGRES_PASSWORD: 'mysecretpassword'
+            POSTGRES_DB: 'darts_db'
+        volumes:
+            - postgres:/var/lib/postgresql/data
+
+    server:
+        build: .
+        ports:
+            - '3000:3000'
+        env_file:
+            - .env
+        volumes:
+            - ./directory/to/your/privacy/policy:/apps/server/dist/src/assets/privacy-policy/files:ro
+        environment:
+            DATABASE_URL: 'postgresql://darts:mysecretpassword@db:5432/darts_db'
+            PORT: 3000
+            HOST: 0.0.0.0
+            VITE_BACKEND_URL: 'http://localhost:3000'
+            VITE_FRONTEND_URL: 'http://localhost:3000'
+        depends_on:
+            - 'db'
+
+volumes:
+    postgres:
+        name: darts-db
