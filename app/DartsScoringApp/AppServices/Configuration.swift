@@ -6,7 +6,7 @@ enum Configuration {
     static var baseURL: String {
         // TODO: Replace with actual production URL when available
         #if DEBUG
-        return "http://localhost:8080/api"
+        return "http://localhost:3003/api"
         #else
         return "https://your-production-domain.com/api"
         #endif
@@ -16,12 +16,12 @@ enum Configuration {
 
     static var basicAuthUsername: String {
         // TODO: Replace with actual credentials
-        return "your-username"
+        return "test"
     }
 
     static var basicAuthPassword: String {
         // TODO: Replace with actual credentials
-        return "your-password"
+        return "test"
     }
 
     static var basicAuthHeader: String {

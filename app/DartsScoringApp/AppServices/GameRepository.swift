@@ -77,17 +77,17 @@ class GameRepository {
 
     private func convertRoundsToTurns(rounds: [DartRound], playerId: String) -> [GameTurnRequest] {
         return rounds.enumerated().map { index, round in
-            let throws = round.dartThrows
+            let dartThrows = round.dartThrows
 
             return GameTurnRequest(
                 playerId: playerId,
                 turnNumber: index,
-                throw1: throws.count > 0 ? throws[0].number : nil,
-                throw1Multiplier: throws.count > 0 ? throws[0].multiplier.multiplier : nil,
-                throw2: throws.count > 1 ? throws[1].number : nil,
-                throw2Multiplier: throws.count > 1 ? throws[1].multiplier.multiplier : nil,
-                throw3: throws.count > 2 ? throws[2].number : nil,
-                throw3Multiplier: throws.count > 2 ? throws[2].multiplier.multiplier : nil
+                throw1: dartThrows.count > 0 ? dartThrows[0].number : nil,
+                throw1Multiplier: dartThrows.count > 0 ? dartThrows[0].multiplier.multiplier : nil,
+                throw2: dartThrows.count > 1 ? dartThrows[1].number : nil,
+                throw2Multiplier: dartThrows.count > 1 ? dartThrows[1].multiplier.multiplier : nil,
+                throw3: dartThrows.count > 2 ? dartThrows[2].number : nil,
+                throw3Multiplier: dartThrows.count > 2 ? dartThrows[2].multiplier.multiplier : nil
             )
         }
     }
