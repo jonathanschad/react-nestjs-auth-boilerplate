@@ -167,6 +167,17 @@ model EloHistory {
   @@unique([gameId, playerId])
 }
 
+enum GameCheckoutMode {
+  SINGLE_OUT
+  DOUBLE_OUT
+  MASTER_OUT
+}
+
+enum GameType {
+  X301
+  X501
+}
+
 model Game {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
@@ -183,6 +194,8 @@ model Game {
   winner User @relation("Winner", fields: [winnerId], references: [id])
   loserId String
   loser User @relation("Loser", fields: [loserId], references: [id])
+  type GameType
+  checkoutMode GameCheckoutMode
   turns GameTurn[]
   gameStatistics GameStatisticsIndividual[]
   eloHistory EloHistory[]

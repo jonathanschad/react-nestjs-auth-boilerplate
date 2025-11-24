@@ -1,5 +1,6 @@
+import { GameCheckoutMode, GameType } from '@darts/prisma';
 import { Type } from 'class-transformer';
-import { IsDate, IsInt, IsNotEmpty, IsUUID, Max, Min, ValidateNested } from 'class-validator';
+import { IsDate, IsEnum, IsInt, IsNotEmpty, IsUUID, Max, Min, ValidateNested } from 'class-validator';
 import { AllowNull } from '@/util/validators/allow-null';
 
 export class CreateGameParamsDTO {
@@ -32,6 +33,12 @@ export class CreateGameDTO {
     @IsDate()
     @IsNotEmpty()
     gameEnd!: Date;
+
+    @IsEnum(GameType)
+    type!: GameType;
+
+    @IsEnum(GameCheckoutMode)
+    checkoutMode!: GameCheckoutMode;
 
     @ValidateNested()
     @Type(() => GameTurnDTO)
