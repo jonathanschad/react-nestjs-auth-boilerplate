@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { GameResult, RankingService } from '@/dart/ranking/ranking';
-import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 
 export const DEFAULT_ELO = 1000;
 
@@ -11,7 +10,7 @@ export class EloService implements RankingService<number> {
     private readonly DEFAULT_ELO = DEFAULT_ELO;
     private readonly SCALE_FACTOR = 400;
 
-    constructor(private readonly databaseEloHistoryService: DatabaseEloHistoryService) {}
+    constructor() {}
 
     private calculateWinProbability(
         ratingPlayerA: number,

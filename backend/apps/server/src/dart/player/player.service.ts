@@ -20,7 +20,7 @@ export class PlayerService {
 
         for (const user of users) {
             const mostRecentGame = await this.databaseGameService.getMostRecentGameByUserId(user.id);
-            const currentUserElo = await this.databaseEloHistoryService.getCurrentEloByUserId(user.id);
+            const currentUserElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(user.id);
 
             playerResponse.push({
                 id: user.id,
