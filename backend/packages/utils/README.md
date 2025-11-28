@@ -1,1 +1,0 @@
-This is just a test package to test the monorepo setup. This is an almost empty package that could be used as a blueprint for new packages.
