@@ -1,10 +1,12 @@
 import { GameTurn, GameType, Prisma } from '@darts/prisma';
 import { Injectable } from '@nestjs/common';
-import assert from 'assert';
 import type { CreateGameDTO, GamePreviewResponseDTO } from '@/dart/game/game.dto';
-import { DatabaseEloHistoryService } from '@/database/elo-history/elo-history.service';
+import { EloService } from '@/dart/ranking/elo.service';
+import { GameResult } from '@/dart/ranking/ranking';
+import { RankingHistoryService } from '@/dart/ranking/ranking-history.service';
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseGameStatisticService } from '@/database/game/game-statistic.service';
+import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 import { getPointsForGameType, getPossibleFinishes } from '@/util/darts';
 
@@ -22,6 +24,8 @@ export class GameService {
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
         private readonly databaseGameService: DatabaseGameService,
         private readonly databaseGameStatisticService: DatabaseGameStatisticService,
+        private readonly eloService: EloService,
+        private readonly rankingHistoryService: RankingHistoryService,
     ) {}
 
     async createGame(uuid: string, createGameDto: CreateGameDTO) {
@@ -31,7 +35,6 @@ export class GameService {
         const loser = createGameDto.winnerId === playerA.id ? playerB : playerA;
 
         const firstThrow = createGameDto.turns.find((turn) => turn.turnNumber === 0);
-        assert(firstThrow, 'First throw is required');
 
         createGameDto.turns.sort((a, b) => a.turnNumber - b.turnNumber);
 
@@ -71,6 +74,8 @@ export class GameService {
         });
 
         await this.upsertGameStatistics(game.id);
+
+        await this.rankingHistoryService.calculateNewRankings(game);
 
         return;
     }
@@ -166,26 +171,29 @@ export class GameService {
         const playerA = await this.databaseUserService.findByUuid(playerAId);
         const playerB = await this.databaseUserService.findByUuid(playerBId);
 
-        const playerAElo = await this.databaseEloHistoryService.getCurrentEloByUserId(playerAId);
-        const playerBElo = await this.databaseEloHistoryService.getCurrentEloByUserId(playerBId);
+        const playerAElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerAId);
+        const playerBElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerBId);
+
+        const ratingOnPlayerAWin = this.eloService.getNewRankings(playerAElo, playerBElo, GameResult.WIN_PLAYER_A);
+        const ratingOnPlayerBWin = this.eloService.getNewRankings(playerAElo, playerBElo, GameResult.WIN_PLAYER_B);
 
         return {
             playerA: {
                 id: playerA.id,
                 name: playerA.name ?? '',
                 elo: {
-                    onWin: 0,
-                    onLoss: 0,
-                    current: playerAElo ?? 1000,
+                    onWin: ratingOnPlayerAWin.playerA.newRating,
+                    onLoss: ratingOnPlayerBWin.playerA.newRating,
+                    current: playerAElo,
                 },
             },
             playerB: {
                 id: playerB.id,
                 name: playerB.name ?? '',
                 elo: {
-                    onWin: 0,
-                    onLoss: 0,
-                    current: playerBElo ?? 1000,
+                    onWin: ratingOnPlayerBWin.playerB.newRating,
+                    onLoss: ratingOnPlayerAWin.playerB.newRating,
+                    current: playerBElo,
                 },
             },
         };

@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { GameController } from '@/dart/game/game.controller';
 import { GameService } from '@/dart/game/game.service';
+import { RankingModule } from '@/dart/ranking/ranking.module';
 import { DatabaseModule } from '@/database/database.module';
 
 @Module({
-    imports: [DatabaseModule],
+    imports: [DatabaseModule, RankingModule],
     controllers: [GameController],
     providers: [GameService],
     exports: [GameService],

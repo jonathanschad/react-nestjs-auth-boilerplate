@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import type { PlayerResponseDTO } from '@/dart/player/player.dto';
-import { DatabaseEloHistoryService } from '@/database/elo-history/elo-history.service';
 import { DatabaseGameService } from '@/database/game/game.service';
+import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
 @Injectable()

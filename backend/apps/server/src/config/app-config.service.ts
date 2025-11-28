@@ -200,4 +200,8 @@ export class AppConfigService {
     get appBasicAuthPassword(): string | null {
         return this.get('APP_BASIC_AUTH_PASSWORD');
     }
+
+    get oldSystemMongoDbConnection(): string {
+        return this.get('OLD_MONGO_DB_CONNECTION');
+    }
 }

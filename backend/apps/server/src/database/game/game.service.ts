@@ -52,4 +52,18 @@ export class DatabaseGameService {
             },
         });
     }
+
+    async find(where: Prisma.GameWhereInput): Promise<Game | null> {
+        return this.prisma.game.findFirst({
+            where,
+        });
+    }
+
+    async getAllGamesAsc(): Promise<Game[]> {
+        return this.prisma.game.findMany({
+            orderBy: {
+                gameStart: 'asc',
+            },
+        });
+    }
 }
