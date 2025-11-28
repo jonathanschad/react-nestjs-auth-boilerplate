@@ -3,7 +3,7 @@ export enum GameResult {
     WIN_PLAYER_B = 'WIN_PLAYER_B',
 }
 
-export class RankingService<Rating> {
+export class RankingServiceInterface<Rating> {
     public getNewRankings(
         _ratingPlayerA: Rating,
         _ratingPlayerB: Rating,

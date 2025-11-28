@@ -14,4 +14,8 @@ export class DatabaseHistoryInterface<DatabaseEntity, CreateInput, RatingType> {
     public clearHistory(): Promise<void> {
         throw new Error('Not implemented');
     }
+
+    public getRankingForUsersAtTimestamp(_timestamp: Date): Promise<{ userId: string; ranking: RatingType }[]> {
+        throw new Error('Not implemented');
+    }
 }

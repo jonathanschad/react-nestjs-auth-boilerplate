@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ordinal, type Rating, rate } from 'openskill';
-import { GameResult, RankingService } from '@/dart/ranking/ranking';
+import { GameResult, RankingServiceInterface } from '@/dart/ranking/ranking';
 
 /**
  * Service for calculating ELO ratings between two players
  * Uses the standard ELO rating system with a K-factor of 32
  */
 @Injectable()
-export class OpenSkillService implements RankingService<Rating> {
+export class OpenSkillService implements RankingServiceInterface<Rating> {
     public getNewRankings(
         ratingPlayerA: Rating,
         ratingPlayerB: Rating,

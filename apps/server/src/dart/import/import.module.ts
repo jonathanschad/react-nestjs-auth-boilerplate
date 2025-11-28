@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppConfigModule } from '@/config/app-config.module';
 import { GameModule } from '@/dart/game/game.module';
+import { ImportGamesFromOldSystemService } from '@/dart/import/import-games-from-old-system.service';
 import { DatabaseModule } from '@/database/database.module';
-import { ImportGamesFromOldSystemService } from '@/import/import-games-from-old-system.service';
 
 @Module({
     imports: [AppConfigModule, DatabaseModule, GameModule],

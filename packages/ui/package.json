@@ -1,0 +1,58 @@
+{
+    "name": "@darts/ui",
+    "version": "0.7.0",
+    "description": "",
+    "private": "true",
+    "license": "MIT",
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "tsc": "tsc --noEmit"
+    },
+    "exports": {
+        "./globals.css": "./src/assets/global.css",
+        "./postcss.config": "./postcss.config.mjs",
+        "./tailwind.config": "./tailwind.config.ts",
+        "./lib/*": "./src/lib/*.ts",
+        "./hooks/*": ["./src/hooks/*.ts", "./src/hooks/*.tsx"],
+        "./components/*": ["./src/components/*.tsx", "./src/components/*.ts"],
+        "./i18n/*": ["./src/i18n/*.tsx", "./src/i18n/*.ts"],
+        "./form/*": ["./src/form/*.tsx", "./src/form/*.ts"]
+    },
+    "dependencies": {
+        "@darts/eslint-config": "workspace:*",
+        "@darts/ts-config": "workspace:*",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "catalog:frontend",
+        "@tanstack/react-table": "catalog:frontend",
+        "@tanstack/react-form": "catalog:frontend",
+        "lucide-react": "catalog:frontend",
+        "@radix-ui/react-avatar": "^1.1.1",
+        "@radix-ui/react-checkbox": "^1.1.1",
+        "@radix-ui/react-dialog": "^1.1.2",
+        "@radix-ui/react-dropdown-menu": "^2.1.2",
+        "@radix-ui/react-label": "^2.1.0",
+        "@radix-ui/react-slot": "^1.1.0",
+        "react-dom": "catalog:react18",
+        "tailwind-merge": "catalog:frontend",
+        "tailwindcss-animate": "catalog:frontend",
+        "react-i18next": "catalog:frontend",
+        "react": "catalog:react18"
+    },
+    "devDependencies": {
+        "tailwindcss": "catalog:frontend",
+        "typescript-eslint": "catalog:",
+        "typescript": "catalog:",
+        "eslint": "catalog:",
+        "eslint-plugin-react-hooks": "catalog:",
+        "eslint-plugin-react-refresh": "catalog:",
+        "@typescript-eslint/eslint-plugin": "catalog:",
+        "@types/react": "catalog:react18",
+        "@typescript-eslint/parser": "catalog:",
+        "vite-plugin-svgr": "catalog:frontend",
+        "@types/react-dom": "catalog:react18"
+    },
+    "keywords": [],
+    "author": "",
+    "packageManager": "pnpm@10.8.1"
+}

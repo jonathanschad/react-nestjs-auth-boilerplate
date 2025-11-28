@@ -1,0 +1,257 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../dist/"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String           @id @default(uuid())
+  email            String           @unique
+  state            UserState        @default(UNVERIFIED)
+  googleOAuthId    String?
+  password         Bytes?
+  salt             String?
+  name             String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  settingsId       String           @unique
+  settings         UserSettings     @relation(fields: [settingsId], references: [id])
+  profilePictureId String?          @unique
+  profilePicture   File?            @relation(fields: [profilePictureId], references: [id])
+  refreshTokens    RefreshToken[]
+  accessTokens     AccessToken[]
+  otherTokens      Token[]
+  files            FilePermission[]
+  gamesPlayerA     Game[] @relation("PlayerA")
+  gamesPlayerB     Game[] @relation("PlayerB")
+  gameTurns        GameTurn[]
+  bullOffWins      Game[] @relation("BullOffWinner")
+  wins             Game[] @relation("Winner")
+  losses           Game[] @relation("Loser")
+  eloHistory       EloHistory[]
+  gameStatistics   GameStatisticsIndividual[]
+  openSkillHistory OpenSkillHistory[]
+}
+
+enum UserState {
+  UNVERIFIED
+  VERIFIED
+  COMPLETE
+  INACTIVE
+}
+
+model UserSettings {
+  id                   String   @id @default(uuid())
+  user                 User?
+  notificationsEnabled Boolean
+  language             Language @default(EN)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+enum Language {
+  EN
+  DE
+}
+
+model File {
+  id                 String           @id @default(uuid())
+  name               String
+  path               String
+  mimeType           String
+  size               Int
+  access             FileAccess       @default(PRIVATE)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  usersWithAccess    FilePermission[]
+  profilePictureUser User?
+}
+
+enum FileAccess {
+  PRIVATE
+  PUBLIC
+}
+
+model FilePermission {
+  fileId     String
+  userId     String
+  permission FilePermissionType
+  file       File                 @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+
+  @@id([fileId, userId])
+}
+
+enum FilePermissionType {
+  DENIED
+  READ
+  WRITE
+  DELETE
+  CREATOR
+}
+
+model RefreshToken {
+  refreshTokenId String        @id @default(uuid())
+  token          String        @unique
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  lastUsedAt     DateTime      @default(now())
+  expiresAt      DateTime
+  valid          Boolean       @default(true)
+  rememberUser   Boolean       @default(false)
+  userId         String
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessTokens   AccessToken[]
+}
+
+model AccessToken {
+  accessTokenId  String       @id @default(uuid())
+  token          String       @unique
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  lastUsedAt     DateTime     @default(now())
+  expiresAt      DateTime
+  valid          Boolean      @default(true)
+  refreshTokenId String
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshToken   RefreshToken @relation(fields: [refreshTokenId], references: [refreshTokenId], onDelete: Cascade)
+}
+
+enum TokenType {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+  CONNECT_GOOGLE_ACCOUNT
+}
+
+model Token {
+  id           String    @id @default(uuid())
+  type         TokenType
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hashedSecret String    @unique
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  expiresAt    DateTime
+  valid        Boolean   @default(true)
+}
+
+enum GamePlayer {
+  PLAYER_A
+  PLAYER_B
+}
+
+model EloHistory {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gameId String
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  playerId String
+  player User @relation(fields: [playerId], references: [id])
+  eloBefore Float
+  eloAfter Float
+
+  @@unique([gameId, playerId])
+}
+
+model OpenSkillHistory {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gameId String
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  playerId String
+  player User @relation(fields: [playerId], references: [id])
+  muBefore Float
+  muAfter Float
+  sigmaBefore Float
+  sigmaAfter Float
+  ordinalBefore Float
+  ordinalAfter Float
+
+  @@unique([gameId, playerId])
+}
+
+enum GameCheckoutMode {
+  SINGLE_OUT
+  DOUBLE_OUT
+  MASTER_OUT
+}
+
+enum GameType {
+  X301
+  X501
+}
+
+model Game {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  playerAId String
+  playerBId String
+  playerA User @relation("PlayerA", fields: [playerAId], references: [id])
+  playerB User @relation("PlayerB", fields: [playerBId], references: [id])
+  gameStart DateTime
+  gameEnd DateTime
+  bullOffWinnerId String?
+  bullOffWinner User? @relation("BullOffWinner", fields: [bullOffWinnerId], references: [id])
+  winnerId String
+  winner User @relation("Winner", fields: [winnerId], references: [id])
+  loserId String
+  loser User @relation("Loser", fields: [loserId], references: [id])
+  type GameType
+  checkoutMode GameCheckoutMode
+  turns GameTurn[]
+  gameStatistics GameStatisticsIndividual[]
+  eloHistory EloHistory[]
+  openSkillHistory OpenSkillHistory[]
+}
+
+model GameStatisticsIndividual {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gameId String
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  playerId String
+  player User @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  wonBullOff Boolean
+  averageScore Float
+  averageUntilFirstPossibleFinish Float
+  throwsOnDouble Int
+  
+  @@unique([gameId, playerId])
+}
+
+model GameTurn {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gameId String
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  playerId String
+  player User @relation(fields: [playerId], references: [id])
+  turnNumber Int
+  throw1 Int?
+  throw1Multiplier Int?
+  throw2 Int?
+  throw2Multiplier Int?
+  throw3 Int?
+  throw3Multiplier Int?
+  totalScore Int
+
+  @@unique([gameId, turnNumber, playerId])
+}

@@ -1,0 +1,11 @@
+{
+    "extends": "@darts/ts-config/react.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@darts/ui/*": ["./src/*"]
+        }
+    },
+    "include": ["src/**/*", "postcss.config.mjs", "tailwind.config.ts"],
+    "exclude": ["node_modules"]
+}

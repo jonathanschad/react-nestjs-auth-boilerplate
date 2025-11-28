@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { GameResult, RankingService } from '@/dart/ranking/ranking';
+import { GameResult, RankingServiceInterface } from '@/dart/ranking/ranking';
 
 export const DEFAULT_ELO = 1000;
 
 @Injectable()
-export class EloService implements RankingService<number> {
+export class EloService implements RankingServiceInterface<number> {
     private readonly K_FACTOR = 32;
     private readonly EXPONENT_BASE = 10;
     private readonly DEFAULT_ELO = DEFAULT_ELO;

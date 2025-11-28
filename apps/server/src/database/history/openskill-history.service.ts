@@ -11,9 +11,18 @@ export class DatabaseOpenSkillHistoryService
     constructor(private prisma: PrismaService) {}
 
     async getCurrentRatingByUserId(userId: string): Promise<Rating> {
+        return this.getRankingForUserAtTimestamp(userId, new Date());
+    }
+
+    public async getRankingForUserAtTimestamp(userId: string, timestamp: Date): Promise<Rating> {
         const lastOpenSkillHistory = await this.prisma.openSkillHistory.findFirst({
             where: {
                 playerId: userId,
+                game: {
+                    gameEnd: {
+                        lte: timestamp,
+                    },
+                },
             },
             orderBy: {
                 createdAt: 'desc',
@@ -44,5 +53,30 @@ export class DatabaseOpenSkillHistoryService
 
     public async clearHistory(): Promise<void> {
         await this.prisma.openSkillHistory.deleteMany();
+    }
+
+    public async getRankingForUsersAtTimestamp(timestamp: Date): Promise<{ userId: string; ranking: Rating }[]> {
+        const playersWithGamesAtTimestamp = await this.prisma.eloHistory.findMany({
+            where: {
+                game: {
+                    gameEnd: {
+                        lte: timestamp,
+                    },
+                },
+            },
+            distinct: ['playerId'],
+            select: {
+                playerId: true,
+            },
+        });
+
+        return await Promise.all(
+            playersWithGamesAtTimestamp.map(async (player) => {
+                return {
+                    userId: player.playerId,
+                    ranking: await this.getRankingForUserAtTimestamp(player.playerId, timestamp),
+                };
+            }),
+        );
     }
 }

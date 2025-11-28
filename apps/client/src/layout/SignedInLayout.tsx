@@ -45,6 +45,17 @@ export const SignedInLayout = () => {
                         <Translation>dashboard</Translation>
                     </Link>
                     <Link
+                        to="/ranking"
+                        className={clsx(
+                            currentlySelectedRoute === CurrentlySelectedRouteOptions.RANKING
+                                ? 'text-foreground'
+                                : 'text-muted-foreground',
+                            'transition-colors hover:text-foreground',
+                        )}
+                    >
+                        <Translation>ranking</Translation>
+                    </Link>
+                    <Link
                         to="/settings"
                         className={clsx(
                             currentlySelectedRoute === CurrentlySelectedRouteOptions.SETTINGS
@@ -83,6 +94,17 @@ export const SignedInLayout = () => {
                                 )}
                             >
                                 <Translation>dashboard</Translation>
+                            </Link>
+                            <Link
+                                to="/ranking"
+                                className={clsx(
+                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.RANKING
+                                        ? 'text-foreground'
+                                        : 'text-muted-foreground',
+                                    'hover:text-foreground',
+                                )}
+                            >
+                                <Translation>ranking</Translation>
                             </Link>
                             <Link
                                 to="/settings"

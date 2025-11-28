@@ -11,9 +11,18 @@ export class DatabaseEloHistoryService
     constructor(private prisma: PrismaService) {}
 
     public async getCurrentRatingByUserId(userId: string): Promise<number> {
+        return this.getRankingForUserAtTimestamp(userId, new Date());
+    }
+
+    public async getRankingForUserAtTimestamp(userId: string, timestamp: Date): Promise<number> {
         const lastEloHistory = await this.prisma.eloHistory.findFirst({
             where: {
                 playerId: userId,
+                game: {
+                    gameEnd: {
+                        lte: timestamp,
+                    },
+                },
             },
             orderBy: {
                 createdAt: 'desc',
@@ -42,5 +51,30 @@ export class DatabaseEloHistoryService
 
     public async clearHistory(): Promise<void> {
         await this.prisma.eloHistory.deleteMany();
+    }
+
+    public async getRankingForUsersAtTimestamp(timestamp: Date): Promise<{ userId: string; ranking: number }[]> {
+        const playersWithGamesAtTimestamp = await this.prisma.eloHistory.findMany({
+            where: {
+                game: {
+                    gameEnd: {
+                        lte: timestamp,
+                    },
+                },
+            },
+            distinct: ['playerId'],
+            select: {
+                playerId: true,
+            },
+        });
+
+        return await Promise.all(
+            playersWithGamesAtTimestamp.map(async (player) => {
+                return {
+                    userId: player.playerId,
+                    ranking: await this.getRankingForUserAtTimestamp(player.playerId, timestamp),
+                };
+            }),
+        );
     }
 }

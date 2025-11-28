@@ -11,6 +11,7 @@ import { Home } from '@/pages/Home';
 import { Imprint, NotSignedInImprint } from '@/pages/legal/Imprint';
 import { License, NotSignedInLicense } from '@/pages/legal/License';
 import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPolicy';
+import { Ranking } from '@/pages/ranking/Ranking';
 import { GeneralSettings } from '@/pages/settings/GeneralSettings';
 import { NotificationSettings } from '@/pages/settings/NotificationSettings';
 import { ProfileSettings } from '@/pages/settings/ProfileSettings';
@@ -38,6 +39,7 @@ const routesFactory = (userState: UserState | undefined | null) => {
         routes.push(
             <Route key="SignedInLayout" path="*" element={<SignedInLayout />}>
                 <Route index element={<Home />} />
+                <Route path="ranking" element={<Ranking />} />
                 <Route path="settings" element={<Settings />}>
                     <Route path="general" element={<GeneralSettings />} />
                     <Route path="notification" element={<NotificationSettings />} />

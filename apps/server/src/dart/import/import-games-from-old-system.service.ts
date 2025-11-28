@@ -5,9 +5,9 @@ import { MongoClient } from 'mongodb';
 import * as uuid from 'uuid';
 import { AppConfigService } from '@/config/app-config.service';
 import { GameService } from '@/dart/game/game.service';
+import { nameEmailMapping } from '@/dart/import/name-email-mapping';
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseUserService } from '@/database/user/user.service';
-import { nameEmailMapping } from '@/import/name-email-mapping';
 
 interface MongoGame {
     _id: string;
