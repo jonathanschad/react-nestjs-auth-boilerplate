@@ -4,8 +4,19 @@ struct PlayerSelectionBox: View {
     let player: Player?
     let placeholder: String
     let color: Color
+    let eloPreview: EloPreview?
     let action: () -> Void
-    
+
+    private var winChange: Int? {
+        guard let elo = eloPreview else { return nil }
+        return elo.onWin - elo.current
+    }
+
+    private var lossChange: Int? {
+        guard let elo = eloPreview else { return nil }
+        return elo.onLoss - elo.current
+    }
+
     var body: some View {
         Button(action: action) {
             VStack(spacing: DesignSystem.Spacing.lg) {
@@ -18,7 +29,7 @@ struct PlayerSelectionBox: View {
                             Circle()
                                 .stroke(color.opacity(0.4), lineWidth: DesignSystem.BorderWidth.medium)
                         )
-                    
+
                     if let player = player {
                         Image(systemName: "person.fill")
                             .font(.largeTitle)
@@ -29,14 +40,14 @@ struct PlayerSelectionBox: View {
                             .foregroundColor(color.opacity(0.6))
                     }
                 }
-                
+
                 // Spieler Info
                 VStack(spacing: DesignSystem.Spacing.xs) {
                     Text(player != nil ? "Ausgewählt" : "Wählen")
                         .font(.subheadline)
                         .foregroundColor(DesignSystem.Colors.secondary)
                         .fontWeight(.medium)
-                    
+
                     Text(player?.name ?? placeholder)
                         .font(.headline)
                         .fontWeight(.semibold)
@@ -45,6 +56,53 @@ struct PlayerSelectionBox: View {
                         .lineLimit(2)
                         .minimumScaleFactor(0.8)
                 }
+
+                // ELO Preview Section (Fixed Height - Always Visible)
+                VStack(spacing: DesignSystem.Spacing.sm) {
+                    // Current ELO (shows immediately when player selected)
+                    VStack(spacing: 2) {
+                        if let selectedPlayer = player {
+                            Text("ELO: \(selectedPlayer.eloRating)")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(DesignSystem.Colors.primary)
+                        } else {
+                            Text("ELO: -")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(DesignSystem.Colors.secondary.opacity(0.5))
+                        }
+                    }
+
+                    // Win/Loss predictions (always show structure)
+                    HStack(spacing: DesignSystem.Spacing.md) {
+                        // Win
+                        HStack(spacing: 3) {
+                            Image(systemName: "arrow.up")
+                                .font(.caption2)
+                                .foregroundColor(.green)
+                            Text(winChange != nil ? "\(winChange! >= 0 ? "+" : "")\(winChange!)" : "-")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(winChange != nil ? .green : DesignSystem.Colors.secondary.opacity(0.5))
+                        }
+
+                        Divider()
+                            .frame(height: 12)
+
+                        // Loss
+                        HStack(spacing: 3) {
+                            Image(systemName: "arrow.down")
+                                .font(.caption2)
+                                .foregroundColor(.red)
+                            Text(lossChange != nil ? "\(lossChange! >= 0 ? "+" : "")\(lossChange!)" : "-")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(lossChange != nil ? .red : DesignSystem.Colors.secondary.opacity(0.5))
+                        }
+                    }
+                }
+                .frame(height: 44)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, DesignSystem.Spacing.xxl)
@@ -71,13 +129,15 @@ struct PlayerSelectionBox: View {
             player: Player(name: "Max"),
             placeholder: "Spieler 1",
             color: DesignSystem.Colors.accent,
+            eloPreview: EloPreview(onWin: 1025, onLoss: 975, current: 1000),
             action: {}
         )
-        
+
         PlayerSelectionBox(
-            player: nil,
+            player: Player(name: "Anna"),
             placeholder: "Spieler 2",
             color: DesignSystem.Colors.error,
+            eloPreview: EloPreview(onWin: 1220, onLoss: 1180, current: 1200),
             action: {}
         )
     }

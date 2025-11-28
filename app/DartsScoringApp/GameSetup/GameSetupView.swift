@@ -29,7 +29,8 @@ struct GameSetupView: View {
                             PlayerSelectionBox(
                                 player: viewModel.gameSettings.player1,
                                 placeholder: "Spieler 1 wählen",
-                                color: DesignSystem.Colors.accent
+                                color: DesignSystem.Colors.accent,
+                                eloPreview: viewModel.gamePreview?.playerA.elo
                             ) {
                                 selectingPlayerSlot = .player1
                                 showingPlayerSelection = true
@@ -48,7 +49,8 @@ struct GameSetupView: View {
                             PlayerSelectionBox(
                                 player: viewModel.gameSettings.player2,
                                 placeholder: "Spieler 2 wählen",
-                                color: DesignSystem.Colors.error
+                                color: DesignSystem.Colors.error,
+                                eloPreview: viewModel.gamePreview?.playerB.elo
                             ) {
                                 selectingPlayerSlot = .player2
                                 showingPlayerSelection = true

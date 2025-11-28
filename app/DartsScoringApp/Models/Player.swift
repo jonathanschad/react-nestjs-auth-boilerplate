@@ -8,9 +8,15 @@
 import Foundation
 
 struct Player: Identifiable, Codable, Equatable, Hashable {
-    let id: String // Changed from UUID to String for MongoDB _id
+    let id: String // UUID from new backend
     let name: String
-    let eloRating: Int
+    let currentElo: Int? // Can be null in backend
+    let lastGamePlayedAt: Date?
+
+    // Computed property for backward compatibility with existing UI
+    var eloRating: Int {
+        return currentElo ?? 1000
+    }
     
     // MARK: - UserDefaults Keys
     private static let lastUsedDatesKey = "player_last_used_dates"
@@ -37,25 +43,29 @@ struct Player: Identifiable, Codable, Equatable, Hashable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id = "_id"
+        case id
         case name
-        case eloRating
+        case currentElo
+        case lastGamePlayedAt
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
-        eloRating = try container.decode(Int.self, forKey: .eloRating)
+        currentElo = try container.decodeIfPresent(Int.self, forKey: .currentElo)
+        lastGamePlayedAt = try container.decodeIfPresent(Date.self, forKey: .lastGamePlayedAt)
     }
 
     init(id: String = UUID().uuidString,
          name: String,
-         eloRating: Int = 1000,
+         currentElo: Int? = 1000,
+         lastGamePlayedAt: Date? = nil
          ) {
         self.id = id
         self.name = name
-        self.eloRating = eloRating
+        self.currentElo = currentElo
+        self.lastGamePlayedAt = lastGamePlayedAt
     }
     
     static func == (lhs: Player, rhs: Player) -> Bool {

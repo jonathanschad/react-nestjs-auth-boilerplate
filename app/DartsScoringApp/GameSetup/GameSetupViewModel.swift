@@ -24,9 +24,12 @@ class GameSetupViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: Error?
     @Published var showIntroView = false
+    @Published var gamePreview: GamePreviewResponse?
+    @Published var isLoadingPreview = false
 
     private let navigationCoordinator: NavigationCoordinator
     private let playerRepository = PlayerRepository.shared
+    private let apiClient = APIClient.shared
     
     let availablePlayerImages = [
         "person.fill",
@@ -102,8 +105,11 @@ class GameSetupViewModel: ObservableObject {
             }
         }
         gameSettings.player1 = player
+        Task {
+            await loadGamePreview()
+        }
     }
-    
+
     func selectPlayer2(_ player: Player?) {
         if let player = player {
             // TODO: Implement API endpoint for updating last used
@@ -112,6 +118,30 @@ class GameSetupViewModel: ObservableObject {
             }
         }
         gameSettings.player2 = player
+        Task {
+            await loadGamePreview()
+        }
+    }
+
+    func loadGamePreview() async {
+        guard let player1 = gameSettings.player1,
+              let player2 = gameSettings.player2 else {
+            gamePreview = nil
+            return
+        }
+
+        isLoadingPreview = true
+        do {
+            gamePreview = try await apiClient.fetchGamePreview(
+                playerAId: player1.id,
+                playerBId: player2.id
+            )
+            print("✅ Game preview loaded successfully")
+        } catch {
+            print("❌ Failed to load game preview: \(error)")
+            gamePreview = nil
+        }
+        isLoadingPreview = false
     }
     
     func setGameMode(_ mode: GameMode) {
