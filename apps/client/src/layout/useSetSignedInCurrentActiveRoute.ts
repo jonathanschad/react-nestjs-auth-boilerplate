@@ -3,6 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 
 export enum CurrentlySelectedRouteOptions {
     DASHBOARD = 'dashboard',
+    RANKING = 'ranking',
     SETTINGS = 'settings',
 }
 
