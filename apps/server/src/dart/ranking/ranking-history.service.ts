@@ -48,6 +48,8 @@ export class RankingHistoryService {
         await this.databaseEloHistoryService.createHistoryEntry({
             eloBefore: newRankings.playerA.previousRating.elo,
             eloAfter: newRankings.playerA.newRating.elo,
+            gamesPlayedBefore: newRankings.playerA.previousRating.gamesPlayed,
+            gamesPlayedAfter: newRankings.playerA.newRating.gamesPlayed,
             game: {
                 connect: {
                     id: game.id,
@@ -63,6 +65,8 @@ export class RankingHistoryService {
         await this.databaseEloHistoryService.createHistoryEntry({
             eloBefore: newRankings.playerB.previousRating.elo,
             eloAfter: newRankings.playerB.newRating.elo,
+            gamesPlayedBefore: newRankings.playerB.previousRating.gamesPlayed,
+            gamesPlayedAfter: newRankings.playerB.newRating.gamesPlayed,
             game: {
                 connect: {
                     id: game.id,

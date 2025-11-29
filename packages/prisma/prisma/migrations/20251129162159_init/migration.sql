@@ -128,8 +128,8 @@ CREATE TABLE "EloHistory" (
     "playerId" TEXT NOT NULL,
     "eloBefore" DOUBLE PRECISION NOT NULL,
     "eloAfter" DOUBLE PRECISION NOT NULL,
-    "gamesPlayedBefore" INTEGER NOT NULL DEFAULT 0,
-    "gamesPlayedAfter" INTEGER NOT NULL DEFAULT 0,
+    "gamesPlayedBefore" INTEGER NOT NULL,
+    "gamesPlayedAfter" INTEGER NOT NULL,
 
     CONSTRAINT "EloHistory_pkey" PRIMARY KEY ("id")
 );

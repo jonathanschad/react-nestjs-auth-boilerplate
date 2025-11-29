@@ -69,6 +69,9 @@ export class GoogleAuthController {
                     user: userByEmail,
                     googleOAuthId: profile.id,
                 });
+
+                await this.authService.signInUser({ res: reply, user: userByEmail, remember: true });
+
                 return await reply.redirect(callbackUrl);
             }
 
