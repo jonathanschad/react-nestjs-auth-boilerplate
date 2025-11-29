@@ -95,5 +95,15 @@
     "gameType": "Game Type",
     "loading": "Loading...",
     "error": "Error",
-    "history": "History"
+    "history": "History",
+    "gameHistory": "Game History",
+    "duration": "Duration",
+    "errorLoadingGameHistory": "Error loading game history. Please try again later.",
+    "noGamesPlayed": "No games played yet.",
+    "page": "Page",
+    "of": "of",
+    "totalGames": "total games",
+    "playerA": "Player A",
+    "playerB": "Player B",
+    "eloChange": "ELO Change"
 }

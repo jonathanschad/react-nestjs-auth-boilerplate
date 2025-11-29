@@ -1,7 +1,6 @@
-import { EloHistory, Game, GameType, OpenSkillHistory } from '@darts/prisma';
 import type { Rating } from 'openskill';
 import { PublicUser } from '../../entities/user';
-import { ApiGetEndpoint } from '../api';
+import { ApiGetEndpoint, PaginatedRequest, PaginatedResponse } from '../api';
 import { GameEntityApiDTO } from '../game/game.dto';
 import { EloRankingResponseDTO, EloRating, OpenSkillRankingResponseDTO } from '../ranking/ranking.dto';
 
@@ -30,7 +29,7 @@ export type PlayerDetailsResponseDTO = {
 export type PlayerController = {
     getAll: ApiGetEndpoint<void, PlayerResponseDTO[]>;
     getDetails: ApiGetEndpoint<{ playerId: string }, PlayerDetailsResponseDTO>;
-    getGames: ApiGetEndpoint<{ userId: string }, GameEntityApiDTO[]>;
+    getGames: ApiGetEndpoint<PaginatedRequest<{ playerId: string }>, PaginatedResponse<GameEntityApiDTO>>;
     getEloHistory: ApiGetEndpoint<{ userId: string }, EloRankingResponseDTO[]>;
     getOpenSkillHistory: ApiGetEndpoint<{ userId: string }, OpenSkillRankingResponseDTO[]>;
 };

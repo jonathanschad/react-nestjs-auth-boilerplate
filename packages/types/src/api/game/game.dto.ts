@@ -4,6 +4,7 @@ import { Type } from 'class-transformer';
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsUUID, Max, Min, ValidateNested } from 'class-validator';
 import { PublicUser } from '../../entities/user';
 import { ApiGetEndpoint, ApiPutEndpoint } from '../api';
+import { EloHistoryEntityApiDTO, OpenSkillHistoryEntityApiDTO } from '../ranking/ranking.dto';
 
 export class CreateGameParamsDTO {
     @IsUUID()
@@ -124,17 +125,36 @@ export type GameTurnEntityApiDTO = {
     totalScore: number;
 };
 
+export type GameStatisticsEntityApiDTO = {
+    id: string;
+    playerId: string;
+    wonBullOff: boolean;
+    averageScore: number;
+    averageUntilFirstPossibleFinish: number;
+    throwsOnDouble: number;
+};
 export type GameEntityApiDTO = {
     id: string;
-    playerA: string;
-    playerB: string;
-    winner: string;
-    loser: string;
+    playerA: {
+        id: string;
+        turns: GameTurnEntityApiDTO[];
+        gameStatistics?: GameStatisticsEntityApiDTO;
+        eloHistory: EloHistoryEntityApiDTO;
+        openSkillHistory: OpenSkillHistoryEntityApiDTO;
+    };
+    playerB: {
+        id: string;
+        turns: GameTurnEntityApiDTO[];
+        gameStatistics?: GameStatisticsEntityApiDTO;
+        eloHistory: EloHistoryEntityApiDTO;
+        openSkillHistory: OpenSkillHistoryEntityApiDTO;
+    };
+    winnerId: string;
+    loserId: string;
     gameStart: Date;
     gameEnd: Date;
     type: GameType;
     checkoutMode: GameCheckoutMode;
-    turns?: GameTurnEntityApiDTO[];
 };
 
 export type GameController = {

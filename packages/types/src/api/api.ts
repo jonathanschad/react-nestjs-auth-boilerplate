@@ -18,6 +18,21 @@ type ApiEndpoint<Request, Response, Method extends ApiMethod> = {
     method: Method;
 };
 
+export type PaginatedRequest<T> = {
+    page?: number;
+    pageSize?: number;
+} & T;
+
+export type PaginatedResponse<T> = {
+    data: T[];
+    pagination: {
+        page: number;
+        pageSize: number;
+        totalItems: number;
+        totalPages: number;
+    };
+};
+
 export type ApiGetEndpoint<Request, Response> = ApiEndpoint<Request, Response, 'GET'>;
 
 export type ApiPostEndpoint<Request, Response> = ApiEndpoint<Request, Response, 'POST'>;

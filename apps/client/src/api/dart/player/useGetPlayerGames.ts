@@ -1,12 +1,23 @@
-import { Api } from '@darts/types/api/api';
+import { Api, PaginatedRequest } from '@darts/types/api/api';
 import { useQuery } from 'react-query';
 import api, { BASE_URL } from '@/api';
 import { getPlayerQueryKey } from '@/api/dart/player/player.queryKey';
 
-export const getPlayerGames = async (playerId: string): Promise<Api['dart']['player']['getGames']['response']> => {
+type GetPlayerGamesParams = PaginatedRequest<{
+    playerId: string;
+}>;
+
+export const getPlayerGames = async ({
+    playerId,
+    page = 1,
+    pageSize = 10,
+}: GetPlayerGamesParams): Promise<Api['dart']['player']['getGames']['response']> => {
     try {
         const response = await api.get<Api['dart']['player']['getGames']['response']>(
             `${BASE_URL}/dart/player/${playerId}/games`,
+            {
+                params: { page, pageSize },
+            },
         );
         return response.data;
     } catch (error) {
@@ -15,10 +26,15 @@ export const getPlayerGames = async (playerId: string): Promise<Api['dart']['pla
     }
 };
 
-export const useGetPlayerGames = (playerUuid: string) => {
-    const playerQuery = useQuery([...getPlayerQueryKey(playerUuid), 'games'], () => getPlayerGames(playerUuid), {
-        enabled: !!playerUuid,
-    });
+export const useGetPlayerGames = (playerId: string, page: number = 1, pageSize: number = 10) => {
+    const playerQuery = useQuery(
+        [...getPlayerQueryKey(playerId), 'games', page, pageSize],
+        () => getPlayerGames({ playerId, page, pageSize }),
+        {
+            enabled: !!playerId,
+            keepPreviousData: true,
+        },
+    );
 
     return playerQuery;
 };

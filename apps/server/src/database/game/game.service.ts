@@ -15,6 +15,40 @@ export class DatabaseGameService {
         });
     }
 
+    async getGamesByUserIdPaginated(userId: string, page: number = 1, pageSize: number = 10) {
+        const skip = (page - 1) * pageSize;
+
+        const [games, total] = await Promise.all([
+            this.prisma.game.findMany({
+                where: {
+                    OR: [{ playerAId: userId }, { playerBId: userId }],
+                },
+                orderBy: {
+                    gameEnd: 'desc',
+                },
+                skip,
+                take: pageSize,
+                include: {
+                    turns: {
+                        orderBy: {
+                            turnNumber: 'asc',
+                        },
+                    },
+                    gameStatistics: true,
+                    eloHistory: true,
+                    openSkillHistory: true,
+                },
+            }),
+            this.prisma.game.count({
+                where: {
+                    OR: [{ playerAId: userId }, { playerBId: userId }],
+                },
+            }),
+        ]);
+
+        return { games, total };
+    }
+
     async getTotalGameCountByUserId(userId: string): Promise<number> {
         return this.prisma.game.count({
             where: {
