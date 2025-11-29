@@ -38,9 +38,9 @@ export class RankingService {
                 return {
                     ...ranking,
                     userId: ranking.user.id,
-                    rating: rating({ mu: ranking.ranking!.ordinalAfter, sigma: ranking.ranking!.sigmaAfter }),
+                    rating: rating({ mu: ranking.ranking!.muAfter, sigma: ranking.ranking!.sigmaAfter }),
                     score: this.openSkillService.formatRatingIntoScore(
-                        rating({ mu: ranking.ranking!.ordinalAfter, sigma: ranking.ranking!.sigmaAfter }),
+                        rating({ mu: ranking.ranking!.muAfter, sigma: ranking.ranking!.sigmaAfter }),
                     ),
                     gamesPlayed: ranking.gameCount,
                 };
