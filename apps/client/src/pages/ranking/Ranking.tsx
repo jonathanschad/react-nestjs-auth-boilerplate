@@ -88,9 +88,9 @@ export const Ranking = () => {
 
             <div className="flex-auto overflow-auto">
                 {rankingType === 'elo' ? (
-                    <DataTable data={eloRankings || []} columns={eloColumns} />
+                    <DataTable data={eloRankings || []} columns={eloColumns} pageSize={20} />
                 ) : (
-                    <DataTable data={openSkillRankings || []} columns={openSkillColumns} />
+                    <DataTable data={openSkillRankings || []} columns={openSkillColumns} pageSize={20} />
                 )}
             </div>
         </div>
@@ -220,7 +220,7 @@ const openSkillColumns: ColumnDef<OpenSkillRankingResponseDTO>[] = [
         cell: ({ row }) => <div className="font-semibold">{row.original.score.toFixed(2)}</div>,
     },
     {
-        accessorKey: 'mu',
+        accessorKey: 'rating.mu',
         header: ({ column }) => {
             return (
                 <Button
@@ -236,7 +236,7 @@ const openSkillColumns: ColumnDef<OpenSkillRankingResponseDTO>[] = [
         cell: ({ row }) => <div>{row.original.rating.mu.toFixed(2)}</div>,
     },
     {
-        accessorKey: 'sigma',
+        accessorKey: 'rating.sigma',
         header: ({ column }) => {
             return (
                 <Button

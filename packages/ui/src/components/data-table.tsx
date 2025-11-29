@@ -12,18 +12,19 @@ import {
     type SortingState,
     useReactTable,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface DataTableProps<T> {
     data: T[];
     columns: ColumnDef<T>[];
+    pageSize?: number;
 }
 
-export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
+export const DataTable = <T,>({ columns, data, pageSize = 10 }: DataTableProps<T>) => {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: pageSize,
     });
     const table = useReactTable({
         data: data,
@@ -39,6 +40,13 @@ export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
             pagination,
         },
     });
+
+    useEffect(() => {
+        setPagination({
+            pageIndex: 0,
+            pageSize: pageSize,
+        });
+    }, [pageSize]);
 
     return (
         <div className="flex h-full w-full flex-col overflow-auto">
@@ -94,7 +102,6 @@ export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
                         variant="outline"
                         size="sm"
                         onClick={() => {
-                            console.log('next');
                             table.nextPage();
                         }}
                         disabled={!table.getCanNextPage()}
