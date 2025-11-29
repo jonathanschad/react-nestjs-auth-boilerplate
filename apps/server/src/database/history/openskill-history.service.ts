@@ -1,13 +1,10 @@
-import { OpenSkillHistory, Prisma } from '@darts/prisma';
-import { PublicUser } from '@darts/types/entities/user';
+import { OpenSkillHistory, Prisma, User } from '@darts/prisma';
 import { Injectable } from '@nestjs/common';
 import { type Rating, rating } from 'openskill';
-import { OpenSkillService } from '@/dart/ranking/openskill.service';
-import { DatabaseHistoryInterface } from '@/database/history/database-history.interface';
+import { DatabaseHistoryInterface, RankingHistoryWithGame } from '@/database/history/database-history.interface';
 import { PrismaService } from '@/database/prisma.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
-const ordinalService = new OpenSkillService();
 @Injectable()
 export class DatabaseOpenSkillHistoryService
     implements DatabaseHistoryInterface<OpenSkillHistory, Prisma.OpenSkillHistoryCreateInput, Rating>
@@ -17,11 +14,14 @@ export class DatabaseOpenSkillHistoryService
         private readonly databaseUserService: DatabaseUserService,
     ) {}
 
-    async getCurrentRatingByUserId(userId: string): Promise<Rating> {
+    async getCurrentRatingByUserId(userId: string): Promise<RankingHistoryWithGame<OpenSkillHistory> | null> {
         return this.getRankingForUserAtTimestamp(userId, new Date());
     }
 
-    public async getRankingForUserAtTimestamp(userId: string, timestamp: Date): Promise<Rating> {
+    public async getRankingForUserAtTimestamp(
+        userId: string,
+        timestamp: Date,
+    ): Promise<RankingHistoryWithGame<OpenSkillHistory> | null> {
         const lastOpenSkillHistory = await this.prisma.openSkillHistory.findFirst({
             where: {
                 playerId: userId,
@@ -34,11 +34,12 @@ export class DatabaseOpenSkillHistoryService
             orderBy: {
                 createdAt: 'desc',
             },
+            include: {
+                game: true,
+            },
         });
 
-        return lastOpenSkillHistory
-            ? rating({ mu: lastOpenSkillHistory.muAfter, sigma: lastOpenSkillHistory.sigmaAfter })
-            : rating();
+        return lastOpenSkillHistory;
     }
 
     public getPlayerHistory(userId: string): Promise<OpenSkillHistory[]> {
@@ -64,7 +65,7 @@ export class DatabaseOpenSkillHistoryService
 
     public async getRankingForUsersAtTimestamp(
         timestamp: Date,
-    ): Promise<{ user: PublicUser; rating: Rating; rank: number; score: number }[]> {
+    ): Promise<{ user: User; ranking: RankingHistoryWithGame<OpenSkillHistory> | null; gameCount: number }[]> {
         const playersWithGamesAtTimestamp = await this.prisma.user.findMany({
             where: {
                 openSkillHistory: {
@@ -81,20 +82,33 @@ export class DatabaseOpenSkillHistoryService
 
         const rankings = await Promise.all(
             playersWithGamesAtTimestamp.map(async (player) => {
+                const gameCount = await this.prisma.openSkillHistory.count({
+                    where: {
+                        playerId: player.id,
+                        game: {
+                            gameEnd: {
+                                lte: timestamp,
+                            },
+                        },
+                    },
+                });
+
                 return {
-                    user: this.databaseUserService.sanitizeUser(player),
+                    user: player,
                     ranking: await this.getRankingForUserAtTimestamp(player.id, timestamp),
+                    gameCount,
                 };
             }),
         );
 
-        return rankings
-            .sort((a, b) => -ordinalService.compareRankings(a.ranking, b.ranking))
-            .map((ranking, index) => ({
-                user: ranking.user,
-                rank: index + 1,
-                rating: ranking.ranking,
-                score: ordinalService.formatRatingIntoScore(ranking.ranking),
-            }));
+        return rankings;
+    }
+
+    public getRatingFromHistoryEntry(historyEntry: OpenSkillHistory | null): Rating {
+        if (!historyEntry) {
+            return rating();
+        }
+
+        return rating({ mu: historyEntry.muAfter, sigma: historyEntry.sigmaAfter });
     }
 }

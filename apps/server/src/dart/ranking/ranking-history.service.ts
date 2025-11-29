@@ -40,9 +40,10 @@ export class RankingHistoryService {
         const playerAElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerAId);
         const playerBElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerBId);
 
-        this.eloService.getNewRankings(playerAElo, playerBElo, gameResult);
+        const playerAEloRating = this.databaseEloHistoryService.getRatingFromHistoryEntry(playerAElo);
+        const playerBEloRating = this.databaseEloHistoryService.getRatingFromHistoryEntry(playerBElo);
 
-        const newRankings = this.eloService.getNewRankings(playerAElo, playerBElo, gameResult);
+        const newRankings = this.eloService.getNewRankings(playerAEloRating, playerBEloRating, gameResult);
 
         await this.databaseEloHistoryService.createHistoryEntry({
             eloBefore: newRankings.playerA.previousRating,
@@ -84,7 +85,14 @@ export class RankingHistoryService {
         const playerAOpenSkill = await this.databaseOpenSkillHistoryService.getCurrentRatingByUserId(playerAId);
         const playerBOpenSkill = await this.databaseOpenSkillHistoryService.getCurrentRatingByUserId(playerBId);
 
-        const newRankings = this.openSkillService.getNewRankings(playerAOpenSkill, playerBOpenSkill, gameResult);
+        const playerAOpenSkillRating = this.databaseOpenSkillHistoryService.getRatingFromHistoryEntry(playerAOpenSkill);
+        const playerBOpenSkillRating = this.databaseOpenSkillHistoryService.getRatingFromHistoryEntry(playerBOpenSkill);
+
+        const newRankings = this.openSkillService.getNewRankings(
+            playerAOpenSkillRating,
+            playerBOpenSkillRating,
+            gameResult,
+        );
 
         await this.databaseOpenSkillHistoryService.createHistoryEntry({
             muBefore: newRankings.playerA.previousRating.mu,

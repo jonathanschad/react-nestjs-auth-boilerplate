@@ -1,20 +1,32 @@
-import type { EloRankingResponseDTO } from '@darts/types/api/ranking/ranking.dto';
+import type { EloRankingResponseDTO, OpenSkillRankingResponseDTO } from '@darts/types/api/ranking/ranking.dto';
 import { Button } from '@darts/ui/components/button';
 import { DataTable } from '@darts/ui/components/data-table';
 import { Translation } from '@darts/ui/i18n/Translation';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
 } from '@/layout/useSetSignedInCurrentActiveRoute';
-import { getEloRankings } from '@/repository/ranking';
+import { getEloRankings, getOpenSkillRankings } from '@/repository/ranking';
+
+type RankingType = 'elo' | 'openskill';
 
 export const Ranking = () => {
     useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.RANKING);
+    const [rankingType, setRankingType] = useState<RankingType>('elo');
 
-    const { data: rankings, isLoading, error } = useQuery('eloRankings', getEloRankings);
+    const { data: eloRankings, isLoading: eloLoading, error: eloError } = useQuery('eloRankings', getEloRankings);
+    const {
+        data: openSkillRankings,
+        isLoading: openSkillLoading,
+        error: openSkillError,
+    } = useQuery('openSkillRankings', getOpenSkillRankings);
+
+    const isLoading = rankingType === 'elo' ? eloLoading : openSkillLoading;
+    const error = rankingType === 'elo' ? eloError : openSkillError;
 
     if (isLoading) {
         return (
@@ -47,21 +59,52 @@ export const Ranking = () => {
             <h1 className="flex-shrink-0 text-3xl font-semibold">
                 <Translation>ranking</Translation>
             </h1>
-            <div className="mt-4 flex-auto overflow-auto">
-                <DataTable data={rankings || []} columns={columns} />
+
+            {/* Tab buttons */}
+            <div className="mt-4 flex gap-2 border-b">
+                <button
+                    type="button"
+                    onClick={() => setRankingType('elo')}
+                    className={`px-4 py-2 font-medium transition-colors ${
+                        rankingType === 'elo'
+                            ? 'border-b-2 border-primary text-primary'
+                            : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                >
+                    <Translation>eloRating</Translation>
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setRankingType('openskill')}
+                    className={`px-4 py-2 font-medium transition-colors ${
+                        rankingType === 'openskill'
+                            ? 'border-b-2 border-primary text-primary'
+                            : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                >
+                    <Translation>openSkillRating</Translation>
+                </button>
+            </div>
+
+            <div className="flex-auto overflow-auto">
+                {rankingType === 'elo' ? (
+                    <DataTable data={eloRankings || []} columns={eloColumns} />
+                ) : (
+                    <DataTable data={openSkillRankings || []} columns={openSkillColumns} />
+                )}
             </div>
         </div>
     );
 };
 
-const columns: ColumnDef<EloRankingResponseDTO>[] = [
+const eloColumns: ColumnDef<EloRankingResponseDTO>[] = [
     {
         id: 'rank',
         header: () => <Translation>rank</Translation>,
-        cell: ({ row }) => <div className="font-medium">{row.index + 1}</div>,
+        cell: ({ row }) => <div className="font-medium">{row.original.rank}</div>,
     },
     {
-        accessorKey: 'userName',
+        accessorKey: 'user.name',
         header: ({ column }) => {
             return (
                 <Button
@@ -80,7 +123,7 @@ const columns: ColumnDef<EloRankingResponseDTO>[] = [
         },
     },
     {
-        accessorKey: 'ranking',
+        accessorKey: 'rating',
         header: ({ column }) => {
             return (
                 <Button
@@ -94,5 +137,48 @@ const columns: ColumnDef<EloRankingResponseDTO>[] = [
             );
         },
         cell: ({ row }) => <div className="font-semibold">{Math.round(row.original.rating)}</div>,
+    },
+];
+
+const openSkillColumns: ColumnDef<OpenSkillRankingResponseDTO>[] = [
+    {
+        id: 'rank',
+        header: () => <Translation>rank</Translation>,
+        cell: ({ row }) => <div className="font-medium">{row.original.rank}</div>,
+    },
+    {
+        accessorKey: 'user.name',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>player</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+        cell: ({ row }) => {
+            const displayName = row.original.user.name || 'Unknown';
+            return <div>{displayName}</div>;
+        },
+    },
+    {
+        accessorKey: 'score',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>score</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div className="font-semibold">{row.original.score.toFixed(2)}</div>,
     },
 ];

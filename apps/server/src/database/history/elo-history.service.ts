@@ -1,12 +1,10 @@
-import { EloHistory, Prisma } from '@darts/prisma';
-import { PublicUser } from '@darts/types/entities/user';
+import { EloHistory, Game, Prisma, User } from '@darts/prisma';
 import { Injectable } from '@nestjs/common';
-import { DEFAULT_ELO, EloService } from '@/dart/ranking/elo.service';
-import { DatabaseHistoryInterface } from '@/database/history/database-history.interface';
+import { DEFAULT_ELO } from '@/dart/ranking/elo.service';
+import { DatabaseHistoryInterface, RankingHistoryWithGame } from '@/database/history/database-history.interface';
 import { PrismaService } from '@/database/prisma.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
-const eloService = new EloService();
 @Injectable()
 export class DatabaseEloHistoryService
     implements DatabaseHistoryInterface<EloHistory, Prisma.EloHistoryCreateInput, number>
@@ -16,11 +14,14 @@ export class DatabaseEloHistoryService
         private databaseUserService: DatabaseUserService,
     ) {}
 
-    public async getCurrentRatingByUserId(userId: string): Promise<number> {
+    public async getCurrentRatingByUserId(userId: string): Promise<RankingHistoryWithGame<EloHistory> | null> {
         return this.getRankingForUserAtTimestamp(userId, new Date());
     }
 
-    public async getRankingForUserAtTimestamp(userId: string, timestamp: Date): Promise<number> {
+    public async getRankingForUserAtTimestamp(
+        userId: string,
+        timestamp: Date,
+    ): Promise<(EloHistory & { game: Game }) | null> {
         const lastEloHistory = await this.prisma.eloHistory.findFirst({
             where: {
                 playerId: userId,
@@ -30,12 +31,15 @@ export class DatabaseEloHistoryService
                     },
                 },
             },
+            include: {
+                game: true,
+            },
             orderBy: {
                 createdAt: 'desc',
             },
         });
 
-        return lastEloHistory?.eloAfter ?? DEFAULT_ELO;
+        return lastEloHistory;
     }
 
     public getPlayerHistory(userId: string): Promise<EloHistory[]> {
@@ -61,7 +65,7 @@ export class DatabaseEloHistoryService
 
     public async getRankingForUsersAtTimestamp(
         timestamp: Date,
-    ): Promise<{ user: PublicUser; rating: number; rank: number; score: number }[]> {
+    ): Promise<{ user: User; ranking: RankingHistoryWithGame<EloHistory> | null; gameCount: number }[]> {
         const playersWithGamesAtTimestamp = await this.prisma.user.findMany({
             where: {
                 eloHistory: {
@@ -78,22 +82,34 @@ export class DatabaseEloHistoryService
 
         const rankings = await Promise.all(
             playersWithGamesAtTimestamp.map(async (player) => {
+                const gameCount = await this.prisma.eloHistory.count({
+                    where: {
+                        playerId: player.id,
+                        game: {
+                            gameEnd: {
+                                lte: timestamp,
+                            },
+                        },
+                    },
+                });
+
+                const ranking = await this.getRankingForUserAtTimestamp(player.id, timestamp);
                 return {
                     user: player,
-                    ranking: await this.getRankingForUserAtTimestamp(player.id, timestamp),
+                    ranking,
+                    gameCount,
                 };
             }),
         );
 
-        return rankings
-            .sort((a, b) => -eloService.compareRankings(a.ranking, b.ranking))
-            .map((ranking, index) => {
-                return {
-                    user: this.databaseUserService.sanitizeUser(ranking.user),
-                    rating: ranking.ranking,
-                    rank: index + 1,
-                    score: eloService.formatRatingIntoScore(ranking.ranking),
-                };
-            });
+        return rankings;
+    }
+
+    public getRatingFromHistoryEntry(historyEntry: EloHistory | null): number {
+        if (!historyEntry) {
+            return DEFAULT_ELO;
+        }
+
+        return historyEntry.eloAfter;
     }
 }

@@ -39,6 +39,7 @@
         "axios": "catalog:",
         "class-transformer": "catalog:",
         "class-validator": "catalog:",
+        "dayjs": "^1.11.19",
         "fastify": "^5.2.1",
         "jsonwebtoken": "^9.0.2",
         "mime-types": "^2.1.35",

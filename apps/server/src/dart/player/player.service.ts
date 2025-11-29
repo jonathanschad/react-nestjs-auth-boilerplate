@@ -21,11 +21,12 @@ export class PlayerService {
         for (const user of users) {
             const mostRecentGame = await this.databaseGameService.getMostRecentGameByUserId(user.id);
             const currentUserElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(user.id);
+            const currentUserEloRating = this.databaseEloHistoryService.getRatingFromHistoryEntry(currentUserElo);
 
             playerResponse.push({
                 id: user.id,
                 name: user.name ?? '',
-                currentElo: currentUserElo,
+                currentElo: currentUserEloRating,
                 lastGamePlayedAt: mostRecentGame?.createdAt?.toISOString() ?? null,
             });
         }

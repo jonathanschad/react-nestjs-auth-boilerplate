@@ -1,7 +1,7 @@
 import { GameTurn, GameType, Prisma } from '@darts/prisma';
 import type { CreateGameDTO, GamePreviewResponseDTO } from '@darts/types/api/game/game.dto';
 import { Injectable } from '@nestjs/common';
-import { EloService } from '@/dart/ranking/elo.service';
+import { DEFAULT_ELO, EloService } from '@/dart/ranking/elo.service';
 import { GameResult } from '@/dart/ranking/ranking';
 import { RankingHistoryService } from '@/dart/ranking/ranking-history.service';
 import { DatabaseGameService } from '@/database/game/game.service';
@@ -171,8 +171,11 @@ export class GameService {
         const playerA = await this.databaseUserService.findByUuid(playerAId);
         const playerB = await this.databaseUserService.findByUuid(playerBId);
 
-        const playerAElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerAId);
-        const playerBElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerBId);
+        const playerAEloHistory = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerAId);
+        const playerBEloHistory = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerBId);
+
+        const playerAElo = playerAEloHistory?.eloAfter ?? DEFAULT_ELO;
+        const playerBElo = playerBEloHistory?.eloAfter ?? DEFAULT_ELO;
 
         const ratingOnPlayerAWin = this.eloService.getNewRankings(playerAElo, playerBElo, GameResult.WIN_PLAYER_A);
         const ratingOnPlayerBWin = this.eloService.getNewRankings(playerAElo, playerBElo, GameResult.WIN_PLAYER_B);

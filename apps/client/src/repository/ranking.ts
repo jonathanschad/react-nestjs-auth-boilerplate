@@ -10,3 +10,15 @@ export const getEloRankings = async (): Promise<Api['dart']['rankings']['elo']['
         throw error;
     }
 };
+
+export const getOpenSkillRankings = async (): Promise<Api['dart']['rankings']['openskill']['response']> => {
+    try {
+        const response = await api.get<Api['dart']['rankings']['openskill']['response']>(
+            `${BASE_URL}/dart/ranking/openskill`,
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching OpenSkill rankings:', error);
+        throw error;
+    }
+};
