@@ -1,15 +1,7 @@
 import type { Api } from '@darts/types/api/api';
-import api, { BASE_URL } from '@/repository';
-
-export const getEloRankings = async (): Promise<Api['dart']['rankings']['elo']['response']> => {
-    try {
-        const response = await api.get<Api['dart']['rankings']['elo']['response']>(`${BASE_URL}/dart/ranking/elo`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching ELO rankings:', error);
-        throw error;
-    }
-};
+import { useQuery } from 'react-query';
+import api, { BASE_URL } from '@/api';
+import { getRankingQueryKey } from '@/api/dart/ranking/ranking.queryKey';
 
 export const getOpenSkillRankings = async (): Promise<Api['dart']['rankings']['openskill']['response']> => {
     try {
@@ -21,4 +13,10 @@ export const getOpenSkillRankings = async (): Promise<Api['dart']['rankings']['o
         console.error('Error fetching OpenSkill rankings:', error);
         throw error;
     }
+};
+
+export const useGetOpenSkillRanking = () => {
+    const rankingQuery = useQuery([...getRankingQueryKey(), 'openskill'], () => getOpenSkillRankings());
+
+    return rankingQuery;
 };

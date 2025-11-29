@@ -1,4 +1,6 @@
-import api, { BASE_URL } from '@/repository';
+import { useQuery } from 'react-query';
+import api, { BASE_URL } from '@/api';
+import { getUserQueryKey } from '@/api/auth/auth.queryKey';
 import type { SanitizedUser } from '@/types/user';
 
 export const getUser = async () => {
@@ -8,4 +10,8 @@ export const getUser = async () => {
     } catch (_error) {
         return null;
     }
+};
+
+export const useGetUser = () => {
+    return useQuery(getUserQueryKey(), getUser);
 };

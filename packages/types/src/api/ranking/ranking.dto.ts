@@ -8,7 +8,7 @@ export type EloRating = {
 };
 
 export type EloRankingResponseDTO = {
-    user: PublicUser;
+    userId: string;
     rank: number;
     score: number;
     rating: EloRating;
@@ -16,11 +16,10 @@ export type EloRankingResponseDTO = {
 };
 
 export type OpenSkillRankingResponseDTO = {
-    user: PublicUser;
+    userId: string;
     rank: number;
     score: number;
     rating: Rating;
-    gamesPlayed: number;
 };
 
 export type RankingController = {

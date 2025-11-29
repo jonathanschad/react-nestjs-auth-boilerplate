@@ -5,12 +5,11 @@ import { Translation } from '@darts/ui/i18n/Translation';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Outlet, Link as RouterLink, useNavigate } from 'react-router-dom';
-
+import { login } from '@/api/auth/useLogin';
 import LoginSVG from '@/assets/illustrations/login.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
 import { loginFormOptions } from '@/forms/login-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { login } from '@/repository/login';
 
 const LoginIllustration = <LoginSVG className="m-8 w-full max-w-full" />;
 

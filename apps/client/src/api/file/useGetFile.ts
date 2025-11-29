@@ -1,4 +1,6 @@
-import api from '@/repository';
+import { useQuery } from 'react-query';
+import api from '@/api';
+import { getFileQueryKey } from '@/api/file/file.queryKey';
 
 export const getFile = async (fileUuid?: string | null): Promise<Blob | null> => {
     if (!fileUuid) {
@@ -13,4 +15,10 @@ export const getFile = async (fileUuid?: string | null): Promise<Blob | null> =>
     } catch (_error) {
         return null;
     }
+};
+
+export const useGetFile = (fileUuid?: string | null) => {
+    return useQuery(getFileQueryKey(fileUuid), () => getFile(fileUuid), {
+        enabled: !!fileUuid,
+    });
 };

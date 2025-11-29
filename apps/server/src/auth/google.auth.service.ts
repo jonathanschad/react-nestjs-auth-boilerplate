@@ -12,6 +12,7 @@ import { AppConfigService } from '@/config/app-config.service';
 import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
 import { DatabaseUserService } from '@/database/user/user.service';
+import { UserWithSettings } from '@/types/prisma';
 import { UserService } from '@/user/user.service';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
@@ -91,6 +92,20 @@ export class GoogleAuthService {
             },
         });
 
+        const userWithPicture = await this.updateUserProfileWithGooglePicture(user, picture);
+
+        return await this.authService.signInUser({
+            res: response,
+            user: userWithPicture,
+            remember: true,
+        });
+    }
+
+    public async updateUserProfileWithGooglePicture(user: UserWithSettings, picture: string) {
+        if (user.profilePictureId) {
+            return user;
+        }
+
         const profilePicture = await axios.get<ArrayBufferLike>(picture, {
             responseType: 'arraybuffer',
         });
@@ -100,11 +115,7 @@ export class GoogleAuthService {
             fileUuid: uuid.v4(),
         });
 
-        return await this.authService.signInUser({
-            res: response,
-            user: userWithPicture,
-            remember: true,
-        });
+        return userWithPicture;
     }
 
     public async completeAccountConnection({ password, token }: CompleteGoogleAccountConnectionDTO) {

@@ -12,7 +12,7 @@
     },
     "aliases": {
         "components": "@darts/ui/components",
-        "ui": "@darts/ui/components/ui",
+        "ui": "@darts/ui/components",
         "utils": "@darts/ui/lib/utils",
         "lib": "@darts/ui/lib",
         "hooks": "@darts/ui/hooks"

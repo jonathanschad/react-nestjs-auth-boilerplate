@@ -14,11 +14,10 @@ import { Hexagon, Menu } from 'lucide-react';
 import * as React from 'react';
 import { useMutation } from 'react-query';
 import { Link, Outlet } from 'react-router-dom';
-
+import { logout } from '@/api/auth/useLogout';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { ProjectLogo } from '@/components/ProjectLogo';
 import { CurrentlySelectedRouteOptions } from '@/layout/useSetSignedInCurrentActiveRoute';
-import { logout } from '@/repository/login';
 
 export const SignedInLayout = () => {
     const [currentlySelectedRoute, setCurrentlySelectedRoute] = React.useState<CurrentlySelectedRouteOptions | null>(

@@ -81,5 +81,19 @@
     "toggleNavigationMenu": "Toggle navigation menu",
     "toggleUserMenu": "Toggle user menu",
     "toLogin": "Go to login",
-    "version": "Version"
+    "version": "Version",
+    "playerProfile": "Player Profile",
+    "winRate": "Win Rate",
+    "record": "Record",
+    "lastGamePlayedAt": "Last Game Played At",
+    "recentGames": "Recent Games",
+    "date": "Date",
+    "opponent": "Opponent",
+    "result": "Result",
+    "win": "Win",
+    "loss": "Loss",
+    "gameType": "Game Type",
+    "loading": "Loading...",
+    "error": "Error",
+    "history": "History"
 }

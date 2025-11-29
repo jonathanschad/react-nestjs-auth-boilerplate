@@ -1,10 +1,12 @@
 import { GameController } from './game/game.dto';
+import { PlayerController } from './player/player.dto';
 import { RankingController } from './ranking/ranking.dto';
 
 export type Api = {
     dart: {
         game: GameController;
         rankings: RankingController;
+        player: PlayerController;
     };
 };
 

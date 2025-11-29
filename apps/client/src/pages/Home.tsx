@@ -1,10 +1,10 @@
 import { useMutation } from 'react-query';
+import { logout } from '@/api/auth/useLogout';
 import { ProfilePictureEditor } from '@/components/ProfilePictureEditor';
 import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
 } from '@/layout/useSetSignedInCurrentActiveRoute';
-import { logout } from '@/repository/login';
 // eslint-disable-next-line no-restricted-imports
 import packageJson from '../../package.json';
 

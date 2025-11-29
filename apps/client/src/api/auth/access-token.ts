@@ -1,4 +1,4 @@
-import api from '@/repository';
+import api from '@/api';
 import { useStore } from '@/store/store';
 
 export const renewAccessToken = async () => {

@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from 'react-query';
 
 import './google-oauth-button.css';
 
-import { startGoogleOAuthFlow } from '@/repository/login';
+import { startGoogleOAuthFlow } from '@/api/auth/useStartGoogleOAuth';
 import GoogleSVG from './google.svg?react';
 
 export const GoogleOAuthButton = () => {

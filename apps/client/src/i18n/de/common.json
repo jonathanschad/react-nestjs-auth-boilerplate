@@ -81,5 +81,19 @@
     "toggleNavigationMenu": "Navigationsmenü öffnen",
     "toggleUserMenu": "Benutzerkontomenü öffnen",
     "toLogin": "Zum Login",
-    "version": "Version"
+    "version": "Version",
+    "playerProfile": "Spielerprofil",
+    "winRate": "Siegquote",
+    "lastGamePlayedAt": "Letztes Spiel",
+    "record": "Bilanz",
+    "recentGames": "Letzte Spiele",
+    "date": "Datum",
+    "opponent": "Gegner",
+    "result": "Ergebnis",
+    "win": "Sieg",
+    "loss": "Niederlage",
+    "gameType": "Spieltyp",
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "history": "Verlauf"
 }

@@ -64,6 +64,7 @@ export class GoogleAuthController {
                 // A user with this email already exists, the user will be connected to the Google account. This is safe
                 // because if the user has control over the google account, they could just start the forget password
                 // workflow.
+                await this.googleOAuthService.updateUserProfileWithGooglePicture(userByEmail, profile.picture);
                 await this.databaseUserService.connectGoogleAccount({
                     user: userByEmail,
                     googleOAuthId: profile.id,

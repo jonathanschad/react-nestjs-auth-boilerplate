@@ -2,6 +2,7 @@ import { GameCheckoutMode, GameType } from '@darts/prisma';
 import { AllowNull } from '@darts/utils/validators/allow-null';
 import { Type } from 'class-transformer';
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsUUID, Max, Min, ValidateNested } from 'class-validator';
+import { PublicUser } from '../../entities/user';
 import { ApiGetEndpoint, ApiPutEndpoint } from '../api';
 
 export class CreateGameParamsDTO {
@@ -108,6 +109,32 @@ export type GamePreviewResponseDTO = {
             current: number;
         };
     };
+};
+
+export type GameTurnEntityApiDTO = {
+    id: string;
+    playerId: string;
+    turnNumber: number;
+    throw1: number | null;
+    throw1Multiplier: number | null;
+    throw2: number | null;
+    throw2Multiplier: number | null;
+    throw3: number | null;
+    throw3Multiplier: number | null;
+    totalScore: number;
+};
+
+export type GameEntityApiDTO = {
+    id: string;
+    playerA: string;
+    playerB: string;
+    winner: string;
+    loser: string;
+    gameStart: Date;
+    gameEnd: Date;
+    type: GameType;
+    checkoutMode: GameCheckoutMode;
+    turns?: GameTurnEntityApiDTO[];
 };
 
 export type GameController = {

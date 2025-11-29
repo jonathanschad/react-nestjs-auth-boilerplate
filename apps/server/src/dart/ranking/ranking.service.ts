@@ -37,7 +37,7 @@ export class RankingService {
             .map((ranking) => {
                 return {
                     ...ranking,
-                    user: this.databaseUserService.sanitizeUser(ranking.user),
+                    userId: ranking.user.id,
                     rating: rating({ mu: ranking.ranking!.ordinalAfter, sigma: ranking.ranking!.sigmaAfter }),
                     score: this.openSkillService.formatRatingIntoScore(
                         rating({ mu: ranking.ranking!.ordinalAfter, sigma: ranking.ranking!.sigmaAfter }),
@@ -66,7 +66,7 @@ export class RankingService {
             .map((ranking) => {
                 return {
                     ...ranking,
-                    user: this.databaseUserService.sanitizeUser(ranking.user),
+                    userId: ranking.user.id,
                     rating: this.databaseEloHistoryService.getRatingFromHistoryEntry(ranking.ranking),
                     score: ranking.ranking!.eloAfter,
                     gamesPlayed: ranking.gameCount,

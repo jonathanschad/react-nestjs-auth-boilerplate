@@ -6,12 +6,11 @@ import { Send } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
-
+import { resendVerificationEmail } from '@/api/auth/useResendVerificationEmail';
 import {
     type ResendEmailConfirmationFormValues,
     resendEmailConfirmationFormOptions,
 } from '@/forms/resend-email-confirmation';
-import { resendVerificationEmail } from '@/repository/login';
 
 const SECONDS_UNTIL_EMAIL_CAN_BE_RESENT = 10 as const;
 

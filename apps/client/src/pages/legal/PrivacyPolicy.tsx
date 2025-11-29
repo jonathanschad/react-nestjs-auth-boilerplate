@@ -1,10 +1,9 @@
 import { useQuery } from 'react-query';
-
+import { getDataPrivacyPolicy } from '@/api/misc/useGetPrivacyPolicy';
 import LegalSVG from '@/assets/illustrations/legal.svg?react';
 import { Loading } from '@/components/Loading';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { getDataPrivacyPolicy } from '@/repository/privacy-policy';
 
 export const PrivacyPolicy = () => {
     const { isLoading, data } = useQuery({

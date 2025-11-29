@@ -5,12 +5,13 @@ import { Translation } from '@darts/ui/i18n/Translation';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useGetEloRanking } from '@/api/dart/ranking/useGetEloRanking';
+import { useGetOpenSkillRanking } from '@/api/dart/ranking/useGetOpenSkillRanking';
 import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
 } from '@/layout/useSetSignedInCurrentActiveRoute';
-import { getEloRankings, getOpenSkillRankings } from '@/repository/ranking';
+import { UserTableCell } from '@/pages/ranking/UserTableCell';
 
 type RankingType = 'elo' | 'openskill';
 
@@ -18,12 +19,8 @@ export const Ranking = () => {
     useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.RANKING);
     const [rankingType, setRankingType] = useState<RankingType>('elo');
 
-    const { data: eloRankings, isLoading: eloLoading, error: eloError } = useQuery('eloRankings', getEloRankings);
-    const {
-        data: openSkillRankings,
-        isLoading: openSkillLoading,
-        error: openSkillError,
-    } = useQuery('openSkillRankings', getOpenSkillRankings);
+    const { data: eloRankings, isLoading: eloLoading, error: eloError } = useGetEloRanking();
+    const { data: openSkillRankings, isLoading: openSkillLoading, error: openSkillError } = useGetOpenSkillRanking();
 
     const isLoading = rankingType === 'elo' ? eloLoading : openSkillLoading;
     const error = rankingType === 'elo' ? eloError : openSkillError;
@@ -129,8 +126,7 @@ const eloColumns: ColumnDef<EloRankingResponseDTO>[] = [
             );
         },
         cell: ({ row }) => {
-            const displayName = row.original.user.name || 'Unknown';
-            return <div>{displayName}</div>;
+            return <UserTableCell userUuid={row.original.userId} />;
         },
     },
     {
@@ -199,8 +195,7 @@ const openSkillColumns: ColumnDef<OpenSkillRankingResponseDTO>[] = [
             );
         },
         cell: ({ row }) => {
-            const displayName = row.original.user.name || 'Unknown';
-            return <div>{displayName}</div>;
+            return <UserTableCell userUuid={row.original.userId} />;
         },
     },
     {
@@ -250,21 +245,5 @@ const openSkillColumns: ColumnDef<OpenSkillRankingResponseDTO>[] = [
             );
         },
         cell: ({ row }) => <div>{row.original.rating.sigma.toFixed(2)}</div>,
-    },
-    {
-        accessorKey: 'gamesPlayed',
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    className="pl-0"
-                >
-                    <Translation>gamesPlayed</Translation>
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => <div>{row.original.gamesPlayed}</div>,
     },
 ];
