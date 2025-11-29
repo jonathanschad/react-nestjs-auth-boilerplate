@@ -26,7 +26,7 @@ export class PlayerService {
             playerResponse.push({
                 id: user.id,
                 name: user.name ?? '',
-                currentElo: currentUserEloRating,
+                currentElo: currentUserEloRating.elo,
                 lastGamePlayedAt: mostRecentGame?.createdAt?.toISOString() ?? null,
             });
         }

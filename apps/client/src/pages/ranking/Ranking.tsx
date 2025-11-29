@@ -99,8 +99,19 @@ export const Ranking = () => {
 
 const eloColumns: ColumnDef<EloRankingResponseDTO>[] = [
     {
-        id: 'rank',
-        header: () => <Translation>rank</Translation>,
+        accessorKey: 'rank',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>rank</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
         cell: ({ row }) => <div className="font-medium">{row.original.rank}</div>,
     },
     {
@@ -136,14 +147,41 @@ const eloColumns: ColumnDef<EloRankingResponseDTO>[] = [
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="font-semibold">{Math.round(row.original.rating)}</div>,
+        cell: ({ row }) => <div className="font-semibold">{row.original.rating.elo.toFixed(1)}</div>,
+    },
+    {
+        accessorKey: 'gamesPlayed',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>gamesPlayed</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div>{row.original.gamesPlayed}</div>,
     },
 ];
 
 const openSkillColumns: ColumnDef<OpenSkillRankingResponseDTO>[] = [
     {
-        id: 'rank',
-        header: () => <Translation>rank</Translation>,
+        accessorKey: 'rank',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>rank</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
         cell: ({ row }) => <div className="font-medium">{row.original.rank}</div>,
     },
     {
@@ -180,5 +218,53 @@ const openSkillColumns: ColumnDef<OpenSkillRankingResponseDTO>[] = [
             );
         },
         cell: ({ row }) => <div className="font-semibold">{row.original.score.toFixed(2)}</div>,
+    },
+    {
+        accessorKey: 'mu',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>mu</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div>{row.original.rating.mu.toFixed(2)}</div>,
+    },
+    {
+        accessorKey: 'sigma',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>sigma</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div>{row.original.rating.sigma.toFixed(2)}</div>,
+    },
+    {
+        accessorKey: 'gamesPlayed',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>gamesPlayed</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div>{row.original.gamesPlayed}</div>,
     },
 ];

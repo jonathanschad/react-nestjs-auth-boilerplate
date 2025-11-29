@@ -42,6 +42,7 @@ export class RankingService {
                     score: this.openSkillService.formatRatingIntoScore(
                         rating({ mu: ranking.ranking!.ordinalAfter, sigma: ranking.ranking!.sigmaAfter }),
                     ),
+                    gamesPlayed: ranking.gameCount,
                 };
             })
             .sort((a, b) => -this.openSkillService.compareRankings(a.rating, b.rating))
@@ -66,8 +67,9 @@ export class RankingService {
                 return {
                     ...ranking,
                     user: this.databaseUserService.sanitizeUser(ranking.user),
-                    rating: ranking.ranking!.eloAfter,
+                    rating: this.databaseEloHistoryService.getRatingFromHistoryEntry(ranking.ranking),
                     score: ranking.ranking!.eloAfter,
+                    gamesPlayed: ranking.gameCount,
                 };
             })
             .sort((a, b) => -this.eloService.compareRankings(a.rating, b.rating))

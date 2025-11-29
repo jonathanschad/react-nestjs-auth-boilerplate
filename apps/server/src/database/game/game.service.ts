@@ -66,4 +66,12 @@ export class DatabaseGameService {
             },
         });
     }
+
+    async clearAllGames(): Promise<void> {
+        await this.prisma.gameStatisticsIndividual.deleteMany();
+        await this.prisma.eloHistory.deleteMany();
+        await this.prisma.openSkillHistory.deleteMany();
+        await this.prisma.gameTurn.deleteMany();
+        await this.prisma.game.deleteMany();
+    }
 }

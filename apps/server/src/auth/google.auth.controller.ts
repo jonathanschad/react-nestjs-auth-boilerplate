@@ -61,20 +61,14 @@ export class GoogleAuthController {
 
             const userByEmail = await this.databaseUserService.findByEmail(profile.email);
             if (userByEmail) {
-                // A user with this email already exists, a workflow to link the Google account to the existing user
-                // should be started
-                const { token, hashedSecret, expiresAt } = this.jwtService.generateRandomToken(
-                    this.appConfigService.connectGoogleAccountTokenExpiry,
-                    { googleOAuthId: profile.id, googleEmail: profile.email, name: profile.name },
-                );
-                await this.connectGoogleAccountTokenService.createConnectGoogleAccountToken({
-                    userId: userByEmail.id,
-                    hashedSecret,
-                    expiresAt,
+                // A user with this email already exists, the user will be connected to the Google account. This is safe
+                // because if the user has control over the google account, they could just start the forget password
+                // workflow.
+                await this.databaseUserService.connectGoogleAccount({
+                    user: userByEmail,
+                    googleOAuthId: profile.id,
                 });
-                const completeUrl = new URL('/google-oauth/connect-accounts', this.appConfigService.frontendPublicUrl);
-                completeUrl.searchParams.append('connectToken', token);
-                return await reply.redirect(completeUrl.href);
+                return await reply.redirect(callbackUrl);
             }
 
             // The user does not exist, therefore a new user should be created

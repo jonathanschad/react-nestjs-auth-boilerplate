@@ -41,6 +41,8 @@ export class ImportGamesFromOldSystemService {
         const gamesCollection = db.collection<MongoGame>('games');
         const games = await gamesCollection.find({}).toArray();
 
+        games.sort((a, b) => a.date.getTime() - b.date.getTime());
+
         return games;
     }
 
@@ -125,6 +127,8 @@ export class ImportGamesFromOldSystemService {
 
             const users = new Set<string>();
 
+            await this.databaseGameService.clearAllGames();
+
             for (const game of games) {
                 const winner = game.winner;
                 const loser = game.loser;
@@ -137,7 +141,11 @@ export class ImportGamesFromOldSystemService {
                 await this.upsertUser(user);
             }
 
-            for (const game of games) {
+            for (let i = 0; i < games.length; i++) {
+                const game = games[i];
+                if (i % 100 === 0) {
+                    this.logger.log(`Importing game ${i} of ${games.length} (${game.date.toISOString()})`);
+                }
                 await this.upsertGame(game);
             }
         } finally {

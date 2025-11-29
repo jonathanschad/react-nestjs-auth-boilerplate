@@ -163,6 +163,9 @@ model EloHistory {
   player User @relation(fields: [playerId], references: [id])
   eloBefore Float
   eloAfter Float
+  gamesPlayedBefore Int @default(0)
+  gamesPlayedAfter Int @default(0)
+
 
   @@unique([gameId, playerId])
 }

@@ -1,4 +1,5 @@
 import { EloHistory, Game, Prisma, User } from '@darts/prisma';
+import { EloRating } from '@darts/types/api/ranking/ranking.dto';
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_ELO } from '@/dart/ranking/elo.service';
 import { DatabaseHistoryInterface, RankingHistoryWithGame } from '@/database/history/database-history.interface';
@@ -7,7 +8,7 @@ import { DatabaseUserService } from '@/database/user/user.service';
 
 @Injectable()
 export class DatabaseEloHistoryService
-    implements DatabaseHistoryInterface<EloHistory, Prisma.EloHistoryCreateInput, number>
+    implements DatabaseHistoryInterface<EloHistory, Prisma.EloHistoryCreateInput, EloRating>
 {
     constructor(
         private prisma: PrismaService,
@@ -105,11 +106,11 @@ export class DatabaseEloHistoryService
         return rankings;
     }
 
-    public getRatingFromHistoryEntry(historyEntry: EloHistory | null): number {
+    public getRatingFromHistoryEntry(historyEntry: EloHistory | null): EloRating {
         if (!historyEntry) {
-            return DEFAULT_ELO;
+            return { elo: DEFAULT_ELO, gamesPlayed: 0 };
         }
 
-        return historyEntry.eloAfter;
+        return { elo: historyEntry.eloAfter, gamesPlayed: historyEntry.gamesPlayedAfter };
     }
 }

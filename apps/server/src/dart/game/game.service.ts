@@ -1,5 +1,6 @@
 import { GameTurn, GameType, Prisma } from '@darts/prisma';
 import type { CreateGameDTO, GamePreviewResponseDTO } from '@darts/types/api/game/game.dto';
+import { EloRating } from '@darts/types/api/ranking/ranking.dto';
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_ELO, EloService } from '@/dart/ranking/elo.service';
 import { GameResult } from '@/dart/ranking/ranking';
@@ -174,8 +175,14 @@ export class GameService {
         const playerAEloHistory = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerAId);
         const playerBEloHistory = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerBId);
 
-        const playerAElo = playerAEloHistory?.eloAfter ?? DEFAULT_ELO;
-        const playerBElo = playerBEloHistory?.eloAfter ?? DEFAULT_ELO;
+        const playerAElo: EloRating = {
+            elo: playerAEloHistory?.eloAfter ?? DEFAULT_ELO,
+            gamesPlayed: playerAEloHistory?.gamesPlayedAfter ?? 0,
+        };
+        const playerBElo: EloRating = {
+            elo: playerBEloHistory?.eloAfter ?? DEFAULT_ELO,
+            gamesPlayed: playerBEloHistory?.gamesPlayedAfter ?? 0,
+        };
 
         const ratingOnPlayerAWin = this.eloService.getNewRankings(playerAElo, playerBElo, GameResult.WIN_PLAYER_A);
         const ratingOnPlayerBWin = this.eloService.getNewRankings(playerAElo, playerBElo, GameResult.WIN_PLAYER_B);
@@ -185,18 +192,18 @@ export class GameService {
                 id: playerA.id,
                 name: playerA.name ?? '',
                 elo: {
-                    onWin: ratingOnPlayerAWin.playerA.newRating,
-                    onLoss: ratingOnPlayerBWin.playerA.newRating,
-                    current: playerAElo,
+                    onWin: ratingOnPlayerAWin.playerA.newRating.elo,
+                    onLoss: ratingOnPlayerBWin.playerA.newRating.elo,
+                    current: playerAElo.elo,
                 },
             },
             playerB: {
                 id: playerB.id,
                 name: playerB.name ?? '',
                 elo: {
-                    onWin: ratingOnPlayerBWin.playerB.newRating,
-                    onLoss: ratingOnPlayerAWin.playerB.newRating,
-                    current: playerBElo,
+                    onWin: ratingOnPlayerBWin.playerB.newRating.elo,
+                    onLoss: ratingOnPlayerAWin.playerB.newRating.elo,
+                    current: playerBElo.elo,
                 },
             },
         };
