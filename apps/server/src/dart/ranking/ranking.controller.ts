@@ -1,8 +1,8 @@
+import { EloRankingResponseDTO, OpenSkillRankingResponseDTO } from '@darts/types/api/ranking/ranking.dto';
 import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
-import { EloRankingResponseDTO, OpenSkillRankingResponseDTO } from '@/dart/ranking/ranking.dto';
 import { RankingService } from '@/dart/ranking/ranking.service';
 
-@Controller('ranking')
+@Controller('dart/ranking')
 export class RankingController {
     constructor(private readonly rankingService: RankingService) {}
 

@@ -1,6 +1,6 @@
 import { GameTurn, GameType, Prisma } from '@darts/prisma';
+import type { CreateGameDTO, GamePreviewResponseDTO } from '@darts/types/api/game/game.dto';
 import { Injectable } from '@nestjs/common';
-import type { CreateGameDTO, GamePreviewResponseDTO } from '@/dart/game/game.dto';
 import { EloService } from '@/dart/ranking/elo.service';
 import { GameResult } from '@/dart/ranking/ranking';
 import { RankingHistoryService } from '@/dart/ranking/ranking-history.service';

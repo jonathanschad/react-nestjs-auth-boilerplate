@@ -28,6 +28,12 @@ catalogs:
     axios:
       specifier: ^1.7.7
       version: 1.8.1
+    class-transformer:
+      specifier: ^0.5.1
+      version: 0.5.1
+    class-validator:
+      specifier: ^0.14.1
+      version: 0.14.1
     eslint:
       specifier: ^9.26.0
       version: 9.26.0
@@ -40,6 +46,9 @@ catalogs:
     globals:
       specifier: ^15.14.0
       version: 15.15.0
+    openskill:
+      specifier: ^4.1.0
+      version: 4.1.0
     typescript:
       specifier: ^5.8.3
       version: 5.8.3
@@ -195,6 +204,9 @@ importers:
       '@darts/ts-config':
         specifier: workspace:*
         version: link:../../packages/ts-config
+      '@darts/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@darts/ui':
         specifier: workspace:*
         version: file:packages/ui(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(i18next@23.16.8)(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.5)(@types/node@20.17.22)(typescript@5.8.3)))
@@ -267,6 +279,9 @@ importers:
       '@darts/prisma':
         specifier: workspace:*
         version: link:../../packages/prisma
+      '@darts/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@darts/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -322,10 +337,10 @@ importers:
         specifier: 'catalog:'
         version: 1.8.1
       class-transformer:
-        specifier: ^0.5.1
+        specifier: 'catalog:'
         version: 0.5.1
       class-validator:
-        specifier: ^0.14.1
+        specifier: 'catalog:'
         version: 0.14.1
       fastify:
         specifier: ^5.2.1
@@ -343,7 +358,7 @@ importers:
         specifier: ^6.9.14
         version: 6.10.0
       openskill:
-        specifier: ^4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
       react:
         specifier: catalog:react18
@@ -532,6 +547,19 @@ importers:
         version: 4.3.0(rollup@4.34.9)(typescript@5.8.3)(vite@6.3.4(@types/node@22.13.8)(jiti@1.21.7)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
 
   packages/types:
+    dependencies:
+      '@darts/prisma':
+        specifier: workspace:*
+        version: link:../prisma
+      '@darts/utils':
+        specifier: workspace:*
+        version: link:../utils
+      class-transformer:
+        specifier: 'catalog:'
+        version: 0.5.1
+      class-validator:
+        specifier: 'catalog:'
+        version: 0.14.1
     devDependencies:
       '@darts/eslint-config':
         specifier: workspace:*
@@ -542,6 +570,9 @@ importers:
       eslint:
         specifier: 'catalog:'
         version: 9.26.0(jiti@1.21.7)
+      openskill:
+        specifier: 'catalog:'
+        version: 4.1.0
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -638,6 +669,10 @@ importers:
         version: 4.3.0(rollup@4.34.9)(typescript@5.8.3)(vite@6.3.4(@types/node@22.13.8)(jiti@1.21.7)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
 
   packages/utils:
+    dependencies:
+      class-validator:
+        specifier: 'catalog:'
+        version: 0.14.1
     devDependencies:
       '@darts/eslint-config':
         specifier: workspace:*

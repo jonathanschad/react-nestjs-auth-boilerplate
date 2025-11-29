@@ -1,14 +1,9 @@
 import assert from 'node:assert';
 import { type Prisma, type Token, TokenType, type User, UserState } from '@darts/prisma';
+import type { PublicUser, SanitizedUserWithSettings } from '@darts/types/entities/user';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
 import type { UserWithSettings } from '@/types/prisma';
-
-type SanitizedUser = Omit<
-    UserWithSettings,
-    'password' | 'salt' | 'createdAt' | 'updatedAt' | 'googleOAuthId' | 'settingsId'
->;
-
 @Injectable()
 export class DatabaseUserService {
     constructor(private prisma: PrismaService) {}
@@ -160,14 +155,25 @@ export class DatabaseUserService {
         });
     }
 
-    public sanitizeUser(user: UserWithSettings): SanitizedUser {
+    public sanitizeUserWithSettings(user: UserWithSettings): SanitizedUserWithSettings {
         return {
-            name: user.name,
+            name: user.name ?? '',
             id: user.id,
             email: user.email,
             state: user.state,
             profilePictureId: user.profilePictureId,
-            settings: user.settings,
+            settings: {
+                language: user.settings.language,
+                notificationsEnabled: user.settings.notificationsEnabled,
+            },
+        };
+    }
+
+    public sanitizeUser(user: User): PublicUser {
+        return {
+            name: user.name ?? '',
+            id: user.id,
+            profilePictureId: user.profilePictureId,
         };
     }
 

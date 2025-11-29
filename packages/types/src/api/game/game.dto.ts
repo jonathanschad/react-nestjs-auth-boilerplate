@@ -1,7 +1,8 @@
 import { GameCheckoutMode, GameType } from '@darts/prisma';
+import { AllowNull } from '@darts/utils/validators/allow-null';
 import { Type } from 'class-transformer';
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsUUID, Max, Min, ValidateNested } from 'class-validator';
-import { AllowNull } from '@/util/validators/allow-null';
+import { ApiGetEndpoint, ApiPutEndpoint } from '../api';
 
 export class CreateGameParamsDTO {
     @IsUUID()
@@ -107,4 +108,9 @@ export type GamePreviewResponseDTO = {
             current: number;
         };
     };
+};
+
+export type GameController = {
+    createGame: ApiPutEndpoint<CreateGameDTO, void>;
+    getGamePreview: ApiGetEndpoint<GetGamePreviewParamsDTO, GamePreviewResponseDTO>;
 };

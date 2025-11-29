@@ -1,11 +1,11 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Put } from '@nestjs/common';
-import { BasicAuthRoute } from '@/auth/auth.guard';
 import {
     CreateGameDTO,
     CreateGameParamsDTO,
     GamePreviewResponseDTO,
     GetGamePreviewParamsDTO,
-} from '@/dart/game/game.dto';
+} from '@darts/types/api/game/game.dto';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Put } from '@nestjs/common';
+import { BasicAuthRoute } from '@/auth/auth.guard';
 import { GameService } from '@/dart/game/game.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';

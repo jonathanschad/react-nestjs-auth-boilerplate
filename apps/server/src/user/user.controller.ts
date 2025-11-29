@@ -1,6 +1,6 @@
+import type { SanitizedUserWithSettings } from '@darts/types/entities/user';
 import { Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
-
 import { User } from '@/auth/auth.guard';
 import { DatabaseUserService } from '@/database/user/user.service';
 import type { UserWithSettings } from '@/types/prisma';
@@ -46,7 +46,7 @@ export class UserController {
     }
 
     @Get()
-    getUser(@User() user: UserWithSettings) {
-        return this.databaseUserService.sanitizeUser(user);
+    getUser(@User() user: UserWithSettings): SanitizedUserWithSettings {
+        return this.databaseUserService.sanitizeUserWithSettings(user);
     }
 }

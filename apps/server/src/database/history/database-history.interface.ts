@@ -1,3 +1,5 @@
+import { PublicUser } from '@darts/types/entities/user';
+
 export class DatabaseHistoryInterface<DatabaseEntity, CreateInput, RatingType> {
     public getCurrentRatingByUserId(_userId: string): Promise<RatingType> {
         throw new Error('Not implemented');
@@ -15,7 +17,9 @@ export class DatabaseHistoryInterface<DatabaseEntity, CreateInput, RatingType> {
         throw new Error('Not implemented');
     }
 
-    public getRankingForUsersAtTimestamp(_timestamp: Date): Promise<{ userId: string; ranking: RatingType }[]> {
+    public getRankingForUsersAtTimestamp(
+        _timestamp: Date,
+    ): Promise<{ user: PublicUser; score: number; rank: number; rating: RatingType }[]> {
         throw new Error('Not implemented');
     }
 }

@@ -46,6 +46,7 @@
         "@darts/eslint-config": "workspace:*",
         "@darts/ts-config": "workspace:*",
         "@darts/ui": "workspace:*",
+        "@darts/types": "workspace:*",
         "@tanstack/eslint-plugin-query": "^5.74.7",
         "@types/node": "^20.14.12",
         "@types/react": "catalog:react18",

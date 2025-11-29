@@ -1,14 +1,21 @@
 import { OpenSkillHistory, Prisma } from '@darts/prisma';
+import { PublicUser } from '@darts/types/entities/user';
 import { Injectable } from '@nestjs/common';
 import { type Rating, rating } from 'openskill';
+import { OpenSkillService } from '@/dart/ranking/openskill.service';
 import { DatabaseHistoryInterface } from '@/database/history/database-history.interface';
 import { PrismaService } from '@/database/prisma.service';
+import { DatabaseUserService } from '@/database/user/user.service';
 
+const ordinalService = new OpenSkillService();
 @Injectable()
 export class DatabaseOpenSkillHistoryService
     implements DatabaseHistoryInterface<OpenSkillHistory, Prisma.OpenSkillHistoryCreateInput, Rating>
 {
-    constructor(private prisma: PrismaService) {}
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly databaseUserService: DatabaseUserService,
+    ) {}
 
     async getCurrentRatingByUserId(userId: string): Promise<Rating> {
         return this.getRankingForUserAtTimestamp(userId, new Date());
@@ -55,28 +62,39 @@ export class DatabaseOpenSkillHistoryService
         await this.prisma.openSkillHistory.deleteMany();
     }
 
-    public async getRankingForUsersAtTimestamp(timestamp: Date): Promise<{ userId: string; ranking: Rating }[]> {
-        const playersWithGamesAtTimestamp = await this.prisma.eloHistory.findMany({
+    public async getRankingForUsersAtTimestamp(
+        timestamp: Date,
+    ): Promise<{ user: PublicUser; rating: Rating; rank: number; score: number }[]> {
+        const playersWithGamesAtTimestamp = await this.prisma.user.findMany({
             where: {
-                game: {
-                    gameEnd: {
-                        lte: timestamp,
+                openSkillHistory: {
+                    some: {
+                        game: {
+                            gameEnd: {
+                                lte: timestamp,
+                            },
+                        },
                     },
                 },
             },
-            distinct: ['playerId'],
-            select: {
-                playerId: true,
-            },
         });
 
-        return await Promise.all(
+        const rankings = await Promise.all(
             playersWithGamesAtTimestamp.map(async (player) => {
                 return {
-                    userId: player.playerId,
-                    ranking: await this.getRankingForUserAtTimestamp(player.playerId, timestamp),
+                    user: this.databaseUserService.sanitizeUser(player),
+                    ranking: await this.getRankingForUserAtTimestamp(player.id, timestamp),
                 };
             }),
         );
+
+        return rankings
+            .sort((a, b) => -ordinalService.compareRankings(a.ranking, b.ranking))
+            .map((ranking, index) => ({
+                user: ranking.user,
+                rank: index + 1,
+                rating: ranking.ranking,
+                score: ordinalService.formatRatingIntoScore(ranking.ranking),
+            }));
     }
 }

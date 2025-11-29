@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ordinal, rating } from 'openskill';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseOpenSkillHistoryService } from '@/database/history/openskill-history.service';
 
@@ -28,9 +27,6 @@ export class RankingService {
     public async getOpenSkillRankingsAtTimestamp(timestamp: Date) {
         const rankings = await this.databaseOpenSkillHistoryService.getRankingForUsersAtTimestamp(timestamp);
 
-        return rankings.map((ranking) => ({
-            userId: ranking.userId,
-            ranking: ordinal(rating(ranking.ranking)),
-        }));
+        return rankings;
     }
 }
