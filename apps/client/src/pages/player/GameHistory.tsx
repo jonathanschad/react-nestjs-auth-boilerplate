@@ -64,13 +64,15 @@ const gameColumns: ColumnDef<GameEntityApiDTO>[] = [
                         </TooltipTrigger>
                         <TooltipContent>
                             <p>
-                                <Translation>duration</Translation>: {duration} min
+                                <Translation as="normalText">duration</Translation>: {duration} min
                             </p>
                             <p>
-                                <Translation>gameStart</Translation>: {dayjs(game.gameStart).format('DD.MM.YYYY HH:mm')}
+                                <Translation as="normalText">gameStart</Translation>:{' '}
+                                {dayjs(game.gameStart).format('DD.MM.YYYY HH:mm')}
                             </p>
                             <p>
-                                <Translation>gameEnd</Translation>: {dayjs(game.gameEnd).format('DD.MM.YYYY HH:mm')}
+                                <Translation as="normalText">gameEnd</Translation>:{' '}
+                                {dayjs(game.gameEnd).format('DD.MM.YYYY HH:mm')}
                             </p>
                         </TooltipContent>
                     </Tooltip>
