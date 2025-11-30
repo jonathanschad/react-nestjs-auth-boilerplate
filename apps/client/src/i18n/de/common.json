@@ -95,5 +95,17 @@
     "gameType": "Spieltyp",
     "loading": "Lädt...",
     "error": "Fehler",
-    "history": "Verlauf"
+    "history": "Verlauf",
+    "gameHistory": "Spielverlauf",
+    "duration": "Dauer",
+    "errorLoadingGameHistory": "Fehler beim Laden des Spielverlaufs. Bitte versuche es erneut.",
+    "noGamesPlayed": "Noch keine Spiele gespielt.",
+    "page": "Seite",
+    "of": "von",
+    "totalGames": "insgesamt Spiele",
+    "playerA": "Spieler A",
+    "playerB": "Spieler B",
+    "eloChange": "ELO-Änderung",
+    "gameStart": "Spielbeginn",
+    "gameEnd": "Spielende"
 }

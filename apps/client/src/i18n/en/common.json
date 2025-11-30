@@ -105,5 +105,7 @@
     "totalGames": "total games",
     "playerA": "Player A",
     "playerB": "Player B",
-    "eloChange": "ELO Change"
+    "eloChange": "ELO Change",
+    "gameStart": "Game Start",
+    "gameEnd": "Game End"
 }

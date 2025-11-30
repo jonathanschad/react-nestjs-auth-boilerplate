@@ -4,6 +4,11 @@ import { ApiGetEndpoint, PaginatedRequest, PaginatedResponse } from '../api';
 import { GameEntityApiDTO } from '../game/game.dto';
 import { EloRankingResponseDTO, EloRating, OpenSkillRankingResponseDTO } from '../ranking/ranking.dto';
 
+export type RankingCache<T extends EloRating | Rating> = {
+    rating: T;
+    rank: number | null;
+};
+
 export type PlayerResponseDTO = {
     id: string;
     name: string;
@@ -14,8 +19,8 @@ export type PlayerResponseDTO = {
 export type PlayerDetailsResponseDTO = {
     player: PublicUser;
     currentRating: {
-        elo: { rating: EloRating; rank: number };
-        openSkill: { rating: Rating; rank: number };
+        elo: RankingCache<EloRating>;
+        openSkill: RankingCache<Rating>;
     };
     stats: {
         gamesPlayed: number;

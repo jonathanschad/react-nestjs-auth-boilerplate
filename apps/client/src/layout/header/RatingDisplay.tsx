@@ -6,7 +6,7 @@ import { Medal, Trophy } from 'lucide-react';
 
 type RatingDisplayProps = {
     rating: string;
-    rank: number;
+    rank: number | null;
     type: 'elo' | 'openskill';
 };
 export const RatingDisplay = ({ rating, rank, type }: RatingDisplayProps) => {
@@ -31,7 +31,7 @@ export const RatingDisplay = ({ rating, rank, type }: RatingDisplayProps) => {
                 <div className="flex items-center gap-1.5">
                     <Typography as="smallText">{rating}</Typography>
                     <Badge variant="secondary" className="h-4 px-1.5 text-[10px]">
-                        <Medal className="mr-0.5 h-3 w-3" />#{rank}
+                        <Medal className="mr-0.5 h-3 w-3" />#{rank ?? '-'}
                     </Badge>
                 </div>
             </div>

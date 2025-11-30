@@ -1,5 +1,6 @@
+import { RankingCache } from '@darts/types/api/player/player.dto';
 import { EloRating } from '@darts/types/api/ranking/ranking.dto';
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { Rating, rating } from 'openskill';
 import { EloService } from '@/dart/ranking/elo.service';
@@ -8,9 +9,9 @@ import { DatabaseEloHistoryService } from '@/database/history/elo-history.servic
 import { DatabaseOpenSkillHistoryService } from '@/database/history/openskill-history.service';
 
 @Injectable()
-export class RankingService {
-    public eloRankCache: Map<string, { rating: EloRating; rank: number }> = new Map();
-    public openSkillRankCache: Map<string, { rating: Rating; rank: number }> = new Map();
+export class RankingService implements OnApplicationBootstrap {
+    public eloRankCache: Map<string, RankingCache<EloRating>> = new Map();
+    public openSkillRankCache: Map<string, RankingCache<Rating>> = new Map();
 
     constructor(
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
@@ -19,8 +20,13 @@ export class RankingService {
         private readonly eloService: EloService,
     ) {}
 
+    public async onApplicationBootstrap() {
+        await this.updateCachedRankings();
+    }
+
     public async getLatestEloRankings() {
         const rankings = await this.getEloRankingsAtTimestamp(new Date());
+        // TODO handle unranked players and inactive players
         for (const ranking of rankings) {
             this.eloRankCache.set(ranking.userId, {
                 rating: ranking.rating,
@@ -97,12 +103,33 @@ export class RankingService {
             });
     }
 
-    public getCachedEloRanking(userId: string) {
-        return this.eloRankCache.get(userId);
+    public async getCachedEloRanking(userId: string): Promise<RankingCache<EloRating>> {
+        const cached = this.eloRankCache.get(userId);
+        if (!cached) {
+            const eloHistory = await this.databaseEloHistoryService.getRankingForUserAtTimestamp(userId, new Date());
+            return {
+                rating: this.databaseEloHistoryService.getRatingFromHistoryEntry(eloHistory),
+                rank: null,
+            };
+        }
+
+        return cached;
     }
 
-    public getCachedOpenSkillRanking(userId: string) {
-        return this.openSkillRankCache.get(userId);
+    public async getCachedOpenSkillRanking(userId: string): Promise<RankingCache<Rating>> {
+        const cached = this.openSkillRankCache.get(userId);
+        if (!cached) {
+            const openSkillHistory = await this.databaseOpenSkillHistoryService.getRankingForUserAtTimestamp(
+                userId,
+                new Date(),
+            );
+            return {
+                rating: this.databaseOpenSkillHistoryService.getRatingFromHistoryEntry(openSkillHistory),
+                rank: null,
+            };
+        }
+
+        return cached;
     }
 
     public async updateCachedRankings() {

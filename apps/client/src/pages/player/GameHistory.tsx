@@ -4,6 +4,7 @@ import { Button } from '@darts/ui/components/button';
 import { Card } from '@darts/ui/components/card';
 import { Skeleton } from '@darts/ui/components/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@darts/ui/components/tooltip';
 import { Typography } from '@darts/ui/components/typography';
 import { Translation } from '@darts/ui/i18n/Translation';
 import type { ColumnDef } from '@tanstack/react-table';
@@ -53,7 +54,28 @@ const gameColumns: ColumnDef<GameEntityApiDTO>[] = [
         id: 'date',
         header: () => <Translation>date</Translation>,
         cell: ({ row }) => {
-            return dayjs(row.original.gameEnd).format('DD.MM.YYYY HH:mm');
+            const game = row.original;
+            const duration = dayjs(game.gameEnd).diff(dayjs(game.gameStart), 'minute');
+            return (
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <div>{dayjs(game.gameEnd).format('DD.MM.YYYY HH:mm')}</div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>
+                                <Translation>duration</Translation>: {duration} min
+                            </p>
+                            <p>
+                                <Translation>gameStart</Translation>: {dayjs(game.gameStart).format('DD.MM.YYYY HH:mm')}
+                            </p>
+                            <p>
+                                <Translation>gameEnd</Translation>: {dayjs(game.gameEnd).format('DD.MM.YYYY HH:mm')}
+                            </p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            );
         },
     },
     {
@@ -81,15 +103,6 @@ const gameColumns: ColumnDef<GameEntityApiDTO>[] = [
         header: () => <Translation>gameType</Translation>,
         cell: ({ row }) => {
             return <span>{row.original.type}</span>;
-        },
-    },
-    {
-        id: 'duration',
-        header: () => <Translation>duration</Translation>,
-        cell: ({ row }) => {
-            const game = row.original;
-            const duration = dayjs(game.gameEnd).diff(dayjs(game.gameStart), 'minute');
-            return `${duration} min`;
         },
     },
 ];

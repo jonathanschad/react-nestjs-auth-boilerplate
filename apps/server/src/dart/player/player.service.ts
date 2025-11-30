@@ -50,17 +50,8 @@ export class PlayerService {
         const wins = games.filter((game) => game.winnerId === playerId).length;
         const losses = gamesPlayed - wins;
 
-        let cachedEloRating = this.rankingService.getCachedEloRanking(playerId);
-        let cachedOpenSkillRating = this.rankingService.getCachedOpenSkillRanking(playerId);
-
-        if (!cachedEloRating || !cachedOpenSkillRating) {
-            await this.rankingService.updateCachedRankings();
-
-            cachedEloRating = this.rankingService.getCachedEloRanking(playerId);
-            cachedOpenSkillRating = this.rankingService.getCachedOpenSkillRanking(playerId);
-        }
-        assert(cachedEloRating);
-        assert(cachedOpenSkillRating);
+        const cachedEloRating = await this.rankingService.getCachedEloRanking(playerId);
+        const cachedOpenSkillRating = await this.rankingService.getCachedOpenSkillRanking(playerId);
 
         return {
             player: {
