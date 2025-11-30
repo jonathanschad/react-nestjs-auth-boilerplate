@@ -1,0 +1,7 @@
+---
+description: 
+globs: *.tsx
+alwaysApply: true
+---
+Use shadcn components from the ui package. If the needed component is not available, you can install them. If the needed component is not available from shadcn, you can create it yourself in the ui package. However make sure to make the components genreal so that they can be used in other parts of the application. Add them with 'pnpm dlx shadcn@latest add component-name'
+Use the typography component from the ui package to style the text.

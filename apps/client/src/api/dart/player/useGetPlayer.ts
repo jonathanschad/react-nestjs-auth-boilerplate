@@ -15,10 +15,10 @@ const getPlayerDetails = async (playerId: string): Promise<Api['dart']['player']
     }
 };
 
-export const useGetPlayer = (playerUuid: string) => {
-    const playerQuery = useQuery([...getPlayerQueryKey(playerUuid), 'basicInfo'], () => getPlayerDetails(playerUuid), {
+export const useGetPlayer = (playerUuid: string | undefined) => {
+    return useQuery({
+        queryKey: [...getPlayerQueryKey(playerUuid ?? 'disabled'), 'basicInfo'],
+        queryFn: playerUuid ? () => getPlayerDetails(playerUuid) : undefined,
         enabled: !!playerUuid,
     });
-
-    return playerQuery;
 };

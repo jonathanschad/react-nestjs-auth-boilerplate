@@ -17,6 +17,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { logout } from '@/api/auth/useLogout';
 import { ProfilePicture } from '@/components/ProfilePicture';
 import { ProjectLogo } from '@/components/ProjectLogo';
+import { UserRatingsDisplay } from '@/layout/header/UserRatingsDisplay';
 import { CurrentlySelectedRouteOptions } from '@/layout/useSetSignedInCurrentActiveRoute';
 
 export const SignedInLayout = () => {
@@ -120,6 +121,7 @@ export const SignedInLayout = () => {
                     </SheetContent>
                 </Sheet>
                 <div className="ml-auto flex items-center justify-end gap-4 md:gap-2 lg:gap-4">
+                    <UserRatingsDisplay />
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="secondary" size="icon" className="rounded-full">

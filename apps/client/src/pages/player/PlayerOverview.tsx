@@ -39,7 +39,7 @@ export const PlayerOverview = ({ playerId }: PlayerOverviewProps) => {
     }
 
     const { player, currentRating, stats } = data;
-    const openSkillRating = rating(currentRating.openSkill);
+    const openSkillRating = rating(currentRating.openSkill.rating);
     return (
         <>
             <div>
@@ -54,15 +54,19 @@ export const PlayerOverview = ({ playerId }: PlayerOverviewProps) => {
                         <Translation>eloRating</Translation>
                     </Typography>
                     <Typography as="h2" className="mt-2">
-                        {currentRating.elo.elo.toFixed(1)}
+                        {currentRating.elo.rating.elo.toFixed(1)}
                     </Typography>
                 </Card>
                 <Card className="p-4">
                     <Typography as="smallText" className="text-muted-foreground">
                         <Translation>openSkillRating</Translation>
                     </Typography>
-                    <Typography as="h2" className="mt-2">
-                        {`${ordinal(openSkillRating).toFixed(2)} (μ: ${currentRating.openSkill.mu.toFixed(2)}, σ: ${currentRating.openSkill.sigma.toFixed(2)})`}
+                    <Typography
+                        as="h2"
+                        className="mt-2"
+                        title={`μ: ${currentRating.openSkill.rating.mu.toFixed(2)}, σ: ${currentRating.openSkill.rating.sigma.toFixed(2)}`}
+                    >
+                        {ordinal(openSkillRating).toFixed(2)}
                     </Typography>
                 </Card>
                 <Card className="p-4">

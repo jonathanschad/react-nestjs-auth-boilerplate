@@ -14,8 +14,8 @@ export type PlayerResponseDTO = {
 export type PlayerDetailsResponseDTO = {
     player: PublicUser;
     currentRating: {
-        elo: EloRating;
-        openSkill: Rating;
+        elo: { rating: EloRating; rank: number };
+        openSkill: { rating: Rating; rank: number };
     };
     stats: {
         gamesPlayed: number;

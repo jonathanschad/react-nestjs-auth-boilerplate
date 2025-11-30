@@ -1,0 +1,6 @@
+---
+description:
+globs: *.vue,*.ts
+alwaysApply: false
+---
+If a function has more than 1 parameter please use the destructuring syntax like this: function foo({ p1, p2 }: { p1: number, p2: string })

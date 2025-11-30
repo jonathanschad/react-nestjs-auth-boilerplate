@@ -3,9 +3,9 @@ import type { GameEntityApiDTO } from '@darts/types/api/game/game.dto';
 import type { PlayerDetailsResponseDTO, PlayerResponseDTO } from '@darts/types/api/player/player.dto';
 import { Injectable } from '@nestjs/common';
 import assert from 'assert';
+import { RankingService } from '@/dart/ranking/ranking.service';
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
-import { DatabaseOpenSkillHistoryService } from '@/database/history/openskill-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class PlayerService {
         private readonly databaseUserService: DatabaseUserService,
         private readonly databaseGameService: DatabaseGameService,
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
-        private readonly databaseOpenSkillHistoryService: DatabaseOpenSkillHistoryService,
+        private readonly rankingService: RankingService,
     ) {}
 
     async getAllPlayers(): Promise<PlayerResponseDTO[]> {
@@ -41,14 +41,6 @@ export class PlayerService {
     async getPlayerDetails(playerId: string): Promise<PlayerDetailsResponseDTO> {
         const user = await this.databaseUserService.findByUuid(playerId);
 
-        // Get current ratings
-        const currentEloHistory = await this.databaseEloHistoryService.getCurrentRatingByUserId(playerId);
-        const currentEloRating = this.databaseEloHistoryService.getRatingFromHistoryEntry(currentEloHistory);
-
-        const currentOpenSkillHistory = await this.databaseOpenSkillHistoryService.getCurrentRatingByUserId(playerId);
-        const currentOpenSkillRating =
-            this.databaseOpenSkillHistoryService.getRatingFromHistoryEntry(currentOpenSkillHistory);
-
         // TODO: Improve this
         const games = await this.databaseGameService.getGamesByUserId(playerId);
         const gamesPlayed = games.length;
@@ -58,6 +50,18 @@ export class PlayerService {
         const wins = games.filter((game) => game.winnerId === playerId).length;
         const losses = gamesPlayed - wins;
 
+        let cachedEloRating = this.rankingService.getCachedEloRanking(playerId);
+        let cachedOpenSkillRating = this.rankingService.getCachedOpenSkillRanking(playerId);
+
+        if (!cachedEloRating || !cachedOpenSkillRating) {
+            await this.rankingService.updateCachedRankings();
+
+            cachedEloRating = this.rankingService.getCachedEloRanking(playerId);
+            cachedOpenSkillRating = this.rankingService.getCachedOpenSkillRanking(playerId);
+        }
+        assert(cachedEloRating);
+        assert(cachedOpenSkillRating);
+
         return {
             player: {
                 id: user.id,
@@ -65,8 +69,8 @@ export class PlayerService {
                 profilePictureId: user.profilePictureId,
             },
             currentRating: {
-                elo: currentEloRating,
-                openSkill: currentOpenSkillRating,
+                elo: cachedEloRating,
+                openSkill: cachedOpenSkillRating,
             },
             stats: {
                 gamesPlayed,

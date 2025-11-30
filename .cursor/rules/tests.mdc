@@ -1,0 +1,18 @@
+---
+description:
+globs: *.test.ts
+alwaysApply: false
+---
+for executing tests use `yarn test filename.ts` that command need to be executed in the server directory
+Tests are always structured in the following way. Between each block should be one empty line. But only between the blocks:
+describe('test name', () => {
+    it('what it does', () => {
+        expect.assertions(number of assertions);
+
+        // test setup
+
+        // test execution
+
+        // assertions
+    });
+});

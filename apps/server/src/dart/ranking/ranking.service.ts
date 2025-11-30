@@ -1,28 +1,46 @@
+import { EloRating } from '@darts/types/api/ranking/ranking.dto';
 import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
-import { rating } from 'openskill';
+import { Rating, rating } from 'openskill';
 import { EloService } from '@/dart/ranking/elo.service';
 import { OpenSkillService } from '@/dart/ranking/openskill.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseOpenSkillHistoryService } from '@/database/history/openskill-history.service';
-import { DatabaseUserService } from '@/database/user/user.service';
 
 @Injectable()
 export class RankingService {
+    public eloRankCache: Map<string, { rating: EloRating; rank: number }> = new Map();
+    public openSkillRankCache: Map<string, { rating: Rating; rank: number }> = new Map();
+
     constructor(
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
         private readonly databaseOpenSkillHistoryService: DatabaseOpenSkillHistoryService,
         private readonly openSkillService: OpenSkillService,
         private readonly eloService: EloService,
-        private readonly databaseUserService: DatabaseUserService,
     ) {}
 
     public async getLatestEloRankings() {
-        return this.getEloRankingsAtTimestamp(new Date());
+        const rankings = await this.getEloRankingsAtTimestamp(new Date());
+        for (const ranking of rankings) {
+            this.eloRankCache.set(ranking.userId, {
+                rating: ranking.rating,
+                rank: ranking.rank,
+            });
+        }
+
+        return rankings;
     }
 
     public async getLatestOpenSkillRankings() {
-        return this.getOpenSkillRankingsAtTimestamp(new Date());
+        const rankings = await this.getOpenSkillRankingsAtTimestamp(new Date());
+        for (const ranking of rankings) {
+            this.openSkillRankCache.set(ranking.userId, {
+                rating: ranking.rating,
+                rank: ranking.rank,
+            });
+        }
+
+        return rankings;
     }
 
     public async getOpenSkillRankingsAtTimestamp(timestamp: Date) {
@@ -36,7 +54,6 @@ export class RankingService {
             .filter((ranking) => dayjs(ranking.ranking!.game.gameEnd).isAfter(lastGameRatingCutoff))
             .map((ranking) => {
                 return {
-                    ...ranking,
                     userId: ranking.user.id,
                     rating: rating({ mu: ranking.ranking!.muAfter, sigma: ranking.ranking!.sigmaAfter }),
                     score: this.openSkillService.formatRatingIntoScore(
@@ -65,7 +82,6 @@ export class RankingService {
             .filter((ranking) => dayjs(ranking.ranking!.game.gameEnd).isAfter(lastGameRatingCutoff))
             .map((ranking) => {
                 return {
-                    ...ranking,
                     userId: ranking.user.id,
                     rating: this.databaseEloHistoryService.getRatingFromHistoryEntry(ranking.ranking),
                     score: ranking.ranking!.eloAfter,
@@ -79,5 +95,20 @@ export class RankingService {
                     rank: index + 1,
                 };
             });
+    }
+
+    public getCachedEloRanking(userId: string) {
+        return this.eloRankCache.get(userId);
+    }
+
+    public getCachedOpenSkillRanking(userId: string) {
+        return this.openSkillRankCache.get(userId);
+    }
+
+    public async updateCachedRankings() {
+        this.eloRankCache.clear();
+
+        await this.getLatestEloRankings();
+        await this.getLatestOpenSkillRankings();
     }
 }

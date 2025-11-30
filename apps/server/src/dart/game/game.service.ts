@@ -4,6 +4,7 @@ import { EloRating } from '@darts/types/api/ranking/ranking.dto';
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_ELO, EloService } from '@/dart/ranking/elo.service';
 import { GameResult } from '@/dart/ranking/ranking';
+import { RankingService } from '@/dart/ranking/ranking.service';
 import { RankingHistoryService } from '@/dart/ranking/ranking-history.service';
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseGameStatisticService } from '@/database/game/game-statistic.service';
@@ -27,6 +28,7 @@ export class GameService {
         private readonly databaseGameStatisticService: DatabaseGameStatisticService,
         private readonly eloService: EloService,
         private readonly rankingHistoryService: RankingHistoryService,
+        private readonly rankingService: RankingService,
     ) {}
 
     async createGame(uuid: string, createGameDto: CreateGameDTO) {
@@ -77,6 +79,8 @@ export class GameService {
         await this.upsertGameStatistics(game.id);
 
         await this.rankingHistoryService.calculateNewRankings(game);
+
+        await this.rankingService.updateCachedRankings();
 
         return;
     }

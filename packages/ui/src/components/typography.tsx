@@ -17,7 +17,10 @@ const variants = {
     largeText: 'text-lg font-semibold',
     normalText: 'text-base font-normal',
     smallText: 'text-sm font-medium leading-none',
-    mutedText: 'text-sm text-muted-foreground',
+    xSmallText: 'text-xs font-medium leading-none',
+    mutedText: 'text-base font-normal text-muted-foreground',
+    smallMutedText: 'text-sm font-medium text-muted-foreground',
+    xSmallMutedText: 'text-xs font-medium text-muted-foreground',
     bold: 'font-semibold text-sm',
 };
 const typographyVariants = cva('text-foreground', {
