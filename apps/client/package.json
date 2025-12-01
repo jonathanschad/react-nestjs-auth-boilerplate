@@ -14,6 +14,7 @@
         "tsc": "tsc --noEmit"
     },
     "dependencies": {
+        "@darts/types": "workspace:*",
         "@sentry/react": "^8.48.0",
         "@tanstack/react-form": "catalog:frontend",
         "@tanstack/react-table": "^8.20.5",
@@ -47,7 +48,6 @@
     "devDependencies": {
         "@darts/eslint-config": "workspace:*",
         "@darts/ts-config": "workspace:*",
-        "@darts/types": "workspace:*",
         "@darts/ui": "workspace:*",
         "@tanstack/eslint-plugin-query": "^5.74.7",
         "@types/node": "^20.14.12",

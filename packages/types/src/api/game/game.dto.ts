@@ -2,9 +2,7 @@ import { GameCheckoutMode, GameType } from '@darts/prisma';
 import { AllowNull } from '@darts/utils/validators/allow-null';
 import { Type } from 'class-transformer';
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsUUID, Max, Min, ValidateNested } from 'class-validator';
-import { PublicUser } from '../../entities/user';
 import { ApiGetEndpoint, ApiPutEndpoint } from '../api';
-import { EloHistoryEntityApiDTO, OpenSkillHistoryEntityApiDTO } from '../ranking/ranking.dto';
 
 export class CreateGameParamsDTO {
     @IsUUID()
@@ -110,51 +108,6 @@ export type GamePreviewResponseDTO = {
             current: number;
         };
     };
-};
-
-export type GameTurnEntityApiDTO = {
-    id: string;
-    playerId: string;
-    turnNumber: number;
-    throw1: number | null;
-    throw1Multiplier: number | null;
-    throw2: number | null;
-    throw2Multiplier: number | null;
-    throw3: number | null;
-    throw3Multiplier: number | null;
-    totalScore: number;
-};
-
-export type GameStatisticsEntityApiDTO = {
-    id: string;
-    playerId: string;
-    wonBullOff: boolean;
-    averageScore: number;
-    averageUntilFirstPossibleFinish: number;
-    throwsOnDouble: number;
-};
-export type GameEntityApiDTO = {
-    id: string;
-    playerA: {
-        id: string;
-        turns: GameTurnEntityApiDTO[];
-        gameStatistics?: GameStatisticsEntityApiDTO;
-        eloHistory: EloHistoryEntityApiDTO;
-        openSkillHistory: OpenSkillHistoryEntityApiDTO;
-    };
-    playerB: {
-        id: string;
-        turns: GameTurnEntityApiDTO[];
-        gameStatistics?: GameStatisticsEntityApiDTO;
-        eloHistory: EloHistoryEntityApiDTO;
-        openSkillHistory: OpenSkillHistoryEntityApiDTO;
-    };
-    winnerId: string;
-    loserId: string;
-    gameStart: Date;
-    gameEnd: Date;
-    type: GameType;
-    checkoutMode: GameCheckoutMode;
 };
 
 export type GameController = {

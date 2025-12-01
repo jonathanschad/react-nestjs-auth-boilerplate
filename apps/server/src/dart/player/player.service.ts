@@ -1,6 +1,6 @@
 import { PaginatedResponse } from '@darts/types/api/api';
-import type { GameEntityApiDTO } from '@darts/types/api/game/game.dto';
 import type { PlayerDetailsResponseDTO, PlayerResponseDTO } from '@darts/types/api/player/player.dto';
+import type { GameEntityApiDTO } from '@darts/types/entities/game';
 import { Injectable } from '@nestjs/common';
 import assert from 'assert';
 import { RankingService } from '@/dart/ranking/ranking.service';

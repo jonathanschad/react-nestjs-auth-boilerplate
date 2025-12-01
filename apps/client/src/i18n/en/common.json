@@ -95,6 +95,7 @@
     "gameType": "Game Type",
     "loading": "Loading...",
     "error": "Error",
+    "errorLoadingData": "Error loading data. Please try again later.",
     "history": "History",
     "gameHistory": "Game History",
     "duration": "Duration",
@@ -107,5 +108,18 @@
     "playerB": "Player B",
     "eloChange": "ELO Change",
     "gameStart": "Game Start",
-    "gameEnd": "Game End"
+    "gameEnd": "Game End",
+    "settings.profile.title": "Profile Information",
+    "settings.profile.description": "Update your profile information including your name.",
+    "settings.general.title": "Language",
+    "settings.general.description": "Select your preferred language for the application.",
+    "settings.notification.title": "Notification Settings",
+    "settings.notification.description": "Manage your notification preferences.",
+    "settings.notification.enabled": "Enable notifications",
+    "language": "Language",
+    "language.en": "English",
+    "language.de": "German",
+    "save": "Save",
+    "saved": "Saved!",
+    "saveError": "Error saving settings"
 }

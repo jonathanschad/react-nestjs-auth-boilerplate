@@ -45,15 +45,26 @@ export const SignedInLayout = () => {
                         <Translation>dashboard</Translation>
                     </Link>
                     <Link
-                        to="/ranking"
+                        to="/ranking/elo"
                         className={clsx(
-                            currentlySelectedRoute === CurrentlySelectedRouteOptions.RANKING
+                            currentlySelectedRoute === CurrentlySelectedRouteOptions.ELO_RANKING
                                 ? 'text-foreground'
                                 : 'text-muted-foreground',
                             'transition-colors hover:text-foreground',
                         )}
                     >
-                        <Translation>ranking</Translation>
+                        <Translation>eloRating</Translation>
+                    </Link>
+                    <Link
+                        to="/ranking/openskill"
+                        className={clsx(
+                            currentlySelectedRoute === CurrentlySelectedRouteOptions.OPENSKILL_RANKING
+                                ? 'text-foreground'
+                                : 'text-muted-foreground',
+                            'transition-colors hover:text-foreground',
+                        )}
+                    >
+                        <Translation>openSkillRating</Translation>
                     </Link>
                     <Link
                         to="/settings"
@@ -96,15 +107,26 @@ export const SignedInLayout = () => {
                                 <Translation>dashboard</Translation>
                             </Link>
                             <Link
-                                to="/ranking"
+                                to="/ranking/elo"
                                 className={clsx(
-                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.RANKING
+                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.ELO_RANKING
                                         ? 'text-foreground'
                                         : 'text-muted-foreground',
                                     'hover:text-foreground',
                                 )}
                             >
-                                <Translation>ranking</Translation>
+                                <Translation>eloRating</Translation>
+                            </Link>
+                            <Link
+                                to="/ranking/openskill"
+                                className={clsx(
+                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.OPENSKILL_RANKING
+                                        ? 'text-foreground'
+                                        : 'text-muted-foreground',
+                                    'hover:text-foreground',
+                                )}
+                            >
+                                <Translation>openSkillRating</Translation>
                             </Link>
                             <Link
                                 to="/settings"

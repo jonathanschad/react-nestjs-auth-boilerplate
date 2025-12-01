@@ -1,10 +1,10 @@
+import { UpdateUserProfilePictureDTO, UserUpdateablePropertiesDTO } from '@darts/types/api/user/user.dto';
 import type { SanitizedUserWithSettings } from '@darts/types/entities/user';
-import { Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
 import { User } from '@/auth/auth.guard';
 import { DatabaseUserService } from '@/database/user/user.service';
 import type { UserWithSettings } from '@/types/prisma';
-import { UpdateUserProfilePictureDTO } from '@/user/user.dto';
 import { UserService } from '@/user/user.service';
 import { HTTPError } from '@/util/httpHandlers';
 
@@ -43,6 +43,11 @@ export class UserController {
             console.error('Error compressing image:', err);
             throw new HTTPError({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid image' });
         }
+    }
+
+    @Patch('/')
+    async updateUser(@User() user: UserWithSettings, @Body() updates: UserUpdateablePropertiesDTO) {
+        return await this.userService.updateUser({ user, updates });
     }
 
     @Get()

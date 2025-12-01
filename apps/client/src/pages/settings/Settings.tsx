@@ -28,24 +28,6 @@ export const Settings = () => {
                     >
                         <Translation>general</Translation>
                     </Link>
-                    <Link
-                        to="/settings/profile"
-                        className={clsx(
-                            currentlySelectedRoute === CurrentSettingsRouteOptions.PROFILE &&
-                                'font-semibold text-primary',
-                        )}
-                    >
-                        <Translation>profile</Translation>
-                    </Link>
-                    <Link
-                        to="/settings/notification"
-                        className={clsx(
-                            currentlySelectedRoute === CurrentSettingsRouteOptions.NOTIFICATION &&
-                                'font-semibold text-primary',
-                        )}
-                    >
-                        <Translation>notifications</Translation>
-                    </Link>
                 </nav>
                 <div className="grid gap-6">
                     <Outlet context={{ setCurrentlySelectedRoute }} />

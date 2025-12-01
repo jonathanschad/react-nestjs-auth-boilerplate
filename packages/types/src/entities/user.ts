@@ -1,4 +1,21 @@
-import { Language, UserState } from '@darts/prisma';
+import type { Language, UserState } from '@darts/prisma';
+import { ValidateEnum } from '../util/validate-enum';
+
+export enum LanguageDTOEnum {
+    EN = 'EN',
+    DE = 'DE',
+}
+
+export enum UserStateDTOEnum {
+    UNVERIFIED = 'UNVERIFIED',
+    VERIFIED = 'VERIFIED',
+    COMPLETE = 'COMPLETE',
+    INACTIVE = 'INACTIVE',
+}
+
+// TypeScript validation: These will cause compile errors if enums don't match Prisma types
+const _validateLanguageEnum: ValidateEnum<Language> = LanguageDTOEnum;
+const _validateUserStateEnum: ValidateEnum<UserState> = UserStateDTOEnum;
 
 export type PublicUser = {
     name: string;
@@ -8,11 +25,11 @@ export type PublicUser = {
 
 export type SanitizedUserSettings = {
     notificationsEnabled: boolean;
-    language: Language;
+    language: LanguageDTOEnum;
 };
 
 export type SanitizedUserWithSettings = PublicUser & {
     email: string;
-    state: UserState;
+    state: UserStateDTOEnum;
     settings: SanitizedUserSettings;
 };

@@ -13,6 +13,7 @@ export default defineConfig({
             '@darts/ui/i18n': path.resolve(__dirname, '../../packages/ui/src/i18n'),
             '@darts/ui/components': path.resolve(__dirname, '../../packages/ui/src/components'),
             '@darts/ui/form': path.resolve(__dirname, '../../packages/ui/src/form'),
+            '@darts/types': path.resolve(__dirname, '../../packages/types/src'),
         },
     },
     optimizeDeps: {

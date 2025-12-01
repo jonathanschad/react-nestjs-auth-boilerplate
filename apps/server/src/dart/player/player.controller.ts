@@ -1,6 +1,6 @@
 import { PaginatedResponse } from '@darts/types/api/api';
-import { GameEntityApiDTO } from '@darts/types/api/game/game.dto';
 import type { PlayerDetailsResponseDTO, PlayerResponseDTO } from '@darts/types/api/player/player.dto';
+import { GameEntityApiDTO } from '@darts/types/entities/game';
 import { Controller, Get, HttpCode, HttpStatus, Param, Query } from '@nestjs/common';
 import { BasicAuthRoute } from '@/auth/auth.guard';
 import { PlayerService } from '@/dart/player/player.service';

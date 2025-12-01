@@ -20,16 +20,16 @@
         "tsc": "tsc --noEmit"
     },
     "dependencies": {
-        "@darts/prisma": "workspace:*",
         "@darts/utils": "workspace:*",
         "class-transformer": "catalog:",
         "class-validator": "catalog:"
     },
     "devDependencies": {
         "@darts/eslint-config": "workspace:*",
+        "@darts/prisma": "workspace:*",
         "@darts/ts-config": "workspace:*",
-        "openskill": "catalog:",
         "eslint": "catalog:",
+        "openskill": "catalog:",
         "typescript": "catalog:"
     },
     "keywords": [],

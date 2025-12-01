@@ -1,5 +1,5 @@
-import type { GameEntityApiDTO } from '@darts/types/api/game/game.dto';
-import { EloHistoryEntityApiDTO } from '@darts/types/api/ranking/ranking.dto';
+import type { GameEntityApiDTO } from '@darts/types/entities/game';
+import type { EloHistoryEntityApiDTO } from '@darts/types/entities/history';
 import { Button } from '@darts/ui/components/button';
 import { Card } from '@darts/ui/components/card';
 import { Skeleton } from '@darts/ui/components/skeleton';

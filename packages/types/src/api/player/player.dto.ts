@@ -1,7 +1,7 @@
 import type { Rating } from 'openskill';
+import { GameEntityApiDTO } from '../../entities/game';
 import { PublicUser } from '../../entities/user';
 import { ApiGetEndpoint, PaginatedRequest, PaginatedResponse } from '../api';
-import { GameEntityApiDTO } from '../game/game.dto';
 import { EloRankingResponseDTO, EloRating, OpenSkillRankingResponseDTO } from '../ranking/ranking.dto';
 
 export type RankingCache<T extends EloRating | Rating> = {

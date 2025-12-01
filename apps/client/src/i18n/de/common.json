@@ -95,6 +95,7 @@
     "gameType": "Spieltyp",
     "loading": "Lädt...",
     "error": "Fehler",
+    "errorLoadingData": "Fehler beim Laden der Daten. Bitte versuche es erneut.",
     "history": "Verlauf",
     "gameHistory": "Spielverlauf",
     "duration": "Dauer",
@@ -107,5 +108,18 @@
     "playerB": "Spieler B",
     "eloChange": "ELO-Änderung",
     "gameStart": "Spielbeginn",
-    "gameEnd": "Spielende"
+    "gameEnd": "Spielende",
+    "settings.profile.title": "Profilinformationen",
+    "settings.profile.description": "Aktualisiere deine Profilinformationen einschließlich deines Namens.",
+    "settings.general.title": "Sprache",
+    "settings.general.description": "Wähle deine bevorzugte Sprache für die Anwendung.",
+    "settings.notification.title": "Benachrichtigungseinstellungen",
+    "settings.notification.description": "Verwalte deine Benachrichtigungseinstellungen.",
+    "settings.notification.enabled": "Benachrichtigungen aktivieren",
+    "language": "Sprache",
+    "language.en": "Englisch",
+    "language.de": "Deutsch",
+    "save": "Speichern",
+    "saved": "Gespeichert!",
+    "saveError": "Fehler beim Speichern der Einstellungen"
 }

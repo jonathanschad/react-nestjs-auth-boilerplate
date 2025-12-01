@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { type Prisma, type Token, TokenType, type User, UserState } from '@darts/prisma';
+import { type Prisma, type Token, TokenType, type User, UserSettings, UserState } from '@darts/prisma';
 import type { PublicUser, SanitizedUserWithSettings } from '@darts/types/entities/user';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
@@ -66,6 +66,46 @@ export class DatabaseUserService {
         });
 
         return user;
+    }
+
+    async update({
+        userId,
+        updates,
+    }: {
+        userId: string;
+        updates: {
+            name?: User['name'];
+            language?: UserSettings['language'];
+            notificationsEnabled?: UserSettings['notificationsEnabled'];
+        };
+    }): Promise<void> {
+        const { name, language, notificationsEnabled } = updates;
+
+        const userUpdates: Prisma.UserUpdateInput = {};
+        if (name) {
+            userUpdates.name = name.trim();
+        }
+        const userSettingsUpdates: Prisma.UserSettingsUpdateInput = {};
+        if (language) {
+            userSettingsUpdates.language = language;
+        }
+        if (notificationsEnabled !== undefined) {
+            userSettingsUpdates.notificationsEnabled = notificationsEnabled;
+        }
+
+        if (Object.keys(userUpdates).length > 0) {
+            await this.prisma.user.update({
+                where: { id: userId },
+                data: userUpdates,
+            });
+        }
+
+        if (Object.keys(userSettingsUpdates).length > 0) {
+            await this.prisma.userSettings.update({
+                where: { id: userId },
+                data: userSettingsUpdates,
+            });
+        }
     }
 
     async completeVerifiedUser({
