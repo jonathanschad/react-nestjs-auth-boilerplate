@@ -2,7 +2,6 @@ import { PaginatedResponse } from '@darts/types/api/api';
 import type { PlayerDetailsResponseDTO, PlayerResponseDTO } from '@darts/types/api/player/player.dto';
 import type { GameEntityApiDTO } from '@darts/types/entities/game';
 import { Injectable } from '@nestjs/common';
-import assert from 'assert';
 import { RankingService } from '@/dart/ranking/ranking.service';
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
@@ -80,48 +79,7 @@ export class PlayerService {
     ): Promise<PaginatedResponse<GameEntityApiDTO>> {
         const { games, total } = await this.databaseGameService.getGamesByUserIdPaginated(playerId, page, pageSize);
 
-        const gamesDto: GameEntityApiDTO[] = [];
-
-        for (const game of games) {
-            const playerA = await this.databaseUserService.findByUuid(game.playerAId);
-            const playerB = await this.databaseUserService.findByUuid(game.playerBId);
-            const winner = await this.databaseUserService.findByUuid(game.winnerId);
-            const loser = game.winnerId === game.playerAId ? playerB : playerA;
-
-            const playerAEloHistory = game.eloHistory.find((history) => history.playerId === playerA.id);
-            const playerBEloHistory = game.eloHistory.find((history) => history.playerId === playerB.id);
-            const playerAOpenSkillHistory = game.openSkillHistory.find((history) => history.playerId === playerA.id);
-            const playerBOpenSkillHistory = game.openSkillHistory.find((history) => history.playerId === playerB.id);
-
-            assert(playerAEloHistory);
-            assert(playerBEloHistory);
-            assert(playerAOpenSkillHistory);
-            assert(playerBOpenSkillHistory);
-
-            gamesDto.push({
-                id: game.id,
-                playerA: {
-                    id: playerA.id,
-                    turns: game.turns.filter((turn) => turn.playerId === playerA.id),
-                    gameStatistics: game.gameStatistics.find((stat) => stat.playerId === playerA.id),
-                    eloHistory: playerAEloHistory,
-                    openSkillHistory: playerAOpenSkillHistory,
-                },
-                playerB: {
-                    id: playerB.id,
-                    turns: game.turns.filter((turn) => turn.playerId === playerB.id),
-                    gameStatistics: game.gameStatistics.find((stat) => stat.playerId === playerB.id),
-                    eloHistory: playerBEloHistory,
-                    openSkillHistory: playerBOpenSkillHistory,
-                },
-                winnerId: winner.id,
-                loserId: loser.id,
-                gameStart: game.gameStart,
-                gameEnd: game.gameEnd,
-                type: game.type,
-                checkoutMode: game.checkoutMode,
-            });
-        }
+        const gamesDto = games.map((game) => this.databaseGameService.mapGameToDTO(game));
 
         const totalPages = Math.ceil(total / pageSize);
 
