@@ -2,9 +2,8 @@ import { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 export enum CurrentSettingsRouteOptions {
-    GENERAL = 'general',
     PROFILE = 'profile',
-    NOTIFICATION = 'notification',
+    LANGUAGE = 'language',
 }
 
 export const useSetSettingsCurrentActiveRoute = (currentlySelectedRoute: CurrentSettingsRouteOptions) => {

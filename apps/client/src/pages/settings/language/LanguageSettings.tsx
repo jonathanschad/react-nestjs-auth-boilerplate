@@ -14,15 +14,8 @@ import {
     useSetSettingsCurrentActiveRoute,
 } from '@/pages/settings/useSetSettingsCurrentActiveRoute';
 
-const createSettingsFormSchema = (t: (key: string) => string) =>
-    z.object({
-        name: z.string().min(1, t('formik.nameRequired')),
-        language: z.nativeEnum(LanguageDTOEnum),
-        notificationsEnabled: z.boolean(),
-    });
-
-export const GeneralSettings = () => {
-    useSetSettingsCurrentActiveRoute(CurrentSettingsRouteOptions.GENERAL);
+export const LanguageSettings = () => {
+    useSetSettingsCurrentActiveRoute(CurrentSettingsRouteOptions.LANGUAGE);
     const { t } = useTranslation('common');
     const { data: user, isLoading } = useGetUser();
     const updateUserMutation = useUpdateUser(user?.id ?? '');
@@ -36,12 +29,12 @@ export const GeneralSettings = () => {
     const form = useAppForm({
         ...formOptions({
             defaultValues: {
-                name: user?.name ?? '',
                 language: user?.settings.language ?? LanguageDTOEnum.EN,
-                notificationsEnabled: user?.settings.notificationsEnabled ?? false,
             },
             validators: {
-                onSubmit: createSettingsFormSchema(t),
+                onSubmit: z.object({
+                    language: z.nativeEnum(LanguageDTOEnum),
+                }),
             },
         }),
         onSubmit: ({ value }) => {
@@ -49,9 +42,9 @@ export const GeneralSettings = () => {
 
             updateUserMutation.mutate(
                 {
-                    name: value.name,
+                    name: user.name,
                     language: value.language,
-                    notificationsEnabled: value.notificationsEnabled,
+                    notificationsEnabled: user.settings.notificationsEnabled,
                 },
                 {
                     onSuccess: () => {
@@ -65,9 +58,7 @@ export const GeneralSettings = () => {
 
     useEffect(() => {
         if (user) {
-            form.setFieldValue('name', user.name);
             form.setFieldValue('language', user.settings.language);
-            form.setFieldValue('notificationsEnabled', user.settings.notificationsEnabled);
         }
     }, [user, form]);
 
@@ -82,44 +73,17 @@ export const GeneralSettings = () => {
                 e.stopPropagation();
                 void form.handleSubmit();
             }}
-            className="grid gap-6"
         >
-            {/* Profile Settings */}
             <Card>
                 <CardHeader>
                     <Translation as="h4" element="div">
-                        settings.profile.title
+                        settings.language.title
                     </Translation>
                     <CardDescription>
-                        <Translation>settings.profile.description</Translation>
+                        <Translation>settings.language.description</Translation>
                     </CardDescription>
                 </CardHeader>
-                <CardContent>
-                    <form.AppField
-                        name="name"
-                        children={(field) => (
-                            <field.TextField
-                                type="text"
-                                autoComplete="name"
-                                label={t('name')}
-                                placeholder={t('namePlaceholder')}
-                            />
-                        )}
-                    />
-                </CardContent>
-            </Card>
-
-            {/* Language Settings */}
-            <Card>
-                <CardHeader>
-                    <Translation as="h4" element="div">
-                        settings.general.title
-                    </Translation>
-                    <CardDescription>
-                        <Translation>settings.general.description</Translation>
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-6">
                     <form.AppField
                         name="language"
                         children={(field) => (
@@ -131,28 +95,7 @@ export const GeneralSettings = () => {
                         )}
                     />
                 </CardContent>
-            </Card>
 
-            {/* Notification Settings */}
-            <Card>
-                <CardHeader>
-                    <Translation as="h4" element="div">
-                        settings.notification.title
-                    </Translation>
-                    <CardDescription>
-                        <Translation>settings.notification.description</Translation>
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form.AppField
-                        name="notificationsEnabled"
-                        children={(field) => <field.Checkbox label={t('settings.notification.enabled')} />}
-                    />
-                </CardContent>
-            </Card>
-
-            {/* Save Button */}
-            <Card>
                 <CardFooter className="border-t px-6 py-4">
                     <Button type="submit" disabled={updateUserMutation.isLoading}>
                         {showSavedMessage ? <Translation>saved</Translation> : <Translation>save</Translation>}

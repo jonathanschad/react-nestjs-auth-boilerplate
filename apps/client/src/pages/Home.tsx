@@ -1,6 +1,5 @@
 import { useMutation } from 'react-query';
 import { logout } from '@/api/auth/useLogout';
-import { ProfilePictureEditor } from '@/components/ProfilePictureEditor';
 import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
@@ -33,7 +32,6 @@ export const Home = () => {
             <button type="button" onClick={() => logoutMutatiuon.mutate()}>
                 Logout
             </button>
-            <ProfilePictureEditor />
         </>
     );
 };

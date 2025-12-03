@@ -11,7 +11,7 @@ import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
 import { Sheet, SheetContent, SheetTrigger } from '@darts/ui/components/sheet';
 import { Translation } from '@darts/ui/i18n/Translation';
 import clsx from 'clsx';
-import { Hexagon, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import * as React from 'react';
 import { Suspense } from 'react';
 import { useMutation } from 'react-query';
@@ -35,17 +35,6 @@ export const SignedInLayout = () => {
             <header className="sticky top-0 flex h-16 flex-shrink-0 items-center gap-4 border-b bg-background px-4 md:px-6">
                 <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                     <ProjectLogo />
-                    <Link
-                        to="/"
-                        className={clsx(
-                            currentlySelectedRoute === CurrentlySelectedRouteOptions.DASHBOARD
-                                ? 'text-foreground'
-                                : 'text-muted-foreground',
-                            'transition-colors hover:text-foreground',
-                        )}
-                    >
-                        <Translation>dashboard</Translation>
-                    </Link>
                     <Link
                         to="/ranking/elo"
                         className={clsx(
@@ -92,21 +81,7 @@ export const SignedInLayout = () => {
                     <SheetContent side="left">
                         <nav className="grid gap-6 text-lg font-medium">
                             <Link to="#" className="flex items-center gap-2 text-lg font-semibold">
-                                <Hexagon className="h-6 w-6" />
-                                <span className="sr-only">
-                                    <Translation>projectName</Translation>
-                                </span>
-                            </Link>
-                            <Link
-                                to="/"
-                                className={clsx(
-                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.DASHBOARD
-                                        ? 'text-foreground'
-                                        : 'text-muted-foreground',
-                                    'hover:text-foreground',
-                                )}
-                            >
-                                <Translation>dashboard</Translation>
+                                <ProjectLogo />
                             </Link>
                             <Link
                                 to="/ranking/elo"

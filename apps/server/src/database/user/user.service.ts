@@ -94,17 +94,13 @@ export class DatabaseUserService {
             userSettingsUpdates.notificationsEnabled = notificationsEnabled;
         }
 
+        if (Object.keys(userSettingsUpdates).length > 0) {
+            userUpdates.settings = { update: userSettingsUpdates };
+        }
         if (Object.keys(userUpdates).length > 0) {
             await this.prisma.user.update({
                 where: { id: userId },
-                data: userUpdates,
-            });
-        }
-
-        if (Object.keys(userSettingsUpdates).length > 0) {
-            await this.prisma.userSettings.update({
-                where: { id: userId },
-                data: userSettingsUpdates,
+                data: { ...userUpdates, settings: { update: userSettingsUpdates } },
             });
         }
     }

@@ -15,7 +15,8 @@ import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPo
 import { Player } from '@/pages/player/Player';
 import { EloRanking } from '@/pages/ranking/EloRanking';
 import { OpenSkillRanking } from '@/pages/ranking/OpenSkillRanking';
-import { GeneralSettings } from '@/pages/settings/GeneralSettings';
+import { LanguageSettings } from '@/pages/settings/language/LanguageSettings';
+import { ProfileSettings } from '@/pages/settings/profile/ProfileSettings';
 import { Settings } from '@/pages/settings/Settings';
 import CompleteRegister from '@/pages/signup/CompleteRegister';
 import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
@@ -44,8 +45,9 @@ const routesFactory = (userState: UserState | undefined | null) => {
                 <Route path="ranking/openskill" element={<OpenSkillRanking />} />
                 <Route path="player/:uuid" element={<Player />} />
                 <Route path="settings" element={<Settings />}>
-                    <Route path="general" element={<GeneralSettings />} />
-                    <Route path="*" element={<GeneralSettings />} />
+                    <Route path="profile" element={<ProfileSettings />} />
+                    <Route path="language" element={<LanguageSettings />} />
+                    <Route path="*" element={<ProfileSettings />} />
                 </Route>
                 <Route path="imprint" element={<Imprint />} />
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />

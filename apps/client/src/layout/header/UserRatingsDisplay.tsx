@@ -10,7 +10,7 @@ export const UserRatingsDisplay = () => {
 
     if (!user || isLoading || !playerData) {
         return (
-            <div className="hidden items-center gap-2 md:flex">
+            <div className="flex items-center gap-2">
                 <Skeleton className="h-10 w-32" />
                 <Skeleton className="h-10 w-32" />
             </div>
@@ -25,7 +25,7 @@ export const UserRatingsDisplay = () => {
     const openSkillRank = currentRating.openSkill.rank;
 
     return (
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="flex items-center gap-2">
             <RatingDisplay rating={currentRating.elo.rating.elo.toFixed(0)} rank={eloRank} type="elo" />
             <RatingDisplay rating={openSkillScore.toFixed(1)} rank={openSkillRank} type="openskill" />
         </div>

@@ -21,13 +21,22 @@ export const Settings = () => {
             <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
                 <nav className="grid gap-4 text-sm text-muted-foreground">
                     <Link
-                        to="/settings/general"
+                        to="/settings/profile"
                         className={clsx(
-                            currentlySelectedRoute === CurrentSettingsRouteOptions.GENERAL &&
+                            currentlySelectedRoute === CurrentSettingsRouteOptions.PROFILE &&
                                 'font-semibold text-primary',
                         )}
                     >
-                        <Translation>general</Translation>
+                        <Translation>profile</Translation>
+                    </Link>
+                    <Link
+                        to="/settings/language"
+                        className={clsx(
+                            currentlySelectedRoute === CurrentSettingsRouteOptions.LANGUAGE &&
+                                'font-semibold text-primary',
+                        )}
+                    >
+                        <Translation>language</Translation>
                     </Link>
                 </nav>
                 <div className="grid gap-6">
