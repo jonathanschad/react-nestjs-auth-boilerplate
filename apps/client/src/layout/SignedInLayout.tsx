@@ -7,11 +7,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@darts/ui/components/dropdown-menu';
+import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
 import { Sheet, SheetContent, SheetTrigger } from '@darts/ui/components/sheet';
 import { Translation } from '@darts/ui/i18n/Translation';
 import clsx from 'clsx';
 import { Hexagon, Menu } from 'lucide-react';
 import * as React from 'react';
+import { Suspense } from 'react';
 import { useMutation } from 'react-query';
 import { Link, Outlet } from 'react-router-dom';
 import { logout } from '@/api/auth/useLogout';
@@ -192,7 +194,15 @@ export const SignedInLayout = () => {
                 </div>
             </header>
             <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-                <Outlet context={{ setCurrentlySelectedRoute }} />
+                <Suspense
+                    fallback={
+                        <div className="flex h-full w-full items-center justify-center">
+                            <LoadingSpinner />
+                        </div>
+                    }
+                >
+                    <Outlet context={{ setCurrentlySelectedRoute }} />
+                </Suspense>
             </main>
         </div>
     );

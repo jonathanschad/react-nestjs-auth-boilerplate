@@ -1,4 +1,5 @@
-import { type ReactElement, useMemo } from 'react';
+import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
+import { type ReactElement, Suspense, useMemo } from 'react';
 import { BrowserRouter, Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
@@ -80,7 +81,15 @@ export const Routes = () => {
     const routes = useMemo(() => routesFactory(userState), [userState]);
     return (
         <BrowserRouter>
-            <RouterRoutes>{routes}</RouterRoutes>
+            <Suspense
+                fallback={
+                    <div className="flex h-screen w-screen items-center justify-center">
+                        <LoadingSpinner />
+                    </div>
+                }
+            >
+                <RouterRoutes>{routes}</RouterRoutes>
+            </Suspense>
         </BrowserRouter>
     );
 };

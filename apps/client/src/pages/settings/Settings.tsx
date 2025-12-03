@@ -1,6 +1,7 @@
+import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
 import { Translation } from '@darts/ui/i18n/Translation';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import {
@@ -30,7 +31,15 @@ export const Settings = () => {
                     </Link>
                 </nav>
                 <div className="grid gap-6">
-                    <Outlet context={{ setCurrentlySelectedRoute }} />
+                    <Suspense
+                        fallback={
+                            <div className="flex h-full w-full items-center justify-center">
+                                <LoadingSpinner />
+                            </div>
+                        }
+                    >
+                        <Outlet context={{ setCurrentlySelectedRoute }} />
+                    </Suspense>
                 </div>
             </div>
         </>
