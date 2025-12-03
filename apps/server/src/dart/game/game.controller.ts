@@ -22,7 +22,7 @@ export class GameController {
     @HttpCode(HttpStatus.OK)
     @BasicAuthRoute()
     async createGame(@Param() { uuid }: CreateGameParamsDTO, @Body() createGameDto: CreateGameDTO): Promise<void> {
-        await this.gameService.createGame(uuid, createGameDto);
+        await this.gameService.createGame(uuid, createGameDto, true);
     }
 
     @Get('preview/playerA/:playerAId/playerB/:playerBId')

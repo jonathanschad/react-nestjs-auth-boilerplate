@@ -124,7 +124,7 @@ export const GameHistorySkeleton = () => {
 
 export const GameHistory = ({ playerId }: GameHistoryProps) => {
     const [page, setPage] = useState(1);
-    const pageSize = 10;
+    const pageSize = 5;
 
     const { data, isLoading, error } = useGetPlayerGames(playerId, page, pageSize);
 

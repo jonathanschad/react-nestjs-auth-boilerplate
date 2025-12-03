@@ -105,16 +105,20 @@ export class ImportGamesFromOldSystemService {
             return;
         }
 
-        await this.gameService.createGame(uuid.v4(), {
-            playerAId: winner.id,
-            playerBId: loser.id,
-            winnerId: winner.id,
-            gameStart: game.date,
-            gameEnd: game.date,
-            type,
-            checkoutMode: GameCheckoutMode.DOUBLE_OUT,
-            turns: [],
-        });
+        await this.gameService.createGame(
+            uuid.v4(),
+            {
+                playerAId: winner.id,
+                playerBId: loser.id,
+                winnerId: winner.id,
+                gameStart: game.date,
+                gameEnd: game.date,
+                type,
+                checkoutMode: GameCheckoutMode.DOUBLE_OUT,
+                turns: [],
+            },
+            false,
+        );
     }
 
     async importGamesFromOldSystem() {

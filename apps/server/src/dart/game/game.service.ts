@@ -10,6 +10,7 @@ import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseGameStatisticService } from '@/database/game/game-statistic.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
+import { SlackService } from '@/slack/slack.service';
 import { getPointsForGameType, getPossibleFinishes } from '@/util/darts';
 
 type GameHistory = {
@@ -29,11 +30,15 @@ export class GameService {
         private readonly eloService: EloService,
         private readonly rankingHistoryService: RankingHistoryService,
         private readonly rankingService: RankingService,
+        private readonly slackService: SlackService,
     ) {}
 
-    async createGame(uuid: string, createGameDto: CreateGameDTO) {
+    async createGame(uuid: string, createGameDto: CreateGameDTO, sendSlackNotification: boolean = false) {
         const playerA = await this.databaseUserService.findByUuid(createGameDto.playerAId);
         const playerB = await this.databaseUserService.findByUuid(createGameDto.playerBId);
+
+        const playerARankingBefore = await this.rankingService.getCachedEloRanking(playerA.id);
+        const playerBRankingBefore = await this.rankingService.getCachedEloRanking(playerB.id);
 
         const loser = createGameDto.winnerId === playerA.id ? playerB : playerA;
 
@@ -81,6 +86,25 @@ export class GameService {
         await this.rankingHistoryService.calculateNewRankings(game);
 
         await this.rankingService.updateCachedRankings();
+
+        const playerARankingAfter = await this.rankingService.getCachedEloRanking(playerA.id);
+        const playerBRankingAfter = await this.rankingService.getCachedEloRanking(playerB.id);
+
+        if (sendSlackNotification) {
+            await this.slackService.sendNewGameNotification({
+                playerA: {
+                    name: playerA.name ?? '',
+                    ratingBefore: playerARankingBefore.rank,
+                    ratingAfter: playerARankingAfter.rank,
+                },
+                playerB: {
+                    name: playerB.name ?? '',
+                    ratingBefore: playerBRankingBefore.rank,
+                    ratingAfter: playerBRankingAfter.rank,
+                },
+                result: game.winnerId === playerA.id ? GameResult.WIN_PLAYER_A : GameResult.WIN_PLAYER_B,
+            });
+        }
 
         return;
     }

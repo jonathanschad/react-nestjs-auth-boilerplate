@@ -14,6 +14,7 @@ import { FileModule } from '@/files/file.module';
 import { MailModule } from '@/mail/mail.module';
 import { PasswordModule } from '@/password/password.module';
 import { SignupModule } from '@/signup/signup.module';
+import { SlackModule } from '@/slack/slack.module';
 import { UserModule } from '@/user/user.module';
 
 @Module({
@@ -23,6 +24,7 @@ import { UserModule } from '@/user/user.module';
         AuthModule,
         SignupModule,
         MailModule,
+        SlackModule,
         JwtModule,
         PasswordModule,
         FileModule,

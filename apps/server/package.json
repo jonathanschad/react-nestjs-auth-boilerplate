@@ -35,6 +35,7 @@
         "@nestjs/platform-fastify": "^11.0.11",
         "@sentry/nestjs": "^9.3.0",
         "@sentry/profiling-node": "^9.3.0",
+        "@slack/web-api": "^7.13.0",
         "@usewaypoint/email-builder": "^0.0.8",
         "axios": "catalog:",
         "class-transformer": "catalog:",

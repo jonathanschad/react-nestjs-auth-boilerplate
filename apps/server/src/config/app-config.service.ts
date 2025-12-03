@@ -204,4 +204,20 @@ export class AppConfigService {
     get oldSystemMongoDbConnection(): string {
         return this.get('OLD_MONGO_DB_CONNECTION');
     }
+
+    get slackBotToken(): string | null {
+        try {
+            return this.get('SLACK_BOT_TOKEN');
+        } catch (_error) {
+            return null;
+        }
+    }
+
+    get slackDefaultChannel(): string | null {
+        try {
+            return this.get('SLACK_DEFAULT_CHANNEL');
+        } catch (_error) {
+            return null;
+        }
+    }
 }
