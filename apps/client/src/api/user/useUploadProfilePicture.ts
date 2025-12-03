@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import api, { BASE_URL } from '@/api';
 import { getUserQueryKey } from '@/api/auth/auth.queryKey';
 import { invalidateQueriesMatchingAny } from '@/api/invalidate-queries';
+import { getLoggedInUserQueryKey } from '@/api/user/user.queryKey';
 import getCroppedImg from '@/util/crop-image';
 
 export const uploadProfilePicture = async ({
@@ -41,7 +42,7 @@ export const useUploadProfilePicture = ({ userUuid, onSuccess }: { userUuid: str
         onSuccess: async () => {
             onSuccess();
             await queryClient.invalidateQueries(getUserQueryKey());
-            await invalidateQueriesMatchingAny(queryClient, userUuid);
+            await invalidateQueriesMatchingAny(queryClient, userUuid, ...getLoggedInUserQueryKey());
         },
     });
 };

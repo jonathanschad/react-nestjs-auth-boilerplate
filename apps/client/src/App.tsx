@@ -8,7 +8,16 @@ import { Analytics } from '@/Analytics';
 import LoadingApplication from '@/pages/LoadingApplication';
 import { Routes } from '@/Routes';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 5 * 60 * 1000, // 5 minutes
+            refetchOnWindowFocus: false, // Don't refetch when window regains focus
+            refetchOnMount: false, // Don't refetch when component mounts if data exists
+            refetchOnReconnect: false, // Don't refetch when network reconnects
+        },
+    },
+});
 
 function App() {
     return (

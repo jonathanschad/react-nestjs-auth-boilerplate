@@ -1,11 +1,11 @@
 import { Skeleton } from '@darts/ui/components/skeleton';
 import { ordinal, rating } from 'openskill';
 import { useGetPlayer } from '@/api/dart/player/useGetPlayer';
+import { useLoggedInUser } from '@/api/user/useLoggedInUser';
 import { RatingDisplay } from '@/layout/header/RatingDisplay';
-import { useUser } from '@/store/async-store';
 
 export const UserRatingsDisplay = () => {
-    const { data: user } = useUser();
+    const { data: user } = useLoggedInUser();
     const { data: playerData, isLoading } = useGetPlayer(user?.id);
 
     if (!user || isLoading || !playerData) {

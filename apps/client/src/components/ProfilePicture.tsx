@@ -1,15 +1,14 @@
 import { Avatar } from '@darts/ui/components/avatar';
 import { CircleUser } from 'lucide-react';
-
+import { useLoggedInUser } from '@/api/user/useLoggedInUser';
 import { AuthenticatedImage } from '@/components/authenticated-image';
-import { useUser } from '@/store/async-store';
 
 interface ProfilePictureProps {
     size?: string | number;
 }
 
 export const ProfilePicture = ({ size }: ProfilePictureProps) => {
-    const { data: user } = useUser();
+    const { data: user } = useLoggedInUser();
     return (
         <Avatar
             style={{
