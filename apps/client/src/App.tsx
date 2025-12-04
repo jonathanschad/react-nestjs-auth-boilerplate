@@ -22,7 +22,7 @@ const queryClient = new QueryClient({
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <div className="h-screen w-screen overflow-auto">
+            <div className="h-screen w-screen">
                 <LoadingApplication>
                     <Routes />
                     <Analytics />
