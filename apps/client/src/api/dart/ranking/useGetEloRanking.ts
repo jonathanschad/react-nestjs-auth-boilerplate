@@ -1,17 +1,10 @@
 import { useQuery } from 'react-query';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 import { getRankingQueryKey } from '@/api/dart/ranking/ranking.queryKey';
 
 export const getEloRankings = async () => {
-    const response = await tsRestClient.dart.rankings.elo({
-        query: {},
-    });
-
-    if (response.status === 200) {
-        return response.body;
-    }
-
-    throw new Error('Failed to fetch ELO rankings');
+    const response = await client.dart.rankings.elo({});
+    return response;
 };
 
 export const useGetEloRanking = () => {

@@ -1,6 +1,5 @@
 import { api } from '@darts/types';
-import { Controller } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { OptionalUser, PublicRoute } from '@/auth/auth.guard';
 import { FileService } from '@/files/file.service';
@@ -11,11 +10,12 @@ export class FileController {
     constructor(private readonly fileService: FileService) {}
 
     @PublicRoute()
-    @TsRestHandler(api.file.getFile)
-    public retrieveFile(@OptionalUser() user: UserWithSettings | undefined) {
-        return tsRestHandler(api.file.getFile, async ({ params }) => {
-            const file = await this.fileService.getFile({ fileUuid: params.fileUuid, user });
-            return { status: 200 as const, body: file as any };
-        });
+    // Note this is a bit hacky, as i could not get this to work properly with the orpc library.
+    // the usual path should be /file/{fileUuid}
+    @Get(api.file.getFile['~orpc'].route.path!.replace('{fileUuid}', ':fileUuid'))
+    public async retrieveFile(@OptionalUser() user: UserWithSettings | undefined, @Param('fileUuid') fileUuid: string) {
+        const file = await this.fileService.getFile({ fileUuid, user });
+
+        return file;
     }
 }

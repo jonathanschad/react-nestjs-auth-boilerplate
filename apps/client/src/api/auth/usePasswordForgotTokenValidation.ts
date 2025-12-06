@@ -1,13 +1,10 @@
 import { useQuery } from 'react-query';
 import { getAuthQueryKey } from '@/api/auth/auth.queryKey';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 
 export const passwordForgotTokenValidation = async ({ token }: { token: string }) => {
-    const response = await tsRestClient.auth.passwordForgotValidate({
-        query: { token },
-    });
-
-    return response.status === 200 && response.body.success;
+    const response = await client.password.passwordForgotValidate({ token });
+    return response.success;
 };
 
 export const usePasswordForgotTokenValidation = (token?: string) => {

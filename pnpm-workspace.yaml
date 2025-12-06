@@ -26,6 +26,10 @@ catalog:
   class-validator: ^0.14.1
   openskill: ^4.1.0
   dayjs: ^1.11.13
+  '@orpc/contract': ^1.12.2
+  '@orpc/nest': ^1.12.2
+  '@orpc/openapi-client': ^1.12.2
+  '@orpc/client': ^1.12.2
 
 catalogs:
   react18:

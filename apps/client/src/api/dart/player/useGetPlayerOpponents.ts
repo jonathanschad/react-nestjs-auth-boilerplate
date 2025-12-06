@@ -1,17 +1,10 @@
 import { useQuery } from 'react-query';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 import { getPlayerQueryKey } from '@/api/dart/player/player.queryKey';
 
 const getPlayerOpponents = async (playerId: string) => {
-    const response = await tsRestClient.dart.player.getOpponents({
-        params: { playerId },
-    });
-
-    if (response.status === 200) {
-        return response.body;
-    }
-
-    throw new Error('Failed to fetch player opponents');
+    const response = await client.dart.player.getOpponents({ playerId });
+    return response;
 };
 
 export const useGetPlayerOpponents = (playerUuid: string | undefined) => {

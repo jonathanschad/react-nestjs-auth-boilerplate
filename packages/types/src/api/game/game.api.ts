@@ -1,4 +1,4 @@
-import { initContract } from '@ts-rest/core';
+import { oc } from '@orpc/contract';
 import { z } from 'zod';
 import {
     createGameSchema,
@@ -8,48 +8,37 @@ import {
     paginationSchema,
 } from '../../schemas';
 
-const c = initContract();
-
-export const gameContract = c.router({
-    createGame: {
-        method: 'PUT',
-        path: '/dart/game/:uuid',
-        responses: {
-            200: z.void(),
-            400: z.object({ message: z.string() }),
-        },
-        pathParams: z.object({
-            uuid: z.string().uuid(),
-        }),
-        body: createGameSchema,
-        summary: 'Create a new game',
-    },
-    getGamePreview: {
-        method: 'GET',
-        path: '/dart/game/preview/playerA/:playerAId/playerB/:playerBId',
-        responses: {
-            200: gamePreviewResponseSchema,
-            404: z.object({ message: z.string() }),
-        },
-        pathParams: z.object({
-            playerAId: z.string().uuid(),
-            playerBId: z.string().uuid(),
-        }),
-        summary: 'Get game preview for two players',
-    },
-    getGames: {
-        method: 'GET',
-        path: '/dart/game',
-        responses: {
-            200: paginatedResponseSchema(gameEntitySchema),
-        },
-        query: paginationSchema.extend({
-            playerIds: z.array(z.string().uuid()).optional(),
-            startDate: z.string().datetime().optional(),
-            endDate: z.string().datetime().optional(),
-            type: z.enum(['X301', 'X501']).optional(),
-            checkoutMode: z.enum(['SINGLE_OUT', 'DOUBLE_OUT', 'MASTER_OUT']).optional(),
-        }),
-        summary: 'Get games with optional filters',
-    },
+export const gameContract = oc.prefix('/game').router({
+    createGame: oc
+        .route({ method: 'PUT', path: '/{uuid}', inputStructure: 'detailed' })
+        .input(
+            z.object({
+                body: createGameSchema,
+                path: z.object({
+                    uuid: z.string().uuid(),
+                }),
+            }),
+        )
+        .output(z.void()),
+    getGamePreview: oc
+        .route({ method: 'GET', path: '/preview/playerA/{playerAId}/playerB/{playerBId}' })
+        .input(
+            z.object({
+                playerAId: z.string().uuid(),
+                playerBId: z.string().uuid(),
+            }),
+        )
+        .output(gamePreviewResponseSchema),
+    getGames: oc
+        .route({ method: 'GET', path: '/' })
+        .input(
+            paginationSchema.extend({
+                playerIds: z.array(z.string().uuid()).optional(),
+                startDate: z.string().datetime().optional(),
+                endDate: z.string().datetime().optional(),
+                type: z.enum(['X301', 'X501']).optional(),
+                checkoutMode: z.enum(['SINGLE_OUT', 'DOUBLE_OUT', 'MASTER_OUT']).optional(),
+            }),
+        )
+        .output(paginatedResponseSchema(gameEntitySchema)),
 });

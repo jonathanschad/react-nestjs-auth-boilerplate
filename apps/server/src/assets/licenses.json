@@ -6,27 +6,32 @@
         "path": "node_modules/@aws-sdk/client-s3",
         "licenseFile": "node_modules/@aws-sdk/client-s3/LICENSE"
     },
-    "@darts/eslint-config@0.4.1": {
+    "@darts/eslint-config@0.7.0": {
         "licenses": "MIT",
         "path": "node_modules/@darts/eslint-config"
     },
-    "@darts/prisma@0.5.0": {
+    "@darts/prisma@0.7.0": {
         "licenses": "ISC",
         "path": "node_modules/@darts/prisma"
     },
-    "@darts/server@0.5.0": {
+    "@darts/server@0.7.0": {
         "licenses": "UNLICENSED",
         "private": true,
         "path": ""
     },
-    "@darts/ts-config@0.4.1": {
+    "@darts/ts-config@0.7.0": {
         "licenses": "UNLICENSED",
         "private": true,
         "path": "node_modules/@darts/ts-config"
     },
-    "@darts/utils@1.0.0": {
+    "@darts/types@0.7.0": {
+        "licenses": "ISC",
+        "path": "node_modules/@darts/types"
+    },
+    "@darts/utils@0.7.0": {
         "licenses": "MIT",
-        "path": "node_modules/@darts/utils"
+        "path": "node_modules/@darts/utils",
+        "licenseFile": "node_modules/@darts/utils/README.md"
     },
     "@eslint/eslintrc@3.3.0": {
         "licenses": "MIT",
@@ -182,6 +187,13 @@
         "path": "node_modules/@sentry/profiling-node",
         "licenseFile": "node_modules/@sentry/profiling-node/LICENSE"
     },
+    "@slack/web-api@7.13.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/slackapi/node-slack-sdk",
+        "publisher": "Slack Technologies, LLC",
+        "path": "node_modules/@slack/web-api",
+        "licenseFile": "node_modules/@slack/web-api/LICENSE"
+    },
     "@swc/cli@0.6.0": {
         "licenses": "MIT",
         "repository": "https://github.com/swc-project/pkgs",
@@ -197,12 +209,17 @@
         "email": "kdy1997.dev@gmail.com",
         "path": "node_modules/@swc/core"
     },
-    "@trpc/server@10.45.2": {
+    "@ts-rest/core@3.52.1": {
         "licenses": "MIT",
-        "repository": "https://github.com/trpc/trpc",
-        "publisher": "KATT",
-        "path": "node_modules/@trpc/server",
-        "licenseFile": "node_modules/@trpc/server/LICENSE"
+        "repository": "https://github.com/ts-rest/ts-rest",
+        "path": "node_modules/@ts-rest/core",
+        "licenseFile": "node_modules/@ts-rest/core/LICENCE"
+    },
+    "@ts-rest/nest@3.52.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/ts-rest/ts-rest",
+        "path": "node_modules/@ts-rest/nest",
+        "licenseFile": "node_modules/@ts-rest/nest/LICENCE"
     },
     "@types/express@5.0.0": {
         "licenses": "MIT",
@@ -227,6 +244,11 @@
         "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
         "path": "node_modules/@types/mime-types",
         "licenseFile": "node_modules/@types/mime-types/LICENSE"
+    },
+    "@types/mongodb@4.0.7": {
+        "licenses": "MIT",
+        "path": "node_modules/@types/mongodb",
+        "licenseFile": "node_modules/@types/mongodb/LICENSE"
     },
     "@types/node@20.17.22": {
         "licenses": "MIT",
@@ -297,26 +319,19 @@
         "path": "node_modules/@darts/prisma/node_modules/copyfiles",
         "licenseFile": "node_modules/@darts/prisma/node_modules/copyfiles/license.md"
     },
+    "dayjs@1.11.19": {
+        "licenses": "MIT",
+        "repository": "https://github.com/iamkun/dayjs",
+        "publisher": "iamkun",
+        "path": "node_modules/dayjs",
+        "licenseFile": "node_modules/dayjs/LICENSE"
+    },
     "dotenv-cli@8.0.0": {
         "licenses": "MIT",
         "repository": "https://github.com/entropitor/dotenv-cli",
         "publisher": "entropitor",
         "path": "node_modules/@darts/prisma/node_modules/dotenv-cli",
         "licenseFile": "node_modules/@darts/prisma/node_modules/dotenv-cli/LICENSE"
-    },
-    "eslint-config-prettier@10.1.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/prettier/eslint-config-prettier",
-        "publisher": "Simon Lydell",
-        "path": "node_modules/eslint-config-prettier",
-        "licenseFile": "node_modules/eslint-config-prettier/LICENSE"
-    },
-    "eslint-plugin-prettier@5.3.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/prettier/eslint-plugin-prettier",
-        "publisher": "Teddy Katz",
-        "path": "node_modules/eslint-plugin-prettier",
-        "licenseFile": "node_modules/eslint-plugin-prettier/LICENSE.md"
     },
     "eslint-plugin-react-hooks@5.2.0": {
         "licenses": "MIT",
@@ -330,13 +345,6 @@
         "publisher": "Arnaud Barré",
         "path": "node_modules/@darts/eslint-config/node_modules/eslint-plugin-react-refresh",
         "licenseFile": "node_modules/@darts/eslint-config/node_modules/eslint-plugin-react-refresh/LICENSE"
-    },
-    "eslint-plugin-simple-import-sort@12.1.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/lydell/eslint-plugin-simple-import-sort",
-        "publisher": "Simon Lydell",
-        "path": "node_modules/eslint-plugin-simple-import-sort",
-        "licenseFile": "node_modules/eslint-plugin-simple-import-sort/LICENSE"
     },
     "eslint@9.26.0": {
         "licenses": "MIT",
@@ -389,6 +397,14 @@
         "path": "node_modules/mime-types",
         "licenseFile": "node_modules/mime-types/LICENSE"
     },
+    "mongodb@7.0.0": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/mongodb/node-mongodb-native",
+        "publisher": "The MongoDB NodeJS Team",
+        "email": "dbx-node@mongodb.com",
+        "path": "node_modules/mongodb",
+        "licenseFile": "node_modules/mongodb/LICENSE.md"
+    },
     "nodemailer@6.10.0": {
         "licenses": "MIT-0",
         "repository": "https://github.com/nodemailer/nodemailer",
@@ -396,12 +412,13 @@
         "path": "node_modules/nodemailer",
         "licenseFile": "node_modules/nodemailer/LICENSE"
     },
-    "prettier@3.5.3": {
+    "openskill@4.1.0": {
         "licenses": "MIT",
-        "repository": "https://github.com/prettier/prettier",
-        "publisher": "James Long",
-        "path": "node_modules/prettier",
-        "licenseFile": "node_modules/prettier/LICENSE"
+        "repository": "https://github.com/philihp/openskill.js",
+        "publisher": "Philihp Busby",
+        "email": "philihp@gmail.com",
+        "path": "node_modules/openskill",
+        "licenseFile": "node_modules/openskill/LICENSE"
     },
     "prisma@6.4.1": {
         "licenses": "Apache-2.0",

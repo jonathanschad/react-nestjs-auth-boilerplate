@@ -1,6 +1,6 @@
 import { api } from '@darts/types';
 import { Controller, Req, Res } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { Implement, implement } from '@orpc/nest';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import type { SingInDTO } from '@/auth/auth.dto';
@@ -21,33 +21,35 @@ export class AuthController {
     ) {}
 
     @PublicRoute()
-    @TsRestHandler(api.auth.login)
+    @Implement(api.auth.login)
     public login(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
-        return tsRestHandler(api.auth.login, async ({ body }) => {
+        return implement(api.auth.login).handler(async ({ input }) => {
             const loginDto: SingInDTO = {
-                email: body.email,
-                password: body.password,
-                remember: body.remember ?? false,
+                email: input.email,
+                password: input.password,
+                remember: input.remember ?? false,
             };
+
             const result = await this.authService.signIn(res, loginDto);
-            return { status: 200 as const, body: result };
+
+            return result;
         });
     }
 
-    @TsRestHandler(api.auth.logout)
+    @Implement(api.auth.logout)
     public logout(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
-        return tsRestHandler(api.auth.logout, async () => {
+        return implement(api.auth.logout).handler(async () => {
             const accessToken = this.jwtService.extractAccessTokenFromHeader(req);
             const refreshToken = this.jwtService.extractRefreshTokenFromCookie(req);
             await this.authService.logout({ response: res, accessToken, refreshToken });
-            return { status: 200 as const, body: { success: true } };
+            return { success: true };
         });
     }
 
     @PublicRoute()
-    @TsRestHandler(api.auth.refreshToken)
+    @Implement(api.auth.refreshToken)
     public refreshToken(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
-        return tsRestHandler(api.auth.refreshToken, async () => {
+        return implement(api.auth.refreshToken).handler(async () => {
             try {
                 const refreshToken = this.jwtService.extractRefreshTokenFromCookie(req);
                 if (!refreshToken) {
@@ -64,7 +66,7 @@ export class AuthController {
                     refreshToken: refreshTokenDb.token,
                     remember: refreshTokenDb.rememberUser,
                 });
-                return { status: 200 as const, body: accessToken };
+                return accessToken;
             } catch (_error) {
                 throw new InvalidRefreshTokenError();
             }

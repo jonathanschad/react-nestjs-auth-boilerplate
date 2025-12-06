@@ -1,5 +1,8 @@
-import { api as apiContract } from '@darts/types';
-import { ApiFetcherArgs, initClient, tsRestFetchApi } from '@ts-rest/core';
+import { api } from '@darts/types';
+import { createORPCClient, onSuccess } from '@orpc/client';
+import type { ContractRouterClient } from '@orpc/contract';
+import type { JsonifiedClient } from '@orpc/openapi-client';
+import { OpenAPILink } from '@orpc/openapi-client/fetch';
 import { z } from 'zod';
 import { config } from '@/config';
 import i18n from '@/i18n/i18n';
@@ -9,7 +12,7 @@ export const BASE_URL = new URL('/api', config.BACKEND_URL).href;
 
 let isRefreshingAccessTokenPromise: Promise<Response> | null = null;
 
-const renewAccessToken = async (): Promise<{ accessToken: string }> => {
+export const renewAccessToken = async (): Promise<{ accessToken: string }> => {
     try {
         if (!isRefreshingAccessTokenPromise) {
             const accessToken = useStore.getState().accessToken;
@@ -17,7 +20,7 @@ const renewAccessToken = async (): Promise<{ accessToken: string }> => {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
-                    Authorization: `Bearer ${accessToken}`,
+                    ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
                 },
             });
         }
@@ -38,53 +41,60 @@ const renewAccessToken = async (): Promise<{ accessToken: string }> => {
     }
 };
 
-// Create the ts-rest client using the axios instance with interceptors
-// This ensures access token, refresh token, and language header logic is applied
-export const tsRestClient = initClient(apiContract, {
-    baseUrl: BASE_URL,
-    baseHeaders: {},
-    jsonQuery: true,
-    api: async (args: ApiFetcherArgs) => {
+const link = new OpenAPILink(api, {
+    url: BASE_URL,
+    headers: () => {
         const accessToken = useStore.getState().accessToken;
-        const isLoggedIn = useStore.getState().isLoggedIn;
+        const headers: Record<string, string> = {};
 
-        // Add authorization header if access token exists
         if (accessToken) {
-            args.headers.Authorization = `Bearer ${accessToken}`;
+            headers.Authorization = `Bearer ${accessToken}`;
         }
 
-        // Add language header if available
         if (i18n.language) {
-            args.headers['Accept-Language'] = i18n.language;
+            headers['Accept-Language'] = i18n.language;
         }
 
-        try {
-            const result = await tsRestFetchApi(args);
+        return headers;
+    },
+    fetch: async (request, init) => {
+        const response = await globalThis.fetch(request, {
+            ...init,
+            credentials: 'include',
+        });
 
-            if (result.status === 401 && isLoggedIn && !args.path.includes('refresh-token')) {
-                const { accessToken: newAccessToken } = await renewAccessToken();
-
-                if (newAccessToken) {
-                    args.headers.Authorization = `Bearer ${newAccessToken}`;
+        if (response.status === 401 && useStore.getState().isLoggedIn) {
+            // Check if this is not a refresh token request
+            if (!request.url.includes('refresh-token')) {
+                try {
+                    await renewAccessToken();
+                    // Retry the request by not calling next
+                    return globalThis.fetch(request, {
+                        ...init,
+                        credentials: 'include',
+                    });
+                } catch (refreshError) {
+                    console.error('Failed to refresh token:', refreshError);
                 }
-
-                const retryResult = await tsRestFetchApi(args);
-                return retryResult;
             }
+        }
 
-            if (typeof result.body === 'object' && result.body && 'accessToken' in result.body) {
-                const accessToken = z.object({ accessToken: z.string().nullable() }).parse(result.body).accessToken;
+        return response;
+    },
+
+    interceptors: [
+        onSuccess(async (responseData: unknown, options) => {
+            if (typeof responseData === 'object' && responseData && 'accessToken' in responseData) {
+                const accessToken = z.object({ accessToken: z.string().nullable() }).parse(responseData).accessToken;
                 useStore.getState().setAccessToken(accessToken);
 
                 if (!accessToken) {
                     window.location.href = '/login';
                 }
             }
-
-            return result;
-        } catch (error) {
-            console.error('Request failed:', error);
-            throw error;
-        }
-    },
+            options.next();
+        }),
+    ],
 });
+
+export const client: JsonifiedClient<ContractRouterClient<typeof api>> = createORPCClient(link);

@@ -1,45 +1,45 @@
 import { api, Pagination } from '@darts/types';
 import { Controller } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { Implement, implement } from '@orpc/nest';
 import { PlayerService } from '@/dart/player/player.service';
 
 @Controller()
 export class PlayerController {
     constructor(private readonly playerService: PlayerService) {}
 
-    @TsRestHandler(api.dart.player.getAll)
+    @Implement(api.dart.player.getAll)
     public getAllPlayers() {
-        return tsRestHandler(api.dart.player.getAll, async () => {
+        return implement(api.dart.player.getAll).handler(async () => {
             const result = await this.playerService.getAllPlayers();
-            return { status: 200 as const, body: result };
+            return result;
         });
     }
 
-    @TsRestHandler(api.dart.player.getDetails)
+    @Implement(api.dart.player.getDetails)
     public getPlayerDetails() {
-        return tsRestHandler(api.dart.player.getDetails, async ({ params }) => {
-            const result = await this.playerService.getPlayerDetails(params.playerId);
-            return { status: 200 as const, body: result };
+        return implement(api.dart.player.getDetails).handler(async ({ input }) => {
+            const result = await this.playerService.getPlayerDetails(input.playerId);
+            return result;
         });
     }
 
-    @TsRestHandler(api.dart.player.getGames)
+    @Implement(api.dart.player.getGames)
     public getPlayerGames() {
-        return tsRestHandler(api.dart.player.getGames, async ({ params, query }) => {
+        return implement(api.dart.player.getGames).handler(async ({ input }) => {
             const pagination: Pagination = {
-                page: query.page,
-                pageSize: query.pageSize,
+                page: input.page,
+                pageSize: input.pageSize,
             };
-            const games = await this.playerService.getPlayerGames(params.playerId, pagination);
-            return { status: 200 as const, body: { data: games, pagination } };
+            const games = await this.playerService.getPlayerGames(input.playerId, pagination);
+            return { data: games, pagination };
         });
     }
 
-    @TsRestHandler(api.dart.player.getOpponents)
+    @Implement(api.dart.player.getOpponents)
     public getPlayerOpponents() {
-        return tsRestHandler(api.dart.player.getOpponents, async ({ params }) => {
-            const result = await this.playerService.getPlayerOpponents(params.playerId);
-            return { status: 200 as const, body: result };
+        return implement(api.dart.player.getOpponents).handler(async ({ input }) => {
+            const result = await this.playerService.getPlayerOpponents(input.playerId);
+            return result;
         });
     }
 }

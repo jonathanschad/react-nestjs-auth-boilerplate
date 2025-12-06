@@ -1,17 +1,10 @@
 import { useQuery } from 'react-query';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 import { getPlayerQueryKey } from '@/api/dart/player/player.queryKey';
 
 const getPlayerDetails = async (playerId: string) => {
-    const response = await tsRestClient.dart.player.getDetails({
-        params: { playerId },
-    });
-
-    if (response.status === 200) {
-        return response.body;
-    }
-
-    throw new Error('Failed to fetch player details');
+    const response = await client.dart.player.getDetails({ playerId });
+    return response;
 };
 
 export const useGetPlayer = (playerUuid: string | undefined) => {

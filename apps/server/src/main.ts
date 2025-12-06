@@ -23,6 +23,7 @@ const customLogger = new WinstonLogger();
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
         logger: customLogger,
+        bodyParser: false,
     });
 
     const appConfigService = app.get<AppConfigService>(AppConfigService);

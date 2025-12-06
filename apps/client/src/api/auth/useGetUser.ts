@@ -1,18 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { getUserQueryKey } from '@/api/auth/auth.queryKey';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 
 export const getUser = async () => {
-    const response = await tsRestClient.auth.getUser({
-        query: {},
-    });
-
-    if (response.status === 200) {
-        return response.body;
+    try {
+        const response = await client.user.getUser({});
+        return response;
+    } catch (error) {
+        console.error('Failed to get user:', error);
+        return null;
     }
-
-    return null;
 };
 
 export const useGetUser = () => {

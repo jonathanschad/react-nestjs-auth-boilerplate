@@ -1,7 +1,7 @@
 import { Area } from 'react-easy-crop';
 import { useMutation, useQueryClient } from 'react-query';
 import { getUserQueryKey } from '@/api/auth/auth.queryKey';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 import { invalidateQueriesMatchingAny } from '@/api/invalidate-queries';
 import { getLoggedInUserQueryKey } from '@/api/user/user.queryKey';
 import getCroppedImg from '@/util/crop-image';
@@ -24,16 +24,12 @@ export const uploadProfilePicture = async ({
     const formData = new FormData();
     formData.append('file', imageBlob);
 
-    const response = await tsRestClient.user.uploadProfilePicture({
-        params: { idempotencyKey },
-        body: formData,
+    const response = await client.user.uploadProfilePicture({
+        idempotencyKey,
+        file: formData,
     });
 
-    if (response.status === 200) {
-        return response.body;
-    }
-
-    throw new Error('Failed to upload profile picture');
+    return response;
 };
 
 export const useUploadProfilePicture = ({ userUuid, onSuccess }: { userUuid: string; onSuccess: () => void }) => {

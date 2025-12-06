@@ -1,16 +1,9 @@
 import { useMutation } from 'react-query';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 
 export const completeGoogleAccountConnection = async (params: { token: string; password: string }) => {
-    const response = await tsRestClient.auth.completeGoogleAccountConnection({
-        body: params,
-    });
-
-    if (response.status === 200) {
-        return response.body;
-    }
-
-    throw new Error('Failed to complete Google account connection');
+    const response = await client.auth.google.completeGoogleAccountConnection(params);
+    return response;
 };
 
 export const useCompleteGoogleAccountConnection = () => {

@@ -1,8 +1,6 @@
-import { initContract } from '@ts-rest/core';
+import { oc } from '@orpc/contract';
 import { z } from 'zod';
 import { sanitizedUserWithSettingsSchema } from '../../schemas';
-
-const c = initContract();
 
 // Request/Response schemas
 const loginRequestSchema = z.object({
@@ -58,9 +56,8 @@ const startGoogleOAuthResponseSchema = z.object({
     redirectUrl: z.string().url(),
 });
 
-const completeGoogleAccountConnectionQuerySchema = z.object({
+const googleOAuthCallbackQuerySchema = z.object({
     code: z.string(),
-    state: z.string(),
 });
 
 const completeGoogleAccountConnectionBodySchema = z.object({
@@ -68,140 +65,54 @@ const completeGoogleAccountConnectionBodySchema = z.object({
     password: z.string(),
 });
 
-export const authContract = c.router({
-    login: {
-        method: 'POST',
-        path: '/auth/login',
-        responses: {
-            200: loginResponseSchema,
-            401: z.object({ message: z.string() }),
-        },
-        body: loginRequestSchema,
-        summary: 'Login with email and password',
-    },
-    logout: {
-        method: 'POST',
-        path: '/auth/logout',
-        responses: {
-            200: z.object({ success: z.boolean() }),
-        },
-        body: z.object({}),
-        summary: 'Logout current user',
-    },
-    refreshToken: {
-        method: 'GET',
-        path: '/auth/refresh-token',
-        responses: {
-            200: z.object({ accessToken: z.string() }),
-            401: z.object({ message: z.string() }),
-        },
-        query: z.object({}),
-        summary: 'Refresh access token',
-    },
-    register: {
-        method: 'POST',
-        path: '/signup',
-        responses: {
-            200: registerResponseSchema,
-            400: z.object({ message: z.string() }),
-        },
-        body: registerRequestSchema,
-        summary: 'Register a new user',
-    },
-    completeRegistration: {
-        method: 'POST',
-        path: '/signup/complete',
-        responses: {
-            200: loginResponseSchema,
-            400: z.object({ message: z.string() }),
-        },
-        body: completeRegistrationRequestSchema,
-        summary: 'Complete user registration',
-    },
-    verifyEmailToken: {
-        method: 'GET',
-        path: '/signup/verify-email-token',
-        responses: {
-            200: z.object({ success: z.boolean() }),
-            400: z.object({ message: z.string() }),
-        },
-        query: verifyEmailTokenQuerySchema,
-        summary: 'Verify email token',
-    },
-    resendVerification: {
-        method: 'POST',
-        path: '/signup/resend-verification',
-        responses: {
-            200: registerResponseSchema,
-            400: z.object({ message: z.string() }),
-        },
-        body: resendVerificationRequestSchema,
-        summary: 'Resend verification email',
-    },
-    passwordForgot: {
-        method: 'POST',
-        path: '/password/forgot',
-        responses: {
-            200: z.object({ success: z.boolean() }),
-        },
-        body: passwordForgotRequestSchema,
-        summary: 'Request password reset',
-    },
-    passwordForgotValidate: {
-        method: 'GET',
-        path: '/password/forgot/validate',
-        responses: {
-            200: passwordForgotValidateResponseSchema,
-            400: z.object({ message: z.string() }),
-        },
-        query: passwordForgotValidateQuerySchema,
-        summary: 'Validate password reset token',
-    },
-    passwordChangeToken: {
-        method: 'POST',
-        path: '/password/change-password/token',
-        responses: {
-            200: loginResponseSchema,
-            400: z.object({ message: z.string() }),
-        },
-        body: passwordChangeTokenRequestSchema,
-        summary: 'Change password with token',
-    },
-    getUser: {
-        method: 'GET',
-        path: '/user',
-        responses: {
-            200: sanitizedUserWithSettingsSchema,
-            401: z.object({ message: z.string() }),
-        },
-        summary: 'Get current user',
-    },
-    startGoogleOAuth: {
-        method: 'GET',
-        path: '/auth/google/start',
-        responses: {
-            200: startGoogleOAuthResponseSchema,
-        },
-        summary: 'Start Google OAuth flow',
-    },
-    completeGoogleAccountConnection: {
-        method: 'POST',
-        path: '/auth/google/complete-account-connection',
-        responses: {
-            200: loginResponseSchema,
-            400: z.object({ message: z.string() }),
-        },
-        body: completeGoogleAccountConnectionBodySchema,
-        summary: 'Complete Google account connection',
-    },
-    googleOAuthCallback: {
-        method: 'GET',
-        path: '/auth/google/callback',
-        responses: {
-            200: loginResponseSchema,
-            400: z.object({ message: z.string() }),
-        },
-        query: completeGoogleAccountConnectionQuerySchema,
-        summary: 'Complete Google OAuth flow',
-    },
+const googleContract = oc.prefix('/google').router({
+    startGoogleOAuth: oc.route({ method: 'GET', path: '/start' }).output(startGoogleOAuthResponseSchema),
+    completeGoogleAccountConnection: oc
+        .route({ method: 'POST', path: '/complete-account-connection' })
+        .input(completeGoogleAccountConnectionBodySchema)
+        .output(loginResponseSchema),
+    googleOAuthCallback: oc
+        .route({ method: 'GET', path: '/callback', successStatus: 302, outputStructure: 'detailed' })
+        .input(googleOAuthCallbackQuerySchema),
+});
+
+export const authContract = oc.prefix('/auth').router({
+    login: oc.route({ method: 'POST', path: '/login' }).input(loginRequestSchema).output(loginResponseSchema),
+    logout: oc
+        .route({ method: 'POST', path: '/logout' })
+        .input(z.object({}))
+        .output(z.object({ success: z.boolean() })),
+    refreshToken: oc.route({ method: 'GET', path: '/refresh-token' }).output(z.object({ accessToken: z.string() })),
+    google: googleContract,
+});
+
+export const signupContract = oc.prefix('/signup').router({
+    register: oc.route({ method: 'POST', path: '/' }).input(registerRequestSchema).output(registerResponseSchema),
+    completeRegistration: oc
+        .route({ method: 'POST', path: '/complete' })
+        .input(completeRegistrationRequestSchema)
+        .output(loginResponseSchema),
+    verifyEmailToken: oc
+        .route({ method: 'GET', path: '/verify-email-token' })
+        .input(verifyEmailTokenQuerySchema)
+        .output(z.object({ success: z.boolean() })),
+    resendVerification: oc
+        .route({ method: 'POST', path: '/resend-verification' })
+        .input(resendVerificationRequestSchema)
+        .output(registerResponseSchema),
+});
+
+export const passwordContract = oc.prefix('/password').router({
+    passwordForgot: oc
+        .route({ method: 'POST', path: '/forgot' })
+        .input(passwordForgotRequestSchema)
+        .output(z.object({ success: z.boolean() })),
+    passwordForgotValidate: oc
+        .route({ method: 'GET', path: '/forgot/validate' })
+        .input(passwordForgotValidateQuerySchema)
+        .output(passwordForgotValidateResponseSchema),
+    passwordChangeToken: oc
+        .route({ method: 'POST', path: '/change-password/token' })
+        .input(passwordChangeTokenRequestSchema)
+        .output(loginResponseSchema),
 });

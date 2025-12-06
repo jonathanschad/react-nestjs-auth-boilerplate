@@ -1,26 +1,11 @@
-import { initContract } from '@ts-rest/core';
+import { oc } from '@orpc/contract';
 import { z } from 'zod';
 import { eloRankingResponseSchema, openSkillRankingResponseSchema } from '../../schemas';
 
-const c = initContract();
-
-export const rankingsContract = c.router({
-    elo: {
-        method: 'GET',
-        path: '/dart/rankings/elo',
-        responses: {
-            200: z.array(eloRankingResponseSchema),
-        },
-        query: z.object({}),
-        summary: 'Get ELO rankings',
-    },
-    openskill: {
-        method: 'GET',
-        path: '/dart/rankings/openskill',
-        responses: {
-            200: z.array(openSkillRankingResponseSchema),
-        },
-        query: z.object({}),
-        summary: 'Get OpenSkill rankings',
-    },
+export const rankingsContract = oc.prefix('/rankings').router({
+    elo: oc.route({ method: 'GET', path: '/elo' }).input(z.object({})).output(z.array(eloRankingResponseSchema)),
+    openskill: oc
+        .route({ method: 'GET', path: '/openskill' })
+        .input(z.object({}))
+        .output(z.array(openSkillRankingResponseSchema)),
 });

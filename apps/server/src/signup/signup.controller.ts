@@ -1,7 +1,7 @@
 import { UserState } from '@darts/prisma';
 import { api } from '@darts/types';
 import { Controller, Req, Res } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { Implement, implement } from '@orpc/nest';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import { PublicRoute, RequireUserState, User } from '@/auth/auth.guard';
@@ -22,61 +22,61 @@ export class SignupController {
     ) {}
 
     @PublicRoute()
-    @TsRestHandler(api.auth.register)
+    @Implement(api.signup.register)
     public signup(@Req() req: FastifyRequest) {
-        return tsRestHandler(api.auth.register, async ({ body }) => {
+        return implement(api.signup.register).handler(async ({ input }) => {
             const language = this.signupService.getSupportedLanguageFromRequest(req);
 
             const result = await this.signupService.signupUser({
-                email: body.email,
-                acceptPrivacyPolicy: body.acceptPrivacyPolicy,
+                email: input.email,
+                acceptPrivacyPolicy: input.acceptPrivacyPolicy,
                 language,
             });
 
-            return { status: 200 as const, body: { success: result } };
+            return { success: result };
         });
     }
 
     @RequireUserState(UserState.VERIFIED)
-    @TsRestHandler(api.auth.completeRegistration)
+    @Implement(api.signup.completeRegistration)
     public completeSignup(@User() user: UserWithSettings, @Res() res: FastifyReply) {
-        return tsRestHandler(api.auth.completeRegistration, async ({ body }) => {
+        return implement(api.signup.completeRegistration).handler(async ({ input }) => {
             await this.signupService.completeVerifiedUser({
-                name: body.name,
-                password: body.password,
+                name: input.name,
+                password: input.password,
                 id: user.id,
             });
 
             const result = await this.authService.signInUser({ res: res, user, remember: true });
-            return { status: 200 as const, body: result };
+            return result;
         });
     }
 
     @PublicRoute()
-    @TsRestHandler(api.auth.verifyEmailToken)
+    @Implement(api.signup.verifyEmailToken)
     public verifyEmailToken(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
-        return tsRestHandler(api.auth.verifyEmailToken, async ({ query }) => {
-            if (!query.token) {
+        return implement(api.signup.verifyEmailToken).handler(async ({ input }) => {
+            if (!input.token) {
                 throw new HTTPError({ statusCode: HttpStatusCode.BAD_REQUEST, message: 'Token missing' });
             }
 
             await new Promise((resolve) => setTimeout(resolve, 5000));
 
-            const user = await this.signupService.verifyEmailToken(query.token);
+            const user = await this.signupService.verifyEmailToken(input.token);
             const result = await this.authService.signInUser({ res: res, user, remember: true });
-            return { status: 200 as const, body: result };
+            return result;
         });
     }
 
     @PublicRoute()
-    @TsRestHandler(api.auth.resendVerification)
+    @Implement(api.signup.resendVerification)
     public resendVerification(@Req() req: FastifyRequest) {
-        return tsRestHandler(api.auth.resendVerification, async ({ body }) => {
+        return implement(api.signup.resendVerification).handler(async ({ input }) => {
             const result = await this.signupService.resendVerification({
-                email: body.email,
+                email: input.email,
                 language: this.signupService.getSupportedLanguageFromRequest(req),
             });
-            return { status: 200 as const, body: { success: result } };
+            return { success: result };
         });
     }
 }

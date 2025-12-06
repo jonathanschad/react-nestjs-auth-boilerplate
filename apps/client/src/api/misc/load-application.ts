@@ -1,24 +1,18 @@
-import { tsRestClient } from '@/api/client';
+import { client, renewAccessToken } from '@/api/client';
 import { config } from '@/config';
 
 export const loadApplication = async () => {
-    await Promise.allSettled([loadEnv()]);
+    await Promise.allSettled([renewAccessToken(), loadEnv()]);
 };
 
 const loadEnv = async () => {
-    const response = await tsRestClient.misc.getFrontendEnvs({
-        query: {},
-    });
+    const response = await client.misc.getFrontendEnvs({});
 
-    if (response.status === 200) {
-        Object.assign(config, response.body);
+    Object.assign(config, response);
 
-        console.log('Loaded environment variables', config);
+    console.log('Loaded environment variables', config);
 
-        if (Object.values(config).some((value) => value === undefined)) {
-            throw new Error('Failed to load environment variables');
-        }
-    } else {
+    if (Object.values(config).some((value) => value === undefined)) {
         throw new Error('Failed to load environment variables');
     }
 };

@@ -1,6 +1,6 @@
 import { api, GameFilter } from '@darts/types';
 import { Controller } from '@nestjs/common';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { Implement, implement } from '@orpc/nest';
 import { BasicAuthRoute } from '@/auth/auth.guard';
 import { GameService } from '@/dart/game/game.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
@@ -14,48 +14,48 @@ export class GameController {
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
     ) {}
 
-    @TsRestHandler(api.dart.game.createGame)
+    @Implement(api.dart.game.createGame)
     @BasicAuthRoute()
     public createGame() {
-        return tsRestHandler(api.dart.game.createGame, async ({ params, body }) => {
-            await this.gameService.createGame(params.uuid, body, true);
-            return { status: 200 as const, body: undefined };
+        return implement(api.dart.game.createGame).handler(async ({ input }) => {
+            await this.gameService.createGame(input.path.uuid, input.body, true);
+            return;
         });
     }
 
-    @TsRestHandler(api.dart.game.getGamePreview)
+    @Implement(api.dart.game.getGamePreview)
     @BasicAuthRoute()
     public getGamePreview() {
-        return tsRestHandler(api.dart.game.getGamePreview, async ({ params }) => {
-            const result = await this.gameService.getGamePreview(params.playerAId, params.playerBId);
-            return { status: 200 as const, body: result };
+        return implement(api.dart.game.getGamePreview).handler(async ({ input }) => {
+            const result = await this.gameService.getGamePreview(input.playerAId, input.playerBId);
+            return result;
         });
     }
 
-    @TsRestHandler(api.dart.game.getGames)
+    @Implement(api.dart.game.getGames)
     public getGames() {
-        return tsRestHandler(api.dart.game.getGames, async ({ query }) => {
+        return implement(api.dart.game.getGames).handler(async ({ input }) => {
             const filter: GameFilter = {
-                playerIds: query.playerIds,
+                playerIds: input.playerIds,
                 timeFrame:
-                    query.startDate && query.endDate
+                    input.startDate && input.endDate
                         ? {
-                              startDate: new Date(query.startDate),
-                              endDate: new Date(query.endDate),
+                              startDate: new Date(input.startDate),
+                              endDate: new Date(input.endDate),
                           }
                         : undefined,
-                type: query.type,
-                checkoutMode: query.checkoutMode,
+                type: input.type,
+                checkoutMode: input.checkoutMode,
             };
 
             const pagination = {
-                page: query.page,
-                pageSize: query.pageSize,
+                page: input.page,
+                pageSize: input.pageSize,
             };
 
             const result = await this.gameService.getGames(filter, pagination);
 
-            return { status: 200 as const, body: { data: result, pagination: pagination } };
+            return { data: result, pagination: pagination };
         });
     }
 }

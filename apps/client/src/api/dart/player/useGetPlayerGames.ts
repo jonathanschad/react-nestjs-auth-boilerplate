@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 import { getPlayerQueryKey } from '@/api/dart/player/player.queryKey';
 
 export const getPlayerGames = async ({
@@ -11,16 +11,8 @@ export const getPlayerGames = async ({
     page?: number;
     pageSize?: number;
 }) => {
-    const response = await tsRestClient.dart.player.getGames({
-        params: { playerId },
-        query: { page, pageSize },
-    });
-
-    if (response.status === 200) {
-        return response.body;
-    }
-
-    throw new Error('Failed to fetch player games');
+    const response = await client.dart.player.getGames({ playerId, page, pageSize });
+    return response;
 };
 
 export const useGetPlayerGames = (playerId: string, page: number = 1, pageSize: number = 10) => {

@@ -1,5 +1,3 @@
-import type { GameCheckoutMode, GameType } from '@darts/prisma';
-import { ValidateEnum } from '../util/validate-enum';
 import { EloHistoryEntityApiDTO, OpenSkillHistoryEntityApiDTO } from './history';
 
 export enum GameTypeDTOEnum {
@@ -12,9 +10,6 @@ export enum GameCheckoutModeDTOEnum {
     DOUBLE_OUT = 'DOUBLE_OUT',
     MASTER_OUT = 'MASTER_OUT',
 }
-
-const _validateGameTypeEnum: ValidateEnum<GameType> = GameTypeDTOEnum;
-const _validateGameCheckoutModeEnum: ValidateEnum<GameCheckoutMode> = GameCheckoutModeDTOEnum;
 
 export type GameTurnEntityApiDTO = {
     id: string;

@@ -1,13 +1,10 @@
 import { useMutation } from 'react-query';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 
 export const resendVerificationEmail = async ({ email }: { email: string }) => {
     try {
-        const response = await tsRestClient.auth.resendVerification({
-            body: { email },
-        });
-
-        return response.status === 200 && response.body.success;
+        const response = await client.signup.resendVerification({ email });
+        return response.success;
     } catch (_error) {
         return false;
     }

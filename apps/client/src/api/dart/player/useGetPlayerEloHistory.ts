@@ -1,17 +1,10 @@
 import { useQuery } from 'react-query';
-import { tsRestClient } from '@/api/client';
+import { client } from '@/api/client';
 import { getPlayerQueryKey } from '@/api/dart/player/player.queryKey';
 
 export const getPlayerEloHistory = async (playerId: string) => {
-    const response = await tsRestClient.dart.player.getEloHistory({
-        params: { userId: playerId },
-    });
-
-    if (response.status === 200) {
-        return response.body;
-    }
-
-    throw new Error('Failed to fetch player ELO history');
+    const response = await client.dart.player.getEloHistory({ userId: playerId });
+    return response;
 };
 
 export const useGetPlayerEloHistory = (playerUuid: string) => {

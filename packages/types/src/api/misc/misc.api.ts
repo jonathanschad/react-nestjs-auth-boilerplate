@@ -1,7 +1,5 @@
-import { initContract } from '@ts-rest/core';
+import { oc } from '@orpc/contract';
 import { z } from 'zod';
-
-const c = initContract();
 
 const frontendEnvsResponseSchema = z.object({
     BACKEND_URL: z.string(),
@@ -16,23 +14,12 @@ const frontendEnvsResponseSchema = z.object({
     IMPRINT_COPYRIGHT: z.string().optional(),
 });
 
-export const miscContract = c.router({
-    getPrivacyPolicy: {
-        method: 'GET',
-        path: '/legal/privacy-policy',
-        responses: {
-            200: z.string(),
-        },
-        query: z.object({}),
-        summary: 'Get privacy policy',
-    },
-    getFrontendEnvs: {
-        method: 'GET',
-        path: '/envs',
-        responses: {
-            200: frontendEnvsResponseSchema,
-        },
-        query: z.object({}),
-        summary: 'Get frontend environment variables',
-    },
-});
+export const miscContract = {
+    getPrivacyPolicy: oc.route({ method: 'GET', path: '/legal/privacy-policy' }).input(z.object({})).output(z.string()),
+    getFrontendEnvs: oc.route({ method: 'GET', path: '/envs' }).input(z.object({})).output(frontendEnvsResponseSchema),
+    health: oc
+        .route({ method: 'GET', path: '/health' })
+        .input(z.object({}))
+        .output(z.object({ health: z.string(), version: z.string() })),
+    sentryTest: oc.route({ method: 'GET', path: '/sentry-test' }).input(z.object({})).output(z.void()),
+};
