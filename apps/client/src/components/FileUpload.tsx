@@ -2,7 +2,7 @@ import type React from 'react';
 import { useState } from 'react';
 import * as uuid from 'uuid';
 
-import api from '@/api';
+import { tsRestClient } from '@/api/client';
 
 const FileUpload = () => {
     const [file, setFile] = useState<File>();
@@ -23,19 +23,15 @@ const FileUpload = () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        try {
-            const response = await api.patch(`/file/profile-picture/${fileUuid}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    // You can add authorization header here if necessary
-                    // Authorization: `Bearer ${accessToken}`,
-                },
-            });
+        const response = await tsRestClient.user.uploadProfilePicture({
+            params: { idempotencyKey: fileUuid },
+            body: formData,
+        });
 
+        if (response.status === 200) {
             setUploadStatus('File uploaded successfully!');
-            console.log('File uploaded:', response.data);
-        } catch (error) {
-            console.error('Error uploading file:', error);
+            console.log('File uploaded successfully');
+        } else {
             setUploadStatus('Failed to upload file.');
         }
     };

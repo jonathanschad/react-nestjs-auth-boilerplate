@@ -1,5 +1,4 @@
-import type { GameEntityApiDTO } from '@darts/types/entities/game';
-import type { EloHistoryEntityApiDTO } from '@darts/types/entities/history';
+import type { EloHistoryEntityApiDTO, GameEntityApiDTO } from '@darts/types';
 import { Button } from '@darts/ui/components/button';
 import { Card } from '@darts/ui/components/card';
 import { Skeleton } from '@darts/ui/components/skeleton';
@@ -133,7 +132,8 @@ export const GameHistory = ({ playerId }: GameHistoryProps) => {
         columns: gameColumns,
         getCoreRowModel: getCoreRowModel(),
         manualPagination: true,
-        pageCount: data?.pagination.totalPages ?? 0,
+        // TODO: Add total pages
+        pageCount: 0,
     });
 
     if (isLoading) {
@@ -204,7 +204,8 @@ export const GameHistory = ({ playerId }: GameHistoryProps) => {
                     <div className="mt-4 flex items-center justify-between">
                         <Typography as="smallText" className="text-muted-foreground">
                             <Translation>page</Translation> {pagination.page} <Translation>of</Translation>{' '}
-                            {pagination.totalPages} ({pagination.totalItems} <Translation>totalGames</Translation>)
+                            {/* TODO: Add total pages */}
+                            {0} ({0} <Translation>totalGames</Translation>)
                         </Typography>
                         <div className="space-x-2">
                             <Button
@@ -215,11 +216,12 @@ export const GameHistory = ({ playerId }: GameHistoryProps) => {
                             >
                                 <Translation>previous</Translation>
                             </Button>
+                            {/* TODO: Add total pages */}
                             <Button
                                 variant="outline"
                                 size="sm"
-                                onClick={() => setPage((p) => Math.min(pagination.totalPages, p + 1))}
-                                disabled={page === pagination.totalPages}
+                                onClick={() => setPage((p) => Math.min(0, p + 1))}
+                                disabled={page === 0}
                             >
                                 <Translation>next</Translation>
                             </Button>

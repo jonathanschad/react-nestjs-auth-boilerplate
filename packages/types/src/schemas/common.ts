@@ -6,7 +6,6 @@ export const paginationSchema = z.object({
     pageSize: z.number().int().min(1).max(100).optional(),
 });
 
-
 export const paginatedResponseSchema = <T extends z.ZodType>(dataSchema: T) =>
     z.object({
         data: z.array(dataSchema),

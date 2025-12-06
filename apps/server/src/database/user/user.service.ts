@@ -78,7 +78,7 @@ export class DatabaseUserService {
             language?: UserSettings['language'];
             notificationsEnabled?: UserSettings['notificationsEnabled'];
         };
-    }): Promise<void> {
+    }): Promise<UserWithSettings> {
         const { name, language, notificationsEnabled } = updates;
 
         const userUpdates: Prisma.UserUpdateInput = {};
@@ -97,11 +97,16 @@ export class DatabaseUserService {
             userUpdates.settings = { update: userSettingsUpdates };
         }
         if (Object.keys(userUpdates).length > 0) {
-            await this.prisma.user.update({
+            return await this.prisma.user.update({
                 where: { id: userId },
                 data: { ...userUpdates, settings: { update: userSettingsUpdates } },
+                include: {
+                    settings: true,
+                },
             });
         }
+
+        return await this.findByUuid(userId);
     }
 
     async completeVerifiedUser({

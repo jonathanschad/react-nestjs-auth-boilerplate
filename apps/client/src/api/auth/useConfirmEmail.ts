@@ -1,15 +1,18 @@
 import { useQuery } from 'react-query';
-import api, { BASE_URL } from '@/api';
 import { getAuthQueryKey } from '@/api/auth/auth.queryKey';
+import { tsRestClient } from '@/api/client';
 
 export const confirmEmail = async ({ token }: { token?: string | null }) => {
     if (!token) return false;
-    try {
-        const data = await api.get<{ success: boolean }>(`${BASE_URL}/signup/verify-email-token?token=${token}`);
-        return data.data.success;
-    } catch (_error) {
-        return false;
+    const response = await tsRestClient.auth.verifyEmailToken({
+        query: { token },
+    });
+
+    if (response.status === 200) {
+        return response.body.success;
     }
+
+    throw new Error('Failed to confirm email');
 };
 
 export const useConfirmEmail = (token?: string | null) => {

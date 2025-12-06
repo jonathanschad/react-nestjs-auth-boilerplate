@@ -1,13 +1,17 @@
 import { useMutation } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 import type { RegisterFormValues } from '@/forms/register-form';
 
 export const register = async (registerDTO: RegisterFormValues) => {
-    const data = await api.post(`${BASE_URL}/signup`, registerDTO, {
-        withCredentials: true,
+    const response = await tsRestClient.auth.register({
+        body: registerDTO,
     });
 
-    return data;
+    if (response.status === 200) {
+        return response.body;
+    }
+
+    throw new Error('Registration failed');
 };
 
 export const useRegister = () => {

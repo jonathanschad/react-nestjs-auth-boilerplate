@@ -1,4 +1,6 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res } from '@nestjs/common';
+import { api } from '@darts/types';
+import { Controller, Req, Res } from '@nestjs/common';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import type { SingInDTO } from '@/auth/auth.dto';
@@ -9,7 +11,7 @@ import { PrismaService } from '@/database/prisma.service';
 import { RefreshTokenService } from '@/database/refresh-token/refresh-token.service';
 import { InvalidRefreshTokenError } from '@/util/httpHandlers';
 
-@Controller('auth')
+@Controller()
 export class AuthController {
     constructor(
         private authService: AuthService,
@@ -19,43 +21,53 @@ export class AuthController {
     ) {}
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Post('login')
-    async signIn(@Body() signInDto: SingInDTO, @Res({ passthrough: true }) response: FastifyReply) {
-        return await this.authService.signIn(response, signInDto);
+    @TsRestHandler(api.auth.login)
+    public login(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
+        return tsRestHandler(api.auth.login, async ({ body }) => {
+            const loginDto: SingInDTO = {
+                email: body.email,
+                password: body.password,
+                remember: body.remember ?? false,
+            };
+            const result = await this.authService.signIn(res, loginDto);
+            return { status: 200 as const, body: result };
+        });
     }
 
-    @HttpCode(HttpStatus.OK)
-    @Post('logout')
-    async logout(@Res({ passthrough: true }) response: FastifyReply, @Req() request: FastifyRequest) {
-        const accessToken = this.jwtService.extractAccessTokenFromHeader(request);
-        const refreshToken = this.jwtService.extractRefreshTokenFromCookie(request);
-        return await this.authService.logout({ response, accessToken, refreshToken });
+    @TsRestHandler(api.auth.logout)
+    public logout(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
+        return tsRestHandler(api.auth.logout, async () => {
+            const accessToken = this.jwtService.extractAccessTokenFromHeader(req);
+            const refreshToken = this.jwtService.extractRefreshTokenFromCookie(req);
+            await this.authService.logout({ response: res, accessToken, refreshToken });
+            return { status: 200 as const, body: { success: true } };
+        });
     }
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Get('refresh-token')
-    async refreshToken(@Res({ passthrough: true }) response: FastifyReply, @Req() request: FastifyRequest) {
-        try {
-            const refreshToken = this.jwtService.extractRefreshTokenFromCookie(request);
-            if (!refreshToken) {
-                throw new InvalidRefreshTokenError();
-            }
-            const refreshTokenDb = await this.refreshTokenService.findRefreshToken(refreshToken);
-            if (!refreshTokenDb) {
-                throw new InvalidRefreshTokenError();
-            }
+    @TsRestHandler(api.auth.refreshToken)
+    public refreshToken(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
+        return tsRestHandler(api.auth.refreshToken, async () => {
+            try {
+                const refreshToken = this.jwtService.extractRefreshTokenFromCookie(req);
+                if (!refreshToken) {
+                    throw new InvalidRefreshTokenError();
+                }
+                const refreshTokenDb = await this.refreshTokenService.findRefreshToken(refreshToken);
+                if (!refreshTokenDb) {
+                    throw new InvalidRefreshTokenError();
+                }
 
-            const accessToken = await this.authService.signInUser({
-                res: response,
-                user: refreshTokenDb.user,
-                refreshToken: refreshTokenDb.token,
-                remember: refreshTokenDb.rememberUser,
-            });
-            return accessToken;
-        } catch (_error) {
-            throw new InvalidRefreshTokenError();
-        }
+                const accessToken = await this.authService.signInUser({
+                    res: res,
+                    user: refreshTokenDb.user,
+                    refreshToken: refreshTokenDb.token,
+                    remember: refreshTokenDb.rememberUser,
+                });
+                return { status: 200 as const, body: accessToken };
+            } catch (_error) {
+                throw new InvalidRefreshTokenError();
+            }
+        });
     }
 }

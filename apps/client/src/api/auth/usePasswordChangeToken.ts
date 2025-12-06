@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 
 export type PasswordChangeTokenDto = {
     token: string;
@@ -7,8 +7,15 @@ export type PasswordChangeTokenDto = {
 };
 
 export const passwordChangeToken = async (payload: PasswordChangeTokenDto) => {
-    const data = await api.post<{ success: boolean }>(`${BASE_URL}/password/change-password/token`, payload);
-    return data.data;
+    const response = await tsRestClient.auth.passwordChangeToken({
+        body: payload,
+    });
+
+    if (response.status === 200) {
+        return response.body;
+    }
+
+    throw new Error('Failed to change password');
 };
 
 export const usePasswordChangeToken = () => {

@@ -1,10 +1,16 @@
 import { useMutation } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 
 export const logout = async () => {
-    const data = await api.post(`${BASE_URL}/auth/logout`);
+    const response = await tsRestClient.auth.logout({
+        body: {},
+    });
 
-    return data;
+    if (response.status === 200) {
+        return response.body;
+    }
+
+    throw new Error('Logout failed');
 };
 
 export const useLogout = () => {

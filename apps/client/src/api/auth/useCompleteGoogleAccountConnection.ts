@@ -1,12 +1,16 @@
 import { useMutation } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 
-export const completeGoogleAccountConnection = async (completeRegisterDTO: { password: string; token: string }) => {
-    const data = await api.post(`${BASE_URL}/auth/google/complete-account-connection`, completeRegisterDTO, {
-        withCredentials: true,
+export const completeGoogleAccountConnection = async (params: { token: string; password: string }) => {
+    const response = await tsRestClient.auth.completeGoogleAccountConnection({
+        body: params,
     });
 
-    return data;
+    if (response.status === 200) {
+        return response.body;
+    }
+
+    throw new Error('Failed to complete Google account connection');
 };
 
 export const useCompleteGoogleAccountConnection = () => {

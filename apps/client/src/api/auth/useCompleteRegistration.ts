@@ -1,13 +1,17 @@
 import { useMutation } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 import type { CompleteRegisterFormValues } from '@/forms/complete-register-form';
 
 export const completeRegistration = async (completeRegisterDTO: CompleteRegisterFormValues) => {
-    const data = await api.post(`${BASE_URL}/signup/complete`, completeRegisterDTO, {
-        withCredentials: true,
+    const response = await tsRestClient.auth.completeRegistration({
+        body: completeRegisterDTO,
     });
 
-    return data;
+    if (response.status === 200) {
+        return response.body;
+    }
+
+    throw new Error('Failed to complete registration');
 };
 
 export const useCompleteRegistration = () => {

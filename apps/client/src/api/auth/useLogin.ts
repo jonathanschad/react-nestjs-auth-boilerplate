@@ -1,11 +1,17 @@
 import { useMutation } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 import type { LoginFormValues } from '@/forms/login-form';
 
 export const login = async ({ email, password, remember }: LoginFormValues) => {
-    const data = await api.post(`${BASE_URL}/auth/login`, { email, password, remember }, { withCredentials: true });
+    const response = await tsRestClient.auth.login({
+        body: { email, password, remember },
+    });
 
-    return data;
+    if (response.status === 200) {
+        return response.body;
+    }
+
+    throw new Error('Login failed');
 };
 
 export const useLogin = () => {

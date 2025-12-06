@@ -1,9 +1,11 @@
 import { api as apiContract } from '@darts/types';
 import { ApiFetcherArgs, initClient, tsRestFetchApi } from '@ts-rest/core';
 import { z } from 'zod';
-import { BASE_URL } from '@/api/index';
+import { config } from '@/config';
 import i18n from '@/i18n/i18n';
 import { useStore } from '@/store/store';
+
+export const BASE_URL = new URL('/api', config.BACKEND_URL).href;
 
 let isRefreshingAccessTokenPromise: Promise<Response> | null = null;
 
@@ -68,6 +70,15 @@ export const tsRestClient = initClient(apiContract, {
 
                 const retryResult = await tsRestFetchApi(args);
                 return retryResult;
+            }
+
+            if (typeof result.body === 'object' && result.body && 'accessToken' in result.body) {
+                const accessToken = z.object({ accessToken: z.string().nullable() }).parse(result.body).accessToken;
+                useStore.getState().setAccessToken(accessToken);
+
+                if (!accessToken) {
+                    window.location.href = '/login';
+                }
             }
 
             return result;

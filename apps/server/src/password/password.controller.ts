@@ -1,18 +1,14 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
+import { api } from '@darts/types';
+import { Controller, Req, Res } from '@nestjs/common';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import { PublicRoute } from '@/auth/auth.guard';
 import { AuthService } from '@/auth/auth.service';
-import {
-    PasswordChangePasswordDto,
-    PasswordChangeTokenDto,
-    PasswordForgotDto,
-    PasswordForgotValidateDto,
-} from '@/password/password.dto';
 import { PasswordService } from '@/password/password.service';
 import { SignupService } from '@/signup/signup.service';
 
-@Controller('password')
+@Controller()
 export class PasswordController {
     constructor(
         private readonly signupService: SignupService,
@@ -21,40 +17,35 @@ export class PasswordController {
     ) {}
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Post('/forgot')
-    async passwordForgot(@Body() { email }: PasswordForgotDto, @Req() request: FastifyRequest) {
-        const language = this.signupService.getSupportedLanguageFromRequest(request);
-        await this.passwordService.initiatePasswordForgot({ email, language });
+    @TsRestHandler(api.auth.passwordForgot)
+    public passwordForgot(@Req() req: FastifyRequest) {
+        return tsRestHandler(api.auth.passwordForgot, async ({ body }) => {
+            const language = this.signupService.getSupportedLanguageFromRequest(req);
+            await this.passwordService.initiatePasswordForgot({ email: body.email, language });
 
-        return { success: true };
+            return { status: 200 as const, body: { success: true } };
+        });
     }
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Get('/forgot/validate')
-    async passwordForgotValidate(@Query() { token }: PasswordForgotValidateDto) {
-        return { success: await this.passwordService.validatePasswordForgotToken(token) };
+    @TsRestHandler(api.auth.passwordForgotValidate)
+    public passwordForgotValidate() {
+        return tsRestHandler(api.auth.passwordForgotValidate, async ({ query }) => {
+            const success = await this.passwordService.validatePasswordForgotToken(query.token);
+            return { status: 200 as const, body: { success } };
+        });
     }
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Post('/change-password/token')
-    async passwordChangeToken(
-        @Body() { token, password }: PasswordChangeTokenDto,
-        @Res({ passthrough: true }) response: FastifyReply,
-    ) {
-        const { success, user } = await this.passwordService.changePasswordWithToken(token, password);
-        if (success) {
-            return await this.authService.signInUser({ res: response, user, remember: true });
-        }
-        return { success: success };
-    }
-
-    @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Post('/change-password/old-password')
-    async passwordChangePassword(@Body() { email, newPassword, oldPassword }: PasswordChangePasswordDto) {
-        return { success: await this.passwordService.changePasswordWithPassword(email, oldPassword, newPassword) };
+    @TsRestHandler(api.auth.passwordChangeToken)
+    public passwordChangeToken(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
+        return tsRestHandler(api.auth.passwordChangeToken, async ({ body }) => {
+            const { success, user } = await this.passwordService.changePasswordWithToken(body.token, body.password);
+            if (success) {
+                const result = await this.authService.signInUser({ res: res, user, remember: true });
+                return { status: 200 as const, body: result };
+            }
+            return { status: 400 as const, body: { message: 'Failed to change password' } };
+        });
     }
 }

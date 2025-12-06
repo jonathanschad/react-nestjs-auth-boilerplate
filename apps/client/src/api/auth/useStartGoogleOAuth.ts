@@ -1,6 +1,13 @@
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 
 export const startGoogleOAuthFlow = async () => {
-    const { redirectUrl } = (await api.get<{ redirectUrl: string }>(`${BASE_URL}/auth/google`)).data;
-    window.location.href = redirectUrl;
+    const response = await tsRestClient.auth.startGoogleOAuth({
+        query: {},
+    });
+
+    if (response.status === 200) {
+        window.location.href = response.body.url;
+    } else {
+        throw new Error('Failed to start Google OAuth flow');
+    }
 };

@@ -1,10 +1,16 @@
 import { useMutation } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 
 export const passwordForgot = async ({ email }: { email: string }): Promise<{ success: boolean }> => {
-    const data = await api.post<{ success: boolean }>(`${BASE_URL}/password/forgot`, { email });
+    const response = await tsRestClient.auth.passwordForgot({
+        body: { email },
+    });
 
-    return data.data;
+    if (response.status === 200) {
+        return response.body;
+    }
+
+    throw new Error('Failed to request password reset');
 };
 
 export const usePasswordForgot = () => {

@@ -1,4 +1,4 @@
-import { LanguageDTOEnum } from '@darts/types/entities/user';
+import type { Language } from '@darts/types';
 import { Button } from '@darts/ui/components/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@darts/ui/components/card';
 import { useAppForm } from '@darts/ui/form/useAppForm';
@@ -21,19 +21,19 @@ export const LanguageSettings = () => {
     const updateUserMutation = useUpdateUser(user?.id ?? '');
     const [showSavedMessage, setShowSavedMessage] = useState(false);
 
-    const languageOptions = [
-        { value: LanguageDTOEnum.EN, label: t('language.en') },
-        { value: LanguageDTOEnum.DE, label: t('language.de') },
+    const languageOptions: { value: Language; label: string }[] = [
+        { value: 'EN', label: t('language.en') },
+        { value: 'DE', label: t('language.de') },
     ];
 
     const form = useAppForm({
         ...formOptions({
             defaultValues: {
-                language: user?.settings.language ?? LanguageDTOEnum.EN,
+                language: user?.settings.language ?? 'EN',
             },
             validators: {
                 onSubmit: z.object({
-                    language: z.nativeEnum(LanguageDTOEnum),
+                    language: z.enum(['EN', 'DE']),
                 }),
             },
         }),

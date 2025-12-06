@@ -1,16 +1,20 @@
-import type { UserUpdateablePropertiesDTO } from '@darts/types/api/user/user.dto';
+import type { UserUpdateablePropertiesDTO } from '@darts/types';
 import { useMutation, useQueryClient } from 'react-query';
-import api, { BASE_URL } from '@/api';
 import { getUserQueryKey } from '@/api/auth/auth.queryKey';
+import { tsRestClient } from '@/api/client';
 import { invalidateQueriesMatchingAny } from '@/api/invalidate-queries';
 import { getLoggedInUserQueryKey } from '@/api/user/user.queryKey';
 
 export const updateUser = async (updates: UserUpdateablePropertiesDTO) => {
-    const data = await api.patch(`${BASE_URL}/user`, updates, {
-        withCredentials: true,
+    const response = await tsRestClient.user.updateUser({
+        body: updates,
     });
 
-    return data;
+    if (response.status === 200) {
+        return response.body;
+    }
+
+    throw new Error('Failed to update user');
 };
 
 export const useUpdateUser = (userUuid: string) => {

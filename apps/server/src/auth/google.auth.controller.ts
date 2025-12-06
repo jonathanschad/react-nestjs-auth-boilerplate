@@ -1,7 +1,9 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
+import { api } from '@darts/types';
+import { Controller, Get, HttpCode, HttpStatus, Query, Req, Res } from '@nestjs/common';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
-import type { CompleteGoogleAccountConnectionDTO, GoogleOAuthDTO } from '@/auth/auth.dto';
+import type { GoogleOAuthDTO } from '@/auth/auth.dto';
 import { PublicRoute } from '@/auth/auth.guard';
 import { AuthService } from '@/auth/auth.service';
 import { GoogleAuthService } from '@/auth/google.auth.service';
@@ -11,7 +13,7 @@ import { ConnectGoogleAccountTokenService } from '@/database/connect-google-acco
 import { DatabaseUserService } from '@/database/user/user.service';
 import { SignupService } from '@/signup/signup.service';
 
-@Controller('auth/google')
+@Controller()
 export class GoogleAuthController {
     constructor(
         private readonly appConfigService: AppConfigService,
@@ -24,11 +26,12 @@ export class GoogleAuthController {
     ) {}
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Get('/')
-    signIn() {
-        const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${this.appConfigService.googleOAuthClientId}&redirect_uri=${this.googleOAuthService.buildGoogleOAuthRedirectUrl()}&response_type=code&scope=profile email`;
-        return { redirectUrl: url };
+    @TsRestHandler(api.auth.startGoogleOAuth)
+    public signIn() {
+        return tsRestHandler(api.auth.startGoogleOAuth, async () => {
+            const redirectUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${this.appConfigService.googleOAuthClientId}&redirect_uri=${this.googleOAuthService.buildGoogleOAuthRedirectUrl()}&response_type=code&scope=profile email`;
+            return { status: 200 as const, body: { redirectUrl } };
+        });
     }
 
     @PublicRoute()
@@ -86,23 +89,25 @@ export class GoogleAuthController {
     }
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Post('/complete-account-connection')
-    async completeAccountConnection(
-        @Res({ passthrough: true }) reply: FastifyReply,
-        @Body() completeGoogleAccountConnectionDTO: CompleteGoogleAccountConnectionDTO,
-    ) {
-        const { token, password } = completeGoogleAccountConnectionDTO;
+    @TsRestHandler(api.auth.completeGoogleAccountConnection)
+    public completeAccountConnection(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
+        return tsRestHandler(api.auth.completeGoogleAccountConnection, async ({ body }) => {
+            const connectedUser = await this.googleOAuthService.completeAccountConnection({
+                token: body.token,
+                password: body.password,
+            });
 
-        const connectedUser = await this.googleOAuthService.completeAccountConnection({ token, password });
+            if (!connectedUser) {
+                return { status: 400 as const, body: { message: 'Failed to connect account' } };
+            }
 
-        if (!connectedUser) {
-            return { success: false };
-        }
-        return await this.authService.signInUser({
-            res: reply,
-            user: connectedUser,
-            remember: true,
+            const result = await this.authService.signInUser({
+                res: res,
+                user: connectedUser,
+                remember: true,
+            });
+
+            return { status: 200 as const, body: result };
         });
     }
 }

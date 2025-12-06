@@ -1,4 +1,4 @@
-import type { GameEntityApiDTO } from '@darts/types/entities/game';
+import type { GameEntityApiDTO } from '@darts/types';
 import { Card } from '@darts/ui/components/card';
 import { Skeleton } from '@darts/ui/components/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';

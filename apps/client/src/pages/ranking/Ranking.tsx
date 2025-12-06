@@ -1,4 +1,4 @@
-import type { EloRankingResponseDTO, OpenSkillRankingResponseDTO } from '@darts/types/api/ranking/ranking.api';
+import type { EloRankingResponseDTO, OpenSkillRankingResponseDTO } from '@darts/types';
 import { Button } from '@darts/ui/components/button';
 import { DataTable } from '@darts/ui/components/data-table';
 import { Translation } from '@darts/ui/i18n/Translation';
@@ -16,7 +16,7 @@ import { UserTableCell } from '@/pages/ranking/UserTableCell';
 type RankingType = 'elo' | 'openskill';
 
 export const Ranking = () => {
-    useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.RANKING);
+    useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.ELO_RANKING);
     const [rankingType, setRankingType] = useState<RankingType>('elo');
 
     const { data: eloRankings, isLoading: eloLoading, error: eloError } = useGetEloRanking();
