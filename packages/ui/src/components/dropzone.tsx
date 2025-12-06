@@ -81,7 +81,7 @@ export const Dropzone = React.forwardRef<HTMLDivElement, DropzoneProps>(
                 {...props}
             >
                 <input {...getInputProps()} />
-                <div className="grid h-full w-full">
+                <div className="pointer-events-none grid h-full w-full">
                     {/* Normal state */}
                     <div
                         className={cn('flex items-center justify-center', isDragActive ? 'opacity-0' : 'opacity-100')}

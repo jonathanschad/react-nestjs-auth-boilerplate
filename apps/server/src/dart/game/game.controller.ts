@@ -1,16 +1,12 @@
-import {
-    CreateGameDTO,
-    CreateGameParamsDTO,
-    GamePreviewResponseDTO,
-    GetGamePreviewParamsDTO,
-} from '@darts/types/api/game/game.dto';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Put } from '@nestjs/common';
+import { api, GameFilter } from '@darts/types';
+import { Controller } from '@nestjs/common';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { BasicAuthRoute } from '@/auth/auth.guard';
 import { GameService } from '@/dart/game/game.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
-@Controller('dart/game')
+@Controller()
 export class GameController {
     constructor(
         private readonly gameService: GameService,
@@ -18,17 +14,48 @@ export class GameController {
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
     ) {}
 
-    @Put(':uuid')
-    @HttpCode(HttpStatus.OK)
+    @TsRestHandler(api.dart.game.createGame)
     @BasicAuthRoute()
-    async createGame(@Param() { uuid }: CreateGameParamsDTO, @Body() createGameDto: CreateGameDTO): Promise<void> {
-        await this.gameService.createGame(uuid, createGameDto, true);
+    public createGame() {
+        return tsRestHandler(api.dart.game.createGame, async ({ params, body }) => {
+            await this.gameService.createGame(params.uuid, body, true);
+            return { status: 200 as const, body: undefined };
+        });
     }
 
-    @Get('preview/playerA/:playerAId/playerB/:playerBId')
-    @HttpCode(HttpStatus.OK)
+    @TsRestHandler(api.dart.game.getGamePreview)
     @BasicAuthRoute()
-    async getGamePreview(@Param() { playerAId, playerBId }: GetGamePreviewParamsDTO): Promise<GamePreviewResponseDTO> {
-        return await this.gameService.getGamePreview(playerAId, playerBId);
+    public getGamePreview() {
+        return tsRestHandler(api.dart.game.getGamePreview, async ({ params }) => {
+            const result = await this.gameService.getGamePreview(params.playerAId, params.playerBId);
+            return { status: 200 as const, body: result };
+        });
+    }
+
+    @TsRestHandler(api.dart.game.getGames)
+    public getGames() {
+        return tsRestHandler(api.dart.game.getGames, async ({ query }) => {
+            const filter: GameFilter = {
+                playerIds: query.playerIds,
+                timeFrame:
+                    query.startDate && query.endDate
+                        ? {
+                              startDate: new Date(query.startDate),
+                              endDate: new Date(query.endDate),
+                          }
+                        : undefined,
+                type: query.type,
+                checkoutMode: query.checkoutMode,
+            };
+
+            const pagination = {
+                page: query.page,
+                pageSize: query.pageSize,
+            };
+
+            const result = await this.gameService.getGames(filter, pagination);
+
+            return { status: 200 as const, body: { data: result, pagination: pagination } };
+        });
     }
 }

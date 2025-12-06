@@ -141,5 +141,8 @@
     "saveError": "Fehler beim Speichern der Einstellungen",
     "upload": "Hochladen",
     "uploading": "Wird hochgeladen...",
-    "cancel": "Abbrechen"
+    "cancel": "Abbrechen",
+    "headToHead": "Direkter Vergleich",
+    "errorLoadingHeadToHead": "Fehler beim Laden der Head-to-Head-Daten. Bitte versuche es erneut.",
+    "noOpponentsYet": "Noch keine Gegner. Spiele einige Spiele, um direkte Vergleiche zu sehen."
 }

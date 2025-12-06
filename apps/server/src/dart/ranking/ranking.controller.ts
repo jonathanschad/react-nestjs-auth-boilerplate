@@ -1,20 +1,25 @@
-import { EloRankingResponseDTO, OpenSkillRankingResponseDTO } from '@darts/types/api/ranking/ranking.dto';
-import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { api } from '@darts/types';
+import { Controller } from '@nestjs/common';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { RankingService } from '@/dart/ranking/ranking.service';
 
-@Controller('dart/ranking')
+@Controller()
 export class RankingController {
     constructor(private readonly rankingService: RankingService) {}
 
-    @Get('elo')
-    @HttpCode(HttpStatus.OK)
-    public async getAllRankings(): Promise<EloRankingResponseDTO[]> {
-        return await this.rankingService.getLatestEloRankings();
+    @TsRestHandler(api.dart.rankings.elo)
+    public getAllRankings() {
+        return tsRestHandler(api.dart.rankings.elo, async () => {
+            const result = await this.rankingService.getLatestEloRankings();
+            return { status: 200 as const, body: result };
+        });
     }
 
-    @Get('openskill')
-    @HttpCode(HttpStatus.OK)
-    public async getAllOpenSkillRankings(): Promise<OpenSkillRankingResponseDTO[]> {
-        return await this.rankingService.getLatestOpenSkillRankings();
+    @TsRestHandler(api.dart.rankings.openskill)
+    public getAllOpenSkillRankings() {
+        return tsRestHandler(api.dart.rankings.openskill, async () => {
+            const result = await this.rankingService.getLatestOpenSkillRankings();
+            return { status: 200 as const, body: result };
+        });
     }
 }

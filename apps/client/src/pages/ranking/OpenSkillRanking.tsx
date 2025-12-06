@@ -1,4 +1,4 @@
-import type { OpenSkillRankingResponseDTO } from '@darts/types/api/ranking/ranking.dto';
+import type { OpenSkillRankingResponseDTO } from '@darts/types/api/ranking/ranking.api';
 import { Button } from '@darts/ui/components/button';
 import { DataTable } from '@darts/ui/components/data-table';
 import { Translation } from '@darts/ui/i18n/Translation';

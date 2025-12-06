@@ -1,6 +1,10 @@
-import { PaginatedResponse } from '@darts/types/api/api';
-import type { PlayerDetailsResponseDTO, PlayerResponseDTO } from '@darts/types/api/player/player.dto';
-import type { GameEntityApiDTO } from '@darts/types/entities/game';
+import type {
+    GameEntityApiDTO,
+    Pagination,
+    PlayerDetailsResponseDTO,
+    PlayerOpponentsResponseDTO,
+    PlayerResponseDTO,
+} from '@darts/types';
 import { Injectable } from '@nestjs/common';
 import { RankingService } from '@/dart/ranking/ranking.service';
 import { DatabaseGameService } from '@/database/game/game.service';
@@ -72,25 +76,19 @@ export class PlayerService {
         };
     }
 
-    async getPlayerGames(
-        playerId: string,
-        page: number = 1,
-        pageSize: number = 10,
-    ): Promise<PaginatedResponse<GameEntityApiDTO>> {
-        const { games, total } = await this.databaseGameService.getGamesByUserIdPaginated(playerId, page, pageSize);
+    async getPlayerGames(playerId: string, pagination: Pagination): Promise<GameEntityApiDTO[]> {
+        const games = await this.databaseGameService.getGamesByUserIdPaginated(playerId, pagination);
 
         const gamesDto = games.map((game) => this.databaseGameService.mapGameToDTO(game));
 
-        const totalPages = Math.ceil(total / pageSize);
+        return gamesDto;
+    }
 
-        return {
-            data: gamesDto,
-            pagination: {
-                page,
-                pageSize,
-                totalItems: total,
-                totalPages,
-            },
-        };
+    public async getPlayerOpponents(playerId: string): Promise<PlayerOpponentsResponseDTO> {
+        const opponents = await this.databaseGameService.getOpponentsByUserId(playerId);
+
+        return opponents.map((opponent) => ({
+            opponentId: opponent,
+        }));
     }
 }

@@ -141,5 +141,8 @@
     "saveError": "Error saving settings",
     "upload": "Upload",
     "uploading": "Uploading...",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "headToHead": "Head to Head",
+    "errorLoadingHeadToHead": "Error loading head-to-head data. Please try again later.",
+    "noOpponentsYet": "No opponents yet. Play some games to see head-to-head matchups."
 }

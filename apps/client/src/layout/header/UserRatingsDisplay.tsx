@@ -1,5 +1,6 @@
 import { Skeleton } from '@darts/ui/components/skeleton';
 import { ordinal, rating } from 'openskill';
+import { Link } from 'react-router-dom';
 import { useGetPlayer } from '@/api/dart/player/useGetPlayer';
 import { useLoggedInUser } from '@/api/user/useLoggedInUser';
 import { RatingDisplay } from '@/layout/header/RatingDisplay';
@@ -26,8 +27,12 @@ export const UserRatingsDisplay = () => {
 
     return (
         <div className="flex items-center gap-2">
-            <RatingDisplay rating={currentRating.elo.rating.elo.toFixed(0)} rank={eloRank} type="elo" />
-            <RatingDisplay rating={openSkillScore.toFixed(1)} rank={openSkillRank} type="openskill" />
+            <Link to="/ranking/elo">
+                <RatingDisplay rating={currentRating.elo.rating.elo.toFixed(0)} rank={eloRank} type="elo" />
+            </Link>
+            <Link to="/ranking/openskill">
+                <RatingDisplay rating={openSkillScore.toFixed(1)} rank={openSkillRank} type="openskill" />
+            </Link>
         </div>
     );
 };

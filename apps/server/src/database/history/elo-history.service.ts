@@ -1,5 +1,5 @@
 import { EloHistory, Game, Prisma, User } from '@darts/prisma';
-import { EloRating } from '@darts/types/api/ranking/ranking.dto';
+import { EloRating } from '@darts/types';
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_ELO } from '@/dart/ranking/elo.service';
 import { DatabaseHistoryInterface, RankingHistoryWithGame } from '@/database/history/database-history.interface';

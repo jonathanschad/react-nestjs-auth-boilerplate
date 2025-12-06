@@ -1,7 +1,6 @@
 import assert from 'node:assert';
-import { Language, type Prisma, type Token, TokenType, type User, UserSettings, UserState } from '@darts/prisma';
-import type { PublicUser, SanitizedUserWithSettings } from '@darts/types/entities/user';
-import { LanguageDTOEnum, UserStateDTOEnum } from '@darts/types/entities/user';
+import { type Prisma, type Token, TokenType, type User, UserSettings, UserState } from '@darts/prisma';
+import type { PublicUser, SanitizedUserWithSettings } from '@darts/types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
 import type { UserWithSettings } from '@/types/prisma';
@@ -197,36 +196,15 @@ export class DatabaseUserService {
         });
     }
 
-    private mapLanguageToDTOEnum(language: Language): LanguageDTOEnum {
-        switch (language) {
-            case Language.EN:
-                return LanguageDTOEnum.EN;
-            case Language.DE:
-                return LanguageDTOEnum.DE;
-        }
-    }
-
-    private mapUserStateToDTOEnum(state: UserState): UserStateDTOEnum {
-        switch (state) {
-            case UserState.UNVERIFIED:
-                return UserStateDTOEnum.UNVERIFIED;
-            case UserState.VERIFIED:
-                return UserStateDTOEnum.VERIFIED;
-            case UserState.COMPLETE:
-                return UserStateDTOEnum.COMPLETE;
-            case UserState.INACTIVE:
-                return UserStateDTOEnum.INACTIVE;
-        }
-    }
     public sanitizeUserWithSettings(user: UserWithSettings): SanitizedUserWithSettings {
         return {
             name: user.name ?? '',
             id: user.id,
             email: user.email,
-            state: this.mapUserStateToDTOEnum(user.state),
+            state: user.state,
             profilePictureId: user.profilePictureId,
             settings: {
-                language: this.mapLanguageToDTOEnum(user.settings.language),
+                language: user.settings.language,
                 notificationsEnabled: user.settings.notificationsEnabled,
             },
         };

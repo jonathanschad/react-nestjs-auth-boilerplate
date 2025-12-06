@@ -1,5 +1,4 @@
-import { RankingCache } from '@darts/types/api/player/player.dto';
-import { EloRating } from '@darts/types/api/ranking/ranking.dto';
+import type { EloRating, RankingCache } from '@darts/types';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { Rating, rating } from 'openskill';

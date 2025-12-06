@@ -1,16 +1,17 @@
-import type { Api } from '@darts/types/api/api';
 import { useQuery } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 import { getRankingQueryKey } from '@/api/dart/ranking/ranking.queryKey';
 
-export const getEloRankings = async (): Promise<Api['dart']['rankings']['elo']['response']> => {
-    try {
-        const response = await api.get<Api['dart']['rankings']['elo']['response']>(`${BASE_URL}/dart/ranking/elo`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching ELO rankings:', error);
-        throw error;
+export const getEloRankings = async () => {
+    const response = await tsRestClient.dart.rankings.elo({
+        query: {},
+    });
+
+    if (response.status === 200) {
+        return response.body;
     }
+
+    throw new Error('Failed to fetch ELO rankings');
 };
 
 export const useGetEloRanking = () => {

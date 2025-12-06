@@ -1,6 +1,13 @@
-import { GameTurn, GameType, Prisma } from '@darts/prisma';
-import type { CreateGameDTO, GamePreviewResponseDTO } from '@darts/types/api/game/game.dto';
-import { EloRating } from '@darts/types/api/ranking/ranking.dto';
+import { GameStatisticsIndividual, GameTurn, GameType, Prisma } from '@darts/prisma';
+import type {
+    CreateGameDTO,
+    EloRating,
+    GameEntityApiDTO,
+    GameFilter,
+    GamePreviewResponseDTO,
+    Pagination,
+} from '@darts/types';
+
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_ELO, EloService } from '@/dart/ranking/elo.service';
 import { GameResult } from '@/dart/ranking/ranking';
@@ -18,6 +25,13 @@ type GameHistory = {
     turnNumber: number;
     scoreBeforeThrow: number;
     scoreAfterThrow: number;
+};
+
+type GameStatisticsSummary = Omit<
+    GameStatisticsIndividual,
+    'id' | 'createdAt' | 'updatedAt' | 'gameId' | 'playerId' | 'wonBullOff'
+> & {
+    numberOfGames: number;
 };
 
 @Injectable()
@@ -237,7 +251,37 @@ export class GameService {
         };
     }
 
-    private getPossibleFinishes() {
-        return;
+    public async getGames(filter: GameFilter, pagination: Pagination): Promise<GameEntityApiDTO[]> {
+        const games = await this.databaseGameService.getGames({ filter, pagination });
+
+        return games.map((game) => this.databaseGameService.mapGameToDTO(game));
+    }
+
+    public async getSummarizedGameStatistics(filter: GameFilter): Promise<GameStatisticsSummary> {
+        const games = await this.databaseGameService.getGames({ filter });
+
+        const statistics = games.flatMap((game) => game.gameStatistics);
+
+        const summary = statistics.reduce<GameStatisticsSummary>(
+            (acc, statistic) => {
+                acc.averageScore += statistic.averageScore;
+                acc.averageUntilFirstPossibleFinish += statistic.averageUntilFirstPossibleFinish;
+                acc.throwsOnDouble += statistic.throwsOnDouble;
+                return acc;
+            },
+            {
+                averageScore: 0,
+                averageUntilFirstPossibleFinish: 0,
+                throwsOnDouble: 0,
+                numberOfGames: statistics.length,
+            },
+        );
+
+        Object.keys(summary).forEach((key) => {
+            const value = summary[key as keyof GameStatisticsSummary];
+            summary[key as keyof GameStatisticsSummary] = value / statistics.length;
+        });
+
+        return summary;
     }
 }

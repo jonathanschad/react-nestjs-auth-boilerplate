@@ -1,5 +1,4 @@
-import { UpdateUserProfilePictureDTO, UserUpdateablePropertiesDTO } from '@darts/types/api/user/user.dto';
-import type { SanitizedUserWithSettings } from '@darts/types/entities/user';
+import type { SanitizedUserWithSettings, UpdateUserProfilePictureDTO, UserUpdateablePropertiesDTO } from '@darts/types';
 import { Body, Controller, Get, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
 import { User } from '@/auth/auth.guard';

@@ -1,19 +1,18 @@
-import {
-    EloHistory,
-    type Game,
-    GameCheckoutMode,
-    GameStatisticsIndividual,
-    GameTurn,
-    GameType,
-    OpenSkillHistory,
-    Prisma,
-} from '@darts/prisma';
-import { GameCheckoutModeDTOEnum, GameEntityApiDTO, GameTypeDTOEnum } from '@darts/types/entities/game';
+import { type Game, Prisma } from '@darts/prisma';
+import { GameEntityApiDTO, GameFilter, Pagination } from '@darts/types';
 import { Injectable } from '@nestjs/common';
 import assert from 'assert';
 import { PrismaService } from '@/database/prisma.service';
 import { GameWithTurns } from '@/types/prisma';
 
+export type GameWithExpandedRelations = Prisma.GameGetPayload<{
+    include: {
+        turns: true;
+        gameStatistics: true;
+        eloHistory: true;
+        openSkillHistory: true;
+    };
+}>;
 @Injectable()
 export class DatabaseGameService {
     constructor(private prisma: PrismaService) {}
@@ -26,38 +25,32 @@ export class DatabaseGameService {
         });
     }
 
-    async getGamesByUserIdPaginated(userId: string, page: number = 1, pageSize: number = 10) {
-        const skip = (page - 1) * pageSize;
+    async getGamesByUserIdPaginated(userId: string, pagination: Pagination) {
+        const take = pagination.pageSize ?? 10;
+        const skip = (pagination.page ?? 0) * take;
 
-        const [games, total] = await Promise.all([
-            this.prisma.game.findMany({
-                where: {
-                    OR: [{ playerAId: userId }, { playerBId: userId }],
-                },
-                orderBy: {
-                    gameEnd: 'desc',
-                },
-                skip,
-                take: pageSize,
-                include: {
-                    turns: {
-                        orderBy: {
-                            turnNumber: 'asc',
-                        },
+        const games = await this.prisma.game.findMany({
+            where: {
+                OR: [{ playerAId: userId }, { playerBId: userId }],
+            },
+            orderBy: {
+                gameEnd: 'desc',
+            },
+            skip,
+            take,
+            include: {
+                turns: {
+                    orderBy: {
+                        turnNumber: 'asc',
                     },
-                    gameStatistics: true,
-                    eloHistory: true,
-                    openSkillHistory: true,
                 },
-            }),
-            this.prisma.game.count({
-                where: {
-                    OR: [{ playerAId: userId }, { playerBId: userId }],
-                },
-            }),
-        ]);
+                gameStatistics: true,
+                eloHistory: true,
+                openSkillHistory: true,
+            },
+        });
 
-        return { games, total };
+        return games;
     }
 
     async getTotalGameCountByUserId(userId: string): Promise<number> {
@@ -112,6 +105,74 @@ export class DatabaseGameService {
         });
     }
 
+    async getOpponentsByUserId(userId: string): Promise<string[]> {
+        const gamesWherePlayerA = await this.prisma.game.findMany({
+            where: {
+                playerAId: userId,
+            },
+            select: {
+                playerBId: true,
+            },
+            distinct: ['playerBId'],
+        });
+        const gamesWherePlayerB = await this.prisma.game.findMany({
+            where: {
+                playerBId: userId,
+            },
+            select: {
+                playerAId: true,
+            },
+            distinct: ['playerAId'],
+        });
+
+        const opponents = new Set([
+            ...gamesWherePlayerA.map((game) => game.playerBId),
+            ...gamesWherePlayerB.map((game) => game.playerAId),
+        ]);
+        return Array.from(opponents);
+    }
+
+    async getGames({
+        filter,
+        orderBy = { gameEnd: 'desc' },
+        pagination,
+    }: {
+        filter: GameFilter;
+        orderBy?: Prisma.GameOrderByWithRelationInput;
+        pagination?: Pagination;
+    }): Promise<GameWithExpandedRelations[]> {
+        const take = pagination?.pageSize ?? 10;
+        const skip = pagination?.page ? (pagination.page - 1) * take : 0;
+
+        const where: Prisma.GameWhereInput = {};
+        if (filter.playerIds) {
+            where.OR = filter.playerIds.map((playerId) => ({ playerAId: playerId, playerBId: playerId }));
+        }
+        if (filter.timeFrame) {
+            where.gameStart = { gte: filter.timeFrame.startDate, lte: filter.timeFrame.endDate };
+        }
+        if (filter.type) {
+            where.type = filter.type;
+        }
+        if (filter.checkoutMode) {
+            where.checkoutMode = filter.checkoutMode;
+        }
+
+        const games = await this.prisma.game.findMany({
+            where,
+            include: {
+                turns: true,
+                gameStatistics: true,
+                eloHistory: true,
+                openSkillHistory: true,
+            },
+            orderBy,
+            ...(pagination?.page ? { skip, take } : {}),
+        });
+
+        return games;
+    }
+
     async clearAllGames(): Promise<void> {
         await this.prisma.gameStatisticsIndividual.deleteMany();
         await this.prisma.eloHistory.deleteMany();
@@ -120,34 +181,7 @@ export class DatabaseGameService {
         await this.prisma.game.deleteMany();
     }
 
-    private mapGameTypeToDTOEnum(gameType: GameType): GameTypeDTOEnum {
-        switch (gameType) {
-            case GameType.X301:
-                return GameTypeDTOEnum.X301;
-            case GameType.X501:
-                return GameTypeDTOEnum.X501;
-        }
-    }
-
-    private mapGameCheckoutModeToDTOEnum(gameCheckoutMode: GameCheckoutMode): GameCheckoutModeDTOEnum {
-        switch (gameCheckoutMode) {
-            case GameCheckoutMode.SINGLE_OUT:
-                return GameCheckoutModeDTOEnum.SINGLE_OUT;
-            case GameCheckoutMode.DOUBLE_OUT:
-                return GameCheckoutModeDTOEnum.DOUBLE_OUT;
-            case GameCheckoutMode.MASTER_OUT:
-                return GameCheckoutModeDTOEnum.MASTER_OUT;
-        }
-    }
-
-    public mapGameToDTO(
-        game: Game & {
-            eloHistory: EloHistory[];
-            openSkillHistory: OpenSkillHistory[];
-            turns: GameTurn[];
-            gameStatistics: GameStatisticsIndividual[];
-        },
-    ): GameEntityApiDTO {
+    public mapGameToDTO(game: GameWithExpandedRelations): GameEntityApiDTO {
         const playerAEloHistory = game.eloHistory.find((history) => history.playerId === game.playerAId);
         const playerBEloHistory = game.eloHistory.find((history) => history.playerId === game.playerBId);
         const playerAOpenSkillHistory = game.openSkillHistory.find((history) => history.playerId === game.playerAId);
@@ -178,8 +212,8 @@ export class DatabaseGameService {
             loserId: game.loserId,
             gameStart: game.gameStart,
             gameEnd: game.gameEnd,
-            type: this.mapGameTypeToDTOEnum(game.type),
-            checkoutMode: this.mapGameCheckoutModeToDTOEnum(game.checkoutMode),
+            type: game.type,
+            checkoutMode: game.checkoutMode,
         };
     }
 }

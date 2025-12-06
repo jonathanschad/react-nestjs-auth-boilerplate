@@ -2,6 +2,7 @@ import { Typography } from '@darts/ui/components/typography';
 import { Translation } from '@darts/ui/i18n/Translation';
 import { useParams } from 'react-router-dom';
 import { GameHistory } from '@/pages/player/GameHistory';
+import { HeadToHead } from '@/pages/player/HeadToHead';
 import { PlayerOverview } from '@/pages/player/PlayerOverview';
 
 export const Player = () => {
@@ -21,6 +22,7 @@ export const Player = () => {
     return (
         <div className="mx-auto flex h-full w-full max-w-6xl flex-col gap-6">
             <PlayerOverview playerId={uuid} />
+            <HeadToHead playerId={uuid} />
             <GameHistory playerId={uuid} />
         </div>
     );

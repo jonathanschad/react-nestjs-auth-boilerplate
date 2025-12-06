@@ -3,13 +3,9 @@
     "version": "0.7.0",
     "description": "",
     "exports": {
-        "./api/*": {
-            "types": "./src/api/*.ts",
-            "default": "./dist/api/*.js"
-        },
-        "./entities/*": {
-            "types": "./src/entities/*.ts",
-            "default": "./dist/entities/*.js"
+        ".": {
+            "types": "./src/index.ts",
+            "default": "./dist/index.js"
         }
     },
     "scripts": {
@@ -21,8 +17,10 @@
     },
     "dependencies": {
         "@darts/utils": "workspace:*",
+        "@ts-rest/core": "^3.52.1",
         "class-transformer": "catalog:",
-        "class-validator": "catalog:"
+        "class-validator": "catalog:",
+        "zod": "^3.24.2"
     },
     "devDependencies": {
         "@darts/eslint-config": "workspace:*",

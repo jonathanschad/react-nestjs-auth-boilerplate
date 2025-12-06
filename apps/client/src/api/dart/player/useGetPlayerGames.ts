@@ -1,29 +1,26 @@
-import { Api, PaginatedRequest } from '@darts/types/api/api';
 import { useQuery } from 'react-query';
-import api, { BASE_URL } from '@/api';
+import { tsRestClient } from '@/api/client';
 import { getPlayerQueryKey } from '@/api/dart/player/player.queryKey';
-
-type GetPlayerGamesParams = PaginatedRequest<{
-    playerId: string;
-}>;
 
 export const getPlayerGames = async ({
     playerId,
     page = 1,
     pageSize = 10,
-}: GetPlayerGamesParams): Promise<Api['dart']['player']['getGames']['response']> => {
-    try {
-        const response = await api.get<Api['dart']['player']['getGames']['response']>(
-            `${BASE_URL}/dart/player/${playerId}/games`,
-            {
-                params: { page, pageSize },
-            },
-        );
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching player games:', error);
-        throw error;
+}: {
+    playerId: string;
+    page?: number;
+    pageSize?: number;
+}) => {
+    const response = await tsRestClient.dart.player.getGames({
+        params: { playerId },
+        query: { page, pageSize },
+    });
+
+    if (response.status === 200) {
+        return response.body;
     }
+
+    throw new Error('Failed to fetch player games');
 };
 
 export const useGetPlayerGames = (playerId: string, page: number = 1, pageSize: number = 10) => {

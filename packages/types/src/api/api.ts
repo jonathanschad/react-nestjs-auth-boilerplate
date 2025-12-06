@@ -1,42 +1,16 @@
-import { GameController } from './game/game.dto';
-import { PlayerController } from './player/player.dto';
-import { RankingController } from './ranking/ranking.dto';
+import { initContract } from '@ts-rest/core';
+import { gameContract } from './game/game.api';
+import { playerContract } from './player/player.api';
+import { rankingsContract } from './ranking/ranking.api';
 
-export type Api = {
-    dart: {
-        game: GameController;
-        rankings: RankingController;
-        player: PlayerController;
-    };
-};
+const c = initContract();
 
-export type ApiMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export const api = c.router({
+    dart: c.router({
+        game: gameContract,
+        player: playerContract,
+        rankings: rankingsContract,
+    }),
+});
 
-type ApiEndpoint<Request, Response, Method extends ApiMethod> = {
-    request: Request;
-    response: Response;
-    method: Method;
-};
-
-export type PaginatedRequest<T> = {
-    page?: number;
-    pageSize?: number;
-} & T;
-
-export type PaginatedResponse<T> = {
-    data: T[];
-    pagination: {
-        page: number;
-        pageSize: number;
-        totalItems: number;
-        totalPages: number;
-    };
-};
-
-export type ApiGetEndpoint<Request, Response> = ApiEndpoint<Request, Response, 'GET'>;
-
-export type ApiPostEndpoint<Request, Response> = ApiEndpoint<Request, Response, 'POST'>;
-
-export type ApiPutEndpoint<Request, Response> = ApiEndpoint<Request, Response, 'PUT'>;
-
-export type ApiDeleteEndpoint<Request, Response> = ApiEndpoint<Request, Response, 'DELETE'>;
+export type AppContract = typeof api;

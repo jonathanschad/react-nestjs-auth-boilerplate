@@ -24,7 +24,7 @@ export const RatingDisplay = ({ rating, rank, type }: RatingDisplayProps) => {
     }
 
     return (
-        <Card className="flex items-center gap-2 px-3 py-2">
+        <Card className="flex items-center gap-2 px-3 py-2 cursor-pointer transition-all hover:shadow-md hover:border-foreground/20">
             <Trophy className={`hidden h-4 w-4 sm:block ${trophyColor}`} />
             <div className="flex flex-col gap-0.5">
                 <Translation as="xSmallMutedText">{translationKey}</Translation>
