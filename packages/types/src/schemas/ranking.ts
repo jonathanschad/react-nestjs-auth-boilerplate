@@ -9,7 +9,7 @@ export const eloRatingSchema = z.object({
 
 // Elo Ranking Response
 export const eloRankingResponseSchema = z.object({
-    userId: z.string().uuid(),
+    userId: z.uuid(),
     rank: z.number().int(),
     score: z.number(),
     rating: eloRatingSchema,
@@ -18,7 +18,7 @@ export const eloRankingResponseSchema = z.object({
 
 // OpenSkill Ranking Response
 export const openSkillRankingResponseSchema = z.object({
-    userId: z.string().uuid(),
+    userId: z.uuid(),
     rank: z.number().int(),
     score: z.number(),
     rating: openskillRatingSchema,

@@ -232,8 +232,8 @@ export class DatabaseGameService {
             },
             winnerId: game.winnerId,
             loserId: game.loserId,
-            gameStart: game.gameStart,
-            gameEnd: game.gameEnd,
+            gameStart: game.gameStart.toISOString(),
+            gameEnd: game.gameEnd.toISOString(),
             type: game.type,
             checkoutMode: game.checkoutMode,
         };

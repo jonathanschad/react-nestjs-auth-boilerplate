@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 // Elo History Entity
 export const eloHistoryEntitySchema = z.object({
-    id: z.string().uuid(),
-    gameId: z.string().uuid(),
-    playerId: z.string().uuid(),
+    id: z.uuid(),
+    gameId: z.uuid(),
+    playerId: z.uuid(),
     eloBefore: z.number(),
     eloAfter: z.number(),
     gamesPlayedBefore: z.number().int(),
@@ -19,9 +19,9 @@ export const openskillRatingSchema = z.object({
 
 // OpenSkill History Entity
 export const openSkillHistoryEntitySchema = z.object({
-    id: z.string().uuid(),
-    gameId: z.string().uuid(),
-    playerId: z.string().uuid(),
+    id: z.uuid(),
+    gameId: z.uuid(),
+    playerId: z.uuid(),
     muBefore: z.number(),
     muAfter: z.number(),
     sigmaBefore: z.number(),

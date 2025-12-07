@@ -6,7 +6,7 @@ export const fileContract = {
         .route({ method: 'GET', path: '/file/{fileUuid}' })
         .input(
             z.object({
-                fileUuid: z.string().uuid(),
+                fileUuid: z.uuid(),
             }),
         )
         .output(z.instanceof(Blob)),

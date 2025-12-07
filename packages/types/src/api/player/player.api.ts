@@ -17,7 +17,7 @@ export const playerContract = oc.prefix('/player').router({
         .route({ method: 'GET', path: '/{playerId}' })
         .input(
             z.object({
-                playerId: z.string().uuid(),
+                playerId: z.uuid(),
             }),
         )
         .output(playerDetailsResponseSchema),
@@ -26,7 +26,7 @@ export const playerContract = oc.prefix('/player').router({
         .input(
             z
                 .object({
-                    playerId: z.string().uuid(),
+                    playerId: z.uuid(),
                 })
                 .merge(paginationSchema),
         )
@@ -35,7 +35,7 @@ export const playerContract = oc.prefix('/player').router({
         .route({ method: 'GET', path: '/{userId}/elo-history' })
         .input(
             z.object({
-                userId: z.string().uuid(),
+                userId: z.uuid(),
             }),
         )
         .output(z.array(eloRankingResponseSchema)),
@@ -43,7 +43,7 @@ export const playerContract = oc.prefix('/player').router({
         .route({ method: 'GET', path: '/{userId}/openskill-history' })
         .input(
             z.object({
-                userId: z.string().uuid(),
+                userId: z.uuid(),
             }),
         )
         .output(z.array(openSkillRankingResponseSchema)),
@@ -51,7 +51,7 @@ export const playerContract = oc.prefix('/player').router({
         .route({ method: 'GET', path: '/{playerId}/opponents' })
         .input(
             z.object({
-                playerId: z.string().uuid(),
+                playerId: z.uuid(),
             }),
         )
         .output(playerOpponentsResponseSchema),

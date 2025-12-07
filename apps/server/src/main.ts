@@ -25,6 +25,7 @@ async function bootstrap() {
         logger: customLogger,
         bodyParser: false,
     });
+    await app.register(fastifyMultipart);
 
     const appConfigService = app.get<AppConfigService>(AppConfigService);
     const reflector = app.get(Reflector);
@@ -50,12 +51,12 @@ async function bootstrap() {
         origin: appConfigService.frontendPublicUrl,
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'Content-Disposition'],
+        exposedHeaders: ['Content-Disposition'],
     });
     await app.register(fastifyJwt, {
         secret: appConfigService.jwtTokenSecret,
     });
-    await app.register(fastifyMultipart);
     app.use(serveFrontend);
 
     await app.listen(appConfigService.port, appConfigService.host);

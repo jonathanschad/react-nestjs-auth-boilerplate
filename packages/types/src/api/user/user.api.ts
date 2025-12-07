@@ -13,13 +13,14 @@ export const userContract = {
         .input(userUpdateablePropertiesSchema)
         .output(sanitizedUserWithSettingsSchema),
     uploadProfilePicture: oc
-        .route({ method: 'PATCH', path: '/user/profile-picture/{idempotencyKey}' })
+        .route({ method: 'PATCH', path: '/user/profile-picture/{idempotencyKey}', inputStructure: 'detailed' })
         .input(
-            updateUserProfilePictureSchema.merge(
-                z.object({
-                    file: z.instanceof(FormData),
+            z.object({
+                body: z.custom<FormData>(),
+                params: z.object({
+                    idempotencyKey: z.string(),
                 }),
-            ),
+            }),
         )
         .output(z.void()),
 };

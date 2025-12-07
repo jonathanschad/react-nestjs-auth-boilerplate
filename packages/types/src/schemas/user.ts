@@ -6,7 +6,7 @@ export const userStateSchema = z.enum(['UNVERIFIED', 'VERIFIED', 'COMPLETE', 'IN
 
 // Public User
 export const publicUserSchema = z.object({
-    id: z.string().uuid(),
+    id: z.uuid(),
     name: z.string(),
     profilePictureId: z.string().nullable(),
 });
@@ -26,7 +26,7 @@ export const sanitizedUserWithSettingsSchema = publicUserSchema.extend({
 
 // DTOs
 export const updateUserProfilePictureSchema = z.object({
-    idempotencyKey: z.string().uuid(),
+    idempotencyKey: z.uuid(),
 });
 
 export const userUpdateablePropertiesSchema = z.object({

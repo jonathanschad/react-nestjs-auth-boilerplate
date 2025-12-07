@@ -12,7 +12,7 @@ export const rankingCacheSchema = <T extends z.ZodType>(ratingSchema: T) =>
 
 // Player Response
 export const playerResponseSchema = z.object({
-    id: z.string().uuid(),
+    id: z.uuid(),
     name: z.string(),
     currentElo: z.number().nullable(),
     lastGamePlayedAt: z.string().nullable(),
@@ -43,7 +43,7 @@ export const playerDetailsResponseSchema = z.object({
 // Player Opponents Response
 export const playerOpponentsResponseSchema = z.array(
     z.object({
-        opponentId: z.string().uuid(),
+        opponentId: z.uuid(),
     }),
 );
 

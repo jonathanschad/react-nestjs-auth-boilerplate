@@ -20,13 +20,12 @@ export const uploadProfilePicture = async ({
     if (imageBlob === null) {
         throw new Error('Failed to crop image');
     }
-
     const formData = new FormData();
     formData.append('file', imageBlob);
 
     const response = await client.user.uploadProfilePicture({
-        idempotencyKey,
-        file: formData,
+        params: { idempotencyKey },
+        body: formData,
     });
 
     return response;

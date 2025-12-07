@@ -46,7 +46,7 @@
         "tailwind-merge": "catalog:frontend",
         "tailwindcss-animate": "catalog:frontend",
         "uuid": "^10.0.0",
-        "zod": "^3.24.2",
+        "zod": "catalog:",
         "zustand": "^5.0.6"
     },
     "devDependencies": {

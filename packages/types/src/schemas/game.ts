@@ -7,8 +7,8 @@ export const gameCheckoutModeSchema = z.enum(['SINGLE_OUT', 'DOUBLE_OUT', 'MASTE
 
 // Game Turn Entity
 export const gameTurnEntitySchema = z.object({
-    id: z.string().uuid(),
-    playerId: z.string().uuid(),
+    id: z.uuid(),
+    playerId: z.uuid(),
     turnNumber: z.number().int().min(0),
     throw1: z.number().int().min(0).nullable(),
     throw1Multiplier: z.number().int().min(1).max(3).nullable(),
@@ -21,8 +21,8 @@ export const gameTurnEntitySchema = z.object({
 
 // Game Statistics Entity
 export const gameStatisticsEntitySchema = z.object({
-    id: z.string().uuid(),
-    playerId: z.string().uuid(),
+    id: z.uuid(),
+    playerId: z.uuid(),
     wonBullOff: z.boolean(),
     averageScore: z.number(),
     averageUntilFirstPossibleFinish: z.number(),
@@ -31,7 +31,7 @@ export const gameStatisticsEntitySchema = z.object({
 
 // Game Player Entity (used in GameEntityApiDTO)
 export const gamePlayerEntitySchema = z.object({
-    id: z.string().uuid(),
+    id: z.uuid(),
     turns: z.array(gameTurnEntitySchema),
     gameStatistics: gameStatisticsEntitySchema.optional(),
     eloHistory: eloHistoryEntitySchema,
@@ -40,20 +40,20 @@ export const gamePlayerEntitySchema = z.object({
 
 // Game Entity
 export const gameEntitySchema = z.object({
-    id: z.string().uuid(),
+    id: z.uuid(),
     playerA: gamePlayerEntitySchema,
     playerB: gamePlayerEntitySchema,
-    winnerId: z.string().uuid(),
-    loserId: z.string().uuid(),
-    gameStart: z.date(),
-    gameEnd: z.date(),
+    winnerId: z.uuid(),
+    loserId: z.uuid(),
+    gameStart: z.iso.datetime(),
+    gameEnd: z.iso.datetime(),
     type: gameTypeSchema,
     checkoutMode: gameCheckoutModeSchema,
 });
 
 // Game Turn DTO (for creating games)
 export const gameTurnDtoSchema = z.object({
-    playerId: z.string().uuid(),
+    playerId: z.uuid(),
     turnNumber: z.number().int().min(0),
     throw1: z.number().int().min(0).nullable(),
     throw1Multiplier: z.number().int().min(1).max(3).nullable(),
@@ -65,11 +65,11 @@ export const gameTurnDtoSchema = z.object({
 
 // Create Game DTO
 export const createGameSchema = z.object({
-    playerAId: z.string().uuid(),
-    playerBId: z.string().uuid(),
-    winnerId: z.string().uuid(),
-    gameStart: z.date(),
-    gameEnd: z.date(),
+    playerAId: z.uuid(),
+    playerBId: z.uuid(),
+    winnerId: z.uuid(),
+    gameStart: z.iso.datetime(),
+    gameEnd: z.iso.datetime(),
     type: gameTypeSchema,
     checkoutMode: gameCheckoutModeSchema,
     turns: z.array(gameTurnDtoSchema),
@@ -78,7 +78,7 @@ export const createGameSchema = z.object({
 // Game Preview Response
 export const gamePreviewResponseSchema = z.object({
     playerA: z.object({
-        id: z.string().uuid(),
+        id: z.uuid(),
         name: z.string(),
         elo: z.object({
             onWin: z.number(),
@@ -87,7 +87,7 @@ export const gamePreviewResponseSchema = z.object({
         }),
     }),
     playerB: z.object({
-        id: z.string().uuid(),
+        id: z.uuid(),
         name: z.string(),
         elo: z.object({
             onWin: z.number(),
@@ -106,11 +106,11 @@ export const gameStatisticsSummaryResponseSchema = z.object({
 });
 
 export const gameFilterSchema = z.object({
-    playerIds: z.array(z.string().uuid()).optional(),
+    playerIds: z.array(z.uuid()).optional(),
     timeFrame: z
         .object({
-            startDate: z.date().optional(),
-            endDate: z.date().optional(),
+            startDate: z.iso.datetime().optional(),
+            endDate: z.iso.datetime().optional(),
         })
         .optional(),
     type: gameTypeSchema.optional(),

@@ -16,7 +16,7 @@ export const gameContract = oc.prefix('/game').router({
             z.object({
                 body: createGameSchema,
                 path: z.object({
-                    uuid: z.string().uuid(),
+                    uuid: z.uuid(),
                 }),
             }),
         )
@@ -25,8 +25,8 @@ export const gameContract = oc.prefix('/game').router({
         .route({ method: 'GET', path: '/preview/playerA/{playerAId}/playerB/{playerBId}' })
         .input(
             z.object({
-                playerAId: z.string().uuid(),
-                playerBId: z.string().uuid(),
+                playerAId: z.uuid(),
+                playerBId: z.uuid(),
             }),
         )
         .output(gamePreviewResponseSchema),

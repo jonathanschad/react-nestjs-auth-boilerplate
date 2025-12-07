@@ -1,6 +1,11 @@
 import { api } from '@darts/types';
 import { createORPCClient, onSuccess } from '@orpc/client';
-import type { ContractRouterClient } from '@orpc/contract';
+import type {
+    AnyContractProcedure,
+    ContractRouterClient,
+    InferContractRouterInputs,
+    InferContractRouterOutputs,
+} from '@orpc/contract';
 import type { JsonifiedClient } from '@orpc/openapi-client';
 import { OpenAPILink } from '@orpc/openapi-client/fetch';
 import { z } from 'zod';

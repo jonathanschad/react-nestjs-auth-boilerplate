@@ -1,5 +1,5 @@
 import { api } from '@darts/types';
-import { Controller, HttpStatus, Req } from '@nestjs/common';
+import { Controller, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
 import type { FastifyRequest } from 'fastify';
 import { User } from '@/auth/auth.guard';
@@ -22,34 +22,37 @@ export class UserController {
         });
     }
 
-    @Implement(api.user.uploadProfilePicture)
-    public uploadProfilePictureFile(@User() user: UserWithSettings, @Req() req: FastifyRequest) {
-        return implement(api.user.uploadProfilePicture).handler(async ({ input }) => {
-            const file = await req.file();
-            if (!file) {
-                throw new HTTPError({ statusCode: HttpStatus.BAD_REQUEST, message: 'No file provided' });
-            }
-            if (user.profilePictureId === input.idempotencyKey) {
-                throw new HTTPError({
-                    statusCode: HttpStatus.CONFLICT,
-                    message: 'Cannot upload the same profile picture twice',
-                });
-            }
-            try {
-                const fileBuffer = await file.toBuffer();
+    @Patch(api.user.uploadProfilePicture['~orpc'].route.path!.replace('{idempotencyKey}', ':idempotencyKey'))
+    public async uploadProfilePictureFile(
+        @User() user: UserWithSettings,
+        @Req() req: FastifyRequest,
+        @Param('idempotencyKey') idempotencyKey: string,
+    ) {
+        const file = await req.file();
 
-                await this.userService.updateUserProfilePicture({
-                    fileBuffer,
-                    fileUuid: input.idempotencyKey,
-                    user,
-                });
+        if (!file) {
+            throw new HTTPError({ statusCode: HttpStatus.BAD_REQUEST, message: 'No file provided' });
+        }
+        if (user.profilePictureId === idempotencyKey) {
+            throw new HTTPError({
+                statusCode: HttpStatus.CONFLICT,
+                message: 'Cannot upload the same profile picture twice',
+            });
+        }
+        try {
+            const fileBuffer = await file.toBuffer();
 
-                return;
-            } catch (err) {
-                console.error('Error compressing image:', err);
-                throw new HTTPError({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid image' });
-            }
-        });
+            await this.userService.updateUserProfilePicture({
+                fileBuffer,
+                fileUuid: idempotencyKey,
+                user,
+            });
+
+            return;
+        } catch (error) {
+            console.error('Error compressing image:', error);
+            throw new HTTPError({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid image' });
+        }
     }
 
     @Implement(api.user.updateUser)
