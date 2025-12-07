@@ -23,12 +23,10 @@ export const uploadProfilePicture = async ({
     const formData = new FormData();
     formData.append('file', imageBlob);
 
-    const response = await client.user.uploadProfilePicture({
+    await client.user.uploadProfilePicture({
         params: { idempotencyKey },
         body: formData,
     });
-
-    return response;
 };
 
 export const useUploadProfilePicture = ({ userUuid, onSuccess }: { userUuid: string; onSuccess: () => void }) => {

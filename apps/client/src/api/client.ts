@@ -1,11 +1,6 @@
 import { api } from '@darts/types';
 import { createORPCClient, onSuccess } from '@orpc/client';
-import type {
-    AnyContractProcedure,
-    ContractRouterClient,
-    InferContractRouterInputs,
-    InferContractRouterOutputs,
-} from '@orpc/contract';
+import type { ContractRouterClient } from '@orpc/contract';
 import type { JsonifiedClient } from '@orpc/openapi-client';
 import { OpenAPILink } from '@orpc/openapi-client/fetch';
 import { z } from 'zod';
@@ -67,7 +62,6 @@ const link = new OpenAPILink(api, {
             ...init,
             credentials: 'include',
         });
-
         if (response.status === 401 && useStore.getState().isLoggedIn) {
             // Check if this is not a refresh token request
             if (!request.url.includes('refresh-token')) {
@@ -88,7 +82,7 @@ const link = new OpenAPILink(api, {
     },
 
     interceptors: [
-        onSuccess(async (responseData: unknown, options) => {
+        onSuccess(async (responseData: unknown) => {
             if (typeof responseData === 'object' && responseData && 'accessToken' in responseData) {
                 const accessToken = z.object({ accessToken: z.string().nullable() }).parse(responseData).accessToken;
                 useStore.getState().setAccessToken(accessToken);
@@ -97,7 +91,6 @@ const link = new OpenAPILink(api, {
                     window.location.href = '/login';
                 }
             }
-            options.next();
         }),
     ],
 });
