@@ -5,6 +5,7 @@ export enum CurrentlySelectedRouteOptions {
     DASHBOARD = 'dashboard',
     ELO_RANKING = 'elo-ranking',
     OPENSKILL_RANKING = 'openskill-ranking',
+    GAMES = 'games',
     SETTINGS = 'settings',
 }
 

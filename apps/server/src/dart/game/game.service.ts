@@ -269,6 +269,11 @@ export class GameService {
         return count;
     }
 
+    public async getGameById(id: string): Promise<GameEntityApiDTO> {
+        const game = await this.databaseGameService.getGameById(id);
+        return this.databaseGameService.mapGameToDTO(game);
+    }
+
     public async getSummarizedGameStatistics(filter: GameFilter): Promise<GameStatisticsSummary> {
         const games = await this.databaseGameService.getGames({ filter });
 

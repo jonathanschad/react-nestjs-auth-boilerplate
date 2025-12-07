@@ -58,6 +58,17 @@ export const SignedInLayout = () => {
                         <Translation>openSkillRating</Translation>
                     </Link>
                     <Link
+                        to="/games"
+                        className={clsx(
+                            currentlySelectedRoute === CurrentlySelectedRouteOptions.GAMES
+                                ? 'text-foreground'
+                                : 'text-muted-foreground',
+                            'transition-colors hover:text-foreground',
+                        )}
+                    >
+                        <Translation>allGames</Translation>
+                    </Link>
+                    <Link
                         to="/settings"
                         className={clsx(
                             currentlySelectedRoute === CurrentlySelectedRouteOptions.SETTINGS
@@ -104,6 +115,17 @@ export const SignedInLayout = () => {
                                 )}
                             >
                                 <Translation>openSkillRating</Translation>
+                            </Link>
+                            <Link
+                                to="/games"
+                                className={clsx(
+                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.GAMES
+                                        ? 'text-foreground'
+                                        : 'text-muted-foreground',
+                                    'hover:text-foreground',
+                                )}
+                            >
+                                <Translation>allGames</Translation>
                             </Link>
                             <Link
                                 to="/settings"

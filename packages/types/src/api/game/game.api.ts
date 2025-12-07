@@ -38,4 +38,12 @@ export const gameContract = oc.prefix('/game').router({
         .route({ method: 'GET', path: '/count' })
         .input(gameFilterSchema)
         .output(z.object({ count: z.number() })),
+    getGameById: oc
+        .route({ method: 'GET', path: '/{id}' })
+        .input(
+            z.object({
+                id: z.uuid(),
+            }),
+        )
+        .output(gameEntitySchema),
 });

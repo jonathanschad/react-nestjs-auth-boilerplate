@@ -47,4 +47,12 @@ export class PlayerController {
             return result;
         });
     }
+
+    @Implement(api.dart.player.getEloHistory)
+    public getPlayerEloHistory() {
+        return implement(api.dart.player.getEloHistory).handler(async ({ input }) => {
+            const result = await this.playerService.getPlayerEloHistory(input.userId);
+            return result;
+        });
+    }
 }

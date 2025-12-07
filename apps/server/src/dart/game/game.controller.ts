@@ -60,4 +60,12 @@ export class GameController {
             return { count: result };
         });
     }
+
+    @Implement(api.dart.game.getGameById)
+    public getGameById() {
+        return implement(api.dart.game.getGameById).handler(async ({ input }) => {
+            const result = await this.gameService.getGameById(input.id);
+            return result;
+        });
+    }
 }

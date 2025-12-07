@@ -8,6 +8,8 @@ import { Login } from '@/pages/auth/Login';
 import { PasswordForgot } from '@/pages/auth/PasswordForgot';
 import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
 import { PasswordReset } from '@/pages/auth/PasswordReset';
+import { AllGames } from '@/pages/games/AllGames';
+import { GameDetail } from '@/pages/games/GameDetail';
 import { Imprint, NotSignedInImprint } from '@/pages/legal/Imprint';
 import { License, NotSignedInLicense } from '@/pages/legal/License';
 import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPolicy';
@@ -42,6 +44,8 @@ const routesFactory = (userState: UserState | undefined | null) => {
                 <Route index element={<EloRanking />} />
                 <Route path="ranking/elo" element={<EloRanking />} />
                 <Route path="ranking/openskill" element={<OpenSkillRanking />} />
+                <Route path="games" element={<AllGames />} />
+                <Route path="games/:id" element={<GameDetail />} />
                 <Route path="player/:uuid" element={<Player />} />
                 <Route path="settings" element={<Settings />}>
                     <Route path="profile" element={<ProfileSettings />} />

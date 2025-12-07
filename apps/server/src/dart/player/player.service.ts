@@ -1,4 +1,5 @@
 import type {
+    EloHistoryResponseDTO,
     GameEntityApiDTO,
     HeadToHeadStats,
     Pagination,
@@ -157,5 +158,27 @@ export class PlayerService {
         }
 
         return headToHeadStats;
+    }
+
+    public async getPlayerEloHistory(playerId: string): Promise<EloHistoryResponseDTO[]> {
+        // Fetch ELO history with game data included - need to use prisma directly to include relations
+        const eloHistoryWithGame = await this.databaseEloHistoryService.getPlayerHistory(playerId, {
+            game: {
+                gameEnd: {
+                    gte: new Date(Date.now() - 1000 * 60 * 60 * 24 * 365),
+                },
+            },
+        });
+
+        return eloHistoryWithGame.map(
+            (history): EloHistoryResponseDTO => ({
+                id: history.id,
+                timestamp: history.game.gameEnd.toISOString(),
+                eloBefore: history.eloBefore,
+                eloAfter: history.eloAfter,
+                eloChange: history.eloAfter - history.eloBefore,
+                gamesPlayedAfter: history.gamesPlayedAfter,
+            }),
+        );
     }
 }

@@ -6,6 +6,8 @@ import { DatabaseHistoryInterface, RankingHistoryWithGame } from '@/database/his
 import { PrismaService } from '@/database/prisma.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
+export type EloHistoryWithGame = EloHistory & { game: Game };
+
 @Injectable()
 export class DatabaseEloHistoryService
     implements DatabaseHistoryInterface<EloHistory, Prisma.EloHistoryCreateInput, EloRating>
@@ -43,13 +45,22 @@ export class DatabaseEloHistoryService
         return lastEloHistory;
     }
 
-    public getPlayerHistory(userId: string): Promise<EloHistory[]> {
+    public getPlayerHistory(
+        userId: string,
+        filter?: Prisma.EloHistoryWhereInput,
+    ): Promise<RankingHistoryWithGame<EloHistory>[]> {
         return this.prisma.eloHistory.findMany({
             where: {
                 playerId: userId,
+                ...(filter ?? {}),
             },
             orderBy: {
-                createdAt: 'desc',
+                game: {
+                    gameEnd: 'desc',
+                },
+            },
+            include: {
+                game: true,
             },
         });
     }

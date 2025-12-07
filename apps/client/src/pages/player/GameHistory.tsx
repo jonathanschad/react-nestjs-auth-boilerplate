@@ -10,6 +10,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGetPlayerGames, useGetPlayerGamesCount } from '@/api/dart/player/useGetPlayerGames';
 import { UserTableCell } from '@/pages/ranking/UserTableCell';
 
@@ -122,6 +123,7 @@ export const GameHistorySkeleton = () => {
 };
 
 export const GameHistory = ({ playerId }: GameHistoryProps) => {
+    const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const pageSize = 5;
 
@@ -190,7 +192,13 @@ export const GameHistory = ({ playerId }: GameHistoryProps) => {
                             </TableHeader>
                             <TableBody>
                                 {table.getRowModel().rows.map((row) => (
-                                    <TableRow key={row.id}>
+                                    <TableRow
+                                        key={row.id}
+                                        className="cursor-pointer hover:bg-muted/50"
+                                        onClick={() =>
+                                            navigate(`/games/${row.original.id}`, { state: { game: row.original } })
+                                        }
+                                    >
                                         {row.getVisibleCells().map((cell) => (
                                             <TableCell key={cell.id}>
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}

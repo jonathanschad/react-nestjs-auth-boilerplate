@@ -91,6 +91,18 @@ export class DatabaseGameService {
         });
     }
 
+    async getGameById(id: string): Promise<GameWithExpandedRelations> {
+        return this.prisma.game.findFirstOrThrow({
+            where: { id },
+            include: {
+                turns: true,
+                gameStatistics: true,
+                eloHistory: true,
+                openSkillHistory: true,
+            },
+        });
+    }
+
     async find(where: Prisma.GameWhereInput): Promise<Game | null> {
         return this.prisma.game.findFirst({
             where,

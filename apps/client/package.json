@@ -15,9 +15,9 @@
     },
     "dependencies": {
         "@darts/types": "workspace:*",
-        "@orpc/openapi-client": "catalog:",
         "@orpc/client": "catalog:",
         "@orpc/contract": "catalog:",
+        "@orpc/openapi-client": "catalog:",
         "@sentry/react": "^8.48.0",
         "@tanstack/react-form": "catalog:frontend",
         "@tanstack/react-table": "^8.20.5",
@@ -41,6 +41,7 @@
         "react-markdown": "^9.0.3",
         "react-query": "^3.39.3",
         "react-router-dom": "^6.22.3",
+        "recharts": "^3.5.1",
         "sonner": "^2.0.7",
         "sort-by": "^1.2.0",
         "tailwind-merge": "catalog:frontend",

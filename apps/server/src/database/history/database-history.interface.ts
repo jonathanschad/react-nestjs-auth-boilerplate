@@ -7,7 +7,7 @@ export class DatabaseHistoryInterface<DatabaseEntity, CreateInput, RatingType> {
         throw new Error('Not implemented');
     }
 
-    public getPlayerHistory(_userId: string): Promise<DatabaseEntity[]> {
+    public getPlayerHistory(_userId: string, _filter?: unknown): Promise<RankingHistoryWithGame<DatabaseEntity>[]> {
         throw new Error('Not implemented');
     }
 

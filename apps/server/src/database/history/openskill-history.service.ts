@@ -42,13 +42,20 @@ export class DatabaseOpenSkillHistoryService
         return lastOpenSkillHistory;
     }
 
-    public getPlayerHistory(userId: string): Promise<OpenSkillHistory[]> {
+    public getPlayerHistory(
+        userId: string,
+        filter?: Prisma.OpenSkillHistoryWhereInput,
+    ): Promise<RankingHistoryWithGame<OpenSkillHistory>[]> {
         return this.prisma.openSkillHistory.findMany({
             where: {
                 playerId: userId,
+                ...(filter ?? {}),
             },
             orderBy: {
                 createdAt: 'desc',
+            },
+            include: {
+                game: true,
             },
         });
     }

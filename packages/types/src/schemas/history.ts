@@ -30,7 +30,18 @@ export const openSkillHistoryEntitySchema = z.object({
     ordinalAfter: z.number(),
 });
 
+// Elo History Response with timestamp (for charts/history display)
+export const eloHistoryResponseSchema = z.object({
+    id: z.uuid(),
+    timestamp: z.string().datetime(),
+    eloBefore: z.number(),
+    eloAfter: z.number(),
+    eloChange: z.number(),
+    gamesPlayedAfter: z.number().int(),
+});
+
 // Type exports
 export type EloHistoryEntityApiDTO = z.infer<typeof eloHistoryEntitySchema>;
+export type EloHistoryResponseDTO = z.infer<typeof eloHistoryResponseSchema>;
 export type OpenSkillHistoryEntityApiDTO = z.infer<typeof openSkillHistoryEntitySchema>;
 export type OpenSkillRating = z.infer<typeof openskillRatingSchema>;

@@ -1,7 +1,7 @@
 import { oc } from '@orpc/contract';
 import { z } from 'zod';
 import {
-    eloRankingResponseSchema,
+    eloHistoryResponseSchema,
     gameEntitySchema,
     openSkillRankingResponseSchema,
     paginatedResponseSchema,
@@ -38,7 +38,7 @@ export const playerContract = oc.prefix('/player').router({
                 userId: z.uuid(),
             }),
         )
-        .output(z.array(eloRankingResponseSchema)),
+        .output(z.array(eloHistoryResponseSchema)),
     getOpenSkillHistory: oc
         .route({ method: 'GET', path: '/{userId}/openskill-history' })
         .input(
