@@ -85,7 +85,8 @@ export const HeadToHead = ({ playerId }: HeadToHeadProps) => {
     const { data: opponents, isLoading: opponentsLoading, error: opponentsError } = useGetPlayerOpponents(playerId);
 
     // Fetch all games for the player (using a large page size to get all games)
-    const { data: gamesData, isLoading: gamesLoading, error: gamesError } = useGetPlayerGames(playerId, 1, 1000);
+    // TODO: This is just wild
+    const { data: gamesData, isLoading: gamesLoading, error: gamesError } = useGetPlayerGames(playerId, 1, 100);
 
     const headToHeadStats = useMemo(() => {
         if (!opponents || !gamesData?.data) return [];

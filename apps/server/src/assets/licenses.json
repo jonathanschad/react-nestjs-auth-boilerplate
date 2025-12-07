@@ -165,6 +165,18 @@
         "path": "node_modules/@nestjs/testing",
         "licenseFile": "node_modules/@nestjs/testing/LICENSE"
     },
+    "@orpc/contract@1.12.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unnoq/orpc",
+        "path": "node_modules/@darts/types/node_modules/@orpc/contract",
+        "licenseFile": "node_modules/@darts/types/node_modules/@orpc/contract/LICENSE"
+    },
+    "@orpc/nest@1.12.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unnoq/orpc",
+        "path": "node_modules/@orpc/nest",
+        "licenseFile": "node_modules/@orpc/nest/LICENSE"
+    },
     "@prisma/client@6.4.1": {
         "licenses": "Apache-2.0",
         "repository": "https://github.com/prisma/prisma",
@@ -208,18 +220,6 @@
         "publisher": "강동윤",
         "email": "kdy1997.dev@gmail.com",
         "path": "node_modules/@swc/core"
-    },
-    "@ts-rest/core@3.52.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/ts-rest/ts-rest",
-        "path": "node_modules/@ts-rest/core",
-        "licenseFile": "node_modules/@ts-rest/core/LICENCE"
-    },
-    "@ts-rest/nest@3.52.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/ts-rest/ts-rest",
-        "path": "node_modules/@ts-rest/nest",
-        "licenseFile": "node_modules/@ts-rest/nest/LICENCE"
     },
     "@types/express@5.0.0": {
         "licenses": "MIT",
