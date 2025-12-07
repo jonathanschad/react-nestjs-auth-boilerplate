@@ -8,7 +8,6 @@ import { Login } from '@/pages/auth/Login';
 import { PasswordForgot } from '@/pages/auth/PasswordForgot';
 import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
 import { PasswordReset } from '@/pages/auth/PasswordReset';
-import { Home } from '@/pages/Home';
 import { Imprint, NotSignedInImprint } from '@/pages/legal/Imprint';
 import { License, NotSignedInLicense } from '@/pages/legal/License';
 import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPolicy';
@@ -40,7 +39,7 @@ const routesFactory = (userState: UserState | undefined | null) => {
     if (userState === UserState.COMPLETE) {
         routes.push(
             <Route key="SignedInLayout" path="*" element={<SignedInLayout />}>
-                <Route index element={<Home />} />
+                <Route index element={<EloRanking />} />
                 <Route path="ranking/elo" element={<EloRanking />} />
                 <Route path="ranking/openskill" element={<OpenSkillRanking />} />
                 <Route path="player/:uuid" element={<Player />} />
