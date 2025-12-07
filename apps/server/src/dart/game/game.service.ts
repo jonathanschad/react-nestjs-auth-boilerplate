@@ -251,10 +251,22 @@ export class GameService {
         };
     }
 
-    public async getGames(filter: GameFilter, pagination: Pagination): Promise<GameEntityApiDTO[]> {
+    public async getGames({
+        filter,
+        pagination,
+    }: {
+        filter: GameFilter;
+        pagination: Pagination;
+    }): Promise<GameEntityApiDTO[]> {
         const games = await this.databaseGameService.getGames({ filter, pagination });
 
         return games.map((game) => this.databaseGameService.mapGameToDTO(game));
+    }
+
+    public async getGamesCount({ filter }: { filter: GameFilter }): Promise<number> {
+        const count = await this.databaseGameService.getGamesCount({ filter });
+
+        return count;
     }
 
     public async getSummarizedGameStatistics(filter: GameFilter): Promise<GameStatisticsSummary> {

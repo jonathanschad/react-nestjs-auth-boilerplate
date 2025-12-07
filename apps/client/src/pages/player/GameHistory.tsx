@@ -10,7 +10,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { useGetPlayerGames } from '@/api/dart/player/useGetPlayerGames';
+import { useGetPlayerGames, useGetPlayerGamesCount } from '@/api/dart/player/useGetPlayerGames';
 import { UserTableCell } from '@/pages/ranking/UserTableCell';
 
 type GameHistoryProps = {
@@ -127,20 +127,22 @@ export const GameHistory = ({ playerId }: GameHistoryProps) => {
 
     const { data, isLoading, error } = useGetPlayerGames(playerId, page, pageSize);
 
+    const { data: countData, isLoading: countLoading, error: countError } = useGetPlayerGamesCount(playerId);
+    const totalPages = Math.ceil((countData?.count ?? 0) / pageSize);
+
     const table = useReactTable({
         data: data?.data ?? [],
         columns: gameColumns,
         getCoreRowModel: getCoreRowModel(),
         manualPagination: true,
-        // TODO: Add total pages
-        pageCount: 0,
+        pageCount: totalPages,
     });
 
-    if (isLoading) {
+    if (isLoading || countLoading) {
         return <GameHistorySkeleton />;
     }
 
-    if (error || !data) {
+    if (error || !data || countError || !countData) {
         return (
             <Card className="p-4">
                 <Typography as="p">
@@ -203,9 +205,8 @@ export const GameHistory = ({ playerId }: GameHistoryProps) => {
                     {/* Pagination controls */}
                     <div className="mt-4 flex items-center justify-between">
                         <Typography as="smallText" className="text-muted-foreground">
-                            <Translation>page</Translation> {pagination.page} <Translation>of</Translation>{' '}
-                            {/* TODO: Add total pages */}
-                            {0} ({0} <Translation>totalGames</Translation>)
+                            <Translation>page</Translation> {pagination.page} <Translation>of</Translation> {totalPages}{' '}
+                            ({countData.count} <Translation>totalGames</Translation>)
                         </Typography>
                         <div className="space-x-2">
                             <Button
@@ -216,12 +217,11 @@ export const GameHistory = ({ playerId }: GameHistoryProps) => {
                             >
                                 <Translation>previous</Translation>
                             </Button>
-                            {/* TODO: Add total pages */}
                             <Button
                                 variant="outline"
                                 size="sm"
-                                onClick={() => setPage((p) => Math.min(0, p + 1))}
-                                disabled={page === 0}
+                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={page === totalPages}
                             >
                                 <Translation>next</Translation>
                             </Button>

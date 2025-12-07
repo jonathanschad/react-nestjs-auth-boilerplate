@@ -146,7 +146,7 @@ export class DatabaseGameService {
 
         const where: Prisma.GameWhereInput = {};
         if (filter.playerIds) {
-            where.OR = filter.playerIds.map((playerId) => ({ playerAId: playerId, playerBId: playerId }));
+            where.OR = filter.playerIds.map((playerId) => ({ OR: [{ playerAId: playerId }, { playerBId: playerId }] }));
         }
         if (filter.timeFrame) {
             where.gameStart = { gte: filter.timeFrame.startDate, lte: filter.timeFrame.endDate };
@@ -168,6 +168,28 @@ export class DatabaseGameService {
             },
             orderBy,
             ...(pagination?.page ? { skip, take } : {}),
+        });
+
+        return games;
+    }
+
+    async getGamesCount({ filter }: { filter: GameFilter }): Promise<number> {
+        const where: Prisma.GameWhereInput = {};
+        if (filter.playerIds) {
+            where.OR = filter.playerIds.map((playerId) => ({ OR: [{ playerAId: playerId }, { playerBId: playerId }] }));
+        }
+        if (filter.timeFrame) {
+            where.gameStart = { gte: filter.timeFrame.startDate, lte: filter.timeFrame.endDate };
+        }
+        if (filter.type) {
+            where.type = filter.type;
+        }
+        if (filter.checkoutMode) {
+            where.checkoutMode = filter.checkoutMode;
+        }
+
+        const games = await this.prisma.game.count({
+            where,
         });
 
         return games;

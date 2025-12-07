@@ -3,6 +3,7 @@ import { z } from 'zod';
 import {
     createGameSchema,
     gameEntitySchema,
+    gameFilterSchema,
     gamePreviewResponseSchema,
     paginatedResponseSchema,
     paginationSchema,
@@ -31,14 +32,10 @@ export const gameContract = oc.prefix('/game').router({
         .output(gamePreviewResponseSchema),
     getGames: oc
         .route({ method: 'GET', path: '/' })
-        .input(
-            paginationSchema.extend({
-                playerIds: z.array(z.string().uuid()).optional(),
-                startDate: z.string().datetime().optional(),
-                endDate: z.string().datetime().optional(),
-                type: z.enum(['X301', 'X501']).optional(),
-                checkoutMode: z.enum(['SINGLE_OUT', 'DOUBLE_OUT', 'MASTER_OUT']).optional(),
-            }),
-        )
+        .input(paginationSchema.merge(gameFilterSchema))
         .output(paginatedResponseSchema(gameEntitySchema)),
+    getGamesCount: oc
+        .route({ method: 'GET', path: '/count' })
+        .input(gameFilterSchema)
+        .output(z.object({ count: z.number() })),
 });

@@ -22,7 +22,7 @@ export const Player = () => {
     return (
         <div className="mx-auto flex h-full w-full max-w-6xl flex-col gap-6">
             <PlayerOverview playerId={uuid} />
-            <HeadToHead playerId={uuid} />
+            {/* <HeadToHead playerId={uuid} /> */}
             <GameHistory playerId={uuid} />
         </div>
     );

@@ -37,13 +37,7 @@ export class GameController {
         return implement(api.dart.game.getGames).handler(async ({ input }) => {
             const filter: GameFilter = {
                 playerIds: input.playerIds,
-                timeFrame:
-                    input.startDate && input.endDate
-                        ? {
-                              startDate: new Date(input.startDate),
-                              endDate: new Date(input.endDate),
-                          }
-                        : undefined,
+                timeFrame: input.timeFrame,
                 type: input.type,
                 checkoutMode: input.checkoutMode,
             };
@@ -53,9 +47,17 @@ export class GameController {
                 pageSize: input.pageSize,
             };
 
-            const result = await this.gameService.getGames(filter, pagination);
+            const result = await this.gameService.getGames({ filter, pagination });
 
             return { data: result, pagination: pagination };
+        });
+    }
+
+    @Implement(api.dart.game.getGamesCount)
+    public getGamesCount() {
+        return implement(api.dart.game.getGamesCount).handler(async ({ input }) => {
+            const result = await this.gameService.getGamesCount({ filter: input });
+            return { count: result };
         });
     }
 }

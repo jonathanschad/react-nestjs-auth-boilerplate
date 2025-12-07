@@ -4,13 +4,13 @@ import { Skeleton } from '@darts/ui/components/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';
 import { Typography } from '@darts/ui/components/typography';
 import { Translation } from '@darts/ui/i18n/Translation';
-import { useMemo } from 'react';
-import { useGetPlayerGames } from '@/api/dart/player/useGetPlayerGames';
-import { useGetPlayerOpponents } from '@/api/dart/player/useGetPlayerOpponents';
+import { useMemo, useState } from 'react';
+import { getGames } from '@/api/dart/game/useGetGames';
 import { UserTableCell } from '@/pages/ranking/UserTableCell';
 
 type HeadToHeadProps = {
-    playerId: string;
+    playerIdA: string;
+    playerIdB: string;
 };
 
 type HeadToHeadStats = {
@@ -81,12 +81,15 @@ export const HeadToHeadSkeleton = () => {
     );
 };
 
-export const HeadToHead = ({ playerId }: HeadToHeadProps) => {
-    const { data: opponents, isLoading: opponentsLoading, error: opponentsError } = useGetPlayerOpponents(playerId);
+export const HeadToHead = ({ playerIdA, playerIdB }: HeadToHeadProps) => {
+    const [page, setPage] = useState(0);
+    const pageSize = 5;
 
-    // Fetch all games for the player (using a large page size to get all games)
-    // TODO: This is just wild
-    const { data: gamesData, isLoading: gamesLoading, error: gamesError } = useGetPlayerGames(playerId, 1, 100);
+    const {
+        data: games,
+        isLoading: gamesLoading,
+        error: gamesError,
+    } = getGames({ filter: { playerIds: [playerIdA, playerIdB] }, page, pageSize });
 
     const headToHeadStats = useMemo(() => {
         if (!opponents || !gamesData?.data) return [];

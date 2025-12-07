@@ -1,11 +1,15 @@
 import { api, Pagination } from '@darts/types';
 import { Controller } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
+import { GameService } from '@/dart/game/game.service';
 import { PlayerService } from '@/dart/player/player.service';
 
 @Controller()
 export class PlayerController {
-    constructor(private readonly playerService: PlayerService) {}
+    constructor(
+        private readonly playerService: PlayerService,
+        private readonly gameService: GameService,
+    ) {}
 
     @Implement(api.dart.player.getAll)
     public getAllPlayers() {
@@ -30,7 +34,8 @@ export class PlayerController {
                 page: input.page,
                 pageSize: input.pageSize,
             };
-            const games = await this.playerService.getPlayerGames(input.playerId, pagination);
+            console.log('pagination', pagination, input.playerId);
+            const games = await this.gameService.getGames({ filter: { playerIds: [input.playerId] }, pagination });
             return { data: games, pagination };
         });
     }
