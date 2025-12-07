@@ -1,6 +1,7 @@
 {
     "acceptPrivacyPolicy": "By creating an account you accept our",
     "alreadyAccount": "Already have an account?",
+    "back": "Back",
     "backToLogin": "Back to login",
     "completeRegistration.completeRegistration": "Complete Registration",
     "completeRegistration.registerCompleteSubHeadline": "You have successfully confirmed your email ({{email}}). Please complete your details to complete the registration.",

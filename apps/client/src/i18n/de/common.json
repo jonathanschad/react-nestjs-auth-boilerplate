@@ -1,6 +1,7 @@
 {
     "acceptPrivacyPolicy": "Mit dem erstellen eines Kontos akzeptierst du unsere",
     "alreadyAccount": "Sie haben bereits ein Konto?",
+    "back": "Zurück",
     "backToLogin": "Zurück zum Login",
     "completeRegistration.completeRegistration": "Registrierung abschließen",
     "completeRegistration.registerCompleteSubHeadline": "Du hast erfolgreich deine E-Mail ({{email}}) bestätigt. Bitte vervollständige deine Daten um die Registrierung abzuschließen.",

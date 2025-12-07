@@ -5,7 +5,7 @@ import { Skeleton } from '@darts/ui/components/skeleton';
 import { Typography } from '@darts/ui/components/typography';
 import { Translation } from '@darts/ui/i18n/Translation';
 import dayjs from 'dayjs';
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { Area, CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import { useGetPlayerEloHistory } from '@/api/dart/player/useGetPlayerEloHistory';
 
 type EloHistoryChartProps = {
@@ -30,6 +30,10 @@ export const EloHistoryChartSkeleton = () => {
 const chartConfig = {
     elo: {
         label: 'ELO',
+        color: 'hsl(var(--primary))',
+    },
+    eloArea: {
+        label: 'ELO Range',
         color: 'hsl(var(--primary))',
     },
 };
@@ -71,18 +75,18 @@ export const EloHistoryChart = ({ playerUuid }: EloHistoryChartProps) => {
         );
     }
 
-    // Group data by day and take the highest ELO for each day
-    const dailyEloMap = new Map<string, { maxElo: number; timestamp: number; displayDate: string }>();
+    // Group data by day and take the last ELO for each day
+    const dailyEloMap = new Map<string, { lastElo: number; timestamp: number; displayDate: string }>();
 
     eloHistory.forEach((entry: EloHistoryResponseDTO) => {
         const dateKey = dayjs(entry.timestamp).format('YYYY-MM-DD'); // Group by date
         const timestamp = new Date(entry.timestamp).getTime();
         const existing = dailyEloMap.get(dateKey);
 
-        // Keep the highest ELO for this day
-        if (!existing || entry.eloAfter > existing.maxElo) {
+        // Keep the last ELO for this day (entry with latest timestamp)
+        if (!existing || timestamp > existing.timestamp) {
             dailyEloMap.set(dateKey, {
-                maxElo: entry.eloAfter,
+                lastElo: entry.eloAfter,
                 timestamp: timestamp,
                 displayDate: dayjs(entry.timestamp).format('DD.MM.YYYY'),
             });
@@ -93,7 +97,7 @@ export const EloHistoryChart = ({ playerUuid }: EloHistoryChartProps) => {
     const chartData: ChartDataPoint[] = Array.from(dailyEloMap.values())
         .map((data) => ({
             timestamp: data.timestamp,
-            elo: data.maxElo,
+            elo: data.lastElo,
             displayDate: data.displayDate,
         }))
         .sort((a, b) => a.timestamp - b.timestamp);
@@ -108,26 +112,44 @@ export const EloHistoryChart = ({ playerUuid }: EloHistoryChartProps) => {
     const minTime = Math.min(...timeValues);
     const maxTime = Math.max(...timeValues);
 
+    // Calculate evenly distributed ticks for X-axis (not tied to data points)
+    const timeRange = maxTime - minTime;
+    const tickCount = 6; // Number of ticks on X-axis
+    const tickInterval = timeRange / (tickCount - 1);
+    const xTicks = Array.from({ length: tickCount }, (_, i) => minTime + i * tickInterval);
+
     return (
-        <Card className="p-4">
-            <Typography as="h2" className="mb-4">
+        <Card className="p-6">
+            <Typography as="h2" className="mb-6">
                 <Translation>eloHistoryLastYear</Translation>
             </Typography>
-            <ChartContainer config={chartConfig} className="h-[300px] w-full">
-                <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
+            <ChartContainer config={chartConfig} className="h-[350px] w-full">
+                <LineChart data={chartData} margin={{ top: 5, right: 10, left: 10, bottom: 0 }}>
+                    <defs>
+                        <linearGradient id="colorElo" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="var(--color-elo)" stopOpacity={0.3} />
+                            <stop offset="95%" stopColor="var(--color-elo)" stopOpacity={0.05} />
+                        </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-muted" opacity={0.5} />
                     <XAxis
                         dataKey="timestamp"
                         type="number"
                         domain={[minTime, maxTime]}
                         scale="time"
+                        ticks={xTicks}
                         tickFormatter={(timestamp: number) => dayjs(timestamp).format('MMM D')}
-                        className="text-xs"
+                        stroke="hsl(var(--muted-foreground))"
+                        tickLine={false}
+                        axisLine={false}
                     />
                     <YAxis
                         domain={[minElo, maxElo]}
-                        className="text-xs"
                         tickFormatter={(value: number) => value.toFixed(0)}
+                        stroke="hsl(var(--muted-foreground))"
+                        tickLine={false}
+                        axisLine={false}
+                        width={45}
                     />
                     <ChartTooltip
                         content={
@@ -147,18 +169,37 @@ export const EloHistoryChart = ({ playerUuid }: EloHistoryChartProps) => {
                                 }}
                             />
                         }
+                        cursor={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1, strokeDasharray: '3 3' }}
+                    />
+                    <Area
+                        type="monotone"
+                        dataKey="elo"
+                        stroke="none"
+                        fill="url(#colorElo)"
+                        fillOpacity={1}
+                        isAnimationActive={false}
                     />
                     <Line
                         type="monotone"
                         dataKey="elo"
                         stroke="var(--color-elo)"
-                        strokeWidth={2}
-                        dot={{ fill: 'var(--color-elo)', r: 3 }}
-                        activeDot={{ r: 5 }}
+                        strokeWidth={3}
+                        dot={{
+                            fill: 'var(--color-elo)',
+                            strokeWidth: 2,
+                            r: 4,
+                            stroke: 'hsl(var(--background))',
+                        }}
+                        activeDot={{
+                            r: 6,
+                            strokeWidth: 2,
+                            stroke: 'hsl(var(--background))',
+                        }}
+                        isAnimationActive={false}
                     />
                 </LineChart>
             </ChartContainer>
-            <Typography as="smallText" className="mt-2 text-muted-foreground">
+            <Typography as="smallText" className="mt-4 text-muted-foreground">
                 <Translation>showingGames</Translation>: {eloHistory.length} (<Translation>daysWithGames</Translation>:{' '}
                 {chartData.length})
             </Typography>

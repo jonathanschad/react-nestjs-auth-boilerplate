@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { cn } from '@darts/ui/lib/utils';
 import * as React from 'react';
 import * as RechartsPrimitive from 'recharts';
@@ -127,10 +131,7 @@ const ChartTooltipContent = React.forwardRef<
             const [item] = payload;
             const key = `${labelKey || item?.dataKey || item?.name || 'value'}`;
             const itemConfig = getPayloadConfigFromPayload(config, item, key);
-            const value =
-                !labelKey && typeof label === 'string'
-                    ? config[label as keyof typeof config]?.label || label
-                    : itemConfig?.label;
+            const value = !labelKey && typeof label === 'string' ? config[label]?.label || label : itemConfig?.label;
 
             if (labelFormatter) {
                 return <div className={cn('font-medium', labelClassName)}>{labelFormatter(value, payload)}</div>;
@@ -312,7 +313,7 @@ function getPayloadConfigFromPayload(config: ChartConfig, payload: unknown, key:
         configLabelKey = payloadPayload[key as keyof typeof payloadPayload] as string;
     }
 
-    return configLabelKey in config ? config[configLabelKey] : config[key as keyof typeof config];
+    return configLabelKey in config ? config[configLabelKey] : config[key];
 }
 
 export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle };

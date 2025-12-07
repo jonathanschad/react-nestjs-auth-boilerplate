@@ -1,10 +1,15 @@
+import { Avatar } from '@darts/ui/components/avatar';
+import { Button } from '@darts/ui/components/button';
 import { Card } from '@darts/ui/components/card';
 import { Skeleton } from '@darts/ui/components/skeleton';
 import { Typography } from '@darts/ui/components/typography';
 import { Translation } from '@darts/ui/i18n/Translation';
 import dayjs from 'dayjs';
+import { ArrowLeft, User } from 'lucide-react';
 import { ordinal, rating } from 'openskill';
+import { useNavigate } from 'react-router-dom';
 import { useGetPlayer } from '@/api/dart/player/useGetPlayer';
+import { AuthenticatedImage } from '@/components/authenticated-image';
 
 type PlayerOverviewProps = {
     playerId: string;
@@ -25,6 +30,7 @@ export const PlayerOverviewSkeleton = () => {
 
 export const PlayerOverview = ({ playerId }: PlayerOverviewProps) => {
     const { data, isLoading, error } = useGetPlayer(playerId);
+    const navigate = useNavigate();
 
     if (isLoading) {
         return <PlayerOverviewSkeleton />;
@@ -42,11 +48,33 @@ export const PlayerOverview = ({ playerId }: PlayerOverviewProps) => {
     const openSkillRating = rating(currentRating.openSkill.rating);
     return (
         <>
-            <div>
-                <Typography as="h1">{player.name}</Typography>
-                <Typography as="mutedText">
-                    <Translation>playerProfile</Translation>
-                </Typography>
+            <div className="flex items-center gap-4">
+                <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
+                    <ArrowLeft className="h-5 w-5" />
+                </Button>
+                <Avatar className="h-20 w-20">
+                    {player.profilePictureId ? (
+                        <AuthenticatedImage
+                            fileUuid={player.profilePictureId}
+                            className="h-full w-full object-cover"
+                            fallback={
+                                <div className="flex h-full w-full items-center justify-center bg-muted">
+                                    <User className="h-10 w-10 text-muted-foreground" />
+                                </div>
+                            }
+                        />
+                    ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-muted">
+                            <User className="h-10 w-10 text-muted-foreground" />
+                        </div>
+                    )}
+                </Avatar>
+                <div>
+                    <Typography as="h1">{player.name}</Typography>
+                    <Typography as="mutedText">
+                        <Translation>playerProfile</Translation>
+                    </Typography>
+                </div>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card className="p-4">
