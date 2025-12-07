@@ -8,6 +8,7 @@ import {
 import { SentryExceptionCaptured } from '@sentry/nestjs';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
+import { logDetailedError } from '@/util/error-logger';
 import { HTTPError } from '@/util/httpHandlers';
 
 @Catch()
@@ -49,6 +50,15 @@ export class ExceptionFilter implements NestExceptionFilter {
             if (typeof exception === 'object' && exception && 'message' in exception) {
                 message = exception.message;
             }
+        }
+
+        // Log detailed error information for 500 errors
+        if (httpStatus >= 500) {
+            logDetailedError({
+                error: exception,
+                request,
+                statusCode: httpStatus,
+            });
         }
 
         void response.status(httpStatus).send({

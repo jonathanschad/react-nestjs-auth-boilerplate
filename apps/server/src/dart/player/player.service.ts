@@ -1,9 +1,10 @@
 import type {
     GameEntityApiDTO,
+    HeadToHeadStats,
     Pagination,
     PlayerDetailsResponseDTO,
-    PlayerOpponentsResponseDTO,
     PlayerResponseDTO,
+    PlayerSummaryStatsDetails,
 } from '@darts/types';
 import { Injectable } from '@nestjs/common';
 import { RankingService } from '@/dart/ranking/ranking.service';
@@ -84,11 +85,77 @@ export class PlayerService {
         return gamesDto;
     }
 
-    public async getPlayerOpponents(playerId: string): Promise<PlayerOpponentsResponseDTO> {
+    public async getPlayerOpponentsWithHeadToHead(playerId: string): Promise<HeadToHeadStats[]> {
         const opponents = await this.databaseGameService.getOpponentsByUserId(playerId);
 
-        return opponents.map((opponent) => ({
-            opponentId: opponent,
-        }));
+        const headToHeadStats: HeadToHeadStats[] = [];
+
+        for (const opponent of opponents) {
+            const games = await this.databaseGameService.getGames({ filter: { playerIds: [[playerId, opponent]] } });
+
+            const playerStats = games
+                .map((game) => game.gameStatistics.find((stat) => stat.playerId === playerId))
+                .filter((stat) => stat !== undefined);
+            const opponentStats = games
+                .map((game) => game.gameStatistics.find((stat) => stat.playerId === opponent))
+                .filter((stat) => stat !== undefined);
+
+            const totalGames = games.length;
+
+            const wins = games.filter((game) => game.winnerId === playerId).length;
+            const losses = games.filter((game) => game.loserId === playerId).length;
+            const winRate = totalGames > 0 ? wins / totalGames : 0;
+
+            const playerDetails: Partial<PlayerSummaryStatsDetails> = {};
+            const opponentDetails: Partial<PlayerSummaryStatsDetails> = {};
+
+            if (playerStats) {
+                playerDetails.bullOffWins = playerStats.filter((stat) => stat.wonBullOff).length;
+                playerDetails.bullOffLosses = playerStats.filter((stat) => !stat.wonBullOff).length;
+                playerDetails.bullOffWinRate = totalGames > 0 ? playerDetails.bullOffWins / totalGames : 0;
+
+                playerDetails.averageScore =
+                    playerStats.reduce((acc, stat) => acc + stat.averageScore, 0) / playerStats.length;
+                playerDetails.averageUntilFirstPossibleFinish =
+                    playerStats.reduce((acc, stat) => acc + stat.averageUntilFirstPossibleFinish, 0) /
+                    playerStats.length;
+                playerDetails.throwsOnDouble =
+                    playerStats.reduce((acc, stat) => acc + stat.throwsOnDouble, 0) / playerStats.length;
+            }
+
+            if (opponentStats) {
+                opponentDetails.bullOffWins = opponentStats.filter((stat) => stat.wonBullOff).length;
+                opponentDetails.bullOffLosses = opponentStats.filter((stat) => !stat.wonBullOff).length;
+                opponentDetails.bullOffWinRate = totalGames > 0 ? opponentDetails.bullOffWins / totalGames : 0;
+
+                opponentDetails.averageScore =
+                    opponentStats.reduce((acc, stat) => acc + stat.averageScore, 0) / opponentStats.length;
+                opponentDetails.averageUntilFirstPossibleFinish =
+                    opponentStats.reduce((acc, stat) => acc + stat.averageUntilFirstPossibleFinish, 0) /
+                    opponentStats.length;
+                opponentDetails.throwsOnDouble =
+                    opponentStats.reduce((acc, stat) => acc + stat.throwsOnDouble, 0) / opponentStats.length;
+            }
+
+            headToHeadStats.push({
+                player: {
+                    id: playerId,
+                    wins,
+                    losses,
+                    winRate,
+                    ...(Object.keys(playerDetails).length > 0 ? (playerDetails as PlayerSummaryStatsDetails) : {}),
+                },
+                opponent: {
+                    id: opponent,
+                    ...(Object.keys(opponentDetails).length > 0 ? (opponentDetails as PlayerSummaryStatsDetails) : {}),
+                    wins: losses,
+                    losses: wins,
+                    winRate: 1 - winRate,
+                },
+                totalGames: games.length,
+            });
+        }
+
+        return headToHeadStats;
     }
 }

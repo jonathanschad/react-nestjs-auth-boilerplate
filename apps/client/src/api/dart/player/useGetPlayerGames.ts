@@ -11,7 +11,7 @@ export const getPlayerGames = async ({
     page?: number;
     pageSize?: number;
 }) => {
-    const response = await client.dart.game.getGames({ playerIds: [playerId], page, pageSize });
+    const response = await client.dart.game.getGames({ playerIds: [[playerId]], page, pageSize });
     return response;
 };
 
@@ -29,7 +29,7 @@ export const useGetPlayerGames = (playerId: string, page: number = 1, pageSize: 
 };
 
 export const getPlayerGamesCount = async ({ playerId }: { playerId: string }) => {
-    const response = await client.dart.game.getGamesCount({ playerIds: [playerId] });
+    const response = await client.dart.game.getGamesCount({ playerIds: [[playerId]] });
     return response;
 };
 

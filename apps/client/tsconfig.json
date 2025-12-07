@@ -5,7 +5,8 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"],
-            "@darts/ui/*": ["../../packages/ui/src/*"]
+            "@darts/ui/*": ["../../packages/ui/src/*"],
+            "@darts/types": ["../../packages/types/src/*"]
         }
     },
     "include": ["src/**/*", "postcss.config.mjs", "tailwind.config.ts"],

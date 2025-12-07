@@ -47,7 +47,7 @@ export const playerContract = oc.prefix('/player').router({
             }),
         )
         .output(z.array(openSkillRankingResponseSchema)),
-    getOpponents: oc
+    getOpponentsWithHeadToHead: oc
         .route({ method: 'GET', path: '/{playerId}/opponents' })
         .input(
             z.object({

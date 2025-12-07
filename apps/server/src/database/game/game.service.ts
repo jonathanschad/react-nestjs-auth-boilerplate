@@ -146,7 +146,18 @@ export class DatabaseGameService {
 
         const where: Prisma.GameWhereInput = {};
         if (filter.playerIds) {
-            where.OR = filter.playerIds.map((playerId) => ({ OR: [{ playerAId: playerId }, { playerBId: playerId }] }));
+            where.OR = filter.playerIds.map(([playerA, playerB]) => {
+                if (!playerB) {
+                    return { OR: [{ playerAId: playerA }, { playerBId: playerA }] };
+                } else {
+                    return {
+                        OR: [
+                            { playerAId: playerA, playerBId: playerB },
+                            { playerAId: playerB, playerBId: playerA },
+                        ],
+                    };
+                }
+            });
         }
         if (filter.timeFrame) {
             where.gameStart = { gte: filter.timeFrame.startDate, lte: filter.timeFrame.endDate };
@@ -176,7 +187,18 @@ export class DatabaseGameService {
     async getGamesCount({ filter }: { filter: GameFilter }): Promise<number> {
         const where: Prisma.GameWhereInput = {};
         if (filter.playerIds) {
-            where.OR = filter.playerIds.map((playerId) => ({ OR: [{ playerAId: playerId }, { playerBId: playerId }] }));
+            where.OR = filter.playerIds.map(([playerA, playerB]) => {
+                if (!playerB) {
+                    return { OR: [{ playerAId: playerA }, { playerBId: playerA }] };
+                } else {
+                    return {
+                        OR: [
+                            { playerAId: playerA, playerBId: playerB },
+                            { playerAId: playerB, playerBId: playerA },
+                        ],
+                    };
+                }
+            });
         }
         if (filter.timeFrame) {
             where.gameStart = { gte: filter.timeFrame.startDate, lte: filter.timeFrame.endDate };

@@ -106,7 +106,8 @@ export const gameStatisticsSummaryResponseSchema = z.object({
 });
 
 export const gameFilterSchema = z.object({
-    playerIds: z.array(z.uuid()).optional(),
+    // [playerId1, playerId2], [playerId3, playerId4], ...
+    playerIds: z.array(z.tuple([z.uuid(), z.uuid().optional()])).optional(),
     timeFrame: z
         .object({
             startDate: z.iso.datetime().optional(),

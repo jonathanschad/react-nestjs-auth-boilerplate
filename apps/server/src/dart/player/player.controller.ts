@@ -35,15 +35,15 @@ export class PlayerController {
                 pageSize: input.pageSize,
             };
             console.log('pagination', pagination, input.playerId);
-            const games = await this.gameService.getGames({ filter: { playerIds: [input.playerId] }, pagination });
+            const games = await this.gameService.getGames({ filter: { playerIds: [[input.playerId]] }, pagination });
             return { data: games, pagination };
         });
     }
 
-    @Implement(api.dart.player.getOpponents)
+    @Implement(api.dart.player.getOpponentsWithHeadToHead)
     public getPlayerOpponents() {
-        return implement(api.dart.player.getOpponents).handler(async ({ input }) => {
-            const result = await this.playerService.getPlayerOpponents(input.playerId);
+        return implement(api.dart.player.getOpponentsWithHeadToHead).handler(async ({ input }) => {
+            const result = await this.playerService.getPlayerOpponentsWithHeadToHead(input.playerId);
             return result;
         });
     }

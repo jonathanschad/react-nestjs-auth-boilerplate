@@ -2,15 +2,15 @@ import { useQuery } from 'react-query';
 import { client } from '@/api/client';
 import { getPlayerQueryKey } from '@/api/dart/player/player.queryKey';
 
-const getPlayerOpponents = async (playerId: string) => {
-    const response = await client.dart.player.getOpponents({ playerId });
+const getPlayerOpponentsWithHeadToHead = async (playerId: string) => {
+    const response = await client.dart.player.getOpponentsWithHeadToHead({ playerId });
     return response;
 };
 
-export const useGetPlayerOpponents = (playerUuid: string | undefined) => {
+export const useGetPlayerOpponentsWithHeadToHead = (playerUuid: string | undefined) => {
     return useQuery({
-        queryKey: [...getPlayerQueryKey(playerUuid ?? 'disabled'), 'opponents'],
-        queryFn: playerUuid ? () => getPlayerOpponents(playerUuid) : undefined,
+        queryKey: [...getPlayerQueryKey(playerUuid ?? 'disabled'), 'opponentsWithHeadToHead'],
+        queryFn: playerUuid ? () => getPlayerOpponentsWithHeadToHead(playerUuid) : undefined,
         enabled: !!playerUuid,
     });
 };

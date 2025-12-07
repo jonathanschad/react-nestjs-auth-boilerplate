@@ -1,68 +1,38 @@
-import type { GameEntityApiDTO } from '@darts/types';
+import type { HeadToHeadStats } from '@darts/types';
+import { Button } from '@darts/ui/components/button';
 import { Card } from '@darts/ui/components/card';
 import { Skeleton } from '@darts/ui/components/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';
 import { Typography } from '@darts/ui/components/typography';
 import { Translation } from '@darts/ui/i18n/Translation';
+import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { getGames } from '@/api/dart/game/useGetGames';
+import { useGetPlayerOpponentsWithHeadToHead } from '@/api/dart/player/useGetPlayerOpponents';
 import { UserTableCell } from '@/pages/ranking/UserTableCell';
-
-type HeadToHeadProps = {
-    playerIdA: string;
-    playerIdB: string;
-};
-
-type HeadToHeadStats = {
-    opponentId: string;
-    wins: number;
-    losses: number;
-    totalGames: number;
-    winRate: number;
-};
-
-const calculateHeadToHeadStats = (playerId: string, opponentId: string, games: GameEntityApiDTO[]): HeadToHeadStats => {
-    // Filter games where both players are involved
-    const headToHeadGames = games.filter(
-        (game) =>
-            (game.playerA.id === playerId && game.playerB.id === opponentId) ||
-            (game.playerA.id === opponentId && game.playerB.id === playerId),
-    );
-
-    const wins = headToHeadGames.filter((game) => game.winnerId === playerId).length;
-    const losses = headToHeadGames.length - wins;
-    const totalGames = headToHeadGames.length;
-    const winRate = totalGames > 0 ? wins / totalGames : 0;
-
-    return {
-        opponentId,
-        wins,
-        losses,
-        totalGames,
-        winRate,
-    };
-};
 
 type OpponentRowProps = {
     stats: HeadToHeadStats;
 };
 
+type SortField = 'winRate' | 'totalGames' | 'wins' | 'losses';
+type SortOrder = 'asc' | 'desc';
+
 const OpponentRow = ({ stats }: OpponentRowProps) => {
     return (
         <TableRow>
             <TableCell>
-                <UserTableCell userUuid={stats.opponentId} showName={true} avatarSize="sm" />
+                <UserTableCell userUuid={stats.opponent.id} showName={true} avatarSize="sm" />
             </TableCell>
             <TableCell>
                 <Typography as="normalText">{stats.totalGames}</Typography>
             </TableCell>
             <TableCell>
                 <Typography as="normalText">
-                    {stats.wins}W - {stats.losses}L
+                    {stats.player.wins}W - {stats.player.losses}L
                 </Typography>
             </TableCell>
             <TableCell>
-                <Typography as="normalText">{(stats.winRate * 100).toFixed(1)}%</Typography>
+                <Typography as="normalText">{(stats.player.winRate * 100).toFixed(1)}%</Typography>
             </TableCell>
         </TableRow>
     );
@@ -81,30 +51,91 @@ export const HeadToHeadSkeleton = () => {
     );
 };
 
-export const HeadToHead = ({ playerIdA, playerIdB }: HeadToHeadProps) => {
-    const [page, setPage] = useState(0);
+export const HeadToHead = ({ playerUuid }: { playerUuid: string }) => {
+    const [page, setPage] = useState(1);
+    const [sortBy, setSortBy] = useState<SortField>('winRate');
+    const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
     const pageSize = 5;
 
     const {
-        data: games,
-        isLoading: gamesLoading,
-        error: gamesError,
-    } = getGames({ filter: { playerIds: [playerIdA, playerIdB] }, page, pageSize });
+        data: headToHeadStats,
+        isLoading: headToHeadStatsLoading,
+        error: headToHeadStatsError,
+    } = useGetPlayerOpponentsWithHeadToHead(playerUuid);
 
-    const headToHeadStats = useMemo(() => {
-        if (!opponents || !gamesData?.data) return [];
+    // Sort and paginate data client-side
+    const { sortedAndPaginatedData, totalPages, totalCount } = useMemo(() => {
+        if (!headToHeadStats) {
+            return { sortedAndPaginatedData: [], totalPages: 0, totalCount: 0 };
+        }
 
-        return opponents
-            .map((opponent) => calculateHeadToHeadStats(playerId, opponent.opponentId, gamesData.data))
-            .filter((stats) => stats.totalGames > 0)
-            .sort((a, b) => b.totalGames - a.totalGames); // Sort by most games played
-    }, [opponents, gamesData?.data, playerId]);
+        // Sort the data
+        const sorted = [...headToHeadStats].sort((a, b) => {
+            let aValue: number;
+            let bValue: number;
 
-    if (opponentsLoading || gamesLoading) {
+            switch (sortBy) {
+                case 'winRate':
+                    aValue = a.player.winRate;
+                    bValue = b.player.winRate;
+                    break;
+                case 'totalGames':
+                    aValue = a.totalGames;
+                    bValue = b.totalGames;
+                    break;
+                case 'wins':
+                    aValue = a.player.wins;
+                    bValue = b.player.wins;
+                    break;
+                case 'losses':
+                    aValue = a.player.losses;
+                    bValue = b.player.losses;
+                    break;
+                default:
+                    aValue = a.player.winRate;
+                    bValue = b.player.winRate;
+            }
+
+            const multiplier = sortOrder === 'asc' ? 1 : -1;
+            return (aValue - bValue) * multiplier;
+        });
+
+        // Paginate the sorted data
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginated = sorted.slice(startIndex, endIndex);
+
+        return {
+            sortedAndPaginatedData: paginated,
+            totalPages: Math.ceil(sorted.length / pageSize),
+            totalCount: sorted.length,
+        };
+    }, [headToHeadStats, sortBy, sortOrder, page, pageSize]);
+
+    const handleSort = (field: SortField) => {
+        if (sortBy === field) {
+            // Toggle sort order
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+            // New sort field, default to desc
+            setSortBy(field);
+            setSortOrder('desc');
+        }
+        setPage(1); // Reset to first page when sorting changes
+    };
+
+    const getSortIcon = (field: SortField) => {
+        if (sortBy !== field) {
+            return <ArrowUpDown className="ml-1 h-4 w-4" />;
+        }
+        return sortOrder === 'asc' ? <ArrowUp className="ml-1 h-4 w-4" /> : <ArrowDown className="ml-1 h-4 w-4" />;
+    };
+
+    if (headToHeadStatsLoading) {
         return <HeadToHeadSkeleton />;
     }
 
-    if (opponentsError || gamesError || !opponents || !gamesData) {
+    if (headToHeadStatsError || !headToHeadStats) {
         return (
             <Card className="p-4">
                 <Typography as="p">
@@ -142,24 +173,65 @@ export const HeadToHead = ({ playerIdA, playerIdB }: HeadToHeadProps) => {
                             <TableHead>
                                 <Translation>opponent</Translation>
                             </TableHead>
-                            <TableHead>
-                                <Translation>gamesPlayed</Translation>
+                            <TableHead
+                                className="cursor-pointer select-none hover:bg-muted/50"
+                                onClick={() => handleSort('totalGames')}
+                            >
+                                <div className="flex items-center">
+                                    <Translation>gamesPlayed</Translation>
+                                    {getSortIcon('totalGames')}
+                                </div>
                             </TableHead>
                             <TableHead>
                                 <Translation>record</Translation>
                             </TableHead>
-                            <TableHead>
-                                <Translation>winRate</Translation>
+                            <TableHead
+                                className="cursor-pointer select-none hover:bg-muted/50"
+                                onClick={() => handleSort('winRate')}
+                            >
+                                <div className="flex items-center">
+                                    <Translation>winRate</Translation>
+                                    {getSortIcon('winRate')}
+                                </div>
                             </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {headToHeadStats.map((stats) => (
-                            <OpponentRow key={stats.opponentId} stats={stats} />
+                        {sortedAndPaginatedData.map((stats) => (
+                            <OpponentRow key={stats.opponent.id} stats={stats} />
                         ))}
                     </TableBody>
                 </Table>
             </div>
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+                <div className="mt-4 flex items-center justify-between">
+                    <Typography as="smallText" className="text-muted-foreground">
+                        <Translation>page</Translation> {page} <Translation>of</Translation> {totalPages} ({totalCount}{' '}
+                        <Translation>opponent</Translation>
+                        {totalCount !== 1 ? 's' : ''})
+                    </Typography>
+                    <div className="space-x-2">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setPage((p) => Math.max(1, p - 1))}
+                            disabled={page === 1}
+                        >
+                            <Translation>previous</Translation>
+                        </Button>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                            disabled={page === totalPages}
+                        >
+                            <Translation>next</Translation>
+                        </Button>
+                    </div>
+                </div>
+            )}
         </Card>
     );
 };

@@ -40,14 +40,36 @@ export const playerDetailsResponseSchema = z.object({
     }),
 });
 
+export const playerSummaryStatsDetailsSchema = z.object({
+    bullOffWins: z.number().int(),
+    bullOffLosses: z.number().int(),
+    bullOffWinRate: z.number(),
+    averageScore: z.number(),
+    averageUntilFirstPossibleFinish: z.number(),
+    throwsOnDouble: z.number(),
+});
+
+export const playerSummaryStatsSchema = z.object({
+    id: z.uuid(),
+    details: playerSummaryStatsDetailsSchema.optional(),
+    wins: z.number().int(),
+    losses: z.number().int(),
+    winRate: z.number(),
+});
+
+export const headToHeadStatsSchema = z.object({
+    player: playerSummaryStatsSchema,
+    opponent: playerSummaryStatsSchema,
+    totalGames: z.number().int(),
+});
+
 // Player Opponents Response
-export const playerOpponentsResponseSchema = z.array(
-    z.object({
-        opponentId: z.uuid(),
-    }),
-);
+export const playerOpponentsResponseSchema = z.array(headToHeadStatsSchema);
 
 // Type exports
 export type PlayerResponseDTO = z.infer<typeof playerResponseSchema>;
 export type PlayerDetailsResponseDTO = z.infer<typeof playerDetailsResponseSchema>;
 export type PlayerOpponentsResponseDTO = z.infer<typeof playerOpponentsResponseSchema>;
+export type HeadToHeadStats = z.infer<typeof headToHeadStatsSchema>;
+export type PlayerSummaryStats = z.infer<typeof playerSummaryStatsSchema>;
+export type PlayerSummaryStatsDetails = z.infer<typeof playerSummaryStatsDetailsSchema>;
