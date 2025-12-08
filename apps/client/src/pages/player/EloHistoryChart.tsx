@@ -107,10 +107,11 @@ export const EloHistoryChart = ({ playerUuid }: EloHistoryChartProps) => {
     const minElo = Math.floor(Math.min(...eloValues) / 50) * 50;
     const maxElo = Math.ceil(Math.max(...eloValues) / 50) * 50;
 
-    // Calculate time domain for proper time-based scaling
-    const timeValues = chartData.map((d) => d.timestamp);
-    const minTime = Math.min(...timeValues);
-    const maxTime = Math.max(...timeValues);
+    // Fixed time domain: always one year from now
+    const now = Date.now();
+    const oneYearAgo = now - 1000 * 60 * 60 * 24 * 365;
+    const minTime = oneYearAgo;
+    const maxTime = now;
 
     // Calculate evenly distributed ticks for X-axis (not tied to data points)
     const timeRange = maxTime - minTime;

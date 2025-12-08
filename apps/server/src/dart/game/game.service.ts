@@ -48,6 +48,8 @@ export class GameService {
     ) {}
 
     async createGame(uuid: string, createGameDto: CreateGameDTO, sendSlackNotification: boolean = false) {
+        uuid = uuid.toLowerCase();
+
         const playerA = await this.databaseUserService.findByUuid(createGameDto.playerAId);
         const playerB = await this.databaseUserService.findByUuid(createGameDto.playerBId);
 
