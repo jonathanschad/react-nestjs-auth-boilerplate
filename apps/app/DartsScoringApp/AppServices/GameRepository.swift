@@ -126,12 +126,12 @@ class GameRepository {
             return GameVisitRequest(
                 playerId: playerId,
                 visitNumber: index,
-                throw1: dartThrows.count > 0 ? dartThrows[0].number : nil,
-                throw1Multiplier: dartThrows.count > 0 ? dartThrows[0].multiplier.multiplier : nil,
-                throw2: dartThrows.count > 1 ? dartThrows[1].number : nil,
-                throw2Multiplier: dartThrows.count > 1 ? dartThrows[1].multiplier.multiplier : nil,
-                throw3: dartThrows.count > 2 ? dartThrows[2].number : nil,
-                throw3Multiplier: dartThrows.count > 2 ? dartThrows[2].multiplier.multiplier : nil
+                throw1: dartThrows.count > 0 ? dartThrows[0].number : 0,
+                throw1Multiplier: dartThrows.count > 0 ? dartThrows[0].multiplier.multiplier : 1,
+                throw2: dartThrows.count > 1 ? dartThrows[1].number : 0,
+                throw2Multiplier: dartThrows.count > 1 ? dartThrows[1].multiplier.multiplier : 1,
+                throw3: dartThrows.count > 2 ? dartThrows[2].number : 0,
+                throw3Multiplier: dartThrows.count > 2 ? dartThrows[2].multiplier.multiplier : 1
             )
         }
     }

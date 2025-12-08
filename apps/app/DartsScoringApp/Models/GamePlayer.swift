@@ -58,9 +58,9 @@ class GamePlayer: ObservableObject, Identifiable, Equatable {
         // Bei negativem Score oder Überwerfen bleibt der Score unverändert
     }
 
-    func finishRound() {
+    func finishRound(isBust: Bool = false) {
         if !currentRoundThrows.isEmpty {
-            let round = DartRound(dartThrows: currentRoundThrows)
+            let round = DartRound(dartThrows: currentRoundThrows, isBust: isBust)
             rounds.append(round)
             currentRoundThrows = []
         }

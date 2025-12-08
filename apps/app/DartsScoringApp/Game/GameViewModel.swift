@@ -84,10 +84,8 @@ class GameViewModel: ObservableObject {
 
         // Check if throw is valid
         if !currentPlayer.canMakeThrow(dartThrow, gameMode: gameSettings.gameMode) {
-            // Invalid throw (bust or invalid finish) - count as a throw but don't apply score
-            clearCurrentRound()
-            makeNoScore()
-
+            // Invalid throw (bust or invalid finish) - track the actual throw that caused the bust
+            handleBustThrow(dartThrow)
             return
         }
 
@@ -133,7 +131,6 @@ class GameViewModel: ObservableObject {
     func makeNoScore() {
         guard case .playing = gameState else { return }
 
-
         clearCurrentRound()
 
         let dartThrow = DartThrow(number: 0, multiplier: .single)
@@ -144,6 +141,45 @@ class GameViewModel: ObservableObject {
         currentThrowInTurn = 3
         finishTurn()
 
+        // Reset multiplier to single
+        selectedMultiplier = .single
+    }
+    
+    func handleBustThrow(_ bustThrow: DartThrow) {
+        guard case .playing = gameState else { return }
+        
+        // Calculate the score that was deducted in this round so far
+        let scoreDeductedThisRound = currentPlayer.currentRoundThrows.reduce(0) { sum, dartThrow in
+            sum + dartThrow.score
+        }
+        
+        // Restore the score to what it was at the start of the round
+        currentPlayer.currentScore += scoreDeductedThisRound
+        
+        // Add the bust throw to dartThrows and currentRoundThrows
+        // but DON'T update the score (bust means score reverts to start of round)
+        currentPlayer.dartThrows.append(bustThrow)
+        currentPlayer.currentRoundThrows.append(bustThrow)
+        currentThrowInTurn += 1
+        
+        // Pad remaining throws with zeros to complete the round
+        let zeroThrow = DartThrow(number: 0, multiplier: .single)
+        while currentThrowInTurn < 3 {
+            currentPlayer.dartThrows.append(zeroThrow)
+            currentPlayer.currentRoundThrows.append(zeroThrow)
+            currentThrowInTurn += 1
+        }
+        
+        // Play bust sound (0 points scored)
+        soundManager.playScoreSound(score: 0)
+        
+        // Finish the round marked as a bust (shows 0 points but keeps actual throws)
+        currentPlayer.finishRound(isBust: true)
+        
+        // Switch to other player
+        currentPlayerIndex = (currentPlayerIndex + 1) % 2
+        currentThrowInTurn = 0
+        
         // Reset multiplier to single
         selectedMultiplier = .single
     }

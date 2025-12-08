@@ -21,10 +21,10 @@ struct CreateGameRequest: Encodable {
 struct GameVisitRequest: Encodable {
     let playerId: String
     let visitNumber: Int
-    let throw1: Int?
-    let throw1Multiplier: Int?
-    let throw2: Int?
-    let throw2Multiplier: Int?
-    let throw3: Int?
-    let throw3Multiplier: Int?
+    let throw1: Int
+    let throw1Multiplier: Int
+    let throw2: Int
+    let throw2Multiplier: Int
+    let throw3: Int
+    let throw3Multiplier: Int
 }
