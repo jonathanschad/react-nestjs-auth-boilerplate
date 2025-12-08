@@ -1,4 +1,4 @@
-import { GameStatisticsIndividual, GameTurn, GameType, Prisma } from '@darts/prisma';
+import { GameStatisticsIndividual, GameType, GameVisit, GameVisitOutcome, Prisma } from '@darts/prisma';
 import type {
     CreateGameDTO,
     EloRating,
@@ -22,7 +22,7 @@ import { getPointsForGameType, getPossibleFinishes } from '@/util/darts';
 
 type GameHistory = {
     pointsScored: number;
-    turnNumber: number;
+    visitNumber: number;
     scoreBeforeThrow: number;
     scoreAfterThrow: number;
 };
@@ -56,9 +56,51 @@ export class GameService {
 
         const loser = createGameDto.winnerId === playerA.id ? playerB : playerA;
 
-        const firstThrow = createGameDto.turns.find((turn) => turn.turnNumber === 0);
+        createGameDto.visits.sort((a, b) => a.visitNumber - b.visitNumber);
+        const firstVisit = createGameDto.visits[0];
 
-        createGameDto.turns.sort((a, b) => a.turnNumber - b.turnNumber);
+        // Calculate scores and outcomes for each visit
+        const startingScore = getPointsForGameType(createGameDto.type);
+        const playerScores = new Map<string, number>([
+            [playerA.id, startingScore],
+            [playerB.id, startingScore],
+        ]);
+
+        const visitsWithCalculations = createGameDto.visits.map((visit, index): Prisma.GameVisitCreateManyGameInput => {
+            const currentScore = playerScores.get(visit.playerId) ?? startingScore;
+            const totalScored =
+                (visit.throw1 ?? 0) * (visit.throw1Multiplier ?? 1) +
+                (visit.throw2 ?? 0) * (visit.throw2Multiplier ?? 1) +
+                (visit.throw3 ?? 0) * (visit.throw3Multiplier ?? 1);
+
+            const newScore = currentScore - totalScored;
+            let outcome: GameVisitOutcome;
+
+            if (newScore < 0 || (createGameDto.checkoutMode !== 'SINGLE_OUT' && newScore === 1)) {
+                outcome = GameVisitOutcome.BUSTED;
+                // Score remains the same on bust
+            } else if (totalScored === 0) {
+                outcome = GameVisitOutcome.MISS;
+            } else {
+                playerScores.set(visit.playerId, newScore);
+                outcome = GameVisitOutcome.HIT;
+            }
+
+            return {
+                playerId: visit.playerId,
+                visitNumber: index,
+                throw1: visit.throw1,
+                throw1Multiplier: visit.throw1Multiplier,
+                throw2: visit.throw2,
+                throw2Multiplier: visit.throw2Multiplier,
+                throw3: visit.throw3,
+                throw3Multiplier: visit.throw3Multiplier,
+                totalScored,
+                remainingScoreBefore: currentScore,
+                remainingScoreAfter: outcome === GameVisitOutcome.HIT ? newScore : currentScore,
+                outcome,
+            };
+        });
 
         const game = await this.databaseGameService.createGame({
             id: uuid,
@@ -68,29 +110,12 @@ export class GameService {
             gameEnd: createGameDto.gameEnd,
             winnerId: createGameDto.winnerId,
             loserId: loser.id,
-            bullOffWinnerId: firstThrow?.playerId,
+            bullOffWinnerId: firstVisit?.playerId,
             type: createGameDto.type,
             checkoutMode: createGameDto.checkoutMode,
-            turns: {
+            visits: {
                 createMany: {
-                    data: [
-                        ...createGameDto.turns.map(
-                            (turn, index): Prisma.GameTurnCreateManyGameInput => ({
-                                totalScore:
-                                    (turn.throw1 ?? 0) * (turn.throw1Multiplier ?? 1) +
-                                    (turn.throw2 ?? 0) * (turn.throw2Multiplier ?? 1) +
-                                    (turn.throw3 ?? 0) * (turn.throw3Multiplier ?? 1),
-                                playerId: turn.playerId,
-                                turnNumber: index,
-                                throw1: turn.throw1,
-                                throw1Multiplier: turn.throw1Multiplier,
-                                throw2: turn.throw2,
-                                throw2Multiplier: turn.throw2Multiplier,
-                                throw3: turn.throw3,
-                                throw3Multiplier: turn.throw3Multiplier,
-                            }),
-                        ),
-                    ],
+                    data: visitsWithCalculations,
                 },
             },
         });
@@ -124,77 +149,77 @@ export class GameService {
     }
 
     private async upsertGameStatistics(gameId: string) {
-        const game = await this.databaseGameService.getGameWithTurnsById(gameId);
+        const game = await this.databaseGameService.getGameWithVisitsById(gameId);
 
-        const playerAThrows = game.turns.filter((turn) => turn.playerId === game.playerAId);
-        const playerBThrows = game.turns.filter((turn) => turn.playerId === game.playerBId);
+        const playerAVisits = game.visits.filter((visit) => visit.playerId === game.playerAId);
+        const playerBVisits = game.visits.filter((visit) => visit.playerId === game.playerBId);
 
-        if (playerAThrows.length > 0) {
+        if (playerAVisits.length > 0) {
             await this.databaseGameStatisticService.upsertGameStatistics({
                 gameId: game.id,
                 playerId: game.playerAId,
-                averageScore: this.getAverageScore(playerAThrows),
-                averageUntilFirstPossibleFinish: this.getAverageUntil50Points(playerAThrows, game.type),
-                throwsOnDouble: this.getThrowsOnDouble(playerAThrows, game.type),
-                wonBullOff: game.turns[0].playerId === game.playerAId,
+                averageScore: this.getAverageScore(playerAVisits),
+                averageUntilFirstPossibleFinish: this.getAverageUntil50Points(playerAVisits, game.type),
+                throwsOnDouble: this.getThrowsOnDouble(playerAVisits, game.type),
+                wonBullOff: game.visits[0].playerId === game.playerAId,
             });
         }
 
-        if (playerBThrows.length > 0) {
+        if (playerBVisits.length > 0) {
             await this.databaseGameStatisticService.upsertGameStatistics({
                 gameId: game.id,
                 playerId: game.playerBId,
-                averageScore: this.getAverageScore(playerBThrows),
-                averageUntilFirstPossibleFinish: this.getAverageUntil50Points(playerBThrows, game.type),
-                throwsOnDouble: this.getThrowsOnDouble(playerBThrows, game.type),
-                wonBullOff: game.turns[0].playerId === game.playerBId,
+                averageScore: this.getAverageScore(playerBVisits),
+                averageUntilFirstPossibleFinish: this.getAverageUntil50Points(playerBVisits, game.type),
+                throwsOnDouble: this.getThrowsOnDouble(playerBVisits, game.type),
+                wonBullOff: game.visits[0].playerId === game.playerBId,
             });
         }
     }
 
-    public getAverageScore(throws: GameTurn[]) {
-        return Math.round((throws.reduce((acc, turn) => acc + turn.totalScore, 0) / throws.length) * 10) / 10;
+    public getAverageScore(visits: GameVisit[]) {
+        return Math.round((visits.reduce((acc, visit) => acc + visit.totalScored, 0) / visits.length) * 10) / 10;
     }
 
-    public getAverageUntil50Points(throws: GameTurn[], gameType: GameType) {
-        const gameHistory = this.getGameHistory(throws, gameType);
+    public getAverageUntil50Points(visits: GameVisit[], gameType: GameType) {
+        const gameHistory = this.getGameHistory(visits, gameType);
 
-        const gameHistoryFiltered = gameHistory.filter((turn) => turn.scoreAfterThrow > 50);
+        const gameHistoryFiltered = gameHistory.filter((visit) => visit.scoreAfterThrow > 50);
 
         return (
             Math.round(
-                (gameHistoryFiltered.reduce((acc, turn) => acc + turn.pointsScored, 0) / gameHistoryFiltered.length) *
+                (gameHistoryFiltered.reduce((acc, visit) => acc + visit.pointsScored, 0) / gameHistoryFiltered.length) *
                     10,
             ) / 10
         );
     }
 
-    public getThrowsOnDouble(throws: GameTurn[], gameType: GameType) {
-        const gameHistory = this.getGameHistory(throws, gameType);
+    public getThrowsOnDouble(visits: GameVisit[], gameType: GameType) {
+        const gameHistory = this.getGameHistory(visits, gameType);
         const possibleFinishes = getPossibleFinishes();
 
-        const gameHistoryFiltered = gameHistory.filter((turn) => possibleFinishes.includes(turn.scoreBeforeThrow));
+        const gameHistoryFiltered = gameHistory.filter((visit) => possibleFinishes.includes(visit.scoreBeforeThrow));
 
         return gameHistoryFiltered.length;
     }
 
-    private getGameHistory(throws: GameTurn[], gameType: GameType): GameHistory[] {
-        const points = throws.flatMap((turn) => [
+    private getGameHistory(visits: GameVisit[], gameType: GameType): GameHistory[] {
+        const points = visits.flatMap((visit) => [
             {
-                pointsScored: (turn.throw1 ?? 0) * (turn.throw1Multiplier ?? 1),
-                turnNumber: turn.turnNumber,
+                pointsScored: (visit.throw1 ?? 0) * (visit.throw1Multiplier ?? 1),
+                visitNumber: visit.visitNumber,
                 scoreAfterThrow: 0,
                 scoreBeforeThrow: 0,
             },
             {
-                pointsScored: (turn.throw2 ?? 0) * (turn.throw2Multiplier ?? 1),
-                turnNumber: turn.turnNumber,
+                pointsScored: (visit.throw2 ?? 0) * (visit.throw2Multiplier ?? 1),
+                visitNumber: visit.visitNumber,
                 scoreAfterThrow: 0,
                 scoreBeforeThrow: 0,
             },
             {
-                pointsScored: (turn.throw3 ?? 0) * (turn.throw3Multiplier ?? 1),
-                turnNumber: turn.turnNumber,
+                pointsScored: (visit.throw3 ?? 0) * (visit.throw3Multiplier ?? 1),
+                visitNumber: visit.visitNumber,
                 scoreAfterThrow: 0,
                 scoreBeforeThrow: 0,
             },

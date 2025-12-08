@@ -13,12 +13,12 @@ struct CreateGameRequest: Encodable {
     let winnerId: String
     let gameStart: Date
     let gameEnd: Date
-    let turns: [GameTurnRequest]
+    let visits: [GameVisitRequest]
 }
 
-struct GameTurnRequest: Encodable {
+struct GameVisitRequest: Encodable {
     let playerId: String
-    let turnNumber: Int
+    let visitNumber: Int
     let throw1: Int?
     let throw1Multiplier: Int?
     let throw2: Int?

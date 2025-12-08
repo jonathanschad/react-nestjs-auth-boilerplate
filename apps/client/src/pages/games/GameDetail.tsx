@@ -1,4 +1,4 @@
-import type { GameTurnEntityApiDTO } from '@darts/types';
+import type { GameVisitEntityApiDTO } from '@darts/types';
 import { Button } from '@darts/ui/components/button';
 import { Card } from '@darts/ui/components/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';
@@ -136,15 +136,15 @@ const formatThrow = ({ value, multiplier }: { value: number | null; multiplier: 
     return `${multiplierStr}${value}`;
 };
 
-const TurnRow = ({ turn, turnNumber }: { turn: GameTurnEntityApiDTO; turnNumber: number }) => {
-    const throw1 = formatThrow({ value: turn.throw1, multiplier: turn.throw1Multiplier });
-    const throw2 = formatThrow({ value: turn.throw2, multiplier: turn.throw2Multiplier });
-    const throw3 = formatThrow({ value: turn.throw3, multiplier: turn.throw3Multiplier });
+const VisitRow = ({ visit, visitNumber }: { visit: GameVisitEntityApiDTO; visitNumber: number }) => {
+    const throw1 = formatThrow({ value: visit.throw1, multiplier: visit.throw1Multiplier });
+    const throw2 = formatThrow({ value: visit.throw2, multiplier: visit.throw2Multiplier });
+    const throw3 = formatThrow({ value: visit.throw3, multiplier: visit.throw3Multiplier });
 
     return (
         <TableRow>
             <TableCell>
-                <Typography as="normalText">{turnNumber}</Typography>
+                <Typography as="normalText">{visitNumber}</Typography>
             </TableCell>
             <TableCell>
                 <Typography as="normalText">{throw1}</Typography>
@@ -157,15 +157,20 @@ const TurnRow = ({ turn, turnNumber }: { turn: GameTurnEntityApiDTO; turnNumber:
             </TableCell>
             <TableCell>
                 <Typography as="normalText" className="font-semibold">
-                    {turn.totalScore}
+                    {visit.totalScored}
                 </Typography>
+            </TableCell>
+            <TableCell>
+                <Typography as="normalText">{visit.remainingScoreAfter}</Typography>
             </TableCell>
         </TableRow>
     );
 };
 
-const TurnsTable = ({ turns, playerId }: { turns: GameTurnEntityApiDTO[]; playerId: string }) => {
-    const playerTurns = turns.filter((turn) => turn.playerId === playerId).sort((a, b) => a.turnNumber - b.turnNumber);
+const VisitsTable = ({ visits, playerId }: { visits: GameVisitEntityApiDTO[]; playerId: string }) => {
+    const playerVisits = visits
+        .filter((visit) => visit.playerId === playerId)
+        .sort((a, b) => a.visitNumber - b.visitNumber);
 
     return (
         <div className="overflow-auto rounded-md border">
@@ -173,7 +178,7 @@ const TurnsTable = ({ turns, playerId }: { turns: GameTurnEntityApiDTO[]; player
                 <TableHeader>
                     <TableRow>
                         <TableHead>
-                            <Translation>turn</Translation>
+                            <Translation>visit</Translation>
                         </TableHead>
                         <TableHead>
                             <Translation>throw1</Translation>
@@ -185,13 +190,16 @@ const TurnsTable = ({ turns, playerId }: { turns: GameTurnEntityApiDTO[]; player
                             <Translation>throw3</Translation>
                         </TableHead>
                         <TableHead>
-                            <Translation>totalScore</Translation>
+                            <Translation>scored</Translation>
+                        </TableHead>
+                        <TableHead>
+                            <Translation>remaining</Translation>
                         </TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {playerTurns.map((turn) => (
-                        <TurnRow key={turn.id} turn={turn} turnNumber={turn.turnNumber + 1} />
+                    {playerVisits.map((visit) => (
+                        <VisitRow key={visit.id} visit={visit} visitNumber={visit.visitNumber + 1} />
                     ))}
                 </TableBody>
             </Table>
@@ -245,8 +253,8 @@ export const GameDetail = () => {
         sigma: game.playerB.openSkillHistory.sigmaAfter - game.playerB.openSkillHistory.sigmaBefore,
     };
 
-    // Combine and sort all turns chronologically
-    const allTurns = [...game.playerA.turns, ...game.playerB.turns].sort((a, b) => a.turnNumber - b.turnNumber);
+    // Combine and sort all visits chronologically
+    const allVisits = [...game.playerA.visits, ...game.playerB.visits].sort((a, b) => a.visitNumber - b.visitNumber);
 
     return (
         <div className="mx-auto flex h-full w-full max-w-6xl flex-col gap-6">
@@ -292,10 +300,10 @@ export const GameDetail = () => {
                 openSkillChange={openSkillChangeB}
             />
 
-            {/* Turn-by-turn breakdown */}
+            {/* Visit-by-visit breakdown */}
             <Card className="p-6">
                 <Typography as="h2" className="mb-4">
-                    <Translation>turnByTurn</Translation>
+                    <Translation>visitByVisit</Translation>
                 </Typography>
 
                 <div className="grid gap-6 md:grid-cols-2">
@@ -303,13 +311,13 @@ export const GameDetail = () => {
                         <Typography as="h3" className="mb-3">
                             <Translation>playerA</Translation>
                         </Typography>
-                        <TurnsTable turns={allTurns} playerId={game.playerA.id} />
+                        <VisitsTable visits={allVisits} playerId={game.playerA.id} />
                     </div>
                     <div>
                         <Typography as="h3" className="mb-3">
                             <Translation>playerB</Translation>
                         </Typography>
-                        <TurnsTable turns={allTurns} playerId={game.playerB.id} />
+                        <VisitsTable visits={allVisits} playerId={game.playerB.id} />
                     </div>
                 </div>
             </Card>

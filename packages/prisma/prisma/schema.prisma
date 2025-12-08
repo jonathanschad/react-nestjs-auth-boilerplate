@@ -34,7 +34,7 @@ model User {
   files            FilePermission[]
   gamesPlayerA     Game[] @relation("PlayerA")
   gamesPlayerB     Game[] @relation("PlayerB")
-  gameTurns        GameTurn[]
+  gameVisits       GameVisit[]
   bullOffWins      Game[] @relation("BullOffWinner")
   wins             Game[] @relation("Winner")
   losses           Game[] @relation("Loser")
@@ -217,7 +217,7 @@ model Game {
   loser User @relation("Loser", fields: [loserId], references: [id])
   type GameType
   checkoutMode GameCheckoutMode
-  turns GameTurn[]
+  visits GameVisit[]
   gameStatistics GameStatisticsIndividual[]
   eloHistory EloHistory[]
   openSkillHistory OpenSkillHistory[]
@@ -239,7 +239,12 @@ model GameStatisticsIndividual {
   @@unique([gameId, playerId])
 }
 
-model GameTurn {
+enum GameVisitOutcome {
+  BUSTED
+  HIT
+  MISS
+}
+model GameVisit {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -247,14 +252,18 @@ model GameTurn {
   game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
   playerId String
   player User @relation(fields: [playerId], references: [id])
-  turnNumber Int
+  visitNumber Int
   throw1 Int?
   throw1Multiplier Int?
   throw2 Int?
   throw2Multiplier Int?
   throw3 Int?
   throw3Multiplier Int?
-  totalScore Int
+  totalScored Int
+  remainingScoreBefore Int
+  remainingScoreAfter Int
+  outcome GameVisitOutcome
 
-  @@unique([gameId, turnNumber, playerId])
+
+  @@unique([gameId, visitNumber, playerId])
 }

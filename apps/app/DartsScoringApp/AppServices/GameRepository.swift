@@ -26,11 +26,11 @@ class GameRepository {
         winner: Player
     ) async throws {
         // Convert game data to backend format
-        let turnsA = convertRoundsToTurns(rounds: playerA.rounds, playerId: playerA.player.id)
-        let turnsB = convertRoundsToTurns(rounds: playerB.rounds, playerId: playerB.player.id)
+        let visitsA = convertRoundsToVisits(rounds: playerA.rounds, playerId: playerA.player.id)
+        let visitsB = convertRoundsToVisits(rounds: playerB.rounds, playerId: playerB.player.id)
 
-        // Combine and sort turns by turn number
-        let allTurns = (turnsA + turnsB).sorted { $0.turnNumber < $1.turnNumber }
+        // Combine and sort visits by visit number
+        let allVisits = (visitsA + visitsB).sorted { $0.visitNumber < $1.visitNumber }
 
         // Game end time is now
         let gameEndTime = Date()
@@ -41,7 +41,7 @@ class GameRepository {
             winnerId: winner.id,
             gameStart: gameStartTime,
             gameEnd: gameEndTime,
-            turns: allTurns
+            visits: allVisits
         )
 
         return try await withCheckedThrowingContinuation { continuation in
@@ -59,7 +59,7 @@ class GameRepository {
                 print("📤 Player A: \(playerA.player.name) (\(playerA.player.id))")
                 print("📤 Player B: \(playerB.player.name) (\(playerB.player.id))")
                 print("📤 Winner: \(winner.name) (\(winner.id))")
-                print("📤 Total Turns: \(allTurns.count)")
+                print("📤 Total Visits: \(allVisits.count)")
 
                 // Log the response
                 if let statusCode = response.response?.statusCode {
@@ -87,13 +87,13 @@ class GameRepository {
         }
     }
 
-    private func convertRoundsToTurns(rounds: [DartRound], playerId: String) -> [GameTurnRequest] {
+    private func convertRoundsToVisits(rounds: [DartRound], playerId: String) -> [GameVisitRequest] {
         return rounds.enumerated().map { index, round in
             let dartThrows = round.dartThrows
 
-            return GameTurnRequest(
+            return GameVisitRequest(
                 playerId: playerId,
-                turnNumber: index,
+                visitNumber: index,
                 throw1: dartThrows.count > 0 ? dartThrows[0].number : nil,
                 throw1Multiplier: dartThrows.count > 0 ? dartThrows[0].multiplier.multiplier : nil,
                 throw2: dartThrows.count > 1 ? dartThrows[1].number : nil,

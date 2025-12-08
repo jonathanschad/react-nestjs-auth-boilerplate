@@ -12,9 +12,10 @@
         "format:verify": "biome check",
         "format": "biome check --write",
         "tsc": "turbo tsc",
-        "postinstall": "pnpm generate:prisma",
-        "generate:prisma": "pnpm --filter @darts/prisma db:generate",
-        "db:migrate": "pnpm --filter @darts/prisma db:migrate"
+        "postinstall": "pnpm db:generate-client-and-types",
+        "db:generate-client-and-types": "pnpm --filter @darts/prisma db:generate-client-and-types",
+        "db:create-migration": "pnpm --filter @darts/prisma db:create-migration",
+        "db:apply-migration": "pnpm --filter @darts/prisma db:apply-migration"
     },
     "keywords": [],
     "author": "",

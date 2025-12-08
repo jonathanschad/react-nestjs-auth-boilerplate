@@ -7,7 +7,7 @@ import { DatabaseFileService } from '@/database/database-file/database-file.serv
 import { EmailVerificationTokenService } from '@/database/email-verification-token/email-verification-token.service';
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseGameStatisticService } from '@/database/game/game-statistic.service';
-import { DatabaseGameTurnService } from '@/database/game/game-turn.service';
+import { DatabaseGameVisitService } from '@/database/game/game-visit.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseOpenSkillHistoryService } from '@/database/history/openskill-history.service';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
@@ -25,7 +25,7 @@ import { DatabaseUserService } from '@/database/user/user.service';
         DatabaseGameService,
         DatabaseEloHistoryService,
         DatabaseGameStatisticService,
-        DatabaseGameTurnService,
+        DatabaseGameVisitService,
         AccessTokenService,
         RefreshTokenService,
         EmailVerificationTokenService,
@@ -41,7 +41,7 @@ import { DatabaseUserService } from '@/database/user/user.service';
         DatabaseGameService,
         DatabaseEloHistoryService,
         DatabaseGameStatisticService,
-        DatabaseGameTurnService,
+        DatabaseGameVisitService,
         AccessTokenService,
         RefreshTokenService,
         EmailVerificationTokenService,

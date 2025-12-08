@@ -3,11 +3,11 @@ import { GameEntityApiDTO, GameFilter, Pagination } from '@darts/types';
 import { Injectable } from '@nestjs/common';
 import assert from 'assert';
 import { PrismaService } from '@/database/prisma.service';
-import { GameWithTurns } from '@/types/prisma';
+import { GameWithVisits } from '@/types/prisma';
 
 export type GameWithExpandedRelations = Prisma.GameGetPayload<{
     include: {
-        turns: true;
+        visits: true;
         gameStatistics: true;
         eloHistory: true;
         openSkillHistory: true;
@@ -39,9 +39,9 @@ export class DatabaseGameService {
             skip,
             take,
             include: {
-                turns: {
+                visits: {
                     orderBy: {
-                        turnNumber: 'asc',
+                        visitNumber: 'asc',
                     },
                 },
                 gameStatistics: true,
@@ -78,13 +78,13 @@ export class DatabaseGameService {
         });
     }
 
-    async getGameWithTurnsById(id: string): Promise<GameWithTurns> {
+    async getGameWithVisitsById(id: string): Promise<GameWithVisits> {
         return this.prisma.game.findFirstOrThrow({
             where: { id },
             include: {
-                turns: {
+                visits: {
                     orderBy: {
-                        turnNumber: 'asc',
+                        visitNumber: 'asc',
                     },
                 },
             },
@@ -95,7 +95,7 @@ export class DatabaseGameService {
         return this.prisma.game.findFirstOrThrow({
             where: { id },
             include: {
-                turns: true,
+                visits: true,
                 gameStatistics: true,
                 eloHistory: true,
                 openSkillHistory: true,
@@ -184,7 +184,7 @@ export class DatabaseGameService {
         const games = await this.prisma.game.findMany({
             where,
             include: {
-                turns: true,
+                visits: true,
                 gameStatistics: true,
                 eloHistory: true,
                 openSkillHistory: true,
@@ -233,7 +233,7 @@ export class DatabaseGameService {
         await this.prisma.gameStatisticsIndividual.deleteMany();
         await this.prisma.eloHistory.deleteMany();
         await this.prisma.openSkillHistory.deleteMany();
-        await this.prisma.gameTurn.deleteMany();
+        await this.prisma.gameVisit.deleteMany();
         await this.prisma.game.deleteMany();
     }
 
@@ -252,14 +252,14 @@ export class DatabaseGameService {
             id: game.id,
             playerA: {
                 id: game.playerAId,
-                turns: game.turns.filter((turn) => turn.playerId === game.playerAId),
+                visits: game.visits.filter((visit) => visit.playerId === game.playerAId),
                 gameStatistics: game.gameStatistics.find((stat) => stat.playerId === game.playerAId),
                 eloHistory: playerAEloHistory,
                 openSkillHistory: playerAOpenSkillHistory,
             },
             playerB: {
                 id: game.playerBId,
-                turns: game.turns.filter((turn) => turn.playerId === game.playerBId),
+                visits: game.visits.filter((visit) => visit.playerId === game.playerBId),
                 gameStatistics: game.gameStatistics.find((stat) => stat.playerId === game.playerBId),
                 eloHistory: playerBEloHistory,
                 openSkillHistory: playerBOpenSkillHistory,

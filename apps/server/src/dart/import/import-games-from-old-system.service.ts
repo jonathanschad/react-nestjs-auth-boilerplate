@@ -115,7 +115,7 @@ export class ImportGamesFromOldSystemService {
                 gameEnd: game.date.toISOString(),
                 type,
                 checkoutMode: GameCheckoutMode.DOUBLE_OUT,
-                turns: [],
+                visits: [],
             },
             false,
         );
