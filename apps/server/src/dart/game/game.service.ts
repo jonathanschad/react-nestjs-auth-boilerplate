@@ -1,4 +1,4 @@
-import { GameStatisticsIndividual, GameType, GameVisit, GameVisitOutcome, Prisma } from '@darts/prisma';
+import { GameStatisticsIndividual, GameVisit, GameVisitOutcome, Prisma } from '@darts/prisma';
 import type {
     CreateGameDTO,
     EloRating,
@@ -18,7 +18,7 @@ import { DatabaseGameStatisticService } from '@/database/game/game-statistic.ser
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 import { SlackService } from '@/slack/slack.service';
-import { getPointsForGameType, getPossibleFinishes } from '@/util/darts';
+import { getGameTypeFromScore, getPointsForGameType, getPossibleFinishes } from '@/util/darts';
 
 type GameHistory = {
     pointsScored: number;
@@ -159,8 +159,8 @@ export class GameService {
                 gameId: game.id,
                 playerId: game.playerAId,
                 averageScore: this.getAverageScore(playerAVisits),
-                averageUntilFirstPossibleFinish: this.getAverageUntil50Points(playerAVisits, game.type),
-                throwsOnDouble: this.getThrowsOnDouble(playerAVisits, game.type),
+                averageUntilFirstPossibleFinish: this.getAverageUntil60Points(playerAVisits),
+                throwsOnDouble: this.getThrowsOnDouble(playerAVisits),
                 wonBullOff: game.visits[0].playerId === game.playerAId,
             });
         }
@@ -170,40 +170,76 @@ export class GameService {
                 gameId: game.id,
                 playerId: game.playerBId,
                 averageScore: this.getAverageScore(playerBVisits),
-                averageUntilFirstPossibleFinish: this.getAverageUntil50Points(playerBVisits, game.type),
-                throwsOnDouble: this.getThrowsOnDouble(playerBVisits, game.type),
+                averageUntilFirstPossibleFinish: this.getAverageUntil60Points(playerBVisits),
+                throwsOnDouble: this.getThrowsOnDouble(playerBVisits),
                 wonBullOff: game.visits[0].playerId === game.playerBId,
             });
         }
     }
 
-    public getAverageScore(visits: GameVisit[]) {
-        return Math.round((visits.reduce((acc, visit) => acc + visit.totalScored, 0) / visits.length) * 10) / 10;
+    public async recalculateAllGameStatistics() {
+        const games = await this.databaseGameService.getAllGamesAsc();
+
+        for (const game of games) {
+            await this.upsertGameStatistics(game.id);
+        }
+
+        return { recalculated: games.length };
     }
 
-    public getAverageUntil50Points(visits: GameVisit[], gameType: GameType) {
-        const gameHistory = this.getGameHistory(visits, gameType);
-
-        const gameHistoryFiltered = gameHistory.filter((visit) => visit.scoreAfterThrow > 50);
+    public getAverageScore(visits: GameVisit[]) {
+        const visitsWithHits = visits.filter((visit) => visit.outcome === GameVisitOutcome.HIT);
 
         return (
-            Math.round(
-                (gameHistoryFiltered.reduce((acc, visit) => acc + visit.pointsScored, 0) / gameHistoryFiltered.length) *
-                    10,
-            ) / 10
+            Math.round((visitsWithHits.reduce((acc, visit) => acc + visit.totalScored, 0) / visits.length) * 10) / 10
         );
     }
 
-    public getThrowsOnDouble(visits: GameVisit[], gameType: GameType) {
-        const gameHistory = this.getGameHistory(visits, gameType);
-        const possibleFinishes = getPossibleFinishes();
+    public getAverageUntil60Points(visits: GameVisit[]) {
+        const startingScore = visits[0].remainingScoreBefore;
+        let score = startingScore;
 
-        const gameHistoryFiltered = gameHistory.filter((visit) => possibleFinishes.includes(visit.scoreBeforeThrow));
+        const throwScores = visits.flatMap((visit) => [
+            visit.throw1 ?? 0 * (visit.throw1Multiplier ?? 1),
+            visit.throw2 ?? 0 * (visit.throw2Multiplier ?? 1),
+            visit.throw3 ?? 0 * (visit.throw3Multiplier ?? 1),
+        ]);
+        if (throwScores.length === 0) return 0;
 
-        return gameHistoryFiltered.length;
+        const throwsBeforeFirstTime60OrLower = [];
+
+        for (const throwScore of throwScores) {
+            const newScore = score - throwScore;
+            if (score <= 60) {
+                break;
+            }
+            score = newScore;
+            throwsBeforeFirstTime60OrLower.push(throwScore);
+        }
+        const pointsScored = startingScore - score;
+        return Math.round((pointsScored / throwsBeforeFirstTime60OrLower.length) * 3 * 100) / 100;
     }
 
-    private getGameHistory(visits: GameVisit[], gameType: GameType): GameHistory[] {
+    public getThrowsOnDouble(visits: GameVisit[]) {
+        const gameHistory = this.getGameHistory(visits);
+
+        let throwsOnDouble = 0;
+
+        const possibleFinishes = getPossibleFinishes();
+
+        for (const throwScore of gameHistory) {
+            if (possibleFinishes.includes(throwScore.scoreBeforeThrow)) {
+                throwsOnDouble++;
+            }
+        }
+
+        return throwsOnDouble;
+    }
+
+    private getGameHistory(visits: GameVisit[]): GameHistory[] {
+        const startingScore = visits[0].remainingScoreBefore;
+        const gameType = getGameTypeFromScore(startingScore);
+
         const points = visits.flatMap((visit) => [
             {
                 pointsScored: (visit.throw1 ?? 0) * (visit.throw1Multiplier ?? 1),

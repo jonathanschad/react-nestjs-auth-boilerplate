@@ -16,3 +16,9 @@ export const getPointsForGameType = (gameType: GameType) => {
             return 501;
     }
 };
+
+export const getGameTypeFromScore = (score: number) => {
+    if (score === 501) return GameType.X501;
+    else if (score === 301) return GameType.X301;
+    else throw new Error('Invalid score');
+};

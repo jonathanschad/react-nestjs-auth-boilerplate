@@ -9,10 +9,15 @@ export class DatabaseGameStatisticService {
     async upsertGameStatistics(
         gameStatistics: Prisma.GameStatisticsIndividualCreateArgs['data'] & { gameId: string; playerId: string },
     ): Promise<GameStatisticsIndividual> {
+        const { gameId, playerId, ...stats } = gameStatistics;
         return this.prisma.gameStatisticsIndividual.upsert({
-            where: { gameId_playerId: { gameId: gameStatistics.gameId, playerId: gameStatistics.playerId } },
-            update: gameStatistics,
-            create: gameStatistics,
+            where: { gameId_playerId: { gameId, playerId } },
+            update: { ...stats, gameId, playerId },
+            create: {
+                ...stats,
+                game: { connect: { id: gameId } },
+                player: { connect: { id: playerId } },
+            },
         });
     }
 }
