@@ -1,6 +1,7 @@
 import { api, Pagination } from '@darts/types';
 import { Controller } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
+import { BasicAuthRoute } from '@/auth/auth.guard';
 import { GameService } from '@/dart/game/game.service';
 import { PlayerService } from '@/dart/player/player.service';
 
@@ -11,10 +12,12 @@ export class PlayerController {
         private readonly gameService: GameService,
     ) {}
 
+    @BasicAuthRoute()
     @Implement(api.dart.player.getAll)
     public getAllPlayers() {
         return implement(api.dart.player.getAll).handler(async () => {
             const result = await this.playerService.getAllPlayers();
+
             return result;
         });
     }

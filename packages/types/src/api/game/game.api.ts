@@ -15,7 +15,7 @@ export const gameContract = oc.prefix('/game').router({
         .input(
             z.object({
                 body: createGameSchema,
-                path: z.object({
+                params: z.object({
                     uuid: z.uuid(),
                 }),
             }),

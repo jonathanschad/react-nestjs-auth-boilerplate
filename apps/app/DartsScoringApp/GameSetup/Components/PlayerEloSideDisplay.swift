@@ -4,12 +4,12 @@ struct PlayerEloSideDisplay: View {
     let eloPreview: EloPreview?
     let alignment: HorizontalAlignment
 
-    private var winChange: Int? {
+    private var winChange: Double? {
         guard let elo = eloPreview else { return nil }
         return elo.onWin - elo.current
     }
 
-    private var lossChange: Int? {
+    private var lossChange: Double? {
         guard let elo = eloPreview else { return nil }
         return elo.onLoss - elo.current
     }
@@ -19,7 +19,7 @@ struct PlayerEloSideDisplay: View {
             if let elo = eloPreview {
                 // Current ELO
                 VStack(alignment: alignment, spacing: 2) {
-                    Text("\(elo.current)")
+                    Text(String(format: "%.1f", elo.current))
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(DesignSystem.Colors.primary)
@@ -51,7 +51,7 @@ struct PlayerEloSideDisplay: View {
                         }
                     }
                     if let change = winChange {
-                        Text("\(change >= 0 ? "+" : "")\(change)")
+                        Text(String(format: "%@%.1f", change >= 0 ? "+" : "", change))
                             .font(.title3)
                             .fontWeight(.semibold)
                             .foregroundColor(.green)
@@ -78,7 +78,7 @@ struct PlayerEloSideDisplay: View {
                         }
                     }
                     if let change = lossChange {
-                        Text("\(change >= 0 ? "+" : "")\(change)")
+                        Text(String(format: "%@%.1f", change >= 0 ? "+" : "", change))
                             .font(.title3)
                             .fontWeight(.semibold)
                             .foregroundColor(.red)

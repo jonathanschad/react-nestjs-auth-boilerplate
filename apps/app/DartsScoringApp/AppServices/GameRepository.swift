@@ -23,7 +23,8 @@ class GameRepository {
         gameStartTime: Date,
         playerA: GamePlayer,
         playerB: GamePlayer,
-        winner: Player
+        winner: Player,
+        gameSettings: GameSettings
     ) async throws {
         // Convert game data to backend format
         let visitsA = convertRoundsToVisits(rounds: playerA.rounds, playerId: playerA.player.id)
@@ -35,14 +36,51 @@ class GameRepository {
         // Game end time is now
         let gameEndTime = Date()
 
+        // Map game settings to backend format
+        let gameType: String
+        switch gameSettings.startingPoints {
+        case ._301:
+            gameType = "X301"
+        case ._501:
+            gameType = "X501"
+        }
+        
+        let checkoutMode: String
+        switch gameSettings.gameMode {
+        case .singleOut:
+            checkoutMode = "SINGLE_OUT"
+        case .doubleOut:
+            checkoutMode = "DOUBLE_OUT"
+        }
+
         let gameRequest = CreateGameRequest(
             playerAId: playerA.player.id,
             playerBId: playerB.player.id,
             winnerId: winner.id,
             gameStart: gameStartTime,
             gameEnd: gameEndTime,
+            type: gameType,
+            checkoutMode: checkoutMode,
             visits: allVisits
         )
+
+        // Log the request payload before sending
+        print("🎮 Submitting game result:")
+        print("📤 Game ID: \(gameId.uuidString)")
+        print("📤 Player A: \(playerA.player.name) (\(gameRequest.playerAId))")
+        print("📤 Player B: \(playerB.player.name) (\(gameRequest.playerBId))")
+        print("📤 Winner: \(winner.name) (\(gameRequest.winnerId))")
+        print("📤 Game Type: \(gameRequest.type)")
+        print("📤 Checkout Mode: \(gameRequest.checkoutMode)")
+        print("📤 Game Start: \(gameRequest.gameStart)")
+        print("📤 Game End: \(gameRequest.gameEnd)")
+        print("📤 Total Visits: \(gameRequest.visits.count)")
+        
+        // Log the JSON payload
+        if let jsonData = try? jsonEncoder.encode(gameRequest),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            print("📦 Request JSON:\n\(jsonString)")
+        }
 
         return try await withCheckedThrowingContinuation { continuation in
             AF.request("\(baseURL)/dart/game/\(gameId.uuidString)",
@@ -52,16 +90,10 @@ class GameRepository {
                       headers: authHeaders)
             .validate()
             .responseData { response in
-                // Log the request
-                print("🎮 Submitting game result:")
-                print("🌐 URL: \(String(describing: response.request?.url?.absoluteString))")
-                print("📤 Game ID: \(gameId.uuidString)")
-                print("📤 Player A: \(playerA.player.name) (\(playerA.player.id))")
-                print("📤 Player B: \(playerB.player.name) (\(playerB.player.id))")
-                print("📤 Winner: \(winner.name) (\(winner.id))")
-                print("📤 Total Visits: \(allVisits.count)")
-
                 // Log the response
+                print("📥 Response received:")
+                print("🌐 URL: \(String(describing: response.request?.url?.absoluteString))")
+                
                 if let statusCode = response.response?.statusCode {
                     print("📥 Status Code: \(statusCode)")
                 }

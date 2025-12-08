@@ -18,7 +18,7 @@ export class GameController {
     @BasicAuthRoute()
     public createGame() {
         return implement(api.dart.game.createGame).handler(async ({ input }) => {
-            await this.gameService.createGame(input.path.uuid, input.body, true);
+            await this.gameService.createGame(input.params.uuid, input.body, true);
             return;
         });
     }

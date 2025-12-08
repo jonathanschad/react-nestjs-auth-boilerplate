@@ -7,12 +7,12 @@ struct PlayerSelectionBox: View {
     let eloPreview: EloPreview?
     let action: () -> Void
 
-    private var winChange: Int? {
+    private var winChange: Double? {
         guard let elo = eloPreview else { return nil }
         return elo.onWin - elo.current
     }
 
-    private var lossChange: Int? {
+    private var lossChange: Double? {
         guard let elo = eloPreview else { return nil }
         return elo.onLoss - elo.current
     }
@@ -62,7 +62,7 @@ struct PlayerSelectionBox: View {
                     // Current ELO (shows immediately when player selected)
                     VStack(spacing: 2) {
                         if let selectedPlayer = player {
-                            Text("ELO: \(selectedPlayer.eloRating)")
+                            Text("ELO: \(String(format: "%.1f", selectedPlayer.eloRating))")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .foregroundColor(DesignSystem.Colors.primary)
@@ -81,7 +81,7 @@ struct PlayerSelectionBox: View {
                             Image(systemName: "arrow.up")
                                 .font(.caption2)
                                 .foregroundColor(.green)
-                            Text(winChange != nil ? "\(winChange! >= 0 ? "+" : "")\(winChange!)" : "-")
+                            Text(winChange != nil ? String(format: "%@%.1f", winChange! >= 0 ? "+" : "", winChange!) : "-")
                                 .font(.caption)
                                 .fontWeight(.semibold)
                                 .foregroundColor(winChange != nil ? .green : DesignSystem.Colors.secondary.opacity(0.5))
@@ -95,7 +95,7 @@ struct PlayerSelectionBox: View {
                             Image(systemName: "arrow.down")
                                 .font(.caption2)
                                 .foregroundColor(.red)
-                            Text(lossChange != nil ? "\(lossChange! >= 0 ? "+" : "")\(lossChange!)" : "-")
+                            Text(lossChange != nil ? String(format: "%@%.1f", lossChange! >= 0 ? "+" : "", lossChange!) : "-")
                                 .font(.caption)
                                 .fontWeight(.semibold)
                                 .foregroundColor(lossChange != nil ? .red : DesignSystem.Colors.secondary.opacity(0.5))

@@ -44,16 +44,16 @@ struct GamePreviewCard: View {
 
 struct PlayerEloPreview: View {
     let playerName: String
-    let currentElo: Int
-    let eloOnWin: Int
-    let eloOnLoss: Int
+    let currentElo: Double
+    let eloOnWin: Double
+    let eloOnLoss: Double
     let color: Color
 
-    private var winChange: Int {
+    private var winChange: Double {
         return eloOnWin - currentElo
     }
 
-    private var lossChange: Int {
+    private var lossChange: Double {
         return eloOnLoss - currentElo
     }
 
@@ -70,7 +70,7 @@ struct PlayerEloPreview: View {
                 Text("Aktuell")
                     .font(.caption)
                     .foregroundColor(DesignSystem.Colors.secondary)
-                Text("\(currentElo)")
+                Text(String(format: "%.1f", currentElo))
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(DesignSystem.Colors.primary)
@@ -88,11 +88,11 @@ struct PlayerEloPreview: View {
                         .font(.caption)
                         .foregroundColor(DesignSystem.Colors.secondary)
                 }
-                Text("\(eloOnWin)")
+                Text(String(format: "%.1f", eloOnWin))
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.green)
-                Text("(\(winChange >= 0 ? "+" : "")\(winChange))")
+                Text(String(format: "%@%.1f", winChange >= 0 ? "+" : "", winChange))
                     .font(.caption2)
                     .foregroundColor(.green.opacity(0.8))
             }
@@ -107,11 +107,11 @@ struct PlayerEloPreview: View {
                         .font(.caption)
                         .foregroundColor(DesignSystem.Colors.secondary)
                 }
-                Text("\(eloOnLoss)")
+                Text(String(format: "%.1f", eloOnLoss))
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.red)
-                Text("(\(lossChange >= 0 ? "+" : "")\(lossChange))")
+                Text(String(format: "%@%.1f", lossChange >= 0 ? "+" : "", lossChange))
                     .font(.caption2)
                     .foregroundColor(.red.opacity(0.8))
             }

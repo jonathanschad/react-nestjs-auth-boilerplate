@@ -13,6 +13,8 @@ struct CreateGameRequest: Encodable {
     let winnerId: String
     let gameStart: Date
     let gameEnd: Date
+    let type: String // "X301" or "X501"
+    let checkoutMode: String // "SINGLE_OUT", "DOUBLE_OUT", or "MASTER_OUT"
     let visits: [GameVisitRequest]
 }
 

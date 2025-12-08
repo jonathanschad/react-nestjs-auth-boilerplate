@@ -10,12 +10,12 @@ import Foundation
 struct Player: Identifiable, Codable, Equatable, Hashable {
     let id: String // UUID from new backend
     let name: String
-    let currentElo: Int? // Can be null in backend
+    let currentElo: Double? // Can be null in backend
     let lastGamePlayedAt: Date?
 
     // Computed property for backward compatibility with existing UI
-    var eloRating: Int {
-        return currentElo ?? 1000
+    var eloRating: Double {
+        return Double(currentElo ?? 1000)
     }
     
     // MARK: - UserDefaults Keys
@@ -53,13 +53,13 @@ struct Player: Identifiable, Codable, Equatable, Hashable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
-        currentElo = try container.decodeIfPresent(Int.self, forKey: .currentElo)
+        currentElo = try container.decodeIfPresent(Double.self, forKey: .currentElo)
         lastGamePlayedAt = try container.decodeIfPresent(Date.self, forKey: .lastGamePlayedAt)
     }
 
     init(id: String = UUID().uuidString,
          name: String,
-         currentElo: Int? = 1000,
+         currentElo: Double? = 1000,
          lastGamePlayedAt: Date? = nil
          ) {
         self.id = id

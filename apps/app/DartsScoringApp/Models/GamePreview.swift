@@ -19,7 +19,7 @@ struct PlayerPreview: Codable {
 }
 
 struct EloPreview: Codable {
-    let onWin: Int
-    let onLoss: Int
-    let current: Int
+    let onWin: Double
+    let onLoss: Double
+    let current: Double
 }

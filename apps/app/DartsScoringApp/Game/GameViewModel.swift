@@ -97,6 +97,8 @@ class GameViewModel: ObservableObject {
 
         // Check for win condition
         if currentPlayer.hasWon {
+            // Finish the winning round before ending the game
+            currentPlayer.finishRound()
             gameState = .finished(winner: currentPlayer.player)
             soundManager.playFinishSound()
             showingGameFinished = true
@@ -263,7 +265,8 @@ class GameViewModel: ObservableObject {
                     gameStartTime: gameStartTime,
                     playerA: player1,
                     playerB: player2,
-                    winner: winner
+                    winner: winner,
+                    gameSettings: gameSettings
                 )
                 print("✅ Game result submitted successfully")
             } catch {
