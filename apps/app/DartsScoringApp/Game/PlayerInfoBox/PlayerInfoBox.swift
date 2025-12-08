@@ -28,14 +28,23 @@ struct PlayerInfoBox: View {
         VStack(spacing: DesignSystem.Spacing.lg) {
             // Header mit Avatar und Name
             HStack(spacing: DesignSystem.Spacing.md) {
-                Image(systemName: "person.fill")
-                    .font(.title2)
-                    .foregroundColor(color)
-                    .frame(width: DesignSystem.Sizes.smallIcon, height: DesignSystem.Sizes.smallIcon)
-                    .background(
-                        Circle()
-                            .fill(color.opacity(0.1))
-                    )
+                ZStack {
+                    Circle()
+                        .fill(color.opacity(0.1))
+                        .frame(width: DesignSystem.Sizes.smallIcon, height: DesignSystem.Sizes.smallIcon)
+                    
+                    if gamePlayer.player.profilePictureId != nil {
+                        RemoteImageView(
+                            fileId: gamePlayer.player.profilePictureId,
+                            placeholder: Image(systemName: "person.fill"),
+                            size: CGSize(width: DesignSystem.Sizes.smallIcon, height: DesignSystem.Sizes.smallIcon)
+                        )
+                    } else {
+                        Image(systemName: "person.fill")
+                            .font(.title2)
+                            .foregroundColor(color)
+                    }
+                }
                 
                 VStack(alignment: .leading, spacing: DesignSystem.Spacing.xxs) {
                     Text(formattedPlayerName)

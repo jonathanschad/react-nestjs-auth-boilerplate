@@ -16,6 +16,7 @@ export const playerResponseSchema = z.object({
     name: z.string(),
     currentElo: z.number().nullable(),
     lastGamePlayedAt: z.string().nullable(),
+    profilePictureId: z.string().nullable(),
 });
 
 // Player Details Response

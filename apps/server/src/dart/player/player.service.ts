@@ -37,6 +37,7 @@ export class PlayerService {
                 name: user.name ?? '',
                 currentElo: currentUserEloRating.elo,
                 lastGamePlayedAt: mostRecentGame?.createdAt?.toISOString() ?? null,
+                profilePictureId: user.profilePictureId,
             });
         }
 

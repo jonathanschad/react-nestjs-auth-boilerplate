@@ -12,6 +12,7 @@ struct Player: Identifiable, Codable, Equatable, Hashable {
     let name: String
     let currentElo: Double? // Can be null in backend
     let lastGamePlayedAt: Date?
+    let profilePictureId: String? // Profile picture file UUID
 
     // Computed property for backward compatibility with existing UI
     var eloRating: Double {
@@ -47,6 +48,7 @@ struct Player: Identifiable, Codable, Equatable, Hashable {
         case name
         case currentElo
         case lastGamePlayedAt
+        case profilePictureId
     }
 
     init(from decoder: Decoder) throws {
@@ -55,17 +57,20 @@ struct Player: Identifiable, Codable, Equatable, Hashable {
         name = try container.decode(String.self, forKey: .name)
         currentElo = try container.decodeIfPresent(Double.self, forKey: .currentElo)
         lastGamePlayedAt = try container.decodeIfPresent(Date.self, forKey: .lastGamePlayedAt)
+        profilePictureId = try container.decodeIfPresent(String.self, forKey: .profilePictureId)
     }
 
     init(id: String = UUID().uuidString,
          name: String,
          currentElo: Double? = 1000,
-         lastGamePlayedAt: Date? = nil
+         lastGamePlayedAt: Date? = nil,
+         profilePictureId: String? = nil
          ) {
         self.id = id
         self.name = name
         self.currentElo = currentElo
         self.lastGamePlayedAt = lastGamePlayedAt
+        self.profilePictureId = profilePictureId
     }
     
     static func == (lhs: Player, rhs: Player) -> Bool {

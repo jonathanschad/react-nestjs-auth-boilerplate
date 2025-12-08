@@ -16,6 +16,7 @@ struct PlayerPreview: Codable {
     let id: String
     let name: String
     let elo: EloPreview
+    let profilePictureId: String?
 }
 
 struct EloPreview: Codable {

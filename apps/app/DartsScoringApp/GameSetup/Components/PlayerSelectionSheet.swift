@@ -134,9 +134,18 @@ private struct PlayerListItem: View {
                         .fill(isAlreadySelected ? DesignSystem.Colors.disabled.opacity(0.1) : DesignSystem.Colors.accent.opacity(0.1))
                         .frame(width: DesignSystem.Sizes.smallIcon, height: DesignSystem.Sizes.smallIcon)
                     
-                    Image(systemName: "person.fill")
-                        .font(.title3)
-                        .foregroundColor(isAlreadySelected ? DesignSystem.Colors.disabled : DesignSystem.Colors.accent)
+                    if player.profilePictureId != nil {
+                        RemoteImageView(
+                            fileId: player.profilePictureId,
+                            placeholder: Image(systemName: "person.fill"),
+                            size: CGSize(width: DesignSystem.Sizes.smallIcon, height: DesignSystem.Sizes.smallIcon)
+                        )
+                        .opacity(isAlreadySelected ? 0.5 : 1.0)
+                    } else {
+                        Image(systemName: "person.fill")
+                            .font(.title3)
+                            .foregroundColor(isAlreadySelected ? DesignSystem.Colors.disabled : DesignSystem.Colors.accent)
+                    }
                 }
                 
                 VStack(alignment: .leading, spacing: DesignSystem.Spacing.xxs) {

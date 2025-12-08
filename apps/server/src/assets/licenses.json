@@ -558,11 +558,11 @@
         "path": "node_modules/winston",
         "licenseFile": "node_modules/winston/LICENSE"
     },
-    "zod@3.24.2": {
+    "zod@4.1.13": {
         "licenses": "MIT",
         "repository": "https://github.com/colinhacks/zod",
         "publisher": "Colin McDonnell",
-        "email": "colin@colinhacks.com",
+        "email": "zod@colinhacks.com",
         "path": "node_modules/zod",
         "licenseFile": "node_modules/zod/LICENSE"
     }

@@ -31,9 +31,17 @@ struct PlayerSelectionBox: View {
                         )
 
                     if let player = player {
-                        Image(systemName: "person.fill")
-                            .font(.largeTitle)
-                            .foregroundColor(color)
+                        if player.profilePictureId != nil {
+                            RemoteImageView(
+                                fileId: player.profilePictureId,
+                                placeholder: Image(systemName: "person.fill"),
+                                size: CGSize(width: DesignSystem.Sizes.largeIcon, height: DesignSystem.Sizes.largeIcon)
+                            )
+                        } else {
+                            Image(systemName: "person.fill")
+                                .font(.largeTitle)
+                                .foregroundColor(color)
+                        }
                     } else {
                         Image(systemName: "plus")
                             .font(.title)

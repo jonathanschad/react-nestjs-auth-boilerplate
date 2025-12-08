@@ -223,11 +223,12 @@ export class DatabaseUserService {
         };
     }
 
-    async findAll(): Promise<Pick<User, 'id' | 'name'>[]> {
+    async findAll(): Promise<Pick<User, 'id' | 'name' | 'profilePictureId'>[]> {
         return this.prisma.user.findMany({
             select: {
                 id: true,
                 name: true,
+                profilePictureId: true,
             },
         });
     }

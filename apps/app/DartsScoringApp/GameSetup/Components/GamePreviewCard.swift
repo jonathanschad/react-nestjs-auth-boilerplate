@@ -125,12 +125,14 @@ struct PlayerEloPreview: View {
         playerA: PlayerPreview(
             id: "1",
             name: "Max Mustermann",
-            elo: EloPreview(onWin: 1025, onLoss: 975, current: 1000)
+            elo: EloPreview(onWin: 1025, onLoss: 975, current: 1000),
+            profilePictureId: nil
         ),
         playerB: PlayerPreview(
             id: "2",
             name: "Anna Schmidt",
-            elo: EloPreview(onWin: 1220, onLoss: 1180, current: 1200)
+            elo: EloPreview(onWin: 1220, onLoss: 1180, current: 1200),
+            profilePictureId: nil
         )
     )
 
