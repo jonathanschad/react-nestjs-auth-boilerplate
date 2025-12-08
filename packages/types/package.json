@@ -1,0 +1,34 @@
+{
+    "name": "@darts/types",
+    "version": "0.7.0",
+    "description": "",
+    "exports": {
+        ".": {
+            "types": "./src/index.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "dev": "tsc -w",
+        "build": "tsc",
+        "lint": "eslint . --max-warnings 0",
+        "lint:fix": "eslint . --max-warnings 0 --fix",
+        "tsc": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@darts/utils": "workspace:*",
+        "@orpc/contract": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@darts/eslint-config": "workspace:*",
+        "@darts/ts-config": "workspace:*",
+        "eslint": "catalog:",
+        "openskill": "catalog:",
+        "typescript": "catalog:"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.8.1"
+}

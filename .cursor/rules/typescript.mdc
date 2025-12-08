@@ -1,0 +1,12 @@
+---
+description: Typescript rules
+globs: *.ts
+alwaysApply: false
+---
+
+You are not allowed to use typecasts to any or unknown. Not conforming to this rule will be punished and you will receive a 20$ fine.
+You are not allowed to disable eslint rules or typescript rules. The rules are there for a reason as disabling them will lead to errors and are not fixes to the problem.
+Always think very very hard and don't make errors
+You can format the files using the yarn format command. Add the filename to only format the specific file.
+Always prefix functions and classes with public, private or protected.
+

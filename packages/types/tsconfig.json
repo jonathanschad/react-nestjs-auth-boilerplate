@@ -1,0 +1,11 @@
+{
+    "extends": "@darts/ts-config/base.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "exclude": ["node_modules", "dist"],
+    "include": ["src"]
+}
