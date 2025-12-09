@@ -7,7 +7,7 @@ import {
     unlinkSync,
     writeFileSync,
 } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { pipeline } from 'node:stream';
 import type { MultipartFile } from '@fastify/multipart';
 import { StreamableFile } from '@nestjs/common';
@@ -33,9 +33,10 @@ export class FileSystemService {
         return new Promise<FileUploadResponse>((resolve, reject) => {
             try {
                 const filePath = join(this.appConfigService.fileStoragePath, path);
+                const fileDir = dirname(filePath);
 
-                if (!existsSync(filePath)) {
-                    mkdirSync(filePath, { recursive: true });
+                if (!existsSync(fileDir)) {
+                    mkdirSync(fileDir, { recursive: true });
                 }
 
                 const multipartFile = file;
@@ -61,9 +62,10 @@ export class FileSystemService {
         return new Promise<FileUploadResponse>((resolve, reject) => {
             try {
                 const filePath = join(this.appConfigService.fileStoragePath, path);
+                const fileDir = dirname(filePath);
 
-                if (!existsSync(filePath)) {
-                    mkdirSync(filePath, { recursive: true });
+                if (!existsSync(fileDir)) {
+                    mkdirSync(fileDir, { recursive: true });
                 }
 
                 writeFileSync(filePath, file);
@@ -107,7 +109,10 @@ export class FileSystemService {
         return new Promise<FileDeleteResponse>((resolve, reject) => {
             try {
                 const filePath = join(this.appConfigService.fileStoragePath, dbFile.path);
-                unlinkSync(filePath);
+
+                if (existsSync(filePath)) {
+                    unlinkSync(filePath);
+                }
 
                 resolve(dbFile);
             } catch (error) {

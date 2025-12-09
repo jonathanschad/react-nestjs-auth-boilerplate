@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import { resolve } from 'node:path';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -146,7 +147,9 @@ export class AppConfigService {
     }
 
     get fileStoragePath(): string {
-        return this.get('FILE_SYSTEM_STORAGE_PATH');
+        const path = this.get('FILE_SYSTEM_STORAGE_PATH');
+        // Resolve relative paths to absolute paths based on the process working directory
+        return resolve(process.cwd(), path);
     }
 
     get s3AccessKeyId(): string {
