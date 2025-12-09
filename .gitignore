@@ -128,7 +128,6 @@ vendor/bundle/
 # Tuist
 .tuist-bin
 apps/*/Derived
-apps/*/*.xcodeproj
 apps/*/*.xcworkspace
 libraries/*/Derived
 libraries/*/*.xcodeproj
