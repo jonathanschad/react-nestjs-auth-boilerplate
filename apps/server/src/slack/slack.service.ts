@@ -1,7 +1,7 @@
+import { User } from '@darts/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import type { MessageAttachment } from '@slack/web-api';
 import { WebClient } from '@slack/web-api';
-
 import { AppConfigService } from '@/config/app-config.service';
 import { GameResult } from '@/dart/ranking/ranking';
 
@@ -138,9 +138,19 @@ export class SlackService {
         const winner = result === GameResult.WIN_PLAYER_A ? playerA : playerB;
         const loser = result === GameResult.WIN_PLAYER_A ? playerB : playerA;
 
+        const formatNumber = (number: number) => {
+            if (number === 0) {
+                return `±${number}`;
+            }
+            if (number > 0) {
+                return `+${number}`;
+            }
+            return `-${Math.abs(number)}`;
+        };
+
         const getRatingString = (rankBefore?: number | null, rankAfter?: number | null) => {
             if (rankBefore && rankAfter) {
-                return `Rang: ${rankBefore} | ${rankAfter - rankBefore}`;
+                return `Rang: ${rankBefore} | ${formatNumber(rankBefore - rankAfter)}`;
             }
             if (rankAfter) {
                 return `Neuer Rang: ${rankAfter}`;
@@ -153,6 +163,12 @@ export class SlackService {
 
         await this.sendMessage({
             text: `${winner.name} (${winnerRankString}) hat gegen ${loser.name} (${loserRankString}) gewonnen! :dart:`,
+        });
+    }
+
+    public async newPlayerSignupNotification({ player }: { player: Pick<User, 'name'> }): Promise<void> {
+        await this.sendMessage({
+            text: `${player.name} ist jetzt auch dabei! :blob_wave:`,
         });
     }
 }
