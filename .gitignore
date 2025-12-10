@@ -141,3 +141,6 @@ tools/LibraryTemplate/*.xcworkspace
 
 # Symlinked dev tools
 tools/bin
+
+
+apps/server/files

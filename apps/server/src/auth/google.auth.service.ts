@@ -83,7 +83,9 @@ export class GoogleAuthService {
             email,
             name,
             googleOAuthId: id,
-            state: UserState.VERIFIED,
+            state: UserState.COMPLETE,
+            password: Buffer.from(uuid.v4()),
+            salt: uuid.v4(),
             settings: {
                 create: {
                     notificationsEnabled: true,
