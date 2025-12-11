@@ -150,7 +150,7 @@ export class SlackService {
 
         const getRatingString = (rankBefore?: number | null, rankAfter?: number | null) => {
             if (rankBefore && rankAfter) {
-                return `Rang: ${rankBefore} | ${formatNumber(rankBefore - rankAfter)}`;
+                return `Rang: ${rankAfter} | ${formatNumber(rankBefore - rankAfter)}`;
             }
             if (rankAfter) {
                 return `Neuer Rang: ${rankAfter}`;
