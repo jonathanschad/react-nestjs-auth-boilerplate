@@ -18,10 +18,11 @@ interface DataTableProps<T> {
     data: T[];
     columns: ColumnDef<T>[];
     pageSize?: number;
+    initialSorting?: SortingState;
 }
 
-export const DataTable = <T,>({ columns, data, pageSize = 10 }: DataTableProps<T>) => {
-    const [sorting, setSorting] = useState<SortingState>([]);
+export const DataTable = <T,>({ columns, data, pageSize = 10, initialSorting = [] }: DataTableProps<T>) => {
+    const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: pageSize,

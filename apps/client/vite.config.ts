@@ -29,6 +29,7 @@ export default defineConfig({
             'top-level-await': true, //browsers can handle top-level-await features
         },
         sourcemap: true,
+        keepNames: true, // Required for recharts tooltip to work in production
     },
     build: {
         sourcemap: true,

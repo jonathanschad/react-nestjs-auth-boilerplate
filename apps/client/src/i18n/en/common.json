@@ -177,5 +177,6 @@
     "bust": "Bust",
     "totalScore": "Total Score",
     "time": "Time",
-    "checkoutMode": "Checkout Mode"
+    "checkoutMode": "Checkout Mode",
+    "unrankedPlayers": "Unranked Players"
 }

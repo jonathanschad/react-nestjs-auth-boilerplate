@@ -9,6 +9,7 @@ import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
 } from '@/layout/useSetSignedInCurrentActiveRoute';
+import { UnrankedPlayersList } from '@/pages/ranking/UnrankedPlayersList';
 import { UserTableCell } from '@/pages/ranking/UserTableCell';
 
 export const OpenSkillRanking = () => {
@@ -50,6 +51,7 @@ export const OpenSkillRanking = () => {
 
             <div className="flex-auto overflow-auto">
                 <DataTable data={openSkillRankings || []} columns={openSkillColumns} pageSize={20} />
+                <UnrankedPlayersList />
             </div>
         </div>
     );

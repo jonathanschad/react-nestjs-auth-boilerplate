@@ -9,6 +9,7 @@ import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
 } from '@/layout/useSetSignedInCurrentActiveRoute';
+import { UnrankedPlayersList } from '@/pages/ranking/UnrankedPlayersList';
 import { UserTableCell } from '@/pages/ranking/UserTableCell';
 
 export const EloRanking = () => {
@@ -50,6 +51,7 @@ export const EloRanking = () => {
 
             <div className="flex-auto overflow-auto">
                 <DataTable data={eloRankings || []} columns={eloColumns} pageSize={20} />
+                <UnrankedPlayersList />
             </div>
         </div>
     );

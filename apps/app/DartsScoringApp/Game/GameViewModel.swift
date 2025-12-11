@@ -21,6 +21,7 @@ class GameViewModel: ObservableObject {
 
     let gameId: UUID = UUID() // Unique ID for this game session
     let gameStartTime: Date = Date() // Track when game started
+    @Published var startingPlayerIndex: Int = 0 // Track who started (0 = player1, 1 = player2)
     @Published var gameState: GameState = .playing
     @Published var selectedMultiplier: DartMultiplier = .single
     @Published var showingGameFinished: Bool = false
@@ -245,6 +246,7 @@ class GameViewModel: ObservableObject {
         // Nur erlaubt wenn noch kein Wurf gemacht wurde
         guard currentThrowInTurn == 0 && player1.dartThrows.isEmpty && player2.dartThrows.isEmpty else { return }
         switchPlayer()
+        startingPlayerIndex = currentPlayerIndex
     }
 
     func setMultiplier(_ multiplier: DartMultiplier) {
@@ -261,6 +263,7 @@ class GameViewModel: ObservableObject {
             startingScore: gameSettings.startingPoints.rawValue
         )
         currentPlayerIndex = 0
+        startingPlayerIndex = 0
         currentThrowInTurn = 0
         gameState = .playing
         selectedMultiplier = .single
@@ -302,7 +305,8 @@ class GameViewModel: ObservableObject {
                     playerA: player1,
                     playerB: player2,
                     winner: winner,
-                    gameSettings: gameSettings
+                    gameSettings: gameSettings,
+                    startingPlayerIndex: startingPlayerIndex
                 )
                 print("✅ Game result submitted successfully")
             } catch {

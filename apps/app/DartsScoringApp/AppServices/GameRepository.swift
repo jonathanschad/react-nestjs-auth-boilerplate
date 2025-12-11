@@ -24,11 +24,15 @@ class GameRepository {
         playerA: GamePlayer,
         playerB: GamePlayer,
         winner: Player,
-        gameSettings: GameSettings
+        gameSettings: GameSettings,
+        startingPlayerIndex: Int
     ) async throws {
         // Convert game data to backend format
-        let visitsA = convertRoundsToVisits(rounds: playerA.rounds, playerId: playerA.player.id)
-        let visitsB = convertRoundsToVisits(rounds: playerB.rounds, playerId: playerB.player.id)
+        // startingPlayerIndex: 0 = playerA started, 1 = playerB started
+        // Starting player gets even visit numbers (0, 2, 4...), other player gets odd (1, 3, 5...)
+        let playerAStarted = startingPlayerIndex == 0
+        let visitsA = convertRoundsToVisits(rounds: playerA.rounds, playerId: playerA.player.id, isStartingPlayer: playerAStarted)
+        let visitsB = convertRoundsToVisits(rounds: playerB.rounds, playerId: playerB.player.id, isStartingPlayer: !playerAStarted)
 
         // Combine and sort visits by visit number
         let allVisits = (visitsA + visitsB).sorted { $0.visitNumber < $1.visitNumber }
@@ -119,13 +123,15 @@ class GameRepository {
         }
     }
 
-    private func convertRoundsToVisits(rounds: [DartRound], playerId: String) -> [GameVisitRequest] {
+    private func convertRoundsToVisits(rounds: [DartRound], playerId: String, isStartingPlayer: Bool) -> [GameVisitRequest] {
         return rounds.enumerated().map { index, round in
             let dartThrows = round.dartThrows
+            // Starting player gets even visit numbers (0, 2, 4...), other player gets odd (1, 3, 5...)
+            let visitNumber = isStartingPlayer ? index * 2 : index * 2 + 1
 
             return GameVisitRequest(
                 playerId: playerId,
-                visitNumber: index,
+                visitNumber: visitNumber,
                 throw1: dartThrows.count > 0 ? dartThrows[0].number : 0,
                 throw1Multiplier: dartThrows.count > 0 ? dartThrows[0].multiplier.multiplier : 1,
                 throw2: dartThrows.count > 1 ? dartThrows[1].number : 0,

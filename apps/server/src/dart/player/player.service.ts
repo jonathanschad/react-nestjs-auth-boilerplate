@@ -31,13 +31,14 @@ export class PlayerService {
             const mostRecentGame = await this.databaseGameService.getMostRecentGameByUserId(user.id);
             const currentUserElo = await this.databaseEloHistoryService.getCurrentRatingByUserId(user.id);
             const currentUserEloRating = this.databaseEloHistoryService.getRatingFromHistoryEntry(currentUserElo);
-
+            console.log(currentUserEloRating);
             playerResponse.push({
                 id: user.id,
                 name: user.name ?? '',
                 currentElo: currentUserEloRating.elo,
-                lastGamePlayedAt: mostRecentGame?.createdAt?.toISOString() ?? null,
+                lastGamePlayedAt: mostRecentGame?.gameStart?.toISOString() ?? null,
                 profilePictureId: user.profilePictureId,
+                gamesPlayed: currentUserEloRating.gamesPlayed,
             });
         }
 

@@ -44,24 +44,15 @@ export class AuthGuard implements CanActivate {
             context.getClass(),
         ]);
         if (isBasicAuth) {
-            const basicAuthUsername = this.appConfigService.appBasicAuthUsername;
-            const basicAuthPassword = this.appConfigService.appBasicAuthPassword;
-
-            const authHeader = request.headers.authorization;
-
-            if (!authHeader || !authHeader.startsWith('Basic ')) {
-                throw new InvalidAccessTokenError();
+            try {
+                const isValid = validateBasicAuth(this.appConfigService, request);
+                if (isValid) {
+                    return true;
+                }
+            } catch (error) {
+                // We currently want all basic route routes also to be available for authenticated users, so if the
+                //basic auth is invalid, we continue to run the authentication guard.
             }
-
-            const base64Credentials = authHeader.substring(6);
-            const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
-            const [username, password] = credentials.split(':');
-
-            if (username !== basicAuthUsername || password !== basicAuthPassword) {
-                throw new InvalidAccessTokenError();
-            }
-
-            return true;
         }
 
         let requiredState =
@@ -81,6 +72,27 @@ export class AuthGuard implements CanActivate {
         return requiredState.includes(user.state);
     }
 }
+
+const validateBasicAuth = (appConfigService: AppConfigService, request: FastifyRequest) => {
+    const basicAuthUsername = appConfigService.appBasicAuthUsername;
+    const basicAuthPassword = appConfigService.appBasicAuthPassword;
+
+    const authHeader = request.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Basic ')) {
+        throw new InvalidAccessTokenError();
+    }
+
+    const base64Credentials = authHeader.substring(6);
+    const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8');
+    const [username, password] = credentials.split(':');
+
+    if (username !== basicAuthUsername || password !== basicAuthPassword) {
+        throw new InvalidAccessTokenError();
+    }
+
+    return true;
+};
 
 export const IS_PUBLIC = 'isPublic';
 export const PublicRoute = () => SetMetadata(IS_PUBLIC, true);

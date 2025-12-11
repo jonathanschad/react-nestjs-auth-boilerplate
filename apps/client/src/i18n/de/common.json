@@ -177,5 +177,6 @@
     "bust": "Bust",
     "totalScore": "Gesamtpunktzahl",
     "time": "Uhrzeit",
-    "checkoutMode": "Checkout-Modus"
+    "checkoutMode": "Checkout-Modus",
+    "unrankedPlayers": "Unplatzierte Spieler"
 }
