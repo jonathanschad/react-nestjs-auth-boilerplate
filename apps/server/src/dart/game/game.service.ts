@@ -201,11 +201,14 @@ export class GameService {
         const startingScore = visits[0].remainingScoreBefore;
         let score = startingScore;
 
-        const throwScores = visits.flatMap((visit) => [
-            visit.throw1 ?? 0 * (visit.throw1Multiplier ?? 1),
-            visit.throw2 ?? 0 * (visit.throw2Multiplier ?? 1),
-            visit.throw3 ?? 0 * (visit.throw3Multiplier ?? 1),
-        ]);
+        const throwScores = visits.flatMap((visit) => {
+            return [
+                (visit.throw1 ?? 0) * (visit.throw1Multiplier ?? 1),
+                (visit.throw2 ?? 0) * (visit.throw2Multiplier ?? 1),
+                (visit.throw3 ?? 0) * (visit.throw3Multiplier ?? 1),
+            ];
+        });
+
         if (throwScores.length === 0) return 0;
 
         const throwsBeforeFirstTime60OrLower = [];
@@ -242,32 +245,42 @@ export class GameService {
         const startingScore = visits[0].remainingScoreBefore;
         const gameType = getGameTypeFromScore(startingScore);
 
-        const points = visits.flatMap((visit) => [
-            {
-                pointsScored: (visit.throw1 ?? 0) * (visit.throw1Multiplier ?? 1),
-                visitNumber: visit.visitNumber,
-                scoreAfterThrow: 0,
-                scoreBeforeThrow: 0,
-            },
-            {
-                pointsScored: (visit.throw2 ?? 0) * (visit.throw2Multiplier ?? 1),
-                visitNumber: visit.visitNumber,
-                scoreAfterThrow: 0,
-                scoreBeforeThrow: 0,
-            },
-            {
-                pointsScored: (visit.throw3 ?? 0) * (visit.throw3Multiplier ?? 1),
-                visitNumber: visit.visitNumber,
-                scoreAfterThrow: 0,
-                scoreBeforeThrow: 0,
-            },
-        ]);
-
+        const points: GameHistory[] = [];
         let totalScore = getPointsForGameType(gameType);
-        for (const point of points) {
-            point.scoreBeforeThrow = totalScore;
-            totalScore -= point.pointsScored;
-            point.scoreAfterThrow = totalScore;
+
+        for (const visit of visits) {
+            const scoreAtStartOfVisit = totalScore;
+            const throws = [
+                {
+                    pointsScored: (visit.throw1 ?? 0) * (visit.throw1Multiplier ?? 1),
+                    visitNumber: visit.visitNumber,
+                },
+                {
+                    pointsScored: (visit.throw2 ?? 0) * (visit.throw2Multiplier ?? 1),
+                    visitNumber: visit.visitNumber,
+                },
+                {
+                    pointsScored: (visit.throw3 ?? 0) * (visit.throw3Multiplier ?? 1),
+                    visitNumber: visit.visitNumber,
+                },
+            ];
+
+            for (const throwData of throws) {
+                const scoreBeforeThrow = totalScore;
+                totalScore -= throwData.pointsScored;
+
+                points.push({
+                    pointsScored: throwData.pointsScored,
+                    visitNumber: throwData.visitNumber,
+                    scoreBeforeThrow,
+                    scoreAfterThrow: totalScore <= 1 ? startingScore : totalScore,
+                });
+            }
+
+            // If the visit was a bust, reset the score to what it was at the start of the visit
+            if (visit.outcome === GameVisitOutcome.BUSTED) {
+                totalScore = scoreAtStartOfVisit;
+            }
         }
 
         return points;
