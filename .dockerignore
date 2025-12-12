@@ -1,15 +1,34 @@
-# Node modules
+# Node modules and pnpm cache
 **/node_modules
 **/dist
+node_modules
+dist
+build
+.pnpm-store
+**/.pnpm-store
 
-# Environment files
+# Environment files - CRITICAL: These must not be copied to avoid build-time pollution
 **/.env
+**/.env.*
 .env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.dist
 
 # Build artifacts
 apps/client/build
 apps/client/dist
 apps/server/dist
+
+# Turbo cache - CRITICAL: Must not be copied to avoid using cached builds with wrong env vars
+.turbo
+**/.turbo
+
+# Vite cache
+**/.vite
+.vite
 
 # Logs
 **/*.log
@@ -29,4 +48,13 @@ Thumbs.db
 !packages/prisma/prisma/
 !packages/prisma/prisma/schema.prisma
 
+**/*.tsbuildinfo
+*.tsbuildinfo
 tsconfig.tsbuildinfo
+
+# Additional caches that could contain stale builds
+**/.cache
+.cache
+
+.git
+.gitignore

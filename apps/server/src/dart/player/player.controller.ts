@@ -37,7 +37,6 @@ export class PlayerController {
                 page: input.page,
                 pageSize: input.pageSize,
             };
-            console.log('pagination', pagination, input.playerId);
             const games = await this.gameService.getGames({ filter: { playerIds: [[input.playerId]] }, pagination });
             return { data: games, pagination };
         });
