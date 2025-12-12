@@ -12,7 +12,6 @@
         "format:verify": "biome check",
         "format": "biome check --write",
         "tsc": "turbo tsc",
-        "postinstall": "pnpm db:generate-client-and-types",
         "db:generate-client-and-types": "pnpm --filter @darts/prisma db:generate-client-and-types",
         "db:create-migration": "pnpm --filter @darts/prisma db:create-migration",
         "db:apply-migration": "pnpm --filter @darts/prisma db:apply-migration"

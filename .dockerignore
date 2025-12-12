@@ -28,3 +28,5 @@ Thumbs.db
 # Prisma directory - make sure to exclude specific files if necessary, not the directory itself
 !packages/prisma/prisma/
 !packages/prisma/prisma/schema.prisma
+
+tsconfig.tsbuildinfo
