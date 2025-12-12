@@ -126,8 +126,8 @@ importers:
         specifier: 'catalog:'
         version: 2.3.2
       turbo:
-        specifier: ^2.5.2
-        version: 2.5.2
+        specifier: ^2.6.3
+        version: 2.6.3
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -567,7 +567,7 @@ importers:
     dependencies:
       '@prisma/client':
         specifier: ^7.1.0
-        version: 7.1.0(prisma@7.1.0(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3))(typescript@5.8.3)
+        version: 7.1.0(prisma@7.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3))(typescript@5.8.3)
       prisma:
         specifier: ^7.1.0
         version: 7.1.0(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)
@@ -7709,38 +7709,38 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  turbo-darwin-64@2.5.2:
-    resolution: {integrity: sha512-2aIl0Sx230nLk+Cg2qSVxvPOBWCZpwKNuAMKoROTvWKif6VMpkWWiR9XEPoz7sHeLmCOed4GYGMjL1bqAiIS/g==}
+  turbo-darwin-64@2.6.3:
+    resolution: {integrity: sha512-BlJJDc1CQ7SK5Y5qnl7AzpkvKSnpkfPmnA+HeU/sgny3oHZckPV2776ebO2M33CYDSor7+8HQwaodY++IINhYg==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.5.2:
-    resolution: {integrity: sha512-MrFYhK/jYu8N6QlqZtqSHi3e4QVxlzqU3ANHTKn3/tThuwTLbNHEvzBPWSj5W7nZcM58dCqi6gYrfRz6bJZyAA==}
+  turbo-darwin-arm64@2.6.3:
+    resolution: {integrity: sha512-MwVt7rBKiOK7zdYerenfCRTypefw4kZCue35IJga9CH1+S50+KTiCkT6LBqo0hHeoH2iKuI0ldTF2a0aB72z3w==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.5.2:
-    resolution: {integrity: sha512-LxNqUE2HmAJQ/8deoLgMUDzKxd5bKxqH0UBogWa+DF+JcXhtze3UTMr6lEr0dEofdsEUYK1zg8FRjglmwlN5YA==}
+  turbo-linux-64@2.6.3:
+    resolution: {integrity: sha512-cqpcw+dXxbnPtNnzeeSyWprjmuFVpHJqKcs7Jym5oXlu/ZcovEASUIUZVN3OGEM6Y/OTyyw0z09tOHNt5yBAVg==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.5.2:
-    resolution: {integrity: sha512-0MI1Ao1q8zhd+UUbIEsrM+yLq1BsrcJQRGZkxIsHFlGp7WQQH1oR3laBgfnUCNdCotCMD6w4moc9pUbXdOR3bg==}
+  turbo-linux-arm64@2.6.3:
+    resolution: {integrity: sha512-MterpZQmjXyr4uM7zOgFSFL3oRdNKeflY7nsjxJb2TklsYqiu3Z9pQ4zRVFFH8n0mLGna7MbQMZuKoWqqHb45w==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.5.2:
-    resolution: {integrity: sha512-hOLcbgZzE5ttACHHyc1ajmWYq4zKT42IC3G6XqgiXxMbS+4eyVYTL+7UvCZBd3Kca1u4TLQdLQjeO76zyDJc2A==}
+  turbo-windows-64@2.6.3:
+    resolution: {integrity: sha512-biDU70v9dLwnBdLf+daoDlNJVvqOOP8YEjqNipBHzgclbQlXbsi6Gqqelp5er81Qo3BiRgmTNx79oaZQTPb07Q==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.5.2:
-    resolution: {integrity: sha512-fMU41ABhSLa18H8V3Z7BMCGynQ8x+wj9WyBMvWm1jeyRKgkvUYJsO2vkIsy8m0vrwnIeVXKOIn6eSe1ddlBVqw==}
+  turbo-windows-arm64@2.6.3:
+    resolution: {integrity: sha512-dDHVKpSeukah3VsI/xMEKeTnV9V9cjlpFSUs4bmsUiLu3Yv2ENlgVEZv65wxbeE0bh0jjpmElDT+P1KaCxArQQ==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.5.2:
-    resolution: {integrity: sha512-Qo5lfuStr6LQh3sPQl7kIi243bGU4aHGDQJUf6ylAdGwks30jJFloc9NYHP7Y373+gGU9OS0faA4Mb5Sy8X9Xw==}
+  turbo@2.6.3:
+    resolution: {integrity: sha512-bf6YKUv11l5Xfcmg76PyWoy/e2vbkkxFNBGJSnfdSXQC33ZiUfutYh6IXidc5MhsnrFkWfdNNLyaRk+kHMLlwA==}
     hasBin: true
 
   type-check@0.4.0:
@@ -8923,7 +8923,7 @@ snapshots:
 
   '@darts/prisma@file:packages/prisma(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)':
     dependencies:
-      '@prisma/client': 7.1.0(prisma@7.1.0(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3))(typescript@5.8.3)
+      '@prisma/client': 7.1.0(prisma@7.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3))(typescript@5.8.3)
       prisma: 7.1.0(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)
     transitivePeerDependencies:
       - '@types/react'
@@ -10322,7 +10322,7 @@ snapshots:
 
   '@prisma/client-runtime-utils@7.1.0': {}
 
-  '@prisma/client@7.1.0(prisma@7.1.0(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3))(typescript@5.8.3)':
+  '@prisma/client@7.1.0(prisma@7.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
       '@prisma/client-runtime-utils': 7.1.0
     optionalDependencies:
@@ -16351,32 +16351,32 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  turbo-darwin-64@2.5.2:
+  turbo-darwin-64@2.6.3:
     optional: true
 
-  turbo-darwin-arm64@2.5.2:
+  turbo-darwin-arm64@2.6.3:
     optional: true
 
-  turbo-linux-64@2.5.2:
+  turbo-linux-64@2.6.3:
     optional: true
 
-  turbo-linux-arm64@2.5.2:
+  turbo-linux-arm64@2.6.3:
     optional: true
 
-  turbo-windows-64@2.5.2:
+  turbo-windows-64@2.6.3:
     optional: true
 
-  turbo-windows-arm64@2.5.2:
+  turbo-windows-arm64@2.6.3:
     optional: true
 
-  turbo@2.5.2:
+  turbo@2.6.3:
     optionalDependencies:
-      turbo-darwin-64: 2.5.2
-      turbo-darwin-arm64: 2.5.2
-      turbo-linux-64: 2.5.2
-      turbo-linux-arm64: 2.5.2
-      turbo-windows-64: 2.5.2
-      turbo-windows-arm64: 2.5.2
+      turbo-darwin-64: 2.6.3
+      turbo-darwin-arm64: 2.6.3
+      turbo-linux-64: 2.6.3
+      turbo-linux-arm64: 2.6.3
+      turbo-windows-64: 2.6.3
+      turbo-windows-arm64: 2.6.3
 
   type-check@0.4.0:
     dependencies:
