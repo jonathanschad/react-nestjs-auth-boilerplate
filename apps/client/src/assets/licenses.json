@@ -23,11 +23,34 @@
         "private": true,
         "path": "node_modules/@darts/ui"
     },
+    "@darts/utils@0.7.0": {
+        "licenses": "MIT",
+        "path": "node_modules/@darts/types/node_modules/@darts/utils",
+        "licenseFile": "node_modules/@darts/types/node_modules/@darts/utils/README.md"
+    },
     "@eslint/js@9.26.0": {
         "licenses": "MIT",
         "repository": "https://github.com/eslint/eslint",
         "path": "node_modules/@darts/eslint-config/node_modules/@eslint/js",
         "licenseFile": "node_modules/@darts/eslint-config/node_modules/@eslint/js/LICENSE"
+    },
+    "@orpc/client@1.12.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unnoq/orpc",
+        "path": "node_modules/@orpc/client",
+        "licenseFile": "node_modules/@orpc/client/LICENSE"
+    },
+    "@orpc/contract@1.12.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unnoq/orpc",
+        "path": "node_modules/@orpc/contract",
+        "licenseFile": "node_modules/@orpc/contract/LICENSE"
+    },
+    "@orpc/openapi-client@1.12.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unnoq/orpc",
+        "path": "node_modules/@orpc/openapi-client",
+        "licenseFile": "node_modules/@orpc/openapi-client/LICENSE"
     },
     "@sentry/react@8.55.0": {
         "licenses": "MIT",
@@ -56,18 +79,6 @@
         "publisher": "Tanner Linsley",
         "path": "node_modules/@tanstack/react-table",
         "licenseFile": "node_modules/@tanstack/react-table/LICENSE"
-    },
-    "@ts-rest/core@3.52.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/ts-rest/ts-rest",
-        "path": "node_modules/@ts-rest/core",
-        "licenseFile": "node_modules/@ts-rest/core/LICENCE"
-    },
-    "@ts-rest/react-query@3.52.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/ts-rest/ts-rest",
-        "path": "node_modules/@ts-rest/react-query",
-        "licenseFile": "node_modules/@ts-rest/react-query/LICENCE"
     },
     "@types/node@20.17.22": {
         "licenses": "MIT",
@@ -132,6 +143,13 @@
         "publisher": "Matt Zabriskie",
         "path": "node_modules/axios",
         "licenseFile": "node_modules/axios/LICENSE"
+    },
+    "class-validator@0.14.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/typestack/class-validator",
+        "publisher": "TypeStack contributors",
+        "path": "node_modules/@darts/types/node_modules/@darts/utils/node_modules/class-validator",
+        "licenseFile": "node_modules/@darts/types/node_modules/@darts/utils/node_modules/class-validator/LICENSE"
     },
     "class-variance-authority@0.7.1": {
         "licenses": "Apache-2.0",
@@ -318,6 +336,13 @@
         "path": "node_modules/react",
         "licenseFile": "node_modules/react/LICENSE"
     },
+    "recharts@3.5.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/recharts/recharts",
+        "publisher": "recharts group",
+        "path": "node_modules/recharts",
+        "licenseFile": "node_modules/recharts/LICENSE"
+    },
     "sonner@2.0.7": {
         "licenses": "MIT",
         "repository": "https://github.com/emilkowalski/sonner",
@@ -376,8 +401,8 @@
         "licenses": "MIT",
         "repository": "https://github.com/pd4d10/vite-plugin-svgr",
         "publisher": "Rongjian Zhang",
-        "path": "node_modules/vite-plugin-svgr",
-        "licenseFile": "node_modules/vite-plugin-svgr/LICENSE"
+        "path": "node_modules/@darts/ts-config/node_modules/vite-plugin-svgr",
+        "licenseFile": "node_modules/@darts/ts-config/node_modules/vite-plugin-svgr/LICENSE"
     },
     "vite@6.3.4": {
         "licenses": "MIT",
@@ -386,11 +411,11 @@
         "path": "node_modules/vite",
         "licenseFile": "node_modules/vite/LICENSE.md"
     },
-    "zod@3.24.2": {
+    "zod@4.1.13": {
         "licenses": "MIT",
         "repository": "https://github.com/colinhacks/zod",
         "publisher": "Colin McDonnell",
-        "email": "colin@colinhacks.com",
+        "email": "zod@colinhacks.com",
         "path": "node_modules/zod",
         "licenseFile": "node_modules/zod/LICENSE"
     },

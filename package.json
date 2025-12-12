@@ -12,7 +12,6 @@
         "format:verify": "biome check",
         "format": "biome check --write",
         "tsc": "turbo tsc",
-        "postinstall": "pnpm db:generate-client-and-types",
         "db:generate-client-and-types": "pnpm --filter @darts/prisma db:generate-client-and-types",
         "db:create-migration": "pnpm --filter @darts/prisma db:create-migration",
         "db:apply-migration": "pnpm --filter @darts/prisma db:apply-migration"
@@ -26,7 +25,7 @@
     },
     "devDependencies": {
         "@biomejs/biome": "catalog:",
-        "turbo": "^2.5.2",
+        "turbo": "^2.6.3",
         "typescript": "catalog:"
     }
 }
