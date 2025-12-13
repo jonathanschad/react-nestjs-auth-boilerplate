@@ -173,14 +173,17 @@ export const EloHistoryChart = ({ playerUuid }: EloHistoryChartProps) => {
                         cursor={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1, strokeDasharray: '3 3' }}
                     />
                     <Area
+                        key="elo-area"
                         type="monotone"
                         dataKey="elo"
                         stroke="none"
                         fill="url(#colorElo)"
                         fillOpacity={1}
                         isAnimationActive={false}
+                        hide={true}
                     />
                     <Line
+                        key="elo-line"
                         type="monotone"
                         dataKey="elo"
                         stroke="var(--color-elo)"
