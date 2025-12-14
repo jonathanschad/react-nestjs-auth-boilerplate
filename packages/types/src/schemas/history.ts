@@ -40,8 +40,24 @@ export const eloHistoryResponseSchema = z.object({
     gamesPlayedAfter: z.number().int(),
 });
 
+const averageObjectSchema = z.object({
+    average: z.number(),
+    scoringAverage: z.number(),
+    numberOfGames: z.number().int(),
+});
+
+// Average History Response with timestamp (for charts/history display)
+export const averageHistoryResponseSchema = z.object({
+    currentWeek: averageObjectSchema,
+    currentMonth: averageObjectSchema,
+    currentYear: averageObjectSchema,
+    dailyAverages: z.record(z.string(), averageObjectSchema),
+});
+
 // Type exports
 export type EloHistoryEntityApiDTO = z.infer<typeof eloHistoryEntitySchema>;
 export type EloHistoryResponseDTO = z.infer<typeof eloHistoryResponseSchema>;
 export type OpenSkillHistoryEntityApiDTO = z.infer<typeof openSkillHistoryEntitySchema>;
 export type OpenSkillRating = z.infer<typeof openskillRatingSchema>;
+export type AverageHistoryResponseDTO = z.infer<typeof averageHistoryResponseSchema>;
+export type AverageObjectDTO = z.infer<typeof averageObjectSchema>;

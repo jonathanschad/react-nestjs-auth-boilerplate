@@ -178,5 +178,16 @@
     "totalScore": "Total Score",
     "time": "Time",
     "checkoutMode": "Checkout Mode",
-    "unrankedPlayers": "Unranked Players"
+    "unrankedPlayers": "Unranked Players",
+    "dailyAverages": "Daily Averages",
+    "errorLoadingAverageHistory": "Error loading average history. Please try again later.",
+    "noAverageData": "No average data available yet.",
+    "totalDaysWithGames": "Total days with games",
+    "Average": "Average",
+    "Scoring Average": "Scoring Average",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "averageScoreCurrentMonth": "Average (Current Month)",
+    "scoringAverageCurrentMonth": "Scoring Average (Current Month)"
 }

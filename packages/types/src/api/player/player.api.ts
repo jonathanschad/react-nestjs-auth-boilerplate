@@ -1,6 +1,7 @@
 import { oc } from '@orpc/contract';
 import { z } from 'zod';
 import {
+    averageHistoryResponseSchema,
     eloHistoryResponseSchema,
     gameEntitySchema,
     openSkillRankingResponseSchema,
@@ -47,6 +48,14 @@ export const playerContract = oc.prefix('/player').router({
             }),
         )
         .output(z.array(openSkillRankingResponseSchema)),
+    getAverageHistory: oc
+        .route({ method: 'GET', path: '/{userId}/average-history' })
+        .input(
+            z.object({
+                userId: z.uuid(),
+            }),
+        )
+        .output(averageHistoryResponseSchema),
     getOpponentsWithHeadToHead: oc
         .route({ method: 'GET', path: '/{playerId}/opponents' })
         .input(

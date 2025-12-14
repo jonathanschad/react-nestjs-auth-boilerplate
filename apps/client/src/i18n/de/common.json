@@ -178,5 +178,16 @@
     "totalScore": "Gesamtpunktzahl",
     "time": "Uhrzeit",
     "checkoutMode": "Checkout-Modus",
-    "unrankedPlayers": "Unplatzierte Spieler"
+    "unrankedPlayers": "Unplatzierte Spieler",
+    "dailyAverages": "Tägliche Averages",
+    "errorLoadingAverageHistory": "Fehler beim Laden des Durchschnittsverlaufs. Bitte versuche es erneut.",
+    "noAverageData": "Noch keine Durchschnittsdaten verfügbar.",
+    "totalDaysWithGames": "Gesamt Tage mit Spielen",
+    "Average": "Durchschnitt",
+    "Scoring Average": "Scoring Average",
+    "day": "Tag",
+    "week": "Woche",
+    "month": "Monat",
+    "averageScoreCurrentMonth": "Average (Aktueller Monat)",
+    "scoringAverageCurrentMonth": "Scoring Average (Aktueller Monat)"
 }

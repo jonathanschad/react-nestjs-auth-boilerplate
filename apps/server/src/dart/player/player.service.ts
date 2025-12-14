@@ -1,4 +1,6 @@
 import type {
+    AverageHistoryResponseDTO,
+    AverageObjectDTO,
     EloHistoryResponseDTO,
     GameEntityApiDTO,
     HeadToHeadStats,
@@ -8,8 +10,10 @@ import type {
     PlayerSummaryStatsDetails,
 } from '@darts/types';
 import { Injectable } from '@nestjs/common';
+import dayjs from 'dayjs';
 import { RankingService } from '@/dart/ranking/ranking.service';
 import { DatabaseGameService } from '@/database/game/game.service';
+import { DatabaseGameStatisticService } from '@/database/game/game-statistic.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
@@ -18,6 +22,7 @@ export class PlayerService {
     constructor(
         private readonly databaseUserService: DatabaseUserService,
         private readonly databaseGameService: DatabaseGameService,
+        private readonly databaseGameStatisticService: DatabaseGameStatisticService,
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
         private readonly rankingService: RankingService,
     ) {}
@@ -181,5 +186,86 @@ export class PlayerService {
                 gamesPlayedAfter: history.gamesPlayedAfter,
             }),
         );
+    }
+
+    public async getPlayerAverageHistory(playerId: string): Promise<AverageHistoryResponseDTO> {
+        const averageHistory = await this.databaseGameStatisticService.getPlayerGameStatisticsHistory(playerId);
+        const now = dayjs();
+        const averages: Record<string, AverageObjectDTO> = {};
+        const currentWeekAverage: AverageObjectDTO = {
+            average: 0,
+            scoringAverage: 0,
+            numberOfGames: 0,
+        };
+        const currentMonthAverage: AverageObjectDTO = {
+            average: 0,
+            scoringAverage: 0,
+            numberOfGames: 0,
+        };
+        const currentYearAverage: AverageObjectDTO = {
+            average: 0,
+            scoringAverage: 0,
+            numberOfGames: 0,
+        };
+
+        for (const average of averageHistory) {
+            const dateString = dayjs(average.game.gameEnd).format('YYYY-MM-DD');
+            if (!averages[dateString]) {
+                averages[dateString] = {
+                    average: 0,
+                    scoringAverage: 0,
+                    numberOfGames: 0,
+                };
+            }
+
+            averages[dateString].average += average.averageScore;
+            averages[dateString].scoringAverage += average.averageUntilFirstPossibleFinish;
+            averages[dateString].numberOfGames += 1;
+
+            if (dayjs(dateString).isSame(now, 'week')) {
+                currentWeekAverage.average += average.averageScore;
+                currentWeekAverage.scoringAverage += average.averageUntilFirstPossibleFinish;
+                currentWeekAverage.numberOfGames += 1;
+            }
+
+            if (dayjs(dateString).isSame(now, 'month')) {
+                currentMonthAverage.average += average.averageScore;
+                currentMonthAverage.scoringAverage += average.averageUntilFirstPossibleFinish;
+                currentMonthAverage.numberOfGames += 1;
+            }
+
+            if (dayjs(dateString).isSame(now, 'year')) {
+                currentYearAverage.average += average.averageScore;
+                currentYearAverage.scoringAverage += average.averageUntilFirstPossibleFinish;
+                currentYearAverage.numberOfGames += 1;
+            }
+        }
+
+        for (const date in averages) {
+            if (averages[date].numberOfGames > 0) {
+                averages[date].average /= averages[date].numberOfGames;
+                averages[date].scoringAverage /= averages[date].numberOfGames;
+            }
+        }
+
+        if (currentWeekAverage.numberOfGames > 0) {
+            currentWeekAverage.average /= currentWeekAverage.numberOfGames;
+            currentWeekAverage.scoringAverage /= currentWeekAverage.numberOfGames;
+        }
+        if (currentMonthAverage.numberOfGames > 0) {
+            currentMonthAverage.average /= currentMonthAverage.numberOfGames;
+            currentMonthAverage.scoringAverage /= currentMonthAverage.numberOfGames;
+        }
+        if (currentYearAverage.numberOfGames > 0) {
+            currentYearAverage.average /= currentYearAverage.numberOfGames;
+            currentYearAverage.scoringAverage /= currentYearAverage.numberOfGames;
+        }
+
+        return {
+            currentWeek: currentWeekAverage,
+            currentMonth: currentMonthAverage,
+            currentYear: currentYearAverage,
+            dailyAverages: averages,
+        };
     }
 }

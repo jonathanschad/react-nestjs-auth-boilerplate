@@ -9,20 +9,27 @@ import { ArrowLeft, User } from 'lucide-react';
 import { ordinal, rating } from 'openskill';
 import { useNavigate } from 'react-router-dom';
 import { useGetPlayer } from '@/api/dart/player/useGetPlayer';
+import { useGetPlayerAverageHistory } from '@/api/dart/player/useGetPlayerAverageHistory';
 import { AuthenticatedImage } from '@/components/authenticated-image';
 
 type PlayerOverviewProps = {
     playerId: string;
 };
 
+const CardSkeleton = () => {
+    return (
+        <Card className="p-4">
+            <Skeleton className="mb-2 h-4 w-24" />
+            <Skeleton className="h-8 w-16" />
+        </Card>
+    );
+};
+
 export const PlayerOverviewSkeleton = () => {
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {[1, 2, 3, 4].map((i) => (
-                <Card key={i} className="p-4">
-                    <Skeleton className="mb-2 h-4 w-24" />
-                    <Skeleton className="h-8 w-16" />
-                </Card>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <CardSkeleton key={i} />
             ))}
         </div>
     );
@@ -30,6 +37,7 @@ export const PlayerOverviewSkeleton = () => {
 
 export const PlayerOverview = ({ playerId }: PlayerOverviewProps) => {
     const { data, isLoading, error } = useGetPlayer(playerId);
+    const { data: averageHistory, isLoading: isLoadingAverageHistory } = useGetPlayerAverageHistory(playerId);
     const navigate = useNavigate();
 
     if (isLoading) {
@@ -129,6 +137,32 @@ export const PlayerOverview = ({ playerId }: PlayerOverviewProps) => {
                         {stats.lastGamePlayedAt ? dayjs(stats.lastGamePlayedAt).format('DD.MM.YYYY HH:mm') : '-'}
                     </Typography>
                 </Card>
+                {isLoadingAverageHistory && (
+                    <>
+                        <CardSkeleton />
+                        <CardSkeleton />
+                    </>
+                )}
+                {averageHistory && (
+                    <>
+                        <Card className="p-4">
+                            <Typography as="smallText" className="text-muted-foreground">
+                                <Translation>averageScoreCurrentMonth</Translation>
+                            </Typography>
+                            <Typography as="h2" className="mt-2">
+                                {averageHistory.currentMonth.average.toFixed(2)}
+                            </Typography>
+                        </Card>
+                        <Card className="p-4">
+                            <Typography as="smallText" className="text-muted-foreground">
+                                <Translation>scoringAverageCurrentMonth</Translation>
+                            </Typography>
+                            <Typography as="h2" className="mt-2">
+                                {averageHistory.currentMonth.scoringAverage.toFixed(2)}
+                            </Typography>
+                        </Card>
+                    </>
+                )}
             </div>
         </>
     );

@@ -30,11 +30,11 @@ export const EloHistoryChartSkeleton = () => {
 const chartConfig = {
     elo: {
         label: 'ELO',
-        color: 'hsl(var(--primary))',
+        color: 'var(--chart-1)',
     },
     eloArea: {
         label: 'ELO Range',
-        color: 'hsl(var(--primary))',
+        color: 'var(--chart-2)',
     },
 };
 

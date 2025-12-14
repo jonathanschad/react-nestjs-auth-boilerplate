@@ -57,4 +57,12 @@ export class PlayerController {
             return result;
         });
     }
+
+    @Implement(api.dart.player.getAverageHistory)
+    public getPlayerAverageHistory() {
+        return implement(api.dart.player.getAverageHistory).handler(async ({ input }) => {
+            const result = await this.playerService.getPlayerAverageHistory(input.userId);
+            return result;
+        });
+    }
 }
