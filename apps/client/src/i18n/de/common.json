@@ -205,5 +205,7 @@
     "from": "Von",
     "until": "Bis",
     "allTimeWinners": "Alle Gewinner",
-    "numberOfWins": "Anzahl der Siege"
+    "numberOfWins": "Anzahl der Siege",
+    "playerOfTheWeekDetails": "Spieler der Woche Details",
+    "weekRankings": "Wochen-Rangliste"
 }

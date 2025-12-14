@@ -19,3 +19,12 @@ const getPlayerOfTheWeekContender = async () => {
 export const useGetPlayerOfTheWeekContender = () => {
     return useQuery([...getPlayerQueryKey('player-of-the-week-contender')], () => getPlayerOfTheWeekContender());
 };
+
+const getPlayerOfTheWeekDetails = async ({ id }: { id: string }) => {
+    const response = await client.dart.playerOfTheWeek.getDetails({ id });
+    return response;
+};
+
+export const useGetPlayerOfTheWeekDetails = ({ id }: { id: string }) => {
+    return useQuery([...getPlayerQueryKey('player-of-the-week-details'), id], () => getPlayerOfTheWeekDetails({ id }));
+};

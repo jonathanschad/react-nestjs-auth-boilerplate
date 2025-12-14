@@ -35,4 +35,10 @@ export class PlayerOfTheWeekDatabaseService {
             },
         });
     }
+
+    public async getPlayerOfTheWeekById({ id }: { id: string }): Promise<PlayerOfTheWeek | null> {
+        return this.prisma.playerOfTheWeek.findUnique({
+            where: { id },
+        });
+    }
 }

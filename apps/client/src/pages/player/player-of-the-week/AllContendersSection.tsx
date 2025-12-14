@@ -1,58 +1,46 @@
-import { PlayerOfTheWeekEntityDTO } from '@darts/types';
+import { PlayerOfTheWeekContenderDTO } from '@darts/types';
 import { Button } from '@darts/ui/components/button';
 import { DataTable } from '@darts/ui/components/data-table';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@darts/ui/components/tooltip';
 import { Translation } from '@darts/ui/i18n/Translation';
 import type { ColumnDef } from '@tanstack/react-table';
-import dayjs from 'dayjs';
-import { ArrowUpDown } from 'lucide-react';
-import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { formatWeek } from '@/pages/player/player-of-the-week/utils';
+import { ArrowUpDown, Medal } from 'lucide-react';
 import { UserTableCell } from '@/pages/ranking/UserTableCell';
 
-interface HistorySectionProps {
-    history: PlayerOfTheWeekEntityDTO[];
+interface AllContendersSectionProps {
+    contenders: PlayerOfTheWeekContenderDTO[];
 }
 
-interface PlayerWinCount {
-    playerId: string;
-    winCount: number;
-}
+const getRankIcon = (rank: number) => {
+    if (rank === 1) {
+        return <Medal className="h-5 w-5 text-yellow-500" />;
+    }
+    if (rank === 2) {
+        return <Medal className="h-5 w-5 text-gray-400" />;
+    }
+    if (rank === 3) {
+        return <Medal className="h-5 w-5 text-amber-600" />;
+    }
+    return null;
+};
 
-const historyColumns: ColumnDef<PlayerOfTheWeekEntityDTO>[] = [
+const allContendersColumns: ColumnDef<PlayerOfTheWeekContenderDTO & { rank: number }>[] = [
     {
-        accessorKey: 'weekStart',
-        header: ({ column }) => {
+        accessorKey: 'rank',
+        header: () => {
             return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    className="pl-0"
-                >
-                    <Translation>weekStarting</Translation>
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
+                <div className="pl-0">
+                    <Translation>rank</Translation>
+                </div>
             );
         },
         cell: ({ row }) => {
-            const date = new Date(row.original.weekStart);
+            const rank = row.original.rank;
+            const icon = getRankIcon(rank);
             return (
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <div>{formatWeek(date)}</div>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <p>
-                                <Translation>from</Translation>: {dayjs(date).startOf('week').format('ddd, DD.MM.YYYY')}
-                            </p>
-                            <p>
-                                <Translation>until</Translation>: {dayjs(date).endOf('week').format('ddd, DD.MM.YYYY')}
-                            </p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
+                <div className="flex items-center gap-2">
+                    {icon}
+                    <span className="font-semibold">{rank}</span>
+                </div>
             );
         },
     },
@@ -143,6 +131,22 @@ const historyColumns: ColumnDef<PlayerOfTheWeekEntityDTO>[] = [
         cell: ({ row }) => <div>{row.original.averageScore.toFixed(1)}</div>,
     },
     {
+        accessorKey: 'scoringAverage',
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                    className="pl-0"
+                >
+                    <Translation>scoringAverage</Translation>
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            );
+        },
+        cell: ({ row }) => <div>{row.original.scoringAverage.toFixed(1)}</div>,
+    },
+    {
         accessorKey: 'numberOfGames',
         header: ({ column }) => {
             return (
@@ -160,78 +164,18 @@ const historyColumns: ColumnDef<PlayerOfTheWeekEntityDTO>[] = [
     },
 ];
 
-const winCountColumns: ColumnDef<PlayerWinCount>[] = [
-    {
-        accessorKey: 'playerId',
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    className="pl-0"
-                >
-                    <Translation>player</Translation>
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => {
-            return <UserTableCell userUuid={row.original.playerId} />;
-        },
-    },
-    {
-        accessorKey: 'winCount',
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    className="pl-0"
-                >
-                    <Translation>numberOfWins</Translation>
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => <div className="font-semibold">{row.original.winCount}</div>,
-    },
-];
-
-export const HistorySection = ({ history }: HistorySectionProps) => {
-    const navigate = useNavigate();
-
-    const playerWinCounts = useMemo(() => {
-        const winCountMap = new Map<string, number>();
-
-        history.forEach((record) => {
-            const currentCount = winCountMap.get(record.playerId) || 0;
-            winCountMap.set(record.playerId, currentCount + 1);
-        });
-
-        return Array.from(winCountMap.entries())
-            .map(([playerId, winCount]) => ({ playerId, winCount }))
-            .sort((a, b) => b.winCount - a.winCount);
-    }, [history]);
+export const AllContendersSection = ({ contenders }: AllContendersSectionProps) => {
+    const contendersWithRank = contenders.map((contender, index) => ({
+        ...contender,
+        rank: index + 1,
+    }));
 
     return (
-        <div className="space-y-8">
-            <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">
-                    <Translation>allTimeWinners</Translation>
-                </h2>
-                <DataTable data={playerWinCounts} columns={winCountColumns} pageSize={5} />
-            </div>
-            <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">
-                    <Translation>previousWinners</Translation>
-                </h2>
-                <DataTable
-                    data={history}
-                    columns={historyColumns}
-                    pageSize={10}
-                    onRowClick={(row) => navigate(`/player-of-the-week/${row.id}`)}
-                />
-            </div>
+        <div className="space-y-4">
+            <h2 className="text-2xl font-semibold">
+                <Translation>weekRankings</Translation>
+            </h2>
+            <DataTable data={contendersWithRank} columns={allContendersColumns} pageSize={10} />
         </div>
     );
 };

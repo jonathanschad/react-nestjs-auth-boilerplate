@@ -6,9 +6,9 @@ import {
     useSetSignedInCurrentActiveRoute,
 } from '@/layout/useSetSignedInCurrentActiveRoute';
 import { ContendersSection } from '@/pages/player/player-of-the-week/ContendersSection';
-import { CurrentLeaderCard } from '@/pages/player/player-of-the-week/CurrentLeaderCard';
 import { HistorySection } from '@/pages/player/player-of-the-week/HistorySection';
 import { NoGamesCard } from '@/pages/player/player-of-the-week/NoGamesCard';
+import { PlayerOfTheWeekCard } from '@/pages/player/player-of-the-week/PlayerOfTheWeekCard';
 
 export const PlayerOfTheWeek = () => {
     useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.PLAYER_OF_THE_WEEK);
@@ -68,7 +68,7 @@ export const PlayerOfTheWeek = () => {
                 <Translation>playerOfTheWeek</Translation>
             </h1>
 
-            <CurrentLeaderCard topContender={topContender} />
+            <PlayerOfTheWeekCard topContender={topContender} type="current-leader" />
 
             <ContendersSection contenders={contenders} />
 

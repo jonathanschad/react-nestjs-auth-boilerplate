@@ -28,6 +28,7 @@ export class PlayerOfTheWeekController {
         return implement(api.dart.playerOfTheWeek.getHistory).handler(async () => {
             const result = await this.playerOfTheWeekService.getPlayerOfTheWeekHistory();
             return result.map((item) => ({
+                id: item.id,
                 playerId: item.playerId,
                 weekStart: item.weekStart.toISOString(),
                 eloDifference: item.eloDifference,
@@ -36,6 +37,38 @@ export class PlayerOfTheWeekController {
                 scoringAverage: item.scoringAverage,
                 numberOfGames: item.numberOfGames,
             }));
+        });
+    }
+
+    @Implement(api.dart.playerOfTheWeek.getDetails)
+    public async getPlayerOfTheWeekDetails() {
+        return implement(api.dart.playerOfTheWeek.getDetails).handler(async ({ input }) => {
+            const result = await this.playerOfTheWeekService.getPlayerOfTheWeekDetails({ id: input.id });
+            if (!result) {
+                throw new Error('Player of the week not found');
+            }
+
+            return {
+                winner: {
+                    id: result.winner.id,
+                    playerId: result.winner.playerId,
+                    weekStart: result.winner.weekStart.toISOString(),
+                    eloDifference: result.winner.eloDifference,
+                    openSkillDifference: result.winner.openSkillDifference,
+                    averageScore: result.winner.averageScore,
+                    scoringAverage: result.winner.scoringAverage,
+                    numberOfGames: result.winner.numberOfGames,
+                },
+                allContenders: result.allContenders.map((item) => ({
+                    playerId: item.playerId,
+                    weekStart: item.weekStart.toISOString(),
+                    eloDifference: item.eloDifference,
+                    openSkillDifference: item.openSkillDifference,
+                    averageScore: item.averageScore,
+                    scoringAverage: item.scoringAverage,
+                    numberOfGames: item.numberOfGames,
+                })),
+            };
         });
     }
 }

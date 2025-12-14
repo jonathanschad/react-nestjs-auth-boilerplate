@@ -1,23 +1,51 @@
 import { PlayerOfTheWeekEntityDTO } from '@darts/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@darts/ui/components/card';
 import { Translation } from '@darts/ui/i18n/Translation';
-import { TrendingUp } from 'lucide-react';
+import dayjs from 'dayjs';
+import { Calendar, TrendingUp, Trophy } from 'lucide-react';
+import { formatWeek } from '@/pages/player/player-of-the-week/utils';
 import { UserTableCell } from '@/pages/ranking/UserTableCell';
 
-interface CurrentLeaderCardProps {
+interface PlayerOfTheWeekCardProps {
     topContender: PlayerOfTheWeekEntityDTO;
+    type: 'current-leader' | 'winner';
 }
 
-export const CurrentLeaderCard = ({ topContender }: CurrentLeaderCardProps) => {
+export const PlayerOfTheWeekCard = ({ topContender, type }: PlayerOfTheWeekCardProps) => {
+    const weekStart = dayjs(topContender.weekStart).toDate();
+    const weekEnd = dayjs(weekStart).endOf('week').toDate();
+
     return (
         <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="h-6 w-6 text-primary" />
-                    <Translation>currentLeader</Translation>
+                    {type === 'current-leader' ? (
+                        <>
+                            <TrendingUp className="h-6 w-6 text-primary" />
+                            <Translation>currentLeader</Translation>
+                        </>
+                    ) : (
+                        <>
+                            <Trophy className="h-8 w-8 text-yellow-500" />
+                            <Translation>winner</Translation>
+                        </>
+                    )}
                 </CardTitle>
                 <CardDescription>
-                    <Translation>currentWeekLeader</Translation>
+                    {type === 'current-leader' ? (
+                        <Translation>currentWeekLeader</Translation>
+                    ) : (
+                        <>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <Calendar className="h-4 w-4" />
+                                <span>{formatWeek(weekStart)}</span>
+                                <span>•</span>
+                                <span>
+                                    {dayjs(weekStart).format('DD.MM.YYYY')} - {dayjs(weekEnd).format('DD.MM.YYYY')}
+                                </span>
+                            </div>
+                        </>
+                    )}
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

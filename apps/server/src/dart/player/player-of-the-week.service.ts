@@ -128,4 +128,22 @@ export class PlayerOfTheWeekService {
     public async getPlayerOfTheWeekHistory(): Promise<Array<PlayerOfTheWeek>> {
         return this.playerOfTheWeekDatabaseService.getPlayerOfTheWeekHistory();
     }
+
+    public async getPlayerOfTheWeekDetails({ id }: { id: string }): Promise<{
+        winner: PlayerOfTheWeek;
+        allContenders: Array<PlayerOfTheWeekData>;
+    } | null> {
+        const winner = await this.playerOfTheWeekDatabaseService.getPlayerOfTheWeekById({ id });
+        if (!winner) {
+            return null;
+        }
+
+        const allContendersMap = await this.calculatePlayerOfTheWeek(winner.weekStart);
+        const allContenders = Object.values(allContendersMap).sort((a, b) => b.eloDifference - a.eloDifference);
+
+        return {
+            winner,
+            allContenders,
+        };
+    }
 }

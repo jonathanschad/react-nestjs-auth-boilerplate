@@ -205,5 +205,7 @@
     "from": "From",
     "until": "Until",
     "allTimeWinners": "All-Time Winners",
-    "numberOfWins": "Number of Wins"
+    "numberOfWins": "Number of Wins",
+    "playerOfTheWeekDetails": "Player of the Week Details",
+    "weekRankings": "Week Rankings"
 }

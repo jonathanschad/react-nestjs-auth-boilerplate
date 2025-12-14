@@ -1,6 +1,7 @@
 import { Button } from '@darts/ui/components/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';
 import { Translation } from '@darts/ui/i18n/Translation';
+import { cn } from '@darts/ui/lib/utils';
 import {
     type ColumnDef,
     flexRender,
@@ -19,9 +20,10 @@ interface DataTableProps<T> {
     columns: ColumnDef<T>[];
     pageSize?: number;
     initialSorting?: SortingState;
+    onRowClick?: (row: T) => void;
 }
 
-export const DataTable = <T,>({ columns, data, pageSize = 10, initialSorting = [] }: DataTableProps<T>) => {
+export const DataTable = <T,>({ columns, data, pageSize = 10, initialSorting = [], onRowClick }: DataTableProps<T>) => {
     const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
@@ -71,7 +73,11 @@ export const DataTable = <T,>({ columns, data, pageSize = 10, initialSorting = [
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id}>
+                                <TableRow
+                                    key={row.id}
+                                    onClick={() => onRowClick?.(row.original)}
+                                    className={cn({ 'cursor-pointer': Boolean(onRowClick) })}
+                                >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
