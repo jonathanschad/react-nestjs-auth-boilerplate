@@ -11,7 +11,7 @@ export const main = async (app: NestFastifyApplication<RawServerDefault>) => {
     const weekStart = dayjs().subtract(1, 'week').startOf('week');
     await playerOfTheWeekService.upsertPlayerOfTheWeek({
         weekStart: weekStart.toDate(),
-        postSendSlackMessage: false,
+        postSendSlackMessage: true,
     });
 
     console.log('✅ Successfully calculated player of the week');
