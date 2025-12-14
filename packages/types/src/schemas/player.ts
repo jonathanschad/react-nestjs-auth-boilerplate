@@ -39,6 +39,7 @@ export const playerDetailsResponseSchema = z.object({
         losses: z.number().int(),
         winRate: z.number(),
         lastGamePlayedAt: z.string().nullable(),
+        playerOfTheWeekWins: z.number().int(),
     }),
 });
 

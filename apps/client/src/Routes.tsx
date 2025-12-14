@@ -14,6 +14,7 @@ import { Imprint, NotSignedInImprint } from '@/pages/legal/Imprint';
 import { License, NotSignedInLicense } from '@/pages/legal/License';
 import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPolicy';
 import { Player } from '@/pages/player/Player';
+import { PlayerOfTheWeek } from '@/pages/player/PlayerOfTheWeek';
 import { EloRanking } from '@/pages/ranking/EloRanking';
 import { OpenSkillRanking } from '@/pages/ranking/OpenSkillRanking';
 import { LanguageSettings } from '@/pages/settings/language/LanguageSettings';
@@ -47,6 +48,7 @@ const routesFactory = (userState: UserState | undefined | null) => {
                 <Route path="games" element={<AllGames />} />
                 <Route path="games/:id" element={<GameDetail />} />
                 <Route path="player/:uuid" element={<Player />} />
+                <Route path="player-of-the-week" element={<PlayerOfTheWeek />} />
                 <Route path="settings" element={<Settings />}>
                     <Route path="profile" element={<ProfileSettings />} />
                     <Route path="language" element={<LanguageSettings />} />

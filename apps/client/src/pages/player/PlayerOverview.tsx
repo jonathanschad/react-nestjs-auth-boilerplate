@@ -4,7 +4,6 @@ import { Card } from '@darts/ui/components/card';
 import { Skeleton } from '@darts/ui/components/skeleton';
 import { Typography } from '@darts/ui/components/typography';
 import { Translation } from '@darts/ui/i18n/Translation';
-import dayjs from 'dayjs';
 import { ArrowLeft, User } from 'lucide-react';
 import { ordinal, rating } from 'openskill';
 import { useNavigate } from 'react-router-dom';
@@ -131,10 +130,10 @@ export const PlayerOverview = ({ playerId }: PlayerOverviewProps) => {
                 </Card>
                 <Card className="p-4">
                     <Typography as="smallText" className="text-muted-foreground">
-                        <Translation>lastGamePlayedAt</Translation>
+                        <Translation>playerOfTheWeekWins</Translation>
                     </Typography>
                     <Typography as="h2" className="mt-2">
-                        {stats.lastGamePlayedAt ? dayjs(stats.lastGamePlayedAt).format('DD.MM.YYYY HH:mm') : '-'}
+                        {stats.playerOfTheWeekWins} 🏆
                     </Typography>
                 </Card>
                 {isLoadingAverageHistory && (

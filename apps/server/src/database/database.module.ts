@@ -8,6 +8,7 @@ import { EmailVerificationTokenService } from '@/database/email-verification-tok
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseGameStatisticService } from '@/database/game/game-statistic.service';
 import { DatabaseGameVisitService } from '@/database/game/game-visit.service';
+import { PlayerOfTheWeekDatabaseService } from '@/database/game/player-of-the-week.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseOpenSkillHistoryService } from '@/database/history/openskill-history.service';
 import { PasswordResetTokenService } from '@/database/password-reset-token/password-reset-token.service';
@@ -34,6 +35,7 @@ import { DatabaseUserService } from '@/database/user/user.service';
         DatabaseFileService,
         DatabaseEloHistoryService,
         DatabaseOpenSkillHistoryService,
+        PlayerOfTheWeekDatabaseService,
     ],
     exports: [
         PrismaService,
@@ -50,6 +52,7 @@ import { DatabaseUserService } from '@/database/user/user.service';
         DatabaseFileService,
         DatabaseEloHistoryService,
         DatabaseOpenSkillHistoryService,
+        PlayerOfTheWeekDatabaseService,
     ],
 })
 export class DatabaseModule {}

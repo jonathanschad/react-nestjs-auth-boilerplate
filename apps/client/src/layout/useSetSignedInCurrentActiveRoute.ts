@@ -6,6 +6,7 @@ export enum CurrentlySelectedRouteOptions {
     ELO_RANKING = 'elo-ranking',
     OPENSKILL_RANKING = 'openskill-ranking',
     GAMES = 'games',
+    PLAYER_OF_THE_WEEK = 'player-of-the-week',
     SETTINGS = 'settings',
 }
 

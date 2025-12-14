@@ -69,6 +69,17 @@ export const SignedInLayout = () => {
                         <Translation>allGames</Translation>
                     </Link>
                     <Link
+                        to="/player-of-the-week"
+                        className={clsx(
+                            currentlySelectedRoute === CurrentlySelectedRouteOptions.PLAYER_OF_THE_WEEK
+                                ? 'text-foreground'
+                                : 'text-muted-foreground',
+                            'transition-colors hover:text-foreground',
+                        )}
+                    >
+                        <Translation>playerOfTheWeek</Translation>
+                    </Link>
+                    <Link
                         to="/settings"
                         className={clsx(
                             currentlySelectedRoute === CurrentlySelectedRouteOptions.SETTINGS
@@ -126,6 +137,17 @@ export const SignedInLayout = () => {
                                 )}
                             >
                                 <Translation>allGames</Translation>
+                            </Link>
+                            <Link
+                                to="/player-of-the-week"
+                                className={clsx(
+                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.PLAYER_OF_THE_WEEK
+                                        ? 'text-foreground'
+                                        : 'text-muted-foreground',
+                                    'hover:text-foreground',
+                                )}
+                            >
+                                <Translation>playerOfTheWeek</Translation>
                             </Link>
                             <Link
                                 to="/settings"

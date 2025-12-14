@@ -73,6 +73,11 @@ export type GameStatisticsIndividual = $Result.DefaultSelection<Prisma.$GameStat
  * 
  */
 export type GameVisit = $Result.DefaultSelection<Prisma.$GameVisitPayload>
+/**
+ * Model PlayerOfTheWeek
+ * 
+ */
+export type PlayerOfTheWeek = $Result.DefaultSelection<Prisma.$PlayerOfTheWeekPayload>
 
 /**
  * Enums
@@ -431,6 +436,16 @@ export class PrismaClient<
     * ```
     */
   get gameVisit(): Prisma.GameVisitDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.playerOfTheWeek`: Exposes CRUD operations for the **PlayerOfTheWeek** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlayerOfTheWeeks
+    * const playerOfTheWeeks = await prisma.playerOfTheWeek.findMany()
+    * ```
+    */
+  get playerOfTheWeek(): Prisma.PlayerOfTheWeekDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -876,7 +891,8 @@ export namespace Prisma {
     OpenSkillHistory: 'OpenSkillHistory',
     Game: 'Game',
     GameStatisticsIndividual: 'GameStatisticsIndividual',
-    GameVisit: 'GameVisit'
+    GameVisit: 'GameVisit',
+    PlayerOfTheWeek: 'PlayerOfTheWeek'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -892,7 +908,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSettings" | "file" | "filePermission" | "refreshToken" | "accessToken" | "token" | "eloHistory" | "openSkillHistory" | "game" | "gameStatisticsIndividual" | "gameVisit"
+      modelProps: "user" | "userSettings" | "file" | "filePermission" | "refreshToken" | "accessToken" | "token" | "eloHistory" | "openSkillHistory" | "game" | "gameStatisticsIndividual" | "gameVisit" | "playerOfTheWeek"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1784,6 +1800,80 @@ export namespace Prisma {
           }
         }
       }
+      PlayerOfTheWeek: {
+        payload: Prisma.$PlayerOfTheWeekPayload<ExtArgs>
+        fields: Prisma.PlayerOfTheWeekFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlayerOfTheWeekFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlayerOfTheWeekFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>
+          }
+          findFirst: {
+            args: Prisma.PlayerOfTheWeekFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlayerOfTheWeekFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>
+          }
+          findMany: {
+            args: Prisma.PlayerOfTheWeekFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>[]
+          }
+          create: {
+            args: Prisma.PlayerOfTheWeekCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>
+          }
+          createMany: {
+            args: Prisma.PlayerOfTheWeekCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlayerOfTheWeekCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>[]
+          }
+          delete: {
+            args: Prisma.PlayerOfTheWeekDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>
+          }
+          update: {
+            args: Prisma.PlayerOfTheWeekUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlayerOfTheWeekDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlayerOfTheWeekUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlayerOfTheWeekUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlayerOfTheWeekUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayerOfTheWeekPayload>
+          }
+          aggregate: {
+            args: Prisma.PlayerOfTheWeekAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlayerOfTheWeek>
+          }
+          groupBy: {
+            args: Prisma.PlayerOfTheWeekGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlayerOfTheWeekGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlayerOfTheWeekCountArgs<ExtArgs>
+            result: $Utils.Optional<PlayerOfTheWeekCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1904,6 +1994,7 @@ export namespace Prisma {
     game?: GameOmit
     gameStatisticsIndividual?: GameStatisticsIndividualOmit
     gameVisit?: GameVisitOmit
+    playerOfTheWeek?: PlayerOfTheWeekOmit
   }
 
   /* Types for Logging */
@@ -1997,6 +2088,7 @@ export namespace Prisma {
     eloHistory: number
     gameStatistics: number
     openSkillHistory: number
+    playerOfTheWeek: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2013,6 +2105,7 @@ export namespace Prisma {
     eloHistory?: boolean | UserCountOutputTypeCountEloHistoryArgs
     gameStatistics?: boolean | UserCountOutputTypeCountGameStatisticsArgs
     openSkillHistory?: boolean | UserCountOutputTypeCountOpenSkillHistoryArgs
+    playerOfTheWeek?: boolean | UserCountOutputTypeCountPlayerOfTheWeekArgs
   }
 
   // Custom InputTypes
@@ -2115,6 +2208,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountOpenSkillHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OpenSkillHistoryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPlayerOfTheWeekArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayerOfTheWeekWhereInput
   }
 
 
@@ -2469,6 +2569,7 @@ export namespace Prisma {
     eloHistory?: boolean | User$eloHistoryArgs<ExtArgs>
     gameStatistics?: boolean | User$gameStatisticsArgs<ExtArgs>
     openSkillHistory?: boolean | User$openSkillHistoryArgs<ExtArgs>
+    playerOfTheWeek?: boolean | User$playerOfTheWeekArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2535,6 +2636,7 @@ export namespace Prisma {
     eloHistory?: boolean | User$eloHistoryArgs<ExtArgs>
     gameStatistics?: boolean | User$gameStatisticsArgs<ExtArgs>
     openSkillHistory?: boolean | User$openSkillHistoryArgs<ExtArgs>
+    playerOfTheWeek?: boolean | User$playerOfTheWeekArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2564,6 +2666,7 @@ export namespace Prisma {
       eloHistory: Prisma.$EloHistoryPayload<ExtArgs>[]
       gameStatistics: Prisma.$GameStatisticsIndividualPayload<ExtArgs>[]
       openSkillHistory: Prisma.$OpenSkillHistoryPayload<ExtArgs>[]
+      playerOfTheWeek: Prisma.$PlayerOfTheWeekPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2986,6 +3089,7 @@ export namespace Prisma {
     eloHistory<T extends User$eloHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$eloHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EloHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gameStatistics<T extends User$gameStatisticsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameStatisticsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameStatisticsIndividualPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     openSkillHistory<T extends User$openSkillHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$openSkillHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpenSkillHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    playerOfTheWeek<T extends User$playerOfTheWeekArgs<ExtArgs> = {}>(args?: Subset<T, User$playerOfTheWeekArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3750,6 +3854,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OpenSkillHistoryScalarFieldEnum | OpenSkillHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * User.playerOfTheWeek
+   */
+  export type User$playerOfTheWeekArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    where?: PlayerOfTheWeekWhereInput
+    orderBy?: PlayerOfTheWeekOrderByWithRelationInput | PlayerOfTheWeekOrderByWithRelationInput[]
+    cursor?: PlayerOfTheWeekWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlayerOfTheWeekScalarFieldEnum | PlayerOfTheWeekScalarFieldEnum[]
   }
 
   /**
@@ -16537,6 +16665,1179 @@ export namespace Prisma {
 
 
   /**
+   * Model PlayerOfTheWeek
+   */
+
+  export type AggregatePlayerOfTheWeek = {
+    _count: PlayerOfTheWeekCountAggregateOutputType | null
+    _avg: PlayerOfTheWeekAvgAggregateOutputType | null
+    _sum: PlayerOfTheWeekSumAggregateOutputType | null
+    _min: PlayerOfTheWeekMinAggregateOutputType | null
+    _max: PlayerOfTheWeekMaxAggregateOutputType | null
+  }
+
+  export type PlayerOfTheWeekAvgAggregateOutputType = {
+    eloDifference: number | null
+    openSkillDifference: number | null
+    averageScore: number | null
+    scoringAverage: number | null
+    numberOfGames: number | null
+  }
+
+  export type PlayerOfTheWeekSumAggregateOutputType = {
+    eloDifference: number | null
+    openSkillDifference: number | null
+    averageScore: number | null
+    scoringAverage: number | null
+    numberOfGames: number | null
+  }
+
+  export type PlayerOfTheWeekMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    playerId: string | null
+    weekStart: Date | null
+    eloDifference: number | null
+    openSkillDifference: number | null
+    averageScore: number | null
+    scoringAverage: number | null
+    numberOfGames: number | null
+  }
+
+  export type PlayerOfTheWeekMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    playerId: string | null
+    weekStart: Date | null
+    eloDifference: number | null
+    openSkillDifference: number | null
+    averageScore: number | null
+    scoringAverage: number | null
+    numberOfGames: number | null
+  }
+
+  export type PlayerOfTheWeekCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    playerId: number
+    weekStart: number
+    eloDifference: number
+    openSkillDifference: number
+    averageScore: number
+    scoringAverage: number
+    numberOfGames: number
+    _all: number
+  }
+
+
+  export type PlayerOfTheWeekAvgAggregateInputType = {
+    eloDifference?: true
+    openSkillDifference?: true
+    averageScore?: true
+    scoringAverage?: true
+    numberOfGames?: true
+  }
+
+  export type PlayerOfTheWeekSumAggregateInputType = {
+    eloDifference?: true
+    openSkillDifference?: true
+    averageScore?: true
+    scoringAverage?: true
+    numberOfGames?: true
+  }
+
+  export type PlayerOfTheWeekMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    playerId?: true
+    weekStart?: true
+    eloDifference?: true
+    openSkillDifference?: true
+    averageScore?: true
+    scoringAverage?: true
+    numberOfGames?: true
+  }
+
+  export type PlayerOfTheWeekMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    playerId?: true
+    weekStart?: true
+    eloDifference?: true
+    openSkillDifference?: true
+    averageScore?: true
+    scoringAverage?: true
+    numberOfGames?: true
+  }
+
+  export type PlayerOfTheWeekCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    playerId?: true
+    weekStart?: true
+    eloDifference?: true
+    openSkillDifference?: true
+    averageScore?: true
+    scoringAverage?: true
+    numberOfGames?: true
+    _all?: true
+  }
+
+  export type PlayerOfTheWeekAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlayerOfTheWeek to aggregate.
+     */
+    where?: PlayerOfTheWeekWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerOfTheWeeks to fetch.
+     */
+    orderBy?: PlayerOfTheWeekOrderByWithRelationInput | PlayerOfTheWeekOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlayerOfTheWeekWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerOfTheWeeks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerOfTheWeeks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlayerOfTheWeeks
+    **/
+    _count?: true | PlayerOfTheWeekCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlayerOfTheWeekAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlayerOfTheWeekSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlayerOfTheWeekMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlayerOfTheWeekMaxAggregateInputType
+  }
+
+  export type GetPlayerOfTheWeekAggregateType<T extends PlayerOfTheWeekAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayerOfTheWeek]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayerOfTheWeek[P]>
+      : GetScalarType<T[P], AggregatePlayerOfTheWeek[P]>
+  }
+
+
+
+
+  export type PlayerOfTheWeekGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayerOfTheWeekWhereInput
+    orderBy?: PlayerOfTheWeekOrderByWithAggregationInput | PlayerOfTheWeekOrderByWithAggregationInput[]
+    by: PlayerOfTheWeekScalarFieldEnum[] | PlayerOfTheWeekScalarFieldEnum
+    having?: PlayerOfTheWeekScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlayerOfTheWeekCountAggregateInputType | true
+    _avg?: PlayerOfTheWeekAvgAggregateInputType
+    _sum?: PlayerOfTheWeekSumAggregateInputType
+    _min?: PlayerOfTheWeekMinAggregateInputType
+    _max?: PlayerOfTheWeekMaxAggregateInputType
+  }
+
+  export type PlayerOfTheWeekGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    playerId: string
+    weekStart: Date
+    eloDifference: number
+    openSkillDifference: number
+    averageScore: number
+    scoringAverage: number
+    numberOfGames: number
+    _count: PlayerOfTheWeekCountAggregateOutputType | null
+    _avg: PlayerOfTheWeekAvgAggregateOutputType | null
+    _sum: PlayerOfTheWeekSumAggregateOutputType | null
+    _min: PlayerOfTheWeekMinAggregateOutputType | null
+    _max: PlayerOfTheWeekMaxAggregateOutputType | null
+  }
+
+  type GetPlayerOfTheWeekGroupByPayload<T extends PlayerOfTheWeekGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlayerOfTheWeekGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlayerOfTheWeekGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlayerOfTheWeekGroupByOutputType[P]>
+            : GetScalarType<T[P], PlayerOfTheWeekGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlayerOfTheWeekSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    playerId?: boolean
+    weekStart?: boolean
+    eloDifference?: boolean
+    openSkillDifference?: boolean
+    averageScore?: boolean
+    scoringAverage?: boolean
+    numberOfGames?: boolean
+    player?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playerOfTheWeek"]>
+
+  export type PlayerOfTheWeekSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    playerId?: boolean
+    weekStart?: boolean
+    eloDifference?: boolean
+    openSkillDifference?: boolean
+    averageScore?: boolean
+    scoringAverage?: boolean
+    numberOfGames?: boolean
+    player?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playerOfTheWeek"]>
+
+  export type PlayerOfTheWeekSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    playerId?: boolean
+    weekStart?: boolean
+    eloDifference?: boolean
+    openSkillDifference?: boolean
+    averageScore?: boolean
+    scoringAverage?: boolean
+    numberOfGames?: boolean
+    player?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playerOfTheWeek"]>
+
+  export type PlayerOfTheWeekSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    playerId?: boolean
+    weekStart?: boolean
+    eloDifference?: boolean
+    openSkillDifference?: boolean
+    averageScore?: boolean
+    scoringAverage?: boolean
+    numberOfGames?: boolean
+  }
+
+  export type PlayerOfTheWeekOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "playerId" | "weekStart" | "eloDifference" | "openSkillDifference" | "averageScore" | "scoringAverage" | "numberOfGames", ExtArgs["result"]["playerOfTheWeek"]>
+  export type PlayerOfTheWeekInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    player?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PlayerOfTheWeekIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    player?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PlayerOfTheWeekIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    player?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PlayerOfTheWeekPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlayerOfTheWeek"
+    objects: {
+      player: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      playerId: string
+      weekStart: Date
+      eloDifference: number
+      openSkillDifference: number
+      averageScore: number
+      scoringAverage: number
+      numberOfGames: number
+    }, ExtArgs["result"]["playerOfTheWeek"]>
+    composites: {}
+  }
+
+  type PlayerOfTheWeekGetPayload<S extends boolean | null | undefined | PlayerOfTheWeekDefaultArgs> = $Result.GetResult<Prisma.$PlayerOfTheWeekPayload, S>
+
+  type PlayerOfTheWeekCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlayerOfTheWeekFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlayerOfTheWeekCountAggregateInputType | true
+    }
+
+  export interface PlayerOfTheWeekDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlayerOfTheWeek'], meta: { name: 'PlayerOfTheWeek' } }
+    /**
+     * Find zero or one PlayerOfTheWeek that matches the filter.
+     * @param {PlayerOfTheWeekFindUniqueArgs} args - Arguments to find a PlayerOfTheWeek
+     * @example
+     * // Get one PlayerOfTheWeek
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlayerOfTheWeekFindUniqueArgs>(args: SelectSubset<T, PlayerOfTheWeekFindUniqueArgs<ExtArgs>>): Prisma__PlayerOfTheWeekClient<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PlayerOfTheWeek that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlayerOfTheWeekFindUniqueOrThrowArgs} args - Arguments to find a PlayerOfTheWeek
+     * @example
+     * // Get one PlayerOfTheWeek
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlayerOfTheWeekFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayerOfTheWeekFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayerOfTheWeekClient<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlayerOfTheWeek that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerOfTheWeekFindFirstArgs} args - Arguments to find a PlayerOfTheWeek
+     * @example
+     * // Get one PlayerOfTheWeek
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlayerOfTheWeekFindFirstArgs>(args?: SelectSubset<T, PlayerOfTheWeekFindFirstArgs<ExtArgs>>): Prisma__PlayerOfTheWeekClient<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlayerOfTheWeek that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerOfTheWeekFindFirstOrThrowArgs} args - Arguments to find a PlayerOfTheWeek
+     * @example
+     * // Get one PlayerOfTheWeek
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlayerOfTheWeekFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayerOfTheWeekFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayerOfTheWeekClient<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PlayerOfTheWeeks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerOfTheWeekFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlayerOfTheWeeks
+     * const playerOfTheWeeks = await prisma.playerOfTheWeek.findMany()
+     * 
+     * // Get first 10 PlayerOfTheWeeks
+     * const playerOfTheWeeks = await prisma.playerOfTheWeek.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const playerOfTheWeekWithIdOnly = await prisma.playerOfTheWeek.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlayerOfTheWeekFindManyArgs>(args?: SelectSubset<T, PlayerOfTheWeekFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PlayerOfTheWeek.
+     * @param {PlayerOfTheWeekCreateArgs} args - Arguments to create a PlayerOfTheWeek.
+     * @example
+     * // Create one PlayerOfTheWeek
+     * const PlayerOfTheWeek = await prisma.playerOfTheWeek.create({
+     *   data: {
+     *     // ... data to create a PlayerOfTheWeek
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlayerOfTheWeekCreateArgs>(args: SelectSubset<T, PlayerOfTheWeekCreateArgs<ExtArgs>>): Prisma__PlayerOfTheWeekClient<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PlayerOfTheWeeks.
+     * @param {PlayerOfTheWeekCreateManyArgs} args - Arguments to create many PlayerOfTheWeeks.
+     * @example
+     * // Create many PlayerOfTheWeeks
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlayerOfTheWeekCreateManyArgs>(args?: SelectSubset<T, PlayerOfTheWeekCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlayerOfTheWeeks and returns the data saved in the database.
+     * @param {PlayerOfTheWeekCreateManyAndReturnArgs} args - Arguments to create many PlayerOfTheWeeks.
+     * @example
+     * // Create many PlayerOfTheWeeks
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlayerOfTheWeeks and only return the `id`
+     * const playerOfTheWeekWithIdOnly = await prisma.playerOfTheWeek.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlayerOfTheWeekCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayerOfTheWeekCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PlayerOfTheWeek.
+     * @param {PlayerOfTheWeekDeleteArgs} args - Arguments to delete one PlayerOfTheWeek.
+     * @example
+     * // Delete one PlayerOfTheWeek
+     * const PlayerOfTheWeek = await prisma.playerOfTheWeek.delete({
+     *   where: {
+     *     // ... filter to delete one PlayerOfTheWeek
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlayerOfTheWeekDeleteArgs>(args: SelectSubset<T, PlayerOfTheWeekDeleteArgs<ExtArgs>>): Prisma__PlayerOfTheWeekClient<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PlayerOfTheWeek.
+     * @param {PlayerOfTheWeekUpdateArgs} args - Arguments to update one PlayerOfTheWeek.
+     * @example
+     * // Update one PlayerOfTheWeek
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlayerOfTheWeekUpdateArgs>(args: SelectSubset<T, PlayerOfTheWeekUpdateArgs<ExtArgs>>): Prisma__PlayerOfTheWeekClient<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PlayerOfTheWeeks.
+     * @param {PlayerOfTheWeekDeleteManyArgs} args - Arguments to filter PlayerOfTheWeeks to delete.
+     * @example
+     * // Delete a few PlayerOfTheWeeks
+     * const { count } = await prisma.playerOfTheWeek.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlayerOfTheWeekDeleteManyArgs>(args?: SelectSubset<T, PlayerOfTheWeekDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayerOfTheWeeks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerOfTheWeekUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlayerOfTheWeeks
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlayerOfTheWeekUpdateManyArgs>(args: SelectSubset<T, PlayerOfTheWeekUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayerOfTheWeeks and returns the data updated in the database.
+     * @param {PlayerOfTheWeekUpdateManyAndReturnArgs} args - Arguments to update many PlayerOfTheWeeks.
+     * @example
+     * // Update many PlayerOfTheWeeks
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PlayerOfTheWeeks and only return the `id`
+     * const playerOfTheWeekWithIdOnly = await prisma.playerOfTheWeek.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlayerOfTheWeekUpdateManyAndReturnArgs>(args: SelectSubset<T, PlayerOfTheWeekUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PlayerOfTheWeek.
+     * @param {PlayerOfTheWeekUpsertArgs} args - Arguments to update or create a PlayerOfTheWeek.
+     * @example
+     * // Update or create a PlayerOfTheWeek
+     * const playerOfTheWeek = await prisma.playerOfTheWeek.upsert({
+     *   create: {
+     *     // ... data to create a PlayerOfTheWeek
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlayerOfTheWeek we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlayerOfTheWeekUpsertArgs>(args: SelectSubset<T, PlayerOfTheWeekUpsertArgs<ExtArgs>>): Prisma__PlayerOfTheWeekClient<$Result.GetResult<Prisma.$PlayerOfTheWeekPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PlayerOfTheWeeks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerOfTheWeekCountArgs} args - Arguments to filter PlayerOfTheWeeks to count.
+     * @example
+     * // Count the number of PlayerOfTheWeeks
+     * const count = await prisma.playerOfTheWeek.count({
+     *   where: {
+     *     // ... the filter for the PlayerOfTheWeeks we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlayerOfTheWeekCountArgs>(
+      args?: Subset<T, PlayerOfTheWeekCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlayerOfTheWeekCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlayerOfTheWeek.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerOfTheWeekAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlayerOfTheWeekAggregateArgs>(args: Subset<T, PlayerOfTheWeekAggregateArgs>): Prisma.PrismaPromise<GetPlayerOfTheWeekAggregateType<T>>
+
+    /**
+     * Group by PlayerOfTheWeek.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerOfTheWeekGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlayerOfTheWeekGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlayerOfTheWeekGroupByArgs['orderBy'] }
+        : { orderBy?: PlayerOfTheWeekGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlayerOfTheWeekGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlayerOfTheWeekGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlayerOfTheWeek model
+   */
+  readonly fields: PlayerOfTheWeekFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlayerOfTheWeek.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlayerOfTheWeekClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    player<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlayerOfTheWeek model
+   */
+  interface PlayerOfTheWeekFieldRefs {
+    readonly id: FieldRef<"PlayerOfTheWeek", 'String'>
+    readonly createdAt: FieldRef<"PlayerOfTheWeek", 'DateTime'>
+    readonly updatedAt: FieldRef<"PlayerOfTheWeek", 'DateTime'>
+    readonly playerId: FieldRef<"PlayerOfTheWeek", 'String'>
+    readonly weekStart: FieldRef<"PlayerOfTheWeek", 'DateTime'>
+    readonly eloDifference: FieldRef<"PlayerOfTheWeek", 'Float'>
+    readonly openSkillDifference: FieldRef<"PlayerOfTheWeek", 'Float'>
+    readonly averageScore: FieldRef<"PlayerOfTheWeek", 'Float'>
+    readonly scoringAverage: FieldRef<"PlayerOfTheWeek", 'Float'>
+    readonly numberOfGames: FieldRef<"PlayerOfTheWeek", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlayerOfTheWeek findUnique
+   */
+  export type PlayerOfTheWeekFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayerOfTheWeek to fetch.
+     */
+    where: PlayerOfTheWeekWhereUniqueInput
+  }
+
+  /**
+   * PlayerOfTheWeek findUniqueOrThrow
+   */
+  export type PlayerOfTheWeekFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayerOfTheWeek to fetch.
+     */
+    where: PlayerOfTheWeekWhereUniqueInput
+  }
+
+  /**
+   * PlayerOfTheWeek findFirst
+   */
+  export type PlayerOfTheWeekFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayerOfTheWeek to fetch.
+     */
+    where?: PlayerOfTheWeekWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerOfTheWeeks to fetch.
+     */
+    orderBy?: PlayerOfTheWeekOrderByWithRelationInput | PlayerOfTheWeekOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayerOfTheWeeks.
+     */
+    cursor?: PlayerOfTheWeekWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerOfTheWeeks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerOfTheWeeks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayerOfTheWeeks.
+     */
+    distinct?: PlayerOfTheWeekScalarFieldEnum | PlayerOfTheWeekScalarFieldEnum[]
+  }
+
+  /**
+   * PlayerOfTheWeek findFirstOrThrow
+   */
+  export type PlayerOfTheWeekFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayerOfTheWeek to fetch.
+     */
+    where?: PlayerOfTheWeekWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerOfTheWeeks to fetch.
+     */
+    orderBy?: PlayerOfTheWeekOrderByWithRelationInput | PlayerOfTheWeekOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayerOfTheWeeks.
+     */
+    cursor?: PlayerOfTheWeekWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerOfTheWeeks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerOfTheWeeks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayerOfTheWeeks.
+     */
+    distinct?: PlayerOfTheWeekScalarFieldEnum | PlayerOfTheWeekScalarFieldEnum[]
+  }
+
+  /**
+   * PlayerOfTheWeek findMany
+   */
+  export type PlayerOfTheWeekFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayerOfTheWeeks to fetch.
+     */
+    where?: PlayerOfTheWeekWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerOfTheWeeks to fetch.
+     */
+    orderBy?: PlayerOfTheWeekOrderByWithRelationInput | PlayerOfTheWeekOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlayerOfTheWeeks.
+     */
+    cursor?: PlayerOfTheWeekWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerOfTheWeeks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerOfTheWeeks.
+     */
+    skip?: number
+    distinct?: PlayerOfTheWeekScalarFieldEnum | PlayerOfTheWeekScalarFieldEnum[]
+  }
+
+  /**
+   * PlayerOfTheWeek create
+   */
+  export type PlayerOfTheWeekCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlayerOfTheWeek.
+     */
+    data: XOR<PlayerOfTheWeekCreateInput, PlayerOfTheWeekUncheckedCreateInput>
+  }
+
+  /**
+   * PlayerOfTheWeek createMany
+   */
+  export type PlayerOfTheWeekCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlayerOfTheWeeks.
+     */
+    data: PlayerOfTheWeekCreateManyInput | PlayerOfTheWeekCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlayerOfTheWeek createManyAndReturn
+   */
+  export type PlayerOfTheWeekCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * The data used to create many PlayerOfTheWeeks.
+     */
+    data: PlayerOfTheWeekCreateManyInput | PlayerOfTheWeekCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlayerOfTheWeek update
+   */
+  export type PlayerOfTheWeekUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlayerOfTheWeek.
+     */
+    data: XOR<PlayerOfTheWeekUpdateInput, PlayerOfTheWeekUncheckedUpdateInput>
+    /**
+     * Choose, which PlayerOfTheWeek to update.
+     */
+    where: PlayerOfTheWeekWhereUniqueInput
+  }
+
+  /**
+   * PlayerOfTheWeek updateMany
+   */
+  export type PlayerOfTheWeekUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlayerOfTheWeeks.
+     */
+    data: XOR<PlayerOfTheWeekUpdateManyMutationInput, PlayerOfTheWeekUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayerOfTheWeeks to update
+     */
+    where?: PlayerOfTheWeekWhereInput
+    /**
+     * Limit how many PlayerOfTheWeeks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlayerOfTheWeek updateManyAndReturn
+   */
+  export type PlayerOfTheWeekUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * The data used to update PlayerOfTheWeeks.
+     */
+    data: XOR<PlayerOfTheWeekUpdateManyMutationInput, PlayerOfTheWeekUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayerOfTheWeeks to update
+     */
+    where?: PlayerOfTheWeekWhereInput
+    /**
+     * Limit how many PlayerOfTheWeeks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlayerOfTheWeek upsert
+   */
+  export type PlayerOfTheWeekUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlayerOfTheWeek to update in case it exists.
+     */
+    where: PlayerOfTheWeekWhereUniqueInput
+    /**
+     * In case the PlayerOfTheWeek found by the `where` argument doesn't exist, create a new PlayerOfTheWeek with this data.
+     */
+    create: XOR<PlayerOfTheWeekCreateInput, PlayerOfTheWeekUncheckedCreateInput>
+    /**
+     * In case the PlayerOfTheWeek was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlayerOfTheWeekUpdateInput, PlayerOfTheWeekUncheckedUpdateInput>
+  }
+
+  /**
+   * PlayerOfTheWeek delete
+   */
+  export type PlayerOfTheWeekDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+    /**
+     * Filter which PlayerOfTheWeek to delete.
+     */
+    where: PlayerOfTheWeekWhereUniqueInput
+  }
+
+  /**
+   * PlayerOfTheWeek deleteMany
+   */
+  export type PlayerOfTheWeekDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlayerOfTheWeeks to delete
+     */
+    where?: PlayerOfTheWeekWhereInput
+    /**
+     * Limit how many PlayerOfTheWeeks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlayerOfTheWeek without action
+   */
+  export type PlayerOfTheWeekDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayerOfTheWeek
+     */
+    select?: PlayerOfTheWeekSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayerOfTheWeek
+     */
+    omit?: PlayerOfTheWeekOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayerOfTheWeekInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -16732,6 +18033,22 @@ export namespace Prisma {
   };
 
   export type GameVisitScalarFieldEnum = (typeof GameVisitScalarFieldEnum)[keyof typeof GameVisitScalarFieldEnum]
+
+
+  export const PlayerOfTheWeekScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    playerId: 'playerId',
+    weekStart: 'weekStart',
+    eloDifference: 'eloDifference',
+    openSkillDifference: 'openSkillDifference',
+    averageScore: 'averageScore',
+    scoringAverage: 'scoringAverage',
+    numberOfGames: 'numberOfGames'
+  };
+
+  export type PlayerOfTheWeekScalarFieldEnum = (typeof PlayerOfTheWeekScalarFieldEnum)[keyof typeof PlayerOfTheWeekScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -16985,6 +18302,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryListRelationFilter
     gameStatistics?: GameStatisticsIndividualListRelationFilter
     openSkillHistory?: OpenSkillHistoryListRelationFilter
+    playerOfTheWeek?: PlayerOfTheWeekListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17014,6 +18332,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryOrderByRelationAggregateInput
     gameStatistics?: GameStatisticsIndividualOrderByRelationAggregateInput
     openSkillHistory?: OpenSkillHistoryOrderByRelationAggregateInput
+    playerOfTheWeek?: PlayerOfTheWeekOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17046,6 +18365,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryListRelationFilter
     gameStatistics?: GameStatisticsIndividualListRelationFilter
     openSkillHistory?: OpenSkillHistoryListRelationFilter
+    playerOfTheWeek?: PlayerOfTheWeekListRelationFilter
   }, "id" | "email" | "settingsId" | "profilePictureId">
 
   export type UserOrderByWithAggregationInput = {
@@ -17980,6 +19300,88 @@ export namespace Prisma {
     outcome?: EnumGameVisitOutcomeWithAggregatesFilter<"GameVisit"> | $Enums.GameVisitOutcome
   }
 
+  export type PlayerOfTheWeekWhereInput = {
+    AND?: PlayerOfTheWeekWhereInput | PlayerOfTheWeekWhereInput[]
+    OR?: PlayerOfTheWeekWhereInput[]
+    NOT?: PlayerOfTheWeekWhereInput | PlayerOfTheWeekWhereInput[]
+    id?: StringFilter<"PlayerOfTheWeek"> | string
+    createdAt?: DateTimeFilter<"PlayerOfTheWeek"> | Date | string
+    updatedAt?: DateTimeFilter<"PlayerOfTheWeek"> | Date | string
+    playerId?: StringFilter<"PlayerOfTheWeek"> | string
+    weekStart?: DateTimeFilter<"PlayerOfTheWeek"> | Date | string
+    eloDifference?: FloatFilter<"PlayerOfTheWeek"> | number
+    openSkillDifference?: FloatFilter<"PlayerOfTheWeek"> | number
+    averageScore?: FloatFilter<"PlayerOfTheWeek"> | number
+    scoringAverage?: FloatFilter<"PlayerOfTheWeek"> | number
+    numberOfGames?: IntFilter<"PlayerOfTheWeek"> | number
+    player?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PlayerOfTheWeekOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playerId?: SortOrder
+    weekStart?: SortOrder
+    eloDifference?: SortOrder
+    openSkillDifference?: SortOrder
+    averageScore?: SortOrder
+    scoringAverage?: SortOrder
+    numberOfGames?: SortOrder
+    player?: UserOrderByWithRelationInput
+  }
+
+  export type PlayerOfTheWeekWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    weekStart?: Date | string
+    AND?: PlayerOfTheWeekWhereInput | PlayerOfTheWeekWhereInput[]
+    OR?: PlayerOfTheWeekWhereInput[]
+    NOT?: PlayerOfTheWeekWhereInput | PlayerOfTheWeekWhereInput[]
+    createdAt?: DateTimeFilter<"PlayerOfTheWeek"> | Date | string
+    updatedAt?: DateTimeFilter<"PlayerOfTheWeek"> | Date | string
+    playerId?: StringFilter<"PlayerOfTheWeek"> | string
+    eloDifference?: FloatFilter<"PlayerOfTheWeek"> | number
+    openSkillDifference?: FloatFilter<"PlayerOfTheWeek"> | number
+    averageScore?: FloatFilter<"PlayerOfTheWeek"> | number
+    scoringAverage?: FloatFilter<"PlayerOfTheWeek"> | number
+    numberOfGames?: IntFilter<"PlayerOfTheWeek"> | number
+    player?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "weekStart">
+
+  export type PlayerOfTheWeekOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playerId?: SortOrder
+    weekStart?: SortOrder
+    eloDifference?: SortOrder
+    openSkillDifference?: SortOrder
+    averageScore?: SortOrder
+    scoringAverage?: SortOrder
+    numberOfGames?: SortOrder
+    _count?: PlayerOfTheWeekCountOrderByAggregateInput
+    _avg?: PlayerOfTheWeekAvgOrderByAggregateInput
+    _max?: PlayerOfTheWeekMaxOrderByAggregateInput
+    _min?: PlayerOfTheWeekMinOrderByAggregateInput
+    _sum?: PlayerOfTheWeekSumOrderByAggregateInput
+  }
+
+  export type PlayerOfTheWeekScalarWhereWithAggregatesInput = {
+    AND?: PlayerOfTheWeekScalarWhereWithAggregatesInput | PlayerOfTheWeekScalarWhereWithAggregatesInput[]
+    OR?: PlayerOfTheWeekScalarWhereWithAggregatesInput[]
+    NOT?: PlayerOfTheWeekScalarWhereWithAggregatesInput | PlayerOfTheWeekScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlayerOfTheWeek"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PlayerOfTheWeek"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PlayerOfTheWeek"> | Date | string
+    playerId?: StringWithAggregatesFilter<"PlayerOfTheWeek"> | string
+    weekStart?: DateTimeWithAggregatesFilter<"PlayerOfTheWeek"> | Date | string
+    eloDifference?: FloatWithAggregatesFilter<"PlayerOfTheWeek"> | number
+    openSkillDifference?: FloatWithAggregatesFilter<"PlayerOfTheWeek"> | number
+    averageScore?: FloatWithAggregatesFilter<"PlayerOfTheWeek"> | number
+    scoringAverage?: FloatWithAggregatesFilter<"PlayerOfTheWeek"> | number
+    numberOfGames?: IntWithAggregatesFilter<"PlayerOfTheWeek"> | number
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -18005,6 +19407,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -18032,6 +19435,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUpdateInput = {
@@ -18059,6 +19463,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -18086,6 +19491,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -19079,6 +20485,96 @@ export namespace Prisma {
     outcome?: EnumGameVisitOutcomeFieldUpdateOperationsInput | $Enums.GameVisitOutcome
   }
 
+  export type PlayerOfTheWeekCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    weekStart: Date | string
+    eloDifference: number
+    openSkillDifference: number
+    averageScore: number
+    scoringAverage: number
+    numberOfGames: number
+    player: UserCreateNestedOneWithoutPlayerOfTheWeekInput
+  }
+
+  export type PlayerOfTheWeekUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playerId: string
+    weekStart: Date | string
+    eloDifference: number
+    openSkillDifference: number
+    averageScore: number
+    scoringAverage: number
+    numberOfGames: number
+  }
+
+  export type PlayerOfTheWeekUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    eloDifference?: FloatFieldUpdateOperationsInput | number
+    openSkillDifference?: FloatFieldUpdateOperationsInput | number
+    averageScore?: FloatFieldUpdateOperationsInput | number
+    scoringAverage?: FloatFieldUpdateOperationsInput | number
+    numberOfGames?: IntFieldUpdateOperationsInput | number
+    player?: UserUpdateOneRequiredWithoutPlayerOfTheWeekNestedInput
+  }
+
+  export type PlayerOfTheWeekUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playerId?: StringFieldUpdateOperationsInput | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    eloDifference?: FloatFieldUpdateOperationsInput | number
+    openSkillDifference?: FloatFieldUpdateOperationsInput | number
+    averageScore?: FloatFieldUpdateOperationsInput | number
+    scoringAverage?: FloatFieldUpdateOperationsInput | number
+    numberOfGames?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerOfTheWeekCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playerId: string
+    weekStart: Date | string
+    eloDifference: number
+    openSkillDifference: number
+    averageScore: number
+    scoringAverage: number
+    numberOfGames: number
+  }
+
+  export type PlayerOfTheWeekUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    eloDifference?: FloatFieldUpdateOperationsInput | number
+    openSkillDifference?: FloatFieldUpdateOperationsInput | number
+    averageScore?: FloatFieldUpdateOperationsInput | number
+    scoringAverage?: FloatFieldUpdateOperationsInput | number
+    numberOfGames?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerOfTheWeekUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playerId?: StringFieldUpdateOperationsInput | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    eloDifference?: FloatFieldUpdateOperationsInput | number
+    openSkillDifference?: FloatFieldUpdateOperationsInput | number
+    averageScore?: FloatFieldUpdateOperationsInput | number
+    scoringAverage?: FloatFieldUpdateOperationsInput | number
+    numberOfGames?: IntFieldUpdateOperationsInput | number
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19198,6 +20694,12 @@ export namespace Prisma {
     none?: OpenSkillHistoryWhereInput
   }
 
+  export type PlayerOfTheWeekListRelationFilter = {
+    every?: PlayerOfTheWeekWhereInput
+    some?: PlayerOfTheWeekWhereInput
+    none?: PlayerOfTheWeekWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -19236,6 +20738,10 @@ export namespace Prisma {
   }
 
   export type OpenSkillHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlayerOfTheWeekOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20095,6 +21601,61 @@ export namespace Prisma {
     _max?: NestedEnumGameVisitOutcomeFilter<$PrismaModel>
   }
 
+  export type PlayerOfTheWeekCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playerId?: SortOrder
+    weekStart?: SortOrder
+    eloDifference?: SortOrder
+    openSkillDifference?: SortOrder
+    averageScore?: SortOrder
+    scoringAverage?: SortOrder
+    numberOfGames?: SortOrder
+  }
+
+  export type PlayerOfTheWeekAvgOrderByAggregateInput = {
+    eloDifference?: SortOrder
+    openSkillDifference?: SortOrder
+    averageScore?: SortOrder
+    scoringAverage?: SortOrder
+    numberOfGames?: SortOrder
+  }
+
+  export type PlayerOfTheWeekMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playerId?: SortOrder
+    weekStart?: SortOrder
+    eloDifference?: SortOrder
+    openSkillDifference?: SortOrder
+    averageScore?: SortOrder
+    scoringAverage?: SortOrder
+    numberOfGames?: SortOrder
+  }
+
+  export type PlayerOfTheWeekMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playerId?: SortOrder
+    weekStart?: SortOrder
+    eloDifference?: SortOrder
+    openSkillDifference?: SortOrder
+    averageScore?: SortOrder
+    scoringAverage?: SortOrder
+    numberOfGames?: SortOrder
+  }
+
+  export type PlayerOfTheWeekSumOrderByAggregateInput = {
+    eloDifference?: SortOrder
+    openSkillDifference?: SortOrder
+    averageScore?: SortOrder
+    scoringAverage?: SortOrder
+    numberOfGames?: SortOrder
+  }
+
   export type UserSettingsCreateNestedOneWithoutUserInput = {
     create?: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserSettingsCreateOrConnectWithoutUserInput
@@ -20198,6 +21759,13 @@ export namespace Prisma {
     connect?: OpenSkillHistoryWhereUniqueInput | OpenSkillHistoryWhereUniqueInput[]
   }
 
+  export type PlayerOfTheWeekCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<PlayerOfTheWeekCreateWithoutPlayerInput, PlayerOfTheWeekUncheckedCreateWithoutPlayerInput> | PlayerOfTheWeekCreateWithoutPlayerInput[] | PlayerOfTheWeekUncheckedCreateWithoutPlayerInput[]
+    connectOrCreate?: PlayerOfTheWeekCreateOrConnectWithoutPlayerInput | PlayerOfTheWeekCreateOrConnectWithoutPlayerInput[]
+    createMany?: PlayerOfTheWeekCreateManyPlayerInputEnvelope
+    connect?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+  }
+
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -20287,6 +21855,13 @@ export namespace Prisma {
     connectOrCreate?: OpenSkillHistoryCreateOrConnectWithoutPlayerInput | OpenSkillHistoryCreateOrConnectWithoutPlayerInput[]
     createMany?: OpenSkillHistoryCreateManyPlayerInputEnvelope
     connect?: OpenSkillHistoryWhereUniqueInput | OpenSkillHistoryWhereUniqueInput[]
+  }
+
+  export type PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<PlayerOfTheWeekCreateWithoutPlayerInput, PlayerOfTheWeekUncheckedCreateWithoutPlayerInput> | PlayerOfTheWeekCreateWithoutPlayerInput[] | PlayerOfTheWeekUncheckedCreateWithoutPlayerInput[]
+    connectOrCreate?: PlayerOfTheWeekCreateOrConnectWithoutPlayerInput | PlayerOfTheWeekCreateOrConnectWithoutPlayerInput[]
+    createMany?: PlayerOfTheWeekCreateManyPlayerInputEnvelope
+    connect?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -20509,6 +22084,20 @@ export namespace Prisma {
     deleteMany?: OpenSkillHistoryScalarWhereInput | OpenSkillHistoryScalarWhereInput[]
   }
 
+  export type PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<PlayerOfTheWeekCreateWithoutPlayerInput, PlayerOfTheWeekUncheckedCreateWithoutPlayerInput> | PlayerOfTheWeekCreateWithoutPlayerInput[] | PlayerOfTheWeekUncheckedCreateWithoutPlayerInput[]
+    connectOrCreate?: PlayerOfTheWeekCreateOrConnectWithoutPlayerInput | PlayerOfTheWeekCreateOrConnectWithoutPlayerInput[]
+    upsert?: PlayerOfTheWeekUpsertWithWhereUniqueWithoutPlayerInput | PlayerOfTheWeekUpsertWithWhereUniqueWithoutPlayerInput[]
+    createMany?: PlayerOfTheWeekCreateManyPlayerInputEnvelope
+    set?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+    disconnect?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+    delete?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+    connect?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+    update?: PlayerOfTheWeekUpdateWithWhereUniqueWithoutPlayerInput | PlayerOfTheWeekUpdateWithWhereUniqueWithoutPlayerInput[]
+    updateMany?: PlayerOfTheWeekUpdateManyWithWhereWithoutPlayerInput | PlayerOfTheWeekUpdateManyWithWhereWithoutPlayerInput[]
+    deleteMany?: PlayerOfTheWeekScalarWhereInput | PlayerOfTheWeekScalarWhereInput[]
+  }
+
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -20689,6 +22278,20 @@ export namespace Prisma {
     update?: OpenSkillHistoryUpdateWithWhereUniqueWithoutPlayerInput | OpenSkillHistoryUpdateWithWhereUniqueWithoutPlayerInput[]
     updateMany?: OpenSkillHistoryUpdateManyWithWhereWithoutPlayerInput | OpenSkillHistoryUpdateManyWithWhereWithoutPlayerInput[]
     deleteMany?: OpenSkillHistoryScalarWhereInput | OpenSkillHistoryScalarWhereInput[]
+  }
+
+  export type PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<PlayerOfTheWeekCreateWithoutPlayerInput, PlayerOfTheWeekUncheckedCreateWithoutPlayerInput> | PlayerOfTheWeekCreateWithoutPlayerInput[] | PlayerOfTheWeekUncheckedCreateWithoutPlayerInput[]
+    connectOrCreate?: PlayerOfTheWeekCreateOrConnectWithoutPlayerInput | PlayerOfTheWeekCreateOrConnectWithoutPlayerInput[]
+    upsert?: PlayerOfTheWeekUpsertWithWhereUniqueWithoutPlayerInput | PlayerOfTheWeekUpsertWithWhereUniqueWithoutPlayerInput[]
+    createMany?: PlayerOfTheWeekCreateManyPlayerInputEnvelope
+    set?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+    disconnect?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+    delete?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+    connect?: PlayerOfTheWeekWhereUniqueInput | PlayerOfTheWeekWhereUniqueInput[]
+    update?: PlayerOfTheWeekUpdateWithWhereUniqueWithoutPlayerInput | PlayerOfTheWeekUpdateWithWhereUniqueWithoutPlayerInput[]
+    updateMany?: PlayerOfTheWeekUpdateManyWithWhereWithoutPlayerInput | PlayerOfTheWeekUpdateManyWithWhereWithoutPlayerInput[]
+    deleteMany?: PlayerOfTheWeekScalarWhereInput | PlayerOfTheWeekScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSettingsInput = {
@@ -21329,6 +22932,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutGameVisitsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGameVisitsInput, UserUpdateWithoutGameVisitsInput>, UserUncheckedUpdateWithoutGameVisitsInput>
+  }
+
+  export type UserCreateNestedOneWithoutPlayerOfTheWeekInput = {
+    create?: XOR<UserCreateWithoutPlayerOfTheWeekInput, UserUncheckedCreateWithoutPlayerOfTheWeekInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPlayerOfTheWeekInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPlayerOfTheWeekNestedInput = {
+    create?: XOR<UserCreateWithoutPlayerOfTheWeekInput, UserUncheckedCreateWithoutPlayerOfTheWeekInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPlayerOfTheWeekInput
+    upsert?: UserUpsertWithoutPlayerOfTheWeekInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPlayerOfTheWeekInput, UserUpdateWithoutPlayerOfTheWeekInput>, UserUncheckedUpdateWithoutPlayerOfTheWeekInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -22222,6 +23839,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PlayerOfTheWeekCreateWithoutPlayerInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    weekStart: Date | string
+    eloDifference: number
+    openSkillDifference: number
+    averageScore: number
+    scoringAverage: number
+    numberOfGames: number
+  }
+
+  export type PlayerOfTheWeekUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    weekStart: Date | string
+    eloDifference: number
+    openSkillDifference: number
+    averageScore: number
+    scoringAverage: number
+    numberOfGames: number
+  }
+
+  export type PlayerOfTheWeekCreateOrConnectWithoutPlayerInput = {
+    where: PlayerOfTheWeekWhereUniqueInput
+    create: XOR<PlayerOfTheWeekCreateWithoutPlayerInput, PlayerOfTheWeekUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayerOfTheWeekCreateManyPlayerInputEnvelope = {
+    data: PlayerOfTheWeekCreateManyPlayerInput | PlayerOfTheWeekCreateManyPlayerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserSettingsUpsertWithoutUserInput = {
     update: XOR<UserSettingsUpdateWithoutUserInput, UserSettingsUncheckedUpdateWithoutUserInput>
     create: XOR<UserSettingsCreateWithoutUserInput, UserSettingsUncheckedCreateWithoutUserInput>
@@ -22634,6 +24285,38 @@ export namespace Prisma {
     ordinalAfter?: FloatFilter<"OpenSkillHistory"> | number
   }
 
+  export type PlayerOfTheWeekUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: PlayerOfTheWeekWhereUniqueInput
+    update: XOR<PlayerOfTheWeekUpdateWithoutPlayerInput, PlayerOfTheWeekUncheckedUpdateWithoutPlayerInput>
+    create: XOR<PlayerOfTheWeekCreateWithoutPlayerInput, PlayerOfTheWeekUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayerOfTheWeekUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: PlayerOfTheWeekWhereUniqueInput
+    data: XOR<PlayerOfTheWeekUpdateWithoutPlayerInput, PlayerOfTheWeekUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type PlayerOfTheWeekUpdateManyWithWhereWithoutPlayerInput = {
+    where: PlayerOfTheWeekScalarWhereInput
+    data: XOR<PlayerOfTheWeekUpdateManyMutationInput, PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerInput>
+  }
+
+  export type PlayerOfTheWeekScalarWhereInput = {
+    AND?: PlayerOfTheWeekScalarWhereInput | PlayerOfTheWeekScalarWhereInput[]
+    OR?: PlayerOfTheWeekScalarWhereInput[]
+    NOT?: PlayerOfTheWeekScalarWhereInput | PlayerOfTheWeekScalarWhereInput[]
+    id?: StringFilter<"PlayerOfTheWeek"> | string
+    createdAt?: DateTimeFilter<"PlayerOfTheWeek"> | Date | string
+    updatedAt?: DateTimeFilter<"PlayerOfTheWeek"> | Date | string
+    playerId?: StringFilter<"PlayerOfTheWeek"> | string
+    weekStart?: DateTimeFilter<"PlayerOfTheWeek"> | Date | string
+    eloDifference?: FloatFilter<"PlayerOfTheWeek"> | number
+    openSkillDifference?: FloatFilter<"PlayerOfTheWeek"> | number
+    averageScore?: FloatFilter<"PlayerOfTheWeek"> | number
+    scoringAverage?: FloatFilter<"PlayerOfTheWeek"> | number
+    numberOfGames?: IntFilter<"PlayerOfTheWeek"> | number
+  }
+
   export type UserCreateWithoutSettingsInput = {
     id?: string
     email: string
@@ -22658,6 +24341,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutSettingsInput = {
@@ -22684,6 +24368,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutSettingsInput = {
@@ -22726,6 +24411,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSettingsInput = {
@@ -22752,6 +24438,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type FilePermissionCreateWithoutFileInput = {
@@ -22802,6 +24489,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutProfilePictureInput = {
@@ -22828,6 +24516,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutProfilePictureInput = {
@@ -22886,6 +24575,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfilePictureInput = {
@@ -22912,6 +24602,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type FileCreateWithoutUsersWithAccessInput = {
@@ -22967,6 +24658,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutFilesInput = {
@@ -22993,6 +24685,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutFilesInput = {
@@ -23070,6 +24763,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFilesInput = {
@@ -23096,6 +24790,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserCreateWithoutRefreshTokensInput = {
@@ -23122,6 +24817,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -23148,6 +24844,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -23222,6 +24919,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -23248,6 +24946,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type AccessTokenUpsertWithWhereUniqueWithoutRefreshTokenInput = {
@@ -23290,6 +24989,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutAccessTokensInput = {
@@ -23316,6 +25016,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutAccessTokensInput = {
@@ -23387,6 +25088,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccessTokensInput = {
@@ -23413,6 +25115,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type RefreshTokenUpsertWithoutAccessTokensInput = {
@@ -23474,6 +25177,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutOtherTokensInput = {
@@ -23500,6 +25204,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutOtherTokensInput = {
@@ -23542,6 +25247,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOtherTokensInput = {
@@ -23568,6 +25274,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GameCreateWithoutEloHistoryInput = {
@@ -23635,6 +25342,7 @@ export namespace Prisma {
     losses?: GameCreateNestedManyWithoutLoserInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutEloHistoryInput = {
@@ -23661,6 +25369,7 @@ export namespace Prisma {
     losses?: GameUncheckedCreateNestedManyWithoutLoserInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutEloHistoryInput = {
@@ -23750,6 +25459,7 @@ export namespace Prisma {
     losses?: GameUpdateManyWithoutLoserNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEloHistoryInput = {
@@ -23776,6 +25486,7 @@ export namespace Prisma {
     losses?: GameUncheckedUpdateManyWithoutLoserNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GameCreateWithoutOpenSkillHistoryInput = {
@@ -23843,6 +25554,7 @@ export namespace Prisma {
     losses?: GameCreateNestedManyWithoutLoserInput
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutOpenSkillHistoryInput = {
@@ -23869,6 +25581,7 @@ export namespace Prisma {
     losses?: GameUncheckedCreateNestedManyWithoutLoserInput
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutOpenSkillHistoryInput = {
@@ -23958,6 +25671,7 @@ export namespace Prisma {
     losses?: GameUpdateManyWithoutLoserNestedInput
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOpenSkillHistoryInput = {
@@ -23984,6 +25698,7 @@ export namespace Prisma {
     losses?: GameUncheckedUpdateManyWithoutLoserNestedInput
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserCreateWithoutGamesPlayerAInput = {
@@ -24010,6 +25725,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutGamesPlayerAInput = {
@@ -24036,6 +25752,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutGamesPlayerAInput = {
@@ -24067,6 +25784,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutGamesPlayerBInput = {
@@ -24093,6 +25811,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutGamesPlayerBInput = {
@@ -24124,6 +25843,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutBullOffWinsInput = {
@@ -24150,6 +25870,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutBullOffWinsInput = {
@@ -24181,6 +25902,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutWinsInput = {
@@ -24207,6 +25929,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutWinsInput = {
@@ -24238,6 +25961,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutLossesInput = {
@@ -24264,6 +25988,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutLossesInput = {
@@ -24452,6 +26177,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGamesPlayerAInput = {
@@ -24478,6 +26204,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUpsertWithoutGamesPlayerBInput = {
@@ -24515,6 +26242,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGamesPlayerBInput = {
@@ -24541,6 +26269,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUpsertWithoutBullOffWinsInput = {
@@ -24578,6 +26307,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBullOffWinsInput = {
@@ -24604,6 +26334,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUpsertWithoutWinsInput = {
@@ -24641,6 +26372,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWinsInput = {
@@ -24667,6 +26399,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUpsertWithoutLossesInput = {
@@ -24704,6 +26437,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLossesInput = {
@@ -24730,6 +26464,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GameVisitUpsertWithWhereUniqueWithoutGameInput = {
@@ -24861,6 +26596,7 @@ export namespace Prisma {
     losses?: GameCreateNestedManyWithoutLoserInput
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutGameStatisticsInput = {
@@ -24887,6 +26623,7 @@ export namespace Prisma {
     losses?: GameUncheckedCreateNestedManyWithoutLoserInput
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutGameStatisticsInput = {
@@ -24976,6 +26713,7 @@ export namespace Prisma {
     losses?: GameUpdateManyWithoutLoserNestedInput
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGameStatisticsInput = {
@@ -25002,6 +26740,7 @@ export namespace Prisma {
     losses?: GameUncheckedUpdateManyWithoutLoserNestedInput
     eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GameCreateWithoutVisitsInput = {
@@ -25069,6 +26808,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekCreateNestedManyWithoutPlayerInput
   }
 
   export type UserUncheckedCreateWithoutGameVisitsInput = {
@@ -25095,6 +26835,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
     gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
     openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type UserCreateOrConnectWithoutGameVisitsInput = {
@@ -25184,6 +26925,7 @@ export namespace Prisma {
     eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
     gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
     openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUpdateManyWithoutPlayerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGameVisitsInput = {
@@ -25204,6 +26946,131 @@ export namespace Prisma {
     files?: FilePermissionUncheckedUpdateManyWithoutUserNestedInput
     gamesPlayerA?: GameUncheckedUpdateManyWithoutPlayerANestedInput
     gamesPlayerB?: GameUncheckedUpdateManyWithoutPlayerBNestedInput
+    bullOffWins?: GameUncheckedUpdateManyWithoutBullOffWinnerNestedInput
+    wins?: GameUncheckedUpdateManyWithoutWinnerNestedInput
+    losses?: GameUncheckedUpdateManyWithoutLoserNestedInput
+    eloHistory?: EloHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    gameStatistics?: GameStatisticsIndividualUncheckedUpdateManyWithoutPlayerNestedInput
+    openSkillHistory?: OpenSkillHistoryUncheckedUpdateManyWithoutPlayerNestedInput
+    playerOfTheWeek?: PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type UserCreateWithoutPlayerOfTheWeekInput = {
+    id?: string
+    email: string
+    state?: $Enums.UserState
+    googleOAuthId?: string | null
+    password?: Bytes | null
+    salt?: string | null
+    name?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings: UserSettingsCreateNestedOneWithoutUserInput
+    profilePicture?: FileCreateNestedOneWithoutProfilePictureUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    accessTokens?: AccessTokenCreateNestedManyWithoutUserInput
+    otherTokens?: TokenCreateNestedManyWithoutUserInput
+    files?: FilePermissionCreateNestedManyWithoutUserInput
+    gamesPlayerA?: GameCreateNestedManyWithoutPlayerAInput
+    gamesPlayerB?: GameCreateNestedManyWithoutPlayerBInput
+    gameVisits?: GameVisitCreateNestedManyWithoutPlayerInput
+    bullOffWins?: GameCreateNestedManyWithoutBullOffWinnerInput
+    wins?: GameCreateNestedManyWithoutWinnerInput
+    losses?: GameCreateNestedManyWithoutLoserInput
+    eloHistory?: EloHistoryCreateNestedManyWithoutPlayerInput
+    gameStatistics?: GameStatisticsIndividualCreateNestedManyWithoutPlayerInput
+    openSkillHistory?: OpenSkillHistoryCreateNestedManyWithoutPlayerInput
+  }
+
+  export type UserUncheckedCreateWithoutPlayerOfTheWeekInput = {
+    id?: string
+    email: string
+    state?: $Enums.UserState
+    googleOAuthId?: string | null
+    password?: Bytes | null
+    salt?: string | null
+    name?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settingsId: string
+    profilePictureId?: string | null
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    accessTokens?: AccessTokenUncheckedCreateNestedManyWithoutUserInput
+    otherTokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    files?: FilePermissionUncheckedCreateNestedManyWithoutUserInput
+    gamesPlayerA?: GameUncheckedCreateNestedManyWithoutPlayerAInput
+    gamesPlayerB?: GameUncheckedCreateNestedManyWithoutPlayerBInput
+    gameVisits?: GameVisitUncheckedCreateNestedManyWithoutPlayerInput
+    bullOffWins?: GameUncheckedCreateNestedManyWithoutBullOffWinnerInput
+    wins?: GameUncheckedCreateNestedManyWithoutWinnerInput
+    losses?: GameUncheckedCreateNestedManyWithoutLoserInput
+    eloHistory?: EloHistoryUncheckedCreateNestedManyWithoutPlayerInput
+    gameStatistics?: GameStatisticsIndividualUncheckedCreateNestedManyWithoutPlayerInput
+    openSkillHistory?: OpenSkillHistoryUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type UserCreateOrConnectWithoutPlayerOfTheWeekInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPlayerOfTheWeekInput, UserUncheckedCreateWithoutPlayerOfTheWeekInput>
+  }
+
+  export type UserUpsertWithoutPlayerOfTheWeekInput = {
+    update: XOR<UserUpdateWithoutPlayerOfTheWeekInput, UserUncheckedUpdateWithoutPlayerOfTheWeekInput>
+    create: XOR<UserCreateWithoutPlayerOfTheWeekInput, UserUncheckedCreateWithoutPlayerOfTheWeekInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPlayerOfTheWeekInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPlayerOfTheWeekInput, UserUncheckedUpdateWithoutPlayerOfTheWeekInput>
+  }
+
+  export type UserUpdateWithoutPlayerOfTheWeekInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    state?: EnumUserStateFieldUpdateOperationsInput | $Enums.UserState
+    googleOAuthId?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    salt?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: UserSettingsUpdateOneRequiredWithoutUserNestedInput
+    profilePicture?: FileUpdateOneWithoutProfilePictureUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    accessTokens?: AccessTokenUpdateManyWithoutUserNestedInput
+    otherTokens?: TokenUpdateManyWithoutUserNestedInput
+    files?: FilePermissionUpdateManyWithoutUserNestedInput
+    gamesPlayerA?: GameUpdateManyWithoutPlayerANestedInput
+    gamesPlayerB?: GameUpdateManyWithoutPlayerBNestedInput
+    gameVisits?: GameVisitUpdateManyWithoutPlayerNestedInput
+    bullOffWins?: GameUpdateManyWithoutBullOffWinnerNestedInput
+    wins?: GameUpdateManyWithoutWinnerNestedInput
+    losses?: GameUpdateManyWithoutLoserNestedInput
+    eloHistory?: EloHistoryUpdateManyWithoutPlayerNestedInput
+    gameStatistics?: GameStatisticsIndividualUpdateManyWithoutPlayerNestedInput
+    openSkillHistory?: OpenSkillHistoryUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPlayerOfTheWeekInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    state?: EnumUserStateFieldUpdateOperationsInput | $Enums.UserState
+    googleOAuthId?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    salt?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settingsId?: StringFieldUpdateOperationsInput | string
+    profilePictureId?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    accessTokens?: AccessTokenUncheckedUpdateManyWithoutUserNestedInput
+    otherTokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    files?: FilePermissionUncheckedUpdateManyWithoutUserNestedInput
+    gamesPlayerA?: GameUncheckedUpdateManyWithoutPlayerANestedInput
+    gamesPlayerB?: GameUncheckedUpdateManyWithoutPlayerBNestedInput
+    gameVisits?: GameVisitUncheckedUpdateManyWithoutPlayerNestedInput
     bullOffWins?: GameUncheckedUpdateManyWithoutBullOffWinnerNestedInput
     wins?: GameUncheckedUpdateManyWithoutWinnerNestedInput
     losses?: GameUncheckedUpdateManyWithoutLoserNestedInput
@@ -25372,6 +27239,18 @@ export namespace Prisma {
     sigmaAfter: number
     ordinalBefore: number
     ordinalAfter: number
+  }
+
+  export type PlayerOfTheWeekCreateManyPlayerInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    weekStart: Date | string
+    eloDifference: number
+    openSkillDifference: number
+    averageScore: number
+    scoringAverage: number
+    numberOfGames: number
   }
 
   export type RefreshTokenUpdateWithoutUserInput = {
@@ -25900,6 +27779,42 @@ export namespace Prisma {
     sigmaAfter?: FloatFieldUpdateOperationsInput | number
     ordinalBefore?: FloatFieldUpdateOperationsInput | number
     ordinalAfter?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerOfTheWeekUpdateWithoutPlayerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    eloDifference?: FloatFieldUpdateOperationsInput | number
+    openSkillDifference?: FloatFieldUpdateOperationsInput | number
+    averageScore?: FloatFieldUpdateOperationsInput | number
+    scoringAverage?: FloatFieldUpdateOperationsInput | number
+    numberOfGames?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerOfTheWeekUncheckedUpdateWithoutPlayerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    eloDifference?: FloatFieldUpdateOperationsInput | number
+    openSkillDifference?: FloatFieldUpdateOperationsInput | number
+    averageScore?: FloatFieldUpdateOperationsInput | number
+    scoringAverage?: FloatFieldUpdateOperationsInput | number
+    numberOfGames?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerOfTheWeekUncheckedUpdateManyWithoutPlayerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    eloDifference?: FloatFieldUpdateOperationsInput | number
+    openSkillDifference?: FloatFieldUpdateOperationsInput | number
+    averageScore?: FloatFieldUpdateOperationsInput | number
+    scoringAverage?: FloatFieldUpdateOperationsInput | number
+    numberOfGames?: IntFieldUpdateOperationsInput | number
   }
 
   export type FilePermissionCreateManyFileInput = {

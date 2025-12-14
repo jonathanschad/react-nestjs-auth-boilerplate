@@ -2,8 +2,11 @@ import { User } from '@darts/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import type { MessageAttachment } from '@slack/web-api';
 import { WebClient } from '@slack/web-api';
+import assert from 'assert';
 import { AppConfigService } from '@/config/app-config.service';
+import { PlayerOfTheWeekData } from '@/dart/player/player-of-the-week.service';
 import { GameResult } from '@/dart/ranking/ranking';
+import { UserWithSettings } from '@/types/prisma';
 
 export interface SlackMessageOptions {
     text: string;
@@ -169,6 +172,73 @@ export class SlackService {
     public async newPlayerSignupNotification({ player }: { player: Pick<User, 'name'> }): Promise<void> {
         await this.sendMessage({
             text: `${player.name} ist jetzt auch dabei! :blob_wave:`,
+        });
+    }
+
+    public async newPlayerOfTheWeekNotification({
+        players,
+        playerOfTheWeekData,
+    }: {
+        players: UserWithSettings[];
+        playerOfTheWeekData: PlayerOfTheWeekData[];
+    }): Promise<void> {
+        const playerOfTheWeek = playerOfTheWeekData[0];
+        const playerOfTheWeekPlayer = players.find((player) => player.id === playerOfTheWeek.playerId);
+        assert(playerOfTheWeekPlayer);
+
+        const formatNumber = (number: number) => {
+            if (number === 0) {
+                return `±${number.toFixed(1)}`;
+            }
+            if (number > 0) {
+                return `+${number.toFixed(1)}`;
+            }
+            return `${number.toFixed(1)}`;
+        };
+
+        // Build top 5 leaderboard text
+        const top5 = playerOfTheWeekData.slice(0, 5);
+        const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+        const leaderboardText = top5
+            .map((data, index) => {
+                const player = players.find((p) => p.id === data.playerId);
+                if (!player) return null;
+                return `${medals[index]} *${player.name}* - Elo: ${formatNumber(data.eloDifference)} (${data.numberOfGames} Spiele)`;
+            })
+            .filter(Boolean)
+            .join('\n');
+
+        const blocks = [
+            {
+                type: 'header',
+                text: {
+                    type: 'plain_text',
+                    text: `🏆 ${playerOfTheWeekPlayer.name} 🏆`,
+                    emoji: true,
+                },
+            },
+            {
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `*Spieler der Woche!*\n${playerOfTheWeek.numberOfGames} Spiele | Elo: ${formatNumber(playerOfTheWeek.eloDifference)} | OpenSkill: ${formatNumber(playerOfTheWeek.openSkillDifference)} | Avg: ${playerOfTheWeek.averageScore.toFixed(1)}`,
+                },
+            },
+            {
+                type: 'divider',
+            },
+            {
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `*Top ${top5.length} dieser Woche*\n${leaderboardText}`,
+                },
+            },
+        ];
+
+        await this.sendMessage({
+            text: `${playerOfTheWeekPlayer.name} ist der neue Spieler der Woche!`,
+            blocks,
         });
     }
 }

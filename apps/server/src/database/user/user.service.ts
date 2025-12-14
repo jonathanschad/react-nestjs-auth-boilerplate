@@ -17,6 +17,15 @@ export class DatabaseUserService {
         });
     }
 
+    async findMany(userWhereUniqueInput: Prisma.UserWhereInput): Promise<UserWithSettings[]> {
+        return this.prisma.user.findMany({
+            where: userWhereUniqueInput,
+            include: {
+                settings: true,
+            },
+        });
+    }
+
     async findByEmail(email: string): Promise<UserWithSettings | null> {
         return await this.prisma.user.findFirst({
             where: {

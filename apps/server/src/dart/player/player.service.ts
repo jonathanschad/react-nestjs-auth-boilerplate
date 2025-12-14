@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 import { RankingService } from '@/dart/ranking/ranking.service';
 import { DatabaseGameService } from '@/database/game/game.service';
 import { DatabaseGameStatisticService } from '@/database/game/game-statistic.service';
+import { PlayerOfTheWeekDatabaseService } from '@/database/game/player-of-the-week.service';
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 
@@ -25,6 +26,7 @@ export class PlayerService {
         private readonly databaseGameStatisticService: DatabaseGameStatisticService,
         private readonly databaseEloHistoryService: DatabaseEloHistoryService,
         private readonly rankingService: RankingService,
+        private readonly playerOfTheWeekDatabaseService: PlayerOfTheWeekDatabaseService,
     ) {}
 
     async getAllPlayers(): Promise<PlayerResponseDTO[]> {
@@ -61,6 +63,9 @@ export class PlayerService {
         const wins = games.filter((game) => game.winnerId === playerId).length;
         const losses = gamesPlayed - wins;
 
+        // Get player of the week wins count
+        const playerOfTheWeekWins = await this.playerOfTheWeekDatabaseService.getPlayerOfTheWeekWinsCount(playerId);
+
         const cachedEloRating = await this.rankingService.getCachedEloRanking(playerId);
         const cachedOpenSkillRating = await this.rankingService.getCachedOpenSkillRanking(playerId);
 
@@ -80,6 +85,7 @@ export class PlayerService {
                 losses,
                 winRate: gamesPlayed > 0 ? wins / gamesPlayed : 0,
                 lastGamePlayedAt: mostRecentGame?.gameEnd.toISOString() ?? null,
+                playerOfTheWeekWins,
             },
         };
     }

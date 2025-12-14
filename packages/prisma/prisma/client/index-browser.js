@@ -268,6 +268,19 @@ exports.Prisma.GameVisitScalarFieldEnum = {
   outcome: 'outcome'
 };
 
+exports.Prisma.PlayerOfTheWeekScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  playerId: 'playerId',
+  weekStart: 'weekStart',
+  eloDifference: 'eloDifference',
+  openSkillDifference: 'openSkillDifference',
+  averageScore: 'averageScore',
+  scoringAverage: 'scoringAverage',
+  numberOfGames: 'numberOfGames'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -342,7 +355,8 @@ exports.Prisma.ModelName = {
   OpenSkillHistory: 'OpenSkillHistory',
   Game: 'Game',
   GameStatisticsIndividual: 'GameStatisticsIndividual',
-  GameVisit: 'GameVisit'
+  GameVisit: 'GameVisit',
+  PlayerOfTheWeek: 'PlayerOfTheWeek'
 };
 
 /**

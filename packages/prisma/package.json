@@ -6,8 +6,8 @@
     "type": "module",
     "scripts": {
         "db:generate-client-and-types": "prisma generate",
-        "db:create-migration": "dotenv -e ../../.env -- prisma migrate dev",
-        "db:apply-migration": "dotenv -e ../../.env -- prisma migrate deploy",
+        "db:create-migration": "prisma migrate dev && pnpm db:generate-client-and-types",
+        "db:apply-migration": "prisma migrate deploy",
         "format": "prisma format"
     },
     "dependencies": {
