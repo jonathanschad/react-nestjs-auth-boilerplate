@@ -196,91 +196,6 @@ exports.Prisma.TokenScalarFieldEnum = {
   valid: 'valid'
 };
 
-exports.Prisma.EloHistoryScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  gameId: 'gameId',
-  playerId: 'playerId',
-  eloBefore: 'eloBefore',
-  eloAfter: 'eloAfter',
-  gamesPlayedBefore: 'gamesPlayedBefore',
-  gamesPlayedAfter: 'gamesPlayedAfter'
-};
-
-exports.Prisma.OpenSkillHistoryScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  gameId: 'gameId',
-  playerId: 'playerId',
-  muBefore: 'muBefore',
-  muAfter: 'muAfter',
-  sigmaBefore: 'sigmaBefore',
-  sigmaAfter: 'sigmaAfter',
-  ordinalBefore: 'ordinalBefore',
-  ordinalAfter: 'ordinalAfter'
-};
-
-exports.Prisma.GameScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  playerAId: 'playerAId',
-  playerBId: 'playerBId',
-  gameStart: 'gameStart',
-  gameEnd: 'gameEnd',
-  bullOffWinnerId: 'bullOffWinnerId',
-  winnerId: 'winnerId',
-  loserId: 'loserId',
-  type: 'type',
-  checkoutMode: 'checkoutMode'
-};
-
-exports.Prisma.GameStatisticsIndividualScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  gameId: 'gameId',
-  playerId: 'playerId',
-  wonBullOff: 'wonBullOff',
-  averageScore: 'averageScore',
-  averageUntilFirstPossibleFinish: 'averageUntilFirstPossibleFinish',
-  throwsOnDouble: 'throwsOnDouble'
-};
-
-exports.Prisma.GameVisitScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  gameId: 'gameId',
-  playerId: 'playerId',
-  visitNumber: 'visitNumber',
-  throw1: 'throw1',
-  throw1Multiplier: 'throw1Multiplier',
-  throw2: 'throw2',
-  throw2Multiplier: 'throw2Multiplier',
-  throw3: 'throw3',
-  throw3Multiplier: 'throw3Multiplier',
-  totalScored: 'totalScored',
-  remainingScoreBefore: 'remainingScoreBefore',
-  remainingScoreAfter: 'remainingScoreAfter',
-  outcome: 'outcome'
-};
-
-exports.Prisma.PlayerOfTheWeekScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  playerId: 'playerId',
-  weekStart: 'weekStart',
-  eloDifference: 'eloDifference',
-  openSkillDifference: 'openSkillDifference',
-  averageScore: 'averageScore',
-  scoringAverage: 'scoringAverage',
-  numberOfGames: 'numberOfGames'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -326,23 +241,6 @@ exports.TokenType = exports.$Enums.TokenType = {
   CONNECT_GOOGLE_ACCOUNT: 'CONNECT_GOOGLE_ACCOUNT'
 };
 
-exports.GameType = exports.$Enums.GameType = {
-  X301: 'X301',
-  X501: 'X501'
-};
-
-exports.GameCheckoutMode = exports.$Enums.GameCheckoutMode = {
-  SINGLE_OUT: 'SINGLE_OUT',
-  DOUBLE_OUT: 'DOUBLE_OUT',
-  MASTER_OUT: 'MASTER_OUT'
-};
-
-exports.GameVisitOutcome = exports.$Enums.GameVisitOutcome = {
-  BUSTED: 'BUSTED',
-  HIT: 'HIT',
-  MISS: 'MISS'
-};
-
 exports.Prisma.ModelName = {
   User: 'User',
   UserSettings: 'UserSettings',
@@ -350,13 +248,7 @@ exports.Prisma.ModelName = {
   FilePermission: 'FilePermission',
   RefreshToken: 'RefreshToken',
   AccessToken: 'AccessToken',
-  Token: 'Token',
-  EloHistory: 'EloHistory',
-  OpenSkillHistory: 'OpenSkillHistory',
-  Game: 'Game',
-  GameStatisticsIndividual: 'GameStatisticsIndividual',
-  GameVisit: 'GameVisit',
-  PlayerOfTheWeek: 'PlayerOfTheWeek'
+  Token: 'Token'
 };
 
 /**

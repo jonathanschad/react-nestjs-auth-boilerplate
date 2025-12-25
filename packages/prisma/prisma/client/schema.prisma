@@ -14,33 +14,23 @@ datasource db {
 }
 
 model User {
-  id               String                     @id @default(uuid())
-  email            String                     @unique
-  state            UserState                  @default(UNVERIFIED)
+  id               String           @id @default(uuid())
+  email            String           @unique
+  state            UserState        @default(UNVERIFIED)
   googleOAuthId    String?
   password         Bytes?
   salt             String?
   name             String?
-  createdAt        DateTime                   @default(now())
-  updatedAt        DateTime                   @updatedAt
-  settingsId       String                     @unique
-  settings         UserSettings               @relation(fields: [settingsId], references: [id])
-  profilePictureId String?                    @unique
-  profilePicture   File?                      @relation(fields: [profilePictureId], references: [id])
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  settingsId       String           @unique
+  settings         UserSettings     @relation(fields: [settingsId], references: [id])
+  profilePictureId String?          @unique
+  profilePicture   File?            @relation(fields: [profilePictureId], references: [id])
   refreshTokens    RefreshToken[]
   accessTokens     AccessToken[]
   otherTokens      Token[]
   files            FilePermission[]
-  gamesPlayerA     Game[]                     @relation("PlayerA")
-  gamesPlayerB     Game[]                     @relation("PlayerB")
-  gameVisits       GameVisit[]
-  bullOffWins      Game[]                     @relation("BullOffWinner")
-  wins             Game[]                     @relation("Winner")
-  losses           Game[]                     @relation("Loser")
-  eloHistory       EloHistory[]
-  gameStatistics   GameStatisticsIndividual[]
-  openSkillHistory OpenSkillHistory[]
-  playerOfTheWeek  PlayerOfTheWeek[]
 }
 
 enum UserState {
@@ -146,137 +136,4 @@ model Token {
   updatedAt    DateTime  @updatedAt
   expiresAt    DateTime
   valid        Boolean   @default(true)
-}
-
-enum GamePlayer {
-  PLAYER_A
-  PLAYER_B
-}
-
-model EloHistory {
-  id                String   @id @default(uuid())
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  gameId            String
-  game              Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  playerId          String
-  player            User     @relation(fields: [playerId], references: [id])
-  eloBefore         Float
-  eloAfter          Float
-  gamesPlayedBefore Int
-  gamesPlayedAfter  Int
-
-  @@unique([gameId, playerId])
-}
-
-model OpenSkillHistory {
-  id            String   @id @default(uuid())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  gameId        String
-  game          Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  playerId      String
-  player        User     @relation(fields: [playerId], references: [id])
-  muBefore      Float
-  muAfter       Float
-  sigmaBefore   Float
-  sigmaAfter    Float
-  ordinalBefore Float
-  ordinalAfter  Float
-
-  @@unique([gameId, playerId])
-}
-
-enum GameCheckoutMode {
-  SINGLE_OUT
-  DOUBLE_OUT
-  MASTER_OUT
-}
-
-enum GameType {
-  X301
-  X501
-}
-
-model Game {
-  id               String                     @id @default(uuid())
-  createdAt        DateTime                   @default(now())
-  updatedAt        DateTime                   @updatedAt
-  playerAId        String
-  playerBId        String
-  playerA          User                       @relation("PlayerA", fields: [playerAId], references: [id])
-  playerB          User                       @relation("PlayerB", fields: [playerBId], references: [id])
-  gameStart        DateTime
-  gameEnd          DateTime
-  bullOffWinnerId  String?
-  bullOffWinner    User?                      @relation("BullOffWinner", fields: [bullOffWinnerId], references: [id])
-  winnerId         String
-  winner           User                       @relation("Winner", fields: [winnerId], references: [id])
-  loserId          String
-  loser            User                       @relation("Loser", fields: [loserId], references: [id])
-  type             GameType
-  checkoutMode     GameCheckoutMode
-  visits           GameVisit[]
-  gameStatistics   GameStatisticsIndividual[]
-  eloHistory       EloHistory[]
-  openSkillHistory OpenSkillHistory[]
-}
-
-model GameStatisticsIndividual {
-  id                              String   @id @default(uuid())
-  createdAt                       DateTime @default(now())
-  updatedAt                       DateTime @updatedAt
-  gameId                          String
-  game                            Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  playerId                        String
-  player                          User     @relation(fields: [playerId], references: [id], onDelete: Cascade)
-  wonBullOff                      Boolean
-  averageScore                    Float
-  averageUntilFirstPossibleFinish Float
-  throwsOnDouble                  Int
-
-  @@unique([gameId, playerId])
-}
-
-enum GameVisitOutcome {
-  BUSTED
-  HIT
-  MISS
-}
-
-model GameVisit {
-  id                   String           @id @default(uuid())
-  createdAt            DateTime         @default(now())
-  updatedAt            DateTime         @updatedAt
-  gameId               String
-  game                 Game             @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  playerId             String
-  player               User             @relation(fields: [playerId], references: [id])
-  visitNumber          Int
-  throw1               Int?
-  throw1Multiplier     Int?
-  throw2               Int?
-  throw2Multiplier     Int?
-  throw3               Int?
-  throw3Multiplier     Int?
-  totalScored          Int
-  remainingScoreBefore Int
-  remainingScoreAfter  Int
-  outcome              GameVisitOutcome
-
-  @@unique([gameId, visitNumber, playerId])
-}
-
-model PlayerOfTheWeek {
-  id                  String   @id @default(uuid())
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  playerId            String
-  player              User     @relation(fields: [playerId], references: [id])
-  weekStart           DateTime @unique
-  eloDifference       Float
-  openSkillDifference Float
-  averageScore        Float
-  scoringAverage      Float
-  numberOfGames       Int
 }
