@@ -134,7 +134,7 @@ importers:
 
   apps/client:
     dependencies:
-      '@darts/types':
+      '@boilerplate/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@orpc/client':
@@ -240,13 +240,13 @@ importers:
         specifier: ^5.0.6
         version: 5.0.6(@types/react@18.3.18)(immer@11.0.1)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
     devDependencies:
-      '@darts/eslint-config':
+      '@boilerplate/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@darts/ts-config':
+      '@boilerplate/ts-config':
         specifier: workspace:*
         version: link:../../packages/ts-config
-      '@darts/ui':
+      '@boilerplate/ui':
         specifier: workspace:*
         version: file:packages/ui(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(i18next@23.16.8)(react-dropzone@14.3.8(react@18.3.1))(recharts@3.5.1(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(redux@5.0.1))(sonner@2.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.5)(@types/node@20.17.22)(typescript@5.8.3)))
       '@tanstack/eslint-plugin-query':
@@ -315,13 +315,13 @@ importers:
       '@aws-sdk/client-s3':
         specifier: ^3.669.0
         version: 3.758.0
-      '@darts/prisma':
+      '@boilerplate/prisma':
         specifier: workspace:*
         version: file:packages/prisma(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)
-      '@darts/types':
+      '@boilerplate/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@darts/utils':
+      '@boilerplate/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       '@fastify/accepts':
@@ -439,10 +439,10 @@ importers:
         specifier: 'catalog:'
         version: 4.1.13
     devDependencies:
-      '@darts/eslint-config':
+      '@boilerplate/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@darts/ts-config':
+      '@boilerplate/ts-config':
         specifier: workspace:*
         version: link:../../packages/ts-config
       '@eslint/eslintrc':
@@ -575,7 +575,7 @@ importers:
         specifier: ^7.1.0
         version: 7.1.0(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)
     devDependencies:
-      '@darts/ts-config':
+      '@boilerplate/ts-config':
         specifier: workspace:*
         version: link:../ts-config
       '@types/node':
@@ -602,7 +602,7 @@ importers:
 
   packages/types:
     dependencies:
-      '@darts/utils':
+      '@boilerplate/utils':
         specifier: workspace:*
         version: link:../utils
       '@orpc/contract':
@@ -612,10 +612,10 @@ importers:
         specifier: 'catalog:'
         version: 4.1.13
     devDependencies:
-      '@darts/eslint-config':
+      '@boilerplate/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@darts/ts-config':
+      '@boilerplate/ts-config':
         specifier: workspace:*
         version: link:../ts-config
       eslint:
@@ -630,10 +630,10 @@ importers:
 
   packages/ui:
     dependencies:
-      '@darts/eslint-config':
+      '@boilerplate/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@darts/ts-config':
+      '@boilerplate/ts-config':
         specifier: workspace:*
         version: link:../ts-config
       '@radix-ui/react-avatar':
@@ -746,10 +746,10 @@ importers:
         specifier: 'catalog:'
         version: 0.14.1
     devDependencies:
-      '@darts/eslint-config':
+      '@boilerplate/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@darts/ts-config':
+      '@boilerplate/ts-config':
         specifier: workspace:*
         version: link:../ts-config
       eslint:
@@ -1208,16 +1208,16 @@ packages:
   '@dabh/diagnostics@2.0.3':
     resolution: {integrity: sha512-hrlQOIi7hAfzsMqlGSFyVucrx38O+j6wiGOf//H2ecvIEqYN4ADBSS2iLMh5UFyDunCNniUIPk/q3riFv45xRA==}
 
-  '@darts/eslint-config@file:packages/eslint-config':
+  '@boilerplate/eslint-config@file:packages/eslint-config':
     resolution: {directory: packages/eslint-config, type: directory}
 
-  '@darts/prisma@file:packages/prisma':
+  '@boilerplate/prisma@file:packages/prisma':
     resolution: {directory: packages/prisma, type: directory}
 
-  '@darts/ts-config@file:packages/ts-config':
+  '@boilerplate/ts-config@file:packages/ts-config':
     resolution: {directory: packages/ts-config, type: directory}
 
-  '@darts/ui@file:packages/ui':
+  '@boilerplate/ui@file:packages/ui':
     resolution: {directory: packages/ui, type: directory}
     peerDependencies:
       react-dropzone: ^14.3.8
@@ -8915,9 +8915,9 @@ snapshots:
       enabled: 2.0.0
       kuler: 2.0.0
 
-  '@darts/eslint-config@file:packages/eslint-config': {}
+  '@boilerplate/eslint-config@file:packages/eslint-config': {}
 
-  '@darts/prisma@file:packages/prisma(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)':
+  '@boilerplate/prisma@file:packages/prisma(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)':
     dependencies:
       '@prisma/client': 7.1.0(prisma@7.1.0(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3))(typescript@5.8.3)
       dotenv: 17.2.3
@@ -8930,12 +8930,12 @@ snapshots:
       - react-dom
       - typescript
 
-  '@darts/ts-config@file:packages/ts-config': {}
+  '@boilerplate/ts-config@file:packages/ts-config': {}
 
-  '@darts/ui@file:packages/ui(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(i18next@23.16.8)(react-dropzone@14.3.8(react@18.3.1))(recharts@3.5.1(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(redux@5.0.1))(sonner@2.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.5)(@types/node@20.17.22)(typescript@5.8.3)))':
+  '@boilerplate/ui@file:packages/ui(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(i18next@23.16.8)(react-dropzone@14.3.8(react@18.3.1))(recharts@3.5.1(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(redux@5.0.1))(sonner@2.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.5)(@types/node@20.17.22)(typescript@5.8.3)))':
     dependencies:
-      '@darts/eslint-config': file:packages/eslint-config
-      '@darts/ts-config': file:packages/ts-config
+      '@boilerplate/eslint-config': file:packages/eslint-config
+      '@boilerplate/ts-config': file:packages/ts-config
       '@radix-ui/react-avatar': 1.1.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-checkbox': 1.1.4(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-dialog': 1.1.6(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

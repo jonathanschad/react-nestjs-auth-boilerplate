@@ -1,4 +1,4 @@
-import { Game, GameStatisticsIndividual, Prisma } from '@darts/prisma';
+import { Game, GameStatisticsIndividual, Prisma } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { PrismaService } from '@/database/prisma.service';

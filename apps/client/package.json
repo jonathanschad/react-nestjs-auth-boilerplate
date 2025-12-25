@@ -1,5 +1,5 @@
 {
-    "name": "@darts/client",
+    "name": "@boilerplate/client",
     "version": "0.7.0",
     "type": "module",
     "license": "MIT",
@@ -14,7 +14,7 @@
         "tsc": "tsc --noEmit"
     },
     "dependencies": {
-        "@darts/types": "workspace:*",
+        "@boilerplate/types": "workspace:*",
         "@orpc/client": "catalog:",
         "@orpc/contract": "catalog:",
         "@orpc/openapi-client": "catalog:",
@@ -51,9 +51,9 @@
         "zustand": "^5.0.6"
     },
     "devDependencies": {
-        "@darts/eslint-config": "workspace:*",
-        "@darts/ts-config": "workspace:*",
-        "@darts/ui": "workspace:*",
+        "@boilerplate/eslint-config": "workspace:*",
+        "@boilerplate/ts-config": "workspace:*",
+        "@boilerplate/ui": "workspace:*",
         "@tanstack/eslint-plugin-query": "^5.74.7",
         "@types/node": "^20.14.12",
         "@types/react": "catalog:react18",

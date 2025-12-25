@@ -1,6 +1,6 @@
-import { Label } from '@darts/ui/components/label';
-import { useFieldContext } from '@darts/ui/form/useAppForm';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Label } from '@boilerplate/ui/components/label';
+import { useFieldContext } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 export default function Checkbox({ label }: { label: string | React.ReactNode }) {
     const field = useFieldContext<boolean>();

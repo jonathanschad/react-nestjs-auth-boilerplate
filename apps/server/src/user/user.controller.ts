@@ -1,4 +1,4 @@
-import { api } from '@darts/types';
+import { api } from '@boilerplate/types';
 import { Controller, HttpStatus, Param, Patch, Req } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
 import type { FastifyRequest } from 'fastify';

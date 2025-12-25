@@ -1,9 +1,9 @@
-import { Avatar } from '@darts/ui/components/avatar';
-import { Button } from '@darts/ui/components/button';
-import { Card } from '@darts/ui/components/card';
-import { Skeleton } from '@darts/ui/components/skeleton';
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Avatar } from '@boilerplate/ui/components/avatar';
+import { Button } from '@boilerplate/ui/components/button';
+import { Card } from '@boilerplate/ui/components/card';
+import { Skeleton } from '@boilerplate/ui/components/skeleton';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { ArrowLeft, User } from 'lucide-react';
 import { ordinal, rating } from 'openskill';
 import { useNavigate } from 'react-router-dom';

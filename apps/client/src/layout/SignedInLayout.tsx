@@ -1,4 +1,4 @@
-import { Button } from '@darts/ui/components/button';
+import { Button } from '@boilerplate/ui/components/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -6,10 +6,10 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@darts/ui/components/dropdown-menu';
-import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
-import { Sheet, SheetContent, SheetTrigger } from '@darts/ui/components/sheet';
-import { Translation } from '@darts/ui/i18n/Translation';
+} from '@boilerplate/ui/components/dropdown-menu';
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
+import { Sheet, SheetContent, SheetTrigger } from '@boilerplate/ui/components/sheet';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import clsx from 'clsx';
 import { Menu } from 'lucide-react';
 import * as React from 'react';

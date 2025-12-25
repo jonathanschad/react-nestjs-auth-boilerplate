@@ -1,7 +1,7 @@
-import { Button } from '@darts/ui/components/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';
-import { Translation } from '@darts/ui/i18n/Translation';
-import { cn } from '@darts/ui/lib/utils';
+import { Button } from '@boilerplate/ui/components/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@boilerplate/ui/components/table';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
+import { cn } from '@boilerplate/ui/lib/utils';
 import {
     type ColumnDef,
     flexRender,

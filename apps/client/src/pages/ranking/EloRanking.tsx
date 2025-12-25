@@ -1,7 +1,7 @@
-import type { EloRankingResponseDTO } from '@darts/types';
-import { Button } from '@darts/ui/components/button';
-import { DataTable } from '@darts/ui/components/data-table';
-import { Translation } from '@darts/ui/i18n/Translation';
+import type { EloRankingResponseDTO } from '@boilerplate/types';
+import { Button } from '@boilerplate/ui/components/button';
+import { DataTable } from '@boilerplate/ui/components/data-table';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import { useGetEloRanking } from '@/api/dart/ranking/useGetEloRanking';

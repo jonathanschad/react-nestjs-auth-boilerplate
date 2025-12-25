@@ -1,4 +1,4 @@
-import { Checkbox, type CheckboxProps } from '@darts/ui/components/checkbox';
+import { Checkbox, type CheckboxProps } from '@boilerplate/ui/components/checkbox';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import * as React from 'react';
 

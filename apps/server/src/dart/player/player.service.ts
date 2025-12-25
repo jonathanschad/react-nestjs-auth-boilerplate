@@ -8,7 +8,7 @@ import type {
     PlayerDetailsResponseDTO,
     PlayerResponseDTO,
     PlayerSummaryStatsDetails,
-} from '@darts/types';
+} from '@boilerplate/types';
 import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { RankingService } from '@/dart/ranking/ranking.service';

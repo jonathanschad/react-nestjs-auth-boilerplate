@@ -1,7 +1,7 @@
-import { Button } from '@darts/ui/components/button';
-import { Card } from '@darts/ui/components/card';
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Button } from '@boilerplate/ui/components/button';
+import { Card } from '@boilerplate/ui/components/card';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import dayjs from 'dayjs';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';

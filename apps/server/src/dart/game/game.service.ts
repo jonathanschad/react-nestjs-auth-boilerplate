@@ -1,4 +1,4 @@
-import { GameStatisticsIndividual, GameVisit, GameVisitOutcome, Prisma } from '@darts/prisma';
+import { GameStatisticsIndividual, GameVisit, GameVisitOutcome, Prisma } from '@boilerplate/prisma';
 import type {
     CreateGameDTO,
     EloRating,
@@ -6,7 +6,7 @@ import type {
     GameFilter,
     GamePreviewResponseDTO,
     Pagination,
-} from '@darts/types';
+} from '@boilerplate/types';
 
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_ELO, EloService } from '@/dart/ranking/elo.service';

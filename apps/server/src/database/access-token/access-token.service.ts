@@ -1,4 +1,4 @@
-import type { AccessToken, Prisma, UserState } from '@darts/prisma';
+import type { AccessToken, Prisma, UserState } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import * as uuid from 'uuid';

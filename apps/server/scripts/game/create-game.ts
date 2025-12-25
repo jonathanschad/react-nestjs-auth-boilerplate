@@ -5,7 +5,7 @@
  *
  * How to run:
  * 1. Update PLAYER_A_UUID and PLAYER_B_UUID with real player UUIDs from your database
- * 2. Run: pnpm --filter @darts/server dev:debug create-game
+ * 2. Run: pnpm --filter @boilerplate/server dev:debug create-game
  *    OR: cd apps/server && pnpm dev:debug create-game
  *
  * You can also get player UUIDs by querying the database:
@@ -13,7 +13,7 @@
  */
 
 import { randomUUID } from 'node:crypto';
-import { GameVisitCreateDTO } from '@darts/types';
+import { GameVisitCreateDTO } from '@boilerplate/types';
 import type { NestFastifyApplication } from '@nestjs/platform-fastify';
 import type { RawServerDefault } from 'fastify';
 import { GameService } from '@/dart/game/game.service';

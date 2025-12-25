@@ -1,4 +1,4 @@
-import { api } from '@darts/types';
+import { api } from '@boilerplate/types';
 import { Controller, Get, Param } from '@nestjs/common';
 
 import { OptionalUser, PublicRoute } from '@/auth/auth.guard';

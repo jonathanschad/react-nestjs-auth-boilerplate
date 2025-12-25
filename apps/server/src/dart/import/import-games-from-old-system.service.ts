@@ -1,4 +1,4 @@
-import { GameCheckoutMode, GameType, Language, User, UserState } from '@darts/prisma';
+import { GameCheckoutMode, GameType, Language, User, UserState } from '@boilerplate/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import assert from 'assert';
 import { MongoClient } from 'mongodb';

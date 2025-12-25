@@ -1,4 +1,4 @@
-import { Language, type Prisma, TokenType, type User, UserState } from '@darts/prisma';
+import { Language, type Prisma, TokenType, type User, UserState } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
 import * as uuid from 'uuid';

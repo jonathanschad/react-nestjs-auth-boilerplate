@@ -1,5 +1,5 @@
-import { PlayerOfTheWeekEntityDTO } from '@darts/types';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { PlayerOfTheWeekEntityDTO } from '@boilerplate/types';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useGetPlayerOfTheWeekContender, useGetPlayerOfTheWeekHistory } from '@/api/dart/player/useGetPlayerOfTheWeek';
 import {
     CurrentlySelectedRouteOptions,

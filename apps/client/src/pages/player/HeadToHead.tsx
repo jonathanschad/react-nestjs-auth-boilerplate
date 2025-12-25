@@ -1,10 +1,10 @@
-import type { HeadToHeadStats } from '@darts/types';
-import { Button } from '@darts/ui/components/button';
-import { Card } from '@darts/ui/components/card';
-import { Skeleton } from '@darts/ui/components/skeleton';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+import type { HeadToHeadStats } from '@boilerplate/types';
+import { Button } from '@boilerplate/ui/components/button';
+import { Card } from '@boilerplate/ui/components/card';
+import { Skeleton } from '@boilerplate/ui/components/skeleton';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@boilerplate/ui/components/table';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useGetPlayerOpponentsWithHeadToHead } from '@/api/dart/player/useGetPlayerOpponents';

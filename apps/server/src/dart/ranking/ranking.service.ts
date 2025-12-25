@@ -1,4 +1,4 @@
-import type { EloRating, RankingCache } from '@darts/types';
+import type { EloRating, RankingCache } from '@boilerplate/types';
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { Rating, rating } from 'openskill';

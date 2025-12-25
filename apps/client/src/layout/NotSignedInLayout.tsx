@@ -1,5 +1,5 @@
-import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import type React from 'react';
 import { Suspense, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import { Skeleton } from '@darts/ui/components/skeleton';
+import { Skeleton } from '@boilerplate/ui/components/skeleton';
 import { ordinal, rating } from 'openskill';
 import { Link } from 'react-router-dom';
 import { useGetPlayer } from '@/api/dart/player/useGetPlayer';

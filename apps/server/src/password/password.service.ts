@@ -1,4 +1,4 @@
-import type { Language } from '@darts/prisma';
+import type { Language } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import * as uuid from 'uuid';
 

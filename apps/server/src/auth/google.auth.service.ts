@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { type Language, UserState } from '@darts/prisma';
+import { type Language, UserState } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import type { FastifyReply } from 'fastify';

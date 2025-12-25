@@ -1,4 +1,4 @@
-import { cn } from '@darts/ui/lib/utils';
+import { cn } from '@boilerplate/ui/lib/utils';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import * as React from 'react';
 

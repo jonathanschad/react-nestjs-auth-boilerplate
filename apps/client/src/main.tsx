@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import '@darts/ui/globals.css';
+import '@boilerplate/ui/globals.css';
 
 import App from '@/App';
 

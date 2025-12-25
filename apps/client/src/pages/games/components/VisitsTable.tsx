@@ -1,6 +1,6 @@
-import type { GameVisitEntityApiDTO } from '@darts/types';
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@darts/ui/components/table';
-import { Translation } from '@darts/ui/i18n/Translation';
+import type { GameVisitEntityApiDTO } from '@boilerplate/types';
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@boilerplate/ui/components/table';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { VisitRow } from './VisitRow';
 
 export const VisitsTable = ({

@@ -1,9 +1,9 @@
 {
-    "extends": "@darts/ts-config/react.json",
+    "extends": "@boilerplate/ts-config/react.json",
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@darts/ui/*": ["./src/*"]
+            "@boilerplate/ui/*": ["./src/*"]
         }
     },
     "include": ["src/**/*", "postcss.config.mjs", "tailwind.config.ts"],

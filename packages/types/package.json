@@ -1,5 +1,5 @@
 {
-    "name": "@darts/types",
+    "name": "@boilerplate/types",
     "version": "0.7.0",
     "description": "",
     "exports": {
@@ -16,13 +16,13 @@
         "tsc": "tsc --noEmit"
     },
     "dependencies": {
-        "@darts/utils": "workspace:*",
+        "@boilerplate/utils": "workspace:*",
         "@orpc/contract": "catalog:",
         "zod": "catalog:"
     },
     "devDependencies": {
-        "@darts/eslint-config": "workspace:*",
-        "@darts/ts-config": "workspace:*",
+        "@boilerplate/eslint-config": "workspace:*",
+        "@boilerplate/ts-config": "workspace:*",
         "eslint": "catalog:",
         "openskill": "catalog:",
         "typescript": "catalog:"

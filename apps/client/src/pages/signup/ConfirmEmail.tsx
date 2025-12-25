@@ -1,5 +1,5 @@
-import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { jwtDecode } from 'jwt-decode';
 import { useMemo } from 'react';
 import { useQuery } from 'react-query';

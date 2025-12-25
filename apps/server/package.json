@@ -1,5 +1,5 @@
 {
-    "name": "@darts/server",
+    "name": "@boilerplate/server",
     "version": "0.7.0",
     "description": "",
     "author": "",
@@ -17,9 +17,9 @@
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.669.0",
-        "@darts/prisma": "workspace:*",
-        "@darts/types": "workspace:*",
-        "@darts/utils": "workspace:*",
+        "@boilerplate/prisma": "workspace:*",
+        "@boilerplate/types": "workspace:*",
+        "@boilerplate/utils": "workspace:*",
         "@fastify/accepts": "^5.0.2",
         "@fastify/cookie": "^11.0.2",
         "@fastify/cors": "^11.0.0",
@@ -60,8 +60,8 @@
         "zod": "catalog:"
     },
     "devDependencies": {
-        "@darts/eslint-config": "workspace:*",
-        "@darts/ts-config": "workspace:*",
+        "@boilerplate/eslint-config": "workspace:*",
+        "@boilerplate/ts-config": "workspace:*",
         "@eslint/eslintrc": "^3.2.0",
         "@eslint/js": "^9.18.0",
         "@nestjs/cli": "^11.0.5",

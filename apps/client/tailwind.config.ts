@@ -1,4 +1,4 @@
-import baseConfig, { getUIContentBasePaths } from '@darts/ui/tailwind.config';
+import baseConfig, { getUIContentBasePaths } from '@boilerplate/ui/tailwind.config';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {

@@ -1,8 +1,8 @@
-import { Button } from '@darts/ui/components/button';
-import { Input } from '@darts/ui/components/input';
-import { Label } from '@darts/ui/components/label';
-import { useAppForm } from '@darts/ui/form/useAppForm';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Button } from '@boilerplate/ui/components/button';
+import { Input } from '@boilerplate/ui/components/input';
+import { Label } from '@boilerplate/ui/components/label';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { jwtDecode } from 'jwt-decode';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

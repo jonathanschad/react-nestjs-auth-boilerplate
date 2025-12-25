@@ -1,12 +1,12 @@
 {
-    "extends": "@darts/ts-config/nestjs.json",
+    "extends": "@boilerplate/ts-config/nestjs.json",
     "compilerOptions": {
         "outDir": "./dist",
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"],
             "@/scripts/*": ["scripts/*"],
-            "@darts/types": ["../../packages/types/src/*"]
+            "@boilerplate/types": ["../../packages/types/src/*"]
         }
     },
     "ts-node": {

@@ -1,5 +1,5 @@
-import { Button } from '@darts/ui/components/button';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Button } from '@boilerplate/ui/components/button';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetPlayerOfTheWeekDetails } from '@/api/dart/player/useGetPlayerOfTheWeek';

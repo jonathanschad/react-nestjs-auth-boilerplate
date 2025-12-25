@@ -1,5 +1,5 @@
-import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
-import { cn } from '@darts/ui/lib/utils';
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
+import { cn } from '@boilerplate/ui/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';

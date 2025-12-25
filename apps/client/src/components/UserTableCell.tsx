@@ -1,5 +1,5 @@
-import { Avatar } from '@darts/ui/components/avatar';
-import { Skeleton } from '@darts/ui/components/skeleton';
+import { Avatar } from '@boilerplate/ui/components/avatar';
+import { Skeleton } from '@boilerplate/ui/components/skeleton';
 import { User } from 'lucide-react';
 import { useGetPlayer } from '@/api/dart/player/useGetPlayer';
 import { AuthenticatedImage } from '@/components/authenticated-image';

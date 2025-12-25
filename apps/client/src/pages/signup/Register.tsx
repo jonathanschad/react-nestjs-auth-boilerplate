@@ -1,6 +1,6 @@
-import { Button } from '@darts/ui/components/button';
-import { useAppForm } from '@darts/ui/form/useAppForm';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Button } from '@boilerplate/ui/components/button';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';

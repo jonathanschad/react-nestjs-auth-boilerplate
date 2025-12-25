@@ -1,4 +1,4 @@
-import { EloRating } from '@darts/types';
+import { EloRating } from '@boilerplate/types';
 import { Injectable } from '@nestjs/common';
 import { GameResult, RankingServiceInterface } from '@/dart/ranking/ranking';
 

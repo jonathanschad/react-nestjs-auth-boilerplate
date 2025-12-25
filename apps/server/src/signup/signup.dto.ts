@@ -1,4 +1,4 @@
-import { IsTrue } from '@darts/utils/validators/is-true';
+import { IsTrue } from '@boilerplate/utils/validators/is-true';
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 export class SignupRequestDto {
     @IsEmail()

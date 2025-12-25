@@ -1,6 +1,6 @@
-import { Language } from '@darts/prisma';
-import { api } from '@darts/types';
-import { logSomeStuff } from '@darts/utils';
+import { Language } from '@boilerplate/prisma';
+import { api } from '@boilerplate/types';
+import { logSomeStuff } from '@boilerplate/utils';
 import { Controller, Get, Req } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
 import type { FastifyRequest } from 'fastify';

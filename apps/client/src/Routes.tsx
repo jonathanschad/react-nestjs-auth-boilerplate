@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
 import { type ReactElement, Suspense, useMemo } from 'react';
 import { BrowserRouter, Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 

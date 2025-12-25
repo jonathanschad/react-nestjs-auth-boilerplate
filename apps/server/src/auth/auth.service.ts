@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import * as crypto from 'node:crypto';
-import type { User } from '@darts/prisma';
+import type { User } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import type { FastifyReply } from 'fastify';
 

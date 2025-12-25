@@ -1,5 +1,5 @@
-import { Typography } from '@darts/ui/components/typography';
-import { cn } from '@darts/ui/lib/utils';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { cn } from '@boilerplate/ui/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import * as React from 'react';

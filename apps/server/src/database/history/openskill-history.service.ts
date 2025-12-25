@@ -1,4 +1,4 @@
-import { OpenSkillHistory, Prisma, User } from '@darts/prisma';
+import { OpenSkillHistory, Prisma, User } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import { type Rating, rating } from 'openskill';
 import { DatabaseHistoryInterface, RankingHistoryWithGame } from '@/database/history/database-history.interface';

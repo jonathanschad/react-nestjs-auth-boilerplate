@@ -1,4 +1,4 @@
-import { api } from '@darts/types';
+import { api } from '@boilerplate/types';
 import { Controller } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
 import { RankingService } from '@/dart/ranking/ranking.service';

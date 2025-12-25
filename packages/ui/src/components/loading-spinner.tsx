@@ -1,4 +1,4 @@
-import { cn } from '@darts/ui/lib/utils';
+import { cn } from '@boilerplate/ui/lib/utils';
 
 export interface ISVGProps extends React.SVGProps<SVGSVGElement> {
     size?: number;

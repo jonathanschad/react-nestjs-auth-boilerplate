@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@darts/ui/lib/utils';
+import { cn } from '@boilerplate/ui/lib/utils';
 /* eslint-disable */
 
 import * as React from 'react';

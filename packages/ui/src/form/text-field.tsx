@@ -1,7 +1,7 @@
-import { Input } from '@darts/ui/components/input';
-import { Label } from '@darts/ui/components/label';
-import { useFieldContext } from '@darts/ui/form/useAppForm';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Input } from '@boilerplate/ui/components/input';
+import { Label } from '@boilerplate/ui/components/label';
+import { useFieldContext } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import type { HTMLInputAutoCompleteAttribute, HTMLInputTypeAttribute } from 'react';
 
 export default function TextField({

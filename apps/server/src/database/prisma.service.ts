@@ -1,4 +1,4 @@
-import { PrismaClient } from '@darts/prisma';
+import { PrismaClient } from '@boilerplate/prisma';
 import { Injectable, type OnModuleInit } from '@nestjs/common';
 import { PrismaPg } from '@prisma/adapter-pg';
 

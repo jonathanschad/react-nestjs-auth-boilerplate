@@ -1,6 +1,6 @@
-import { PlayerOfTheWeekEntityDTO } from '@darts/types';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@darts/ui/components/card';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { PlayerOfTheWeekEntityDTO } from '@boilerplate/types';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@boilerplate/ui/components/card';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import dayjs from 'dayjs';
 import { Calendar, TrendingUp, Trophy } from 'lucide-react';
 import { formatWeek } from '@/pages/player/player-of-the-week/utils';

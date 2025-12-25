@@ -1,4 +1,4 @@
-import { TokenType } from '@darts/prisma';
+import { TokenType } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 
 import { AppConfigService } from '@/config/app-config.service';

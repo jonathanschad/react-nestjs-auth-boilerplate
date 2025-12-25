@@ -1,5 +1,5 @@
-import { type Game, Prisma } from '@darts/prisma';
-import { GameEntityApiDTO, GameFilter, Pagination } from '@darts/types';
+import { type Game, Prisma } from '@boilerplate/prisma';
+import { GameEntityApiDTO, GameFilter, Pagination } from '@boilerplate/types';
 import { Injectable } from '@nestjs/common';
 import assert from 'assert';
 import { PrismaService } from '@/database/prisma.service';

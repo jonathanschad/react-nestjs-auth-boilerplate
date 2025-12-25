@@ -1,5 +1,5 @@
-import { Dropzone } from '@darts/ui/components/dropzone';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Dropzone } from '@boilerplate/ui/components/dropzone';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Camera, ImagePlus } from 'lucide-react';
 
 interface ProfilePictureDropzoneProps {

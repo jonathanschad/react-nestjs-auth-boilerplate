@@ -1,4 +1,4 @@
-import { PlayerOfTheWeek } from '@darts/prisma';
+import { PlayerOfTheWeek } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { rating } from 'openskill';

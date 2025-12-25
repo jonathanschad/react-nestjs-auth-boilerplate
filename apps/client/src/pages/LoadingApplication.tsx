@@ -1,4 +1,4 @@
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { loadApplication } from '@/api/misc/load-application';

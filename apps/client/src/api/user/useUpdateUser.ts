@@ -1,4 +1,4 @@
-import type { UserUpdateablePropertiesDTO } from '@darts/types';
+import type { UserUpdateablePropertiesDTO } from '@boilerplate/types';
 import { useMutation, useQueryClient } from 'react-query';
 import { getUserQueryKey } from '@/api/auth/auth.queryKey';
 import { client } from '@/api/client';

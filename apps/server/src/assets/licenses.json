@@ -6,32 +6,32 @@
         "path": "node_modules/@aws-sdk/client-s3",
         "licenseFile": "node_modules/@aws-sdk/client-s3/LICENSE"
     },
-    "@darts/eslint-config@0.7.0": {
+    "@boilerplate/eslint-config@0.7.0": {
         "licenses": "MIT",
-        "path": "node_modules/@darts/eslint-config"
+        "path": "node_modules/@boilerplate/eslint-config"
     },
-    "@darts/prisma@0.7.0": {
+    "@boilerplate/prisma@0.7.0": {
         "licenses": "ISC",
-        "path": "node_modules/@darts/prisma"
+        "path": "node_modules/@boilerplate/prisma"
     },
-    "@darts/server@0.7.0": {
+    "@boilerplate/server@0.7.0": {
         "licenses": "UNLICENSED",
         "private": true,
         "path": ""
     },
-    "@darts/ts-config@0.7.0": {
+    "@boilerplate/ts-config@0.7.0": {
         "licenses": "UNLICENSED",
         "private": true,
-        "path": "node_modules/@darts/ts-config"
+        "path": "node_modules/@boilerplate/ts-config"
     },
-    "@darts/types@0.7.0": {
+    "@boilerplate/types@0.7.0": {
         "licenses": "ISC",
-        "path": "node_modules/@darts/types"
+        "path": "node_modules/@boilerplate/types"
     },
-    "@darts/utils@0.7.0": {
+    "@boilerplate/utils@0.7.0": {
         "licenses": "MIT",
-        "path": "node_modules/@darts/utils",
-        "licenseFile": "node_modules/@darts/utils/README.md"
+        "path": "node_modules/@boilerplate/utils",
+        "licenseFile": "node_modules/@boilerplate/utils/README.md"
     },
     "@eslint/eslintrc@3.3.0": {
         "licenses": "MIT",
@@ -49,8 +49,8 @@
     "@eslint/js@9.26.0": {
         "licenses": "MIT",
         "repository": "https://github.com/eslint/eslint",
-        "path": "node_modules/@darts/eslint-config/node_modules/@eslint/js",
-        "licenseFile": "node_modules/@darts/eslint-config/node_modules/@eslint/js/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js/LICENSE"
     },
     "@fastify/accepts@5.0.2": {
         "licenses": "MIT",
@@ -168,8 +168,8 @@
     "@orpc/contract@1.12.2": {
         "licenses": "MIT",
         "repository": "https://github.com/unnoq/orpc",
-        "path": "node_modules/@darts/types/node_modules/@orpc/contract",
-        "licenseFile": "node_modules/@darts/types/node_modules/@orpc/contract/LICENSE"
+        "path": "node_modules/@boilerplate/types/node_modules/@orpc/contract",
+        "licenseFile": "node_modules/@boilerplate/types/node_modules/@orpc/contract/LICENSE"
     },
     "@orpc/nest@1.12.2": {
         "licenses": "MIT",
@@ -323,15 +323,15 @@
     "eslint-plugin-react-hooks@5.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/facebook/react",
-        "path": "node_modules/@darts/eslint-config/node_modules/eslint-plugin-react-hooks",
-        "licenseFile": "node_modules/@darts/eslint-config/node_modules/eslint-plugin-react-hooks/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-hooks",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-hooks/LICENSE"
     },
     "eslint-plugin-react-refresh@0.4.20": {
         "licenses": "MIT",
         "repository": "https://github.com/ArnaudBarre/eslint-plugin-react-refresh",
         "publisher": "Arnaud Barré",
-        "path": "node_modules/@darts/eslint-config/node_modules/eslint-plugin-react-refresh",
-        "licenseFile": "node_modules/@darts/eslint-config/node_modules/eslint-plugin-react-refresh/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-refresh",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-react-refresh/LICENSE"
     },
     "eslint@9.26.0": {
         "licenses": "MIT",
@@ -510,8 +510,8 @@
         "licenses": "MIT",
         "repository": "https://github.com/pd4d10/vite-plugin-svgr",
         "publisher": "Rongjian Zhang",
-        "path": "node_modules/@darts/ts-config/node_modules/vite-plugin-svgr",
-        "licenseFile": "node_modules/@darts/ts-config/node_modules/vite-plugin-svgr/LICENSE"
+        "path": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr",
+        "licenseFile": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr/LICENSE"
     },
     "winston-transport@4.9.0": {
         "licenses": "MIT",

@@ -1,5 +1,5 @@
-import { Card, CardDescription, CardHeader, CardTitle } from '@darts/ui/components/card';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Card, CardDescription, CardHeader, CardTitle } from '@boilerplate/ui/components/card';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Calendar } from 'lucide-react';
 
 export const NoGamesCard = () => {

@@ -1,4 +1,4 @@
-import type { File } from '@darts/prisma';
+import type { File } from '@boilerplate/prisma';
 import type { MultipartFile } from '@fastify/multipart';
 import { Injectable, type StreamableFile } from '@nestjs/common';
 

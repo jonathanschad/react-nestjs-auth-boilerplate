@@ -1,4 +1,4 @@
-import { api } from '@darts/types';
+import { api } from '@boilerplate/types';
 import { Controller } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
 import { PlayerOfTheWeekService } from '@/dart/player/player-of-the-week.service';

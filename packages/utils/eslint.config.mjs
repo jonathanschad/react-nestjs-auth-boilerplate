@@ -1,3 +1,3 @@
-import baseConfig from '@darts/eslint-config/base.config.mjs';
+import baseConfig from '@boilerplate/eslint-config/base.config.mjs';
 
 export default baseConfig;

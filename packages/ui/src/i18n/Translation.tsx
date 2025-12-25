@@ -1,4 +1,4 @@
-import { Typography, type TypographyElement, type TypographyProps } from '@darts/ui/components/typography';
+import { Typography, type TypographyElement, type TypographyProps } from '@boilerplate/ui/components/typography';
 import { useTranslation } from 'react-i18next';
 
 interface TranslationProps<T extends TypographyElement, U extends Record<string, unknown>> extends TypographyProps<T> {

@@ -1,4 +1,4 @@
-import { Game, User } from '@darts/prisma';
+import { Game, User } from '@boilerplate/prisma';
 
 export type RankingHistoryWithGame<T> = T & { game: Game };
 

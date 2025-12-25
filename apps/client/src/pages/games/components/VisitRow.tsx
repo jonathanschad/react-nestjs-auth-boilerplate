@@ -1,7 +1,7 @@
-import type { GameVisitEntityApiDTO } from '@darts/types';
-import { TableCell, TableRow } from '@darts/ui/components/table';
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+import type { GameVisitEntityApiDTO } from '@boilerplate/types';
+import { TableCell, TableRow } from '@boilerplate/ui/components/table';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Crown } from 'lucide-react';
 import { formatThrow } from './formatThrow';
 

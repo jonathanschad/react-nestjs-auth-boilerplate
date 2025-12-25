@@ -1,4 +1,4 @@
-import { api, GameFilter } from '@darts/types';
+import { api, GameFilter } from '@boilerplate/types';
 import { Controller } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
 import { BasicAuthRoute } from '@/auth/auth.guard';

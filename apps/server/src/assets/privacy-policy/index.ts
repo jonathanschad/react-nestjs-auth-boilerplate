@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { Language } from '@darts/prisma';
+import { Language } from '@boilerplate/prisma';
 
 const privacyPolicies = new Map<Language, string>();
 

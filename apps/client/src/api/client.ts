@@ -1,4 +1,4 @@
-import { api } from '@darts/types';
+import { api } from '@boilerplate/types';
 import { createORPCClient, onSuccess } from '@orpc/client';
 import type { ContractRouterClient } from '@orpc/contract';
 import type { JsonifiedClient } from '@orpc/openapi-client';

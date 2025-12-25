@@ -1,4 +1,4 @@
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useRef, useState } from 'react';
 import type { Area } from 'react-easy-crop';
 import { useTranslation } from 'react-i18next';

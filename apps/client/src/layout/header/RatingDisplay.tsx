@@ -1,7 +1,7 @@
-import { Badge } from '@darts/ui/components/badge';
-import { Card } from '@darts/ui/components/card';
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Badge } from '@boilerplate/ui/components/badge';
+import { Card } from '@boilerplate/ui/components/card';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Medal, Trophy } from 'lucide-react';
 
 type RatingDisplayProps = {

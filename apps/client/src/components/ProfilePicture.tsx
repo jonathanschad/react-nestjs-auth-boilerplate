@@ -1,4 +1,4 @@
-import { Avatar } from '@darts/ui/components/avatar';
+import { Avatar } from '@boilerplate/ui/components/avatar';
 import { CircleUser } from 'lucide-react';
 import { useLoggedInUser } from '@/api/user/useLoggedInUser';
 import { AuthenticatedImage } from '@/components/authenticated-image';

@@ -1,5 +1,5 @@
-import { type File, FileAccess, type User } from '@darts/prisma';
-import { UserUpdateablePropertiesDTO } from '@darts/types';
+import { type File, FileAccess, type User } from '@boilerplate/prisma';
+import { UserUpdateablePropertiesDTO } from '@boilerplate/types';
 import { Injectable } from '@nestjs/common';
 import sharp from 'sharp';
 import { AppConfigService } from '@/config/app-config.service';

@@ -1,4 +1,4 @@
-import { api, Pagination } from '@darts/types';
+import { api, Pagination } from '@boilerplate/types';
 import { Controller } from '@nestjs/common';
 import { Implement, implement } from '@orpc/nest';
 import { BasicAuthRoute } from '@/auth/auth.guard';

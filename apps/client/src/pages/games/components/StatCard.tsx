@@ -1,5 +1,5 @@
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 
 export const StatCard = ({ label, value }: { label: string; value: string | number }) => {
     return (

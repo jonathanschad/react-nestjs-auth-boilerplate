@@ -1,5 +1,5 @@
-import { Button } from '@darts/ui/components/button';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Button } from '@boilerplate/ui/components/button';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Link } from 'react-router-dom';
 
 import ForgotPasswordSVG from '@/assets/illustrations/forgot-password.svg?react';

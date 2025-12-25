@@ -11,10 +11,10 @@
         "prefix": ""
     },
     "aliases": {
-        "components": "@darts/ui/components",
-        "ui": "@darts/ui/components",
-        "utils": "@darts/ui/lib/utils",
-        "lib": "@darts/ui/lib",
-        "hooks": "@darts/ui/hooks"
+        "components": "@boilerplate/ui/components",
+        "ui": "@boilerplate/ui/components",
+        "utils": "@boilerplate/ui/lib/utils",
+        "lib": "@boilerplate/ui/lib",
+        "hooks": "@boilerplate/ui/hooks"
     }
 }

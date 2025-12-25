@@ -1,5 +1,5 @@
 import * as path from 'node:path';
-import type { Language } from '@darts/prisma';
+import type { Language } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import { renderToStaticMarkup, type TReaderDocument } from '@usewaypoint/email-builder';
 import * as nodemailer from 'nodemailer';

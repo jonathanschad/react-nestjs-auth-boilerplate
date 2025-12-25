@@ -1,4 +1,4 @@
-import type { Language } from '@darts/types';
+import type { Language } from '@boilerplate/types';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import de from '@/i18n/de';

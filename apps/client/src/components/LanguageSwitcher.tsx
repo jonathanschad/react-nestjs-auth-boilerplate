@@ -1,12 +1,12 @@
-import { Button } from '@darts/ui/components/button';
+import { Button } from '@boilerplate/ui/components/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '@darts/ui/components/dropdown-menu';
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+} from '@boilerplate/ui/components/dropdown-menu';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 

@@ -1,10 +1,10 @@
-import type { AverageObjectDTO } from '@darts/types';
-import { Card } from '@darts/ui/components/card';
-import { ChartConfig, ChartContainer, ChartTooltip } from '@darts/ui/components/chart';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@darts/ui/components/select';
-import { Skeleton } from '@darts/ui/components/skeleton';
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+import type { AverageObjectDTO } from '@boilerplate/types';
+import { Card } from '@boilerplate/ui/components/card';
+import { ChartConfig, ChartContainer, ChartTooltip } from '@boilerplate/ui/components/chart';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@boilerplate/ui/components/select';
+import { Skeleton } from '@boilerplate/ui/components/skeleton';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import dayjs from 'dayjs';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { useState } from 'react';

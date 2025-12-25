@@ -1,4 +1,4 @@
-import { Game } from '@darts/prisma';
+import { Game } from '@boilerplate/prisma';
 import { Injectable } from '@nestjs/common';
 import { ordinal } from 'openskill';
 import { EloService } from '@/dart/ranking/elo.service';

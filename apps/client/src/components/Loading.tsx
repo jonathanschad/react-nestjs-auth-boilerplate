@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '@darts/ui/components/loading-spinner';
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
 
 type LoadingProps = {
     isLoading: boolean;

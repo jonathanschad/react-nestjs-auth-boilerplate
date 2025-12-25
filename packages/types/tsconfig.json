@@ -1,5 +1,5 @@
 {
-    "extends": "@darts/ts-config/base.json",
+    "extends": "@boilerplate/ts-config/base.json",
     "compilerOptions": {
         "outDir": "./dist",
         "rootDir": "./src",

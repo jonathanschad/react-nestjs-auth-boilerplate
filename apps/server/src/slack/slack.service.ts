@@ -1,4 +1,4 @@
-import { User } from '@darts/prisma';
+import { User } from '@boilerplate/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import type { MessageAttachment } from '@slack/web-api';
 import { WebClient } from '@slack/web-api';

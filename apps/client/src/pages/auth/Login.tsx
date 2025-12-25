@@ -1,4 +1,4 @@
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Outlet } from 'react-router-dom';
 import LoginSVG from '@/assets/illustrations/login.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';

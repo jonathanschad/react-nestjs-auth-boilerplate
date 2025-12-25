@@ -1,6 +1,6 @@
 /** @type {import('postcss-load-config').Config} */
 
-import postcssConfig from '@darts/ui/postcss.config';
+import postcssConfig from '@boilerplate/ui/postcss.config';
 
 const config = {
     ...postcssConfig,

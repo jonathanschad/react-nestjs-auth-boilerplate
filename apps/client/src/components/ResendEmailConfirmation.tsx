@@ -1,7 +1,7 @@
-import { Alert, AlertDescription } from '@darts/ui/components/alert';
-import { Button } from '@darts/ui/components/button';
-import { useAppForm } from '@darts/ui/form/useAppForm';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Alert, AlertDescription } from '@boilerplate/ui/components/alert';
+import { Button } from '@boilerplate/ui/components/button';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Send } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

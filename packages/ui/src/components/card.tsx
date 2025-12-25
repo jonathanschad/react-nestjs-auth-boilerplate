@@ -1,4 +1,4 @@
-import { cn } from '@darts/ui/lib/utils';
+import { cn } from '@boilerplate/ui/lib/utils';
 import * as React from 'react';
 
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (

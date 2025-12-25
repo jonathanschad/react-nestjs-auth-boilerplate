@@ -1,6 +1,6 @@
 import assert from 'node:assert';
-import { type Prisma, type Token, TokenType, type User, UserSettings, UserState } from '@darts/prisma';
-import type { PublicUser, SanitizedUserWithSettings } from '@darts/types';
+import { type Prisma, type Token, TokenType, type User, UserSettings, UserState } from '@boilerplate/prisma';
+import type { PublicUser, SanitizedUserWithSettings } from '@boilerplate/types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
 import type { UserWithSettings } from '@/types/prisma';

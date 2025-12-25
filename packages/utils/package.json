@@ -1,5 +1,5 @@
 {
-    "name": "@darts/utils",
+    "name": "@boilerplate/utils",
     "version": "0.7.0",
     "description": "",
     "exports": {
@@ -26,8 +26,8 @@
         "class-validator": "catalog:"
     },
     "devDependencies": {
-        "@darts/eslint-config": "workspace:*",
-        "@darts/ts-config": "workspace:*",
+        "@boilerplate/eslint-config": "workspace:*",
+        "@boilerplate/ts-config": "workspace:*",
         "eslint": "catalog:",
         "typescript": "catalog:"
     },

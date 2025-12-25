@@ -1,7 +1,7 @@
-import { Button } from '@darts/ui/components/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@darts/ui/components/card';
-import { useAppForm } from '@darts/ui/form/useAppForm';
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Button } from '@boilerplate/ui/components/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@boilerplate/ui/components/card';
+import { useAppForm } from '@boilerplate/ui/form/useAppForm';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { formOptions } from '@tanstack/react-form/nextjs';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

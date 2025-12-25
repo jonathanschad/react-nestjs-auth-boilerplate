@@ -1,38 +1,38 @@
 {
-    "@darts/client@0.7.0": {
+    "@boilerplate/client@0.7.0": {
         "licenses": "MIT",
         "publisher": "Jonathan Schad",
         "path": "",
         "licenseFile": "README.md"
     },
-    "@darts/eslint-config@0.7.0": {
+    "@boilerplate/eslint-config@0.7.0": {
         "licenses": "MIT",
-        "path": "node_modules/@darts/eslint-config"
+        "path": "node_modules/@boilerplate/eslint-config"
     },
-    "@darts/ts-config@0.7.0": {
+    "@boilerplate/ts-config@0.7.0": {
         "licenses": "UNLICENSED",
         "private": true,
-        "path": "node_modules/@darts/ts-config"
+        "path": "node_modules/@boilerplate/ts-config"
     },
-    "@darts/types@0.7.0": {
+    "@boilerplate/types@0.7.0": {
         "licenses": "ISC",
-        "path": "node_modules/@darts/types"
+        "path": "node_modules/@boilerplate/types"
     },
-    "@darts/ui@0.7.0": {
+    "@boilerplate/ui@0.7.0": {
         "licenses": "UNLICENSED",
         "private": true,
-        "path": "node_modules/@darts/ui"
+        "path": "node_modules/@boilerplate/ui"
     },
-    "@darts/utils@0.7.0": {
+    "@boilerplate/utils@0.7.0": {
         "licenses": "MIT",
-        "path": "node_modules/@darts/types/node_modules/@darts/utils",
-        "licenseFile": "node_modules/@darts/types/node_modules/@darts/utils/README.md"
+        "path": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils",
+        "licenseFile": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/README.md"
     },
     "@eslint/js@9.26.0": {
         "licenses": "MIT",
         "repository": "https://github.com/eslint/eslint",
-        "path": "node_modules/@darts/eslint-config/node_modules/@eslint/js",
-        "licenseFile": "node_modules/@darts/eslint-config/node_modules/@eslint/js/LICENSE"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js/LICENSE"
     },
     "@orpc/client@1.12.2": {
         "licenses": "MIT",
@@ -148,8 +148,8 @@
         "licenses": "MIT",
         "repository": "https://github.com/typestack/class-validator",
         "publisher": "TypeStack contributors",
-        "path": "node_modules/@darts/types/node_modules/@darts/utils/node_modules/class-validator",
-        "licenseFile": "node_modules/@darts/types/node_modules/@darts/utils/node_modules/class-validator/LICENSE"
+        "path": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/node_modules/class-validator",
+        "licenseFile": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/node_modules/class-validator/LICENSE"
     },
     "class-variance-authority@0.7.1": {
         "licenses": "Apache-2.0",
@@ -207,8 +207,8 @@
         "repository": "https://github.com/sindresorhus/globals",
         "publisher": "Sindre Sorhus",
         "email": "sindresorhus@gmail.com",
-        "path": "node_modules/@darts/eslint-config/node_modules/globals",
-        "licenseFile": "node_modules/@darts/eslint-config/node_modules/globals/license"
+        "path": "node_modules/@boilerplate/eslint-config/node_modules/globals",
+        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/globals/license"
     },
     "i18next@23.16.8": {
         "licenses": "MIT",
@@ -401,8 +401,8 @@
         "licenses": "MIT",
         "repository": "https://github.com/pd4d10/vite-plugin-svgr",
         "publisher": "Rongjian Zhang",
-        "path": "node_modules/@darts/ts-config/node_modules/vite-plugin-svgr",
-        "licenseFile": "node_modules/@darts/ts-config/node_modules/vite-plugin-svgr/LICENSE"
+        "path": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr",
+        "licenseFile": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr/LICENSE"
     },
     "vite@6.3.4": {
         "licenses": "MIT",

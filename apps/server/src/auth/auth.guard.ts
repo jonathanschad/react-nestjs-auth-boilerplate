@@ -1,5 +1,5 @@
 import { assert } from 'node:console';
-import { UserState } from '@darts/prisma';
+import { UserState } from '@boilerplate/prisma';
 import { type CanActivate, createParamDecorator, type ExecutionContext, Injectable, SetMetadata } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import type { FastifyRequest } from 'fastify';

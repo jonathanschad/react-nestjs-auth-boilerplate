@@ -22,7 +22,7 @@ RUN pnpm build
 # Deploy production builds for client and server
 RUN pnpm deploy --filter=client --prod /prod/client
 RUN pnpm deploy --filter=server --prod /prod/server
-RUN pnpm deploy --filter=@darts/prisma --prod /prod/database
+RUN pnpm deploy --filter=@boilerplate/prisma --prod /prod/database
 
 # Extract sourcemaps for client
 RUN mkdir -p /sourcemaps-client
@@ -44,7 +44,7 @@ COPY --from=build /prod/server ./server
 # Copy client build for static file serving
 COPY --from=build /prod/client/dist ./server/dist/src/public
 
-# Copy the @darts/database package (for Prisma CLI and schema)
+# Copy the @boilerplate/database package (for Prisma CLI and schema)
 COPY --from=build /prod/database ./database
 
 # Expose sourcemaps as a build artifact

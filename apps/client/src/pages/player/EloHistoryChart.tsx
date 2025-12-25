@@ -1,9 +1,9 @@
-import type { EloHistoryResponseDTO } from '@darts/types';
-import { Card } from '@darts/ui/components/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@darts/ui/components/chart';
-import { Skeleton } from '@darts/ui/components/skeleton';
-import { Typography } from '@darts/ui/components/typography';
-import { Translation } from '@darts/ui/i18n/Translation';
+import type { EloHistoryResponseDTO } from '@boilerplate/types';
+import { Card } from '@boilerplate/ui/components/card';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@boilerplate/ui/components/chart';
+import { Skeleton } from '@boilerplate/ui/components/skeleton';
+import { Typography } from '@boilerplate/ui/components/typography';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import dayjs from 'dayjs';
 import { Area, CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import { useGetPlayerEloHistory } from '@/api/dart/player/useGetPlayerEloHistory';

@@ -1,4 +1,4 @@
-import { Button } from '@darts/ui/components/button';
+import { Button } from '@boilerplate/ui/components/button';
 import {
     Dialog,
     DialogContent,
@@ -6,9 +6,9 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from '@darts/ui/components/dialog';
-import { Slider } from '@darts/ui/components/slider';
-import { Translation } from '@darts/ui/i18n/Translation';
+} from '@boilerplate/ui/components/dialog';
+import { Slider } from '@boilerplate/ui/components/slider';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Upload } from 'lucide-react';
 import { useState } from 'react';
 import type { Area, Point } from 'react-easy-crop';

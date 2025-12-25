@@ -1,4 +1,4 @@
-import { Translation } from '@darts/ui/i18n/Translation';
+import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { Link } from 'react-router-dom';
 
 export const ProjectLogo = () => {
