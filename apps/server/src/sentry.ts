@@ -11,7 +11,7 @@ export const initSentry = (appConfigService: AppConfigService) => {
 
     Sentry.init({
         environment: appConfigService.nodeEnv,
-        release: `boilerplate-app@${packageJson.version}`,
+        release: `react-nestjs-boilerplate@${packageJson.version}`,
         dsn: appConfigService.sentryBackendDsn,
         integrations: [nodeProfilingIntegration()],
         tracesSampleRate: 1.0,

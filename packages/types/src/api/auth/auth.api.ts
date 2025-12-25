@@ -1,6 +1,5 @@
 import { oc } from '@orpc/contract';
 import { z } from 'zod';
-import { sanitizedUserWithSettingsSchema } from '../../schemas';
 
 // Request/Response schemas
 const loginRequestSchema = z.object({

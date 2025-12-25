@@ -24,7 +24,6 @@
         "@boilerplate/eslint-config": "workspace:*",
         "@boilerplate/ts-config": "workspace:*",
         "eslint": "catalog:",
-        "openskill": "catalog:",
         "typescript": "catalog:"
     },
     "keywords": [],

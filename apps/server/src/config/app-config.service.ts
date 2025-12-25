@@ -195,32 +195,4 @@ export class AppConfigService {
             return null;
         }
     }
-
-    get appBasicAuthUsername(): string | null {
-        return this.get('APP_BASIC_AUTH_USERNAME');
-    }
-
-    get appBasicAuthPassword(): string | null {
-        return this.get('APP_BASIC_AUTH_PASSWORD');
-    }
-
-    get oldSystemMongoDbConnection(): string {
-        return this.get('OLD_MONGO_DB_CONNECTION');
-    }
-
-    get slackBotToken(): string | null {
-        try {
-            return this.get('SLACK_BOT_TOKEN');
-        } catch (_error) {
-            return null;
-        }
-    }
-
-    get slackDefaultChannel(): string | null {
-        try {
-            return this.get('SLACK_DEFAULT_CHANNEL');
-        } catch (_error) {
-            return null;
-        }
-    }
 }

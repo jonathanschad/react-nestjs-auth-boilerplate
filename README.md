@@ -1,4 +1,4 @@
-# React Nest.js Auth boilerplate
+# React Nest.js Auth Boilerplate
 
 > [!IMPORTANT]
 > This Readme is a work in progress and will be updated over time.

@@ -31,7 +31,6 @@
         "localforage": "^1.10.0",
         "lucide-react": "catalog:frontend",
         "match-sorter": "^6.3.4",
-        "openskill": "catalog:",
         "plausible-tracker": "^0.3.9",
         "react": "catalog:react18",
         "react-dom": "catalog:react18",

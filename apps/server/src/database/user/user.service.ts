@@ -184,11 +184,6 @@ export class DatabaseUserService {
 
     async create(data: Prisma.UserCreateInput): Promise<UserWithSettings> {
         data.email = data.email.toLowerCase();
-
-        if (!data.email.endsWith('@pickware.de') && !data.email.endsWith('@boilerplate.com')) {
-            throw new Error('Invalid email');
-        }
-
         const createdUser = await this.prisma.user.create({
             data: data,
             include: {
