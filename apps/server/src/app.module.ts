@@ -9,15 +9,11 @@ import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { AuthModule } from '@/auth/auth.module';
 import { AppConfigModule } from '@/config/app-config.module';
-import { GameModule } from '@/dart/game/game.module';
-import { ImportModule } from '@/dart/import/import.module';
-import { PlayerModule } from '@/dart/player/player.module';
 import { DatabaseModule } from '@/database/database.module';
 import { FileModule } from '@/files/file.module';
 import { MailModule } from '@/mail/mail.module';
 import { PasswordModule } from '@/password/password.module';
 import { SignupModule } from '@/signup/signup.module';
-import { SlackModule } from '@/slack/slack.module';
 import { UserModule } from '@/user/user.module';
 import { logDetailedError } from '@/util/error-logger';
 
@@ -37,14 +33,10 @@ declare module '@orpc/nest' {
         AuthModule,
         SignupModule,
         MailModule,
-        SlackModule,
         JwtModule,
         PasswordModule,
         FileModule,
         UserModule,
-        GameModule,
-        PlayerModule,
-        ImportModule,
         SentryModule.forRoot(),
         ORPCModule.forRootAsync({
             useFactory: (request: FastifyRequest) => ({

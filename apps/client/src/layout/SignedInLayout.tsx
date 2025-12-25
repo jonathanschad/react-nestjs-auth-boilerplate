@@ -37,13 +37,13 @@ export const SignedInLayout = () => {
                     <Link
                         to="/"
                         className={clsx(
-                            currentlySelectedRoute === CurrentlySelectedRouteOptions.PLAYER_OF_THE_WEEK
+                            currentlySelectedRoute === CurrentlySelectedRouteOptions.DASHBOARD
                                 ? 'text-foreground'
                                 : 'text-muted-foreground',
                             'transition-colors hover:text-foreground',
                         )}
                     >
-                        <Translation>playerOfTheWeek</Translation>
+                        <Translation>dashboard</Translation>
                     </Link>
                     <Link
                         to="/settings"

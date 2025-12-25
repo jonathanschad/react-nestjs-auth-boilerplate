@@ -19,6 +19,8 @@ import ConnectGoogleAccountCompletion from '@/pages/signup/google/ConnectGoogleA
 import Register from '@/pages/signup/Register';
 import { RegisterSuccess } from '@/pages/signup/RegisterSuccess';
 import { UserState, useStore } from '@/store/store';
+import { Home } from '@/pages/Home';
+import { LanguageSettings } from '@/pages/settings/language/LanguageSettings';
 
 const routesFactory = (userState: UserState | undefined | null) => {
     const isLoggedIn = Boolean(userState);
@@ -37,10 +39,9 @@ const routesFactory = (userState: UserState | undefined | null) => {
             <Route key="SignedInLayout" path="*" element={<SignedInLayout />}>
                 <Route index element={<Home />} />
                 <Route path="settings" element={<Settings />}>
-                    <Route path="general" element={<GeneralSettings />} />
-                    <Route path="notification" element={<NotificationSettings />} />
                     <Route path="profile" element={<ProfileSettings />} />
-                    <Route path="*" element={<GeneralSettings />} />
+                    <Route path="language" element={<LanguageSettings />} />
+                    <Route path="*" element={<ProfileSettings />} />
                 </Route>
                 <Route path="imprint" element={<Imprint />} />
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />

@@ -6,12 +6,9 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { PublicRoute } from '@/auth/auth.guard';
 import { AuthService } from '@/auth/auth.service';
 import { GoogleAuthService } from '@/auth/google.auth.service';
-import { JWTService } from '@/auth/jwt.service';
 import { AppConfigService } from '@/config/app-config.service';
-import { ConnectGoogleAccountTokenService } from '@/database/connect-google-account-token/connect-google-account-token.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 import { SignupService } from '@/signup/signup.service';
-import { SlackService } from '@/slack/slack.service';
 import { HTTPError } from '@/util/httpHandlers';
 
 @Controller()
@@ -22,9 +19,6 @@ export class GoogleAuthController {
         private readonly signupService: SignupService,
         private readonly databaseUserService: DatabaseUserService,
         private readonly authService: AuthService,
-        private readonly jwtService: JWTService,
-        private readonly connectGoogleAccountTokenService: ConnectGoogleAccountTokenService,
-        private readonly slackService: SlackService,
     ) {}
 
     @PublicRoute()
@@ -72,7 +66,6 @@ export class GoogleAuthController {
                         user: userByEmail,
                         googleOAuthId: profile.id,
                     });
-                    await this.slackService.newPlayerSignupNotification({ player: userByEmail });
 
                     await this.authService.signInUser({ res: reply, user: userByEmail, remember: true });
 
@@ -81,7 +74,6 @@ export class GoogleAuthController {
 
                 // The user does not exist, therefore a new user should be created
                 await this.googleOAuthService.singUpWithGoogle(profile, language, reply);
-                await this.slackService.newPlayerSignupNotification({ player: { name: profile.name } });
 
                 return { headers: { location: callbackUrl } };
             } catch (error) {
