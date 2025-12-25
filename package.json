@@ -1,6 +1,6 @@
 {
     "name": "react-nestjs-auth-boilerplate",
-    "version": "0.8.2",
+    "version": "0.8.3",
     "description": "",
     "scripts": {
         "build": "turbo build",
