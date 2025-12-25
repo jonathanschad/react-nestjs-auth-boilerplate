@@ -1,6 +1,6 @@
 {
     "name": "@boilerplate/prisma",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "description": "",
     "main": "prisma/client/index.js",
     "type": "module",
