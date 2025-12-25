@@ -62,7 +62,7 @@ jobs:
                   # Install Sentry CLI
                   curl -sL https://sentry.io/get-cli/ | bash
 
-                  RELEASE="darts-app@${{ env.VERSION }}"
+                  RELEASE="boilerplate-app@${{ env.VERSION }}"
 
                   sentry-cli releases new -p ${{ vars.SENTRY_PROJECT_FRONTEND }} "$RELEASE"
                   sentry-cli releases new -p ${{ vars.SENTRY_PROJECT_BACKEND }} "$RELEASE"
@@ -86,7 +86,7 @@ jobs:
                   push: true
                   platforms: linux/amd64,linux/arm64 # Specify both amd64 and arm64
                   tags: |
-                      jonathanschad/darts-app:${{ env.VERSION }}
-                      jonathanschad/darts-app:${{ env.MAJOR }}
-                      jonathanschad/darts-app:${{ env.MINOR }}
-                      jonathanschad/darts-app:latest
+                      jonathanschad/boilerplate-app:${{ env.VERSION }}
+                      jonathanschad/boilerplate-app:${{ env.MAJOR }}
+                      jonathanschad/boilerplate-app:${{ env.MINOR }}
+                      jonathanschad/boilerplate-app:latest

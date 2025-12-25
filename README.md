@@ -1,9 +1,9 @@
-# React Nest.js Auth darts
+# React Nest.js Auth boilerplate
 
 > [!IMPORTANT]
 > This Readme is a work in progress and will be updated over time.
 
-The darts project aims to provide a solid production-ready foundation for building your own projects so that you can focus on building features instead of setting up the basic infrastructure. You can try out the live demo [here](https://darts.jschad.de/).
+The boilerplate project aims to provide a solid production-ready foundation for building your own projects so that you can focus on building features instead of setting up the basic infrastructure. You can try out the live demo [here](https://boilerplate.jschad.de/).
 
 ![Login Page](resources/login-page-screenshot.png)
 
@@ -30,7 +30,7 @@ The darts project aims to provide a solid production-ready foundation for buildi
 
 ## Getting Started
 
-Fork this repository and start coding your application. Please read this Documentation to understand how the darts works and how you can customize it to your needs.
+Fork this repository and start coding your application. Please read this Documentation to understand how the boilerplate works and how you can customize it to your needs.
 
 ## Development
 

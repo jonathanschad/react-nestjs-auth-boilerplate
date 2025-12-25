@@ -18,7 +18,7 @@ import { DatabaseGameStatisticService } from '@/database/game/game-statistic.ser
 import { DatabaseEloHistoryService } from '@/database/history/elo-history.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 import { SlackService } from '@/slack/slack.service';
-import { getGameTypeFromScore, getPointsForGameType, getPossibleFinishes } from '@/util/darts';
+import { getGameTypeFromScore, getPointsForGameType, getPossibleFinishes } from '@/util/boilerplate';
 
 type GameHistory = {
     pointsScored: number;

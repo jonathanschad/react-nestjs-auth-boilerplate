@@ -70,7 +70,7 @@ export class WinstonLogger implements LoggerService {
                     defaultLevel: 'info',
                     environmentName: process.env.ENVIRONMENT_NAME ?? 'development',
                     hostName: process.env.HOST ?? 'localhost',
-                    serviceName: process.env.PROJECT_NAME ?? 'darts',
+                    serviceName: process.env.PROJECT_NAME ?? 'boilerplate',
                     format: winston.format.combine(
                         winston.format.timestamp(),
                         winston.format.errors({ stack: true }),

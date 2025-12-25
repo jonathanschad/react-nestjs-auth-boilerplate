@@ -4,9 +4,9 @@ services:
         ports:
             - '5432:5432'
         environment:
-            POSTGRES_USER: 'darts'
+            POSTGRES_USER: 'boilerplate'
             POSTGRES_PASSWORD: 'mysecretpassword'
-            POSTGRES_DB: 'darts_db'
+            POSTGRES_DB: 'boilerplate_db'
         volumes:
             - postgres:/var/lib/postgresql/data
 
@@ -19,7 +19,7 @@ services:
         volumes:
             - ./directory/to/your/privacy/policy:/apps/server/dist/src/assets/privacy-policy/files:ro
         environment:
-            DATABASE_URL: 'postgresql://darts:mysecretpassword@db:5432/darts_db'
+            DATABASE_URL: 'postgresql://boilerplate:mysecretpassword@db:5432/boilerplate_db'
             PORT: 3000
             HOST: 0.0.0.0
             VITE_BACKEND_URL: 'http://localhost:3000'
@@ -29,4 +29,4 @@ services:
 
 volumes:
     postgres:
-        name: darts-db
+        name: boilerplate-db
