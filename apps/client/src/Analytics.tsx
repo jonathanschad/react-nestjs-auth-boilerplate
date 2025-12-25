@@ -31,7 +31,7 @@ export const Analytics = () => {
         sentryClient.current = Sentry.init({
             dsn: config.SENTRY_FRONTEND_DSN,
             environment: config.ENVIRONMENT_NAME,
-            release: `boilerplate-app@${packageJson.version}`,
+            release: `react-nestjs-boilerplate@${packageJson.version}`,
             integrations: [
                 // See docs for support of different versions of variation of react router
                 // https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/

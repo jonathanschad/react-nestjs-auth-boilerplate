@@ -8,17 +8,9 @@ import { Login } from '@/pages/auth/Login';
 import { PasswordForgot } from '@/pages/auth/PasswordForgot';
 import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
 import { PasswordReset } from '@/pages/auth/PasswordReset';
-import { AllGames } from '@/pages/games/AllGames';
-import { GameDetail } from '@/pages/games/GameDetail';
 import { Imprint, NotSignedInImprint } from '@/pages/legal/Imprint';
 import { License, NotSignedInLicense } from '@/pages/legal/License';
 import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPolicy';
-import { Player } from '@/pages/player/Player';
-import { PlayerOfTheWeek } from '@/pages/player/PlayerOfTheWeek';
-import { PlayerOfTheWeekDetail } from '@/pages/player/PlayerOfTheWeekDetail';
-import { EloRanking } from '@/pages/ranking/EloRanking';
-import { OpenSkillRanking } from '@/pages/ranking/OpenSkillRanking';
-import { LanguageSettings } from '@/pages/settings/language/LanguageSettings';
 import { ProfileSettings } from '@/pages/settings/profile/ProfileSettings';
 import { Settings } from '@/pages/settings/Settings';
 import CompleteRegister from '@/pages/signup/CompleteRegister';
@@ -43,18 +35,12 @@ const routesFactory = (userState: UserState | undefined | null) => {
     if (userState === UserState.COMPLETE) {
         routes.push(
             <Route key="SignedInLayout" path="*" element={<SignedInLayout />}>
-                <Route index element={<EloRanking />} />
-                <Route path="ranking/elo" element={<EloRanking />} />
-                <Route path="ranking/openskill" element={<OpenSkillRanking />} />
-                <Route path="games" element={<AllGames />} />
-                <Route path="games/:id" element={<GameDetail />} />
-                <Route path="player/:uuid" element={<Player />} />
-                <Route path="player-of-the-week" element={<PlayerOfTheWeek />} />
-                <Route path="player-of-the-week/:id" element={<PlayerOfTheWeekDetail />} />
+                <Route index element={<Home />} />
                 <Route path="settings" element={<Settings />}>
+                    <Route path="general" element={<GeneralSettings />} />
+                    <Route path="notification" element={<NotificationSettings />} />
                     <Route path="profile" element={<ProfileSettings />} />
-                    <Route path="language" element={<LanguageSettings />} />
-                    <Route path="*" element={<ProfileSettings />} />
+                    <Route path="*" element={<GeneralSettings />} />
                 </Route>
                 <Route path="imprint" element={<Imprint />} />
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />
