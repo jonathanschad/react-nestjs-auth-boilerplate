@@ -1,10 +1,24 @@
 {
-    "name": "types",
+    "name": "@boilerplate/types",
     "version": "0.7.0",
     "description": "",
-    "main": "index.js",
+    "exports": {
+        ".": {
+            "types": "./src/index.ts",
+            "default": "./dist/index.js"
+        }
+    },
     "scripts": {
+        "dev": "tsc -w",
+        "build": "tsc",
+        "lint": "eslint . --max-warnings 0",
+        "lint:fix": "eslint . --max-warnings 0 --fix",
         "tsc": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@boilerplate/utils": "workspace:*",
+        "@orpc/contract": "catalog:",
+        "zod": "catalog:"
     },
     "devDependencies": {
         "@boilerplate/eslint-config": "workspace:*",

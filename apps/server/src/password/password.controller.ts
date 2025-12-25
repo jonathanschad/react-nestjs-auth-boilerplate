@@ -1,18 +1,15 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
+import { api } from '@boilerplate/types';
+import { Controller, Req, Res } from '@nestjs/common';
+import { Implement, implement } from '@orpc/nest';
+import { HttpStatusCode } from 'axios';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-
 import { PublicRoute } from '@/auth/auth.guard';
 import { AuthService } from '@/auth/auth.service';
-import {
-    PasswordChangePasswordDto,
-    PasswordChangeTokenDto,
-    PasswordForgotDto,
-    PasswordForgotValidateDto,
-} from '@/password/password.dto';
 import { PasswordService } from '@/password/password.service';
 import { SignupService } from '@/signup/signup.service';
+import { HTTPError } from '@/util/httpHandlers';
 
-@Controller('password')
+@Controller()
 export class PasswordController {
     constructor(
         private readonly signupService: SignupService,
@@ -21,40 +18,35 @@ export class PasswordController {
     ) {}
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Post('/forgot')
-    async passwordForgot(@Body() { email }: PasswordForgotDto, @Req() request: FastifyRequest) {
-        const language = this.signupService.getSupportedLanguageFromRequest(request);
-        await this.passwordService.initiatePasswordForgot({ email, language });
+    @Implement(api.password.passwordForgot)
+    public passwordForgot(@Req() req: FastifyRequest) {
+        return implement(api.password.passwordForgot).handler(async ({ input }) => {
+            const language = this.signupService.getSupportedLanguageFromRequest(req);
+            await this.passwordService.initiatePasswordForgot({ email: input.email, language });
 
-        return { success: true };
+            return { success: true };
+        });
     }
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Get('/forgot/validate')
-    async passwordForgotValidate(@Query() { token }: PasswordForgotValidateDto) {
-        return { success: await this.passwordService.validatePasswordForgotToken(token) };
+    @Implement(api.password.passwordForgotValidate)
+    public passwordForgotValidate() {
+        return implement(api.password.passwordForgotValidate).handler(async ({ input }) => {
+            const success = await this.passwordService.validatePasswordForgotToken(input.token);
+            return { success };
+        });
     }
 
     @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Post('/change-password/token')
-    async passwordChangeToken(
-        @Body() { token, password }: PasswordChangeTokenDto,
-        @Res({ passthrough: true }) response: FastifyReply,
-    ) {
-        const { success, user } = await this.passwordService.changePasswordWithToken(token, password);
-        if (success) {
-            return await this.authService.signInUser({ res: response, user, remember: true });
-        }
-        return { success: success };
-    }
-
-    @PublicRoute()
-    @HttpCode(HttpStatus.OK)
-    @Post('/change-password/old-password')
-    async passwordChangePassword(@Body() { email, newPassword, oldPassword }: PasswordChangePasswordDto) {
-        return { success: await this.passwordService.changePasswordWithPassword(email, oldPassword, newPassword) };
+    @Implement(api.password.passwordChangeToken)
+    public passwordChangeToken(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
+        return implement(api.password.passwordChangeToken).handler(async ({ input }) => {
+            const { success, user } = await this.passwordService.changePasswordWithToken(input.token, input.password);
+            if (success) {
+                const result = await this.authService.signInUser({ res: res, user, remember: true });
+                return result;
+            }
+            throw new HTTPError({ statusCode: HttpStatusCode.BadRequest, message: 'Failed to change password' });
+        });
     }
 }

@@ -4,12 +4,11 @@ import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-
+import { register } from '@/api/auth/useRegister';
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
 import { type RegisterFormValues, registerFormOptions } from '@/forms/register-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { register } from '@/repository/login';
 
 const RegisterIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;
 

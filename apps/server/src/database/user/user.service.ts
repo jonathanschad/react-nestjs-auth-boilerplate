@@ -1,20 +1,24 @@
 import assert from 'node:assert';
-import { type Prisma, type Token, TokenType, type User, UserState } from '@boilerplate/prisma';
+import { type Prisma, type Token, TokenType, type User, UserSettings, UserState } from '@boilerplate/prisma';
+import type { PublicUser, SanitizedUserWithSettings } from '@boilerplate/types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
 import type { UserWithSettings } from '@/types/prisma';
-
-type SanitizedUser = Omit<
-    UserWithSettings,
-    'password' | 'salt' | 'createdAt' | 'updatedAt' | 'googleOAuthId' | 'settingsId'
->;
-
 @Injectable()
 export class DatabaseUserService {
     constructor(private prisma: PrismaService) {}
 
     async find(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<UserWithSettings | null> {
         return this.prisma.user.findUnique({
+            where: userWhereUniqueInput,
+            include: {
+                settings: true,
+            },
+        });
+    }
+
+    async findMany(userWhereUniqueInput: Prisma.UserWhereInput): Promise<UserWithSettings[]> {
+        return this.prisma.user.findMany({
             where: userWhereUniqueInput,
             include: {
                 settings: true,
@@ -71,6 +75,47 @@ export class DatabaseUserService {
         });
 
         return user;
+    }
+
+    async update({
+        userId,
+        updates,
+    }: {
+        userId: string;
+        updates: {
+            name?: User['name'];
+            language?: UserSettings['language'];
+            notificationsEnabled?: UserSettings['notificationsEnabled'];
+        };
+    }): Promise<UserWithSettings> {
+        const { name, language, notificationsEnabled } = updates;
+
+        const userUpdates: Prisma.UserUpdateInput = {};
+        if (name) {
+            userUpdates.name = name.trim();
+        }
+        const userSettingsUpdates: Prisma.UserSettingsUpdateInput = {};
+        if (language) {
+            userSettingsUpdates.language = language;
+        }
+        if (notificationsEnabled !== undefined) {
+            userSettingsUpdates.notificationsEnabled = notificationsEnabled;
+        }
+
+        if (Object.keys(userSettingsUpdates).length > 0) {
+            userUpdates.settings = { update: userSettingsUpdates };
+        }
+        if (Object.keys(userUpdates).length > 0) {
+            return await this.prisma.user.update({
+                where: { id: userId },
+                data: { ...userUpdates, settings: { update: userSettingsUpdates } },
+                include: {
+                    settings: true,
+                },
+            });
+        }
+
+        return await this.findByUuid(userId);
     }
 
     async completeVerifiedUser({
@@ -160,14 +205,35 @@ export class DatabaseUserService {
         });
     }
 
-    public sanitizeUser(user: UserWithSettings): SanitizedUser {
+    public sanitizeUserWithSettings(user: UserWithSettings): SanitizedUserWithSettings {
         return {
-            name: user.name,
+            name: user.name ?? '',
             id: user.id,
             email: user.email,
             state: user.state,
             profilePictureId: user.profilePictureId,
-            settings: user.settings,
+            settings: {
+                language: user.settings.language,
+                notificationsEnabled: user.settings.notificationsEnabled,
+            },
         };
+    }
+
+    public sanitizeUser(user: User): PublicUser {
+        return {
+            name: user.name ?? '',
+            id: user.id,
+            profilePictureId: user.profilePictureId,
+        };
+    }
+
+    async findAll(): Promise<Pick<User, 'id' | 'name' | 'profilePictureId'>[]> {
+        return this.prisma.user.findMany({
+            select: {
+                id: true,
+                name: true,
+                profilePictureId: true,
+            },
+        });
     }
 }

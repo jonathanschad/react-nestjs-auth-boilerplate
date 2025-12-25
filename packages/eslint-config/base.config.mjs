@@ -31,6 +31,7 @@ export default tseslint.config(
             '@typescript-eslint/no-floating-promises': 'error',
             '@typescript-eslint/no-unused-vars': ['error', { caughtErrors: 'none', argsIgnorePattern: '^_' }],
             'simple-import-sort/imports': 'off',
+            '@typescript-eslint/require-await': 'off',
         },
     },
 );

@@ -23,7 +23,9 @@ const customLogger = new WinstonLogger();
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
         logger: customLogger,
+        bodyParser: false,
     });
+    await app.register(fastifyMultipart);
 
     const appConfigService = app.get<AppConfigService>(AppConfigService);
     const reflector = app.get(Reflector);
@@ -45,11 +47,16 @@ async function bootstrap() {
         },
     });
     await app.register(fastifyAccepts);
-    await app.register(fastifyCors, { origin: appConfigService.frontendPublicUrl, credentials: true });
+    await app.register(fastifyCors, {
+        origin: appConfigService.frontendPublicUrl,
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'Content-Disposition'],
+        exposedHeaders: ['Content-Disposition'],
+    });
     await app.register(fastifyJwt, {
         secret: appConfigService.jwtTokenSecret,
     });
-    await app.register(fastifyMultipart);
     app.use(serveFrontend);
 
     await app.listen(appConfigService.port, appConfigService.host);

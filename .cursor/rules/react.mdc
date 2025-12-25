@@ -1,0 +1,9 @@
+---
+description: 
+globs: *.tsx
+alwaysApply: true
+---
+Use shadcn components from the ui package. If the needed component is not available, you can install them. If the needed component is not available from shadcn, you can create it yourself in the ui package. However make sure to make the components genreal so that they can be used in other parts of the application. Add them with 'pnpm dlx shadcn@latest add component-name' for the command to work this needs to be executed in the packages/ui directory.
+Use the typography component from the ui package for all text. Also translate all text where it makes sense to do so. Use the Translation component from the ui package for translations. This also wraps the text in the typography component but it needs the "as" prop to be set.
+Api request need to be done using a custom hook that lives in the api folder. DTOs need to live in the types package.
+If you have a form, you need to use tanstack-form, look at other already existing forms for examples.

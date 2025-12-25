@@ -2,7 +2,7 @@ import type React from 'react';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { getFile } from '@/repository/file';
+import { getFile } from '@/api/file/useGetFile';
 
 type AuthenticatedImageProps = Omit<
     React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,

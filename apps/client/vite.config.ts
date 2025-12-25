@@ -13,6 +13,7 @@ export default defineConfig({
             '@boilerplate/ui/i18n': path.resolve(__dirname, '../../packages/ui/src/i18n'),
             '@boilerplate/ui/components': path.resolve(__dirname, '../../packages/ui/src/components'),
             '@boilerplate/ui/form': path.resolve(__dirname, '../../packages/ui/src/form'),
+            '@boilerplate/types': path.resolve(__dirname, '../../packages/types/src'),
         },
     },
     optimizeDeps: {
@@ -28,6 +29,7 @@ export default defineConfig({
             'top-level-await': true, //browsers can handle top-level-await features
         },
         sourcemap: true,
+        keepNames: true, // Required for recharts tooltip to work in production
     },
     build: {
         sourcemap: true,

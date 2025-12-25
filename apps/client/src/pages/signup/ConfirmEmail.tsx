@@ -4,11 +4,10 @@ import { jwtDecode } from 'jwt-decode';
 import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom';
-
+import { confirmEmail } from '@/api/auth/useConfirmEmail';
 import CertificationSVG from '@/assets/illustrations/certification.svg?react';
 import { ResendEmailConfirmation } from '@/components/ResendEmailConfirmation';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { confirmEmail } from '@/repository/login';
 
 const ConfirmEmailIllustration = <CertificationSVG className="w-1/2" />;
 

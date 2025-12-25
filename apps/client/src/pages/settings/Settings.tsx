@@ -1,6 +1,7 @@
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import {
@@ -20,15 +21,6 @@ export const Settings = () => {
             <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
                 <nav className="grid gap-4 text-sm text-muted-foreground">
                     <Link
-                        to="/settings/general"
-                        className={clsx(
-                            currentlySelectedRoute === CurrentSettingsRouteOptions.GENERAL &&
-                                'font-semibold text-primary',
-                        )}
-                    >
-                        <Translation>general</Translation>
-                    </Link>
-                    <Link
                         to="/settings/profile"
                         className={clsx(
                             currentlySelectedRoute === CurrentSettingsRouteOptions.PROFILE &&
@@ -38,17 +30,25 @@ export const Settings = () => {
                         <Translation>profile</Translation>
                     </Link>
                     <Link
-                        to="/settings/notification"
+                        to="/settings/language"
                         className={clsx(
-                            currentlySelectedRoute === CurrentSettingsRouteOptions.NOTIFICATION &&
+                            currentlySelectedRoute === CurrentSettingsRouteOptions.LANGUAGE &&
                                 'font-semibold text-primary',
                         )}
                     >
-                        <Translation>notifications</Translation>
+                        <Translation>language</Translation>
                     </Link>
                 </nav>
                 <div className="grid gap-6">
-                    <Outlet context={{ setCurrentlySelectedRoute }} />
+                    <Suspense
+                        fallback={
+                            <div className="flex h-full w-full items-center justify-center">
+                                <LoadingSpinner />
+                            </div>
+                        }
+                    >
+                        <Outlet context={{ setCurrentlySelectedRoute }} />
+                    </Suspense>
                 </div>
             </div>
         </>

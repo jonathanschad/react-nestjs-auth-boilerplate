@@ -1,6 +1,8 @@
 import { Language } from '@boilerplate/prisma';
+import { api } from '@boilerplate/types';
 import { logSomeStuff } from '@boilerplate/utils';
 import { Controller, Get, Req } from '@nestjs/common';
+import { Implement, implement } from '@orpc/nest';
 import type { FastifyRequest } from 'fastify';
 import licensesJSON from '@/assets/licenses.json';
 import privacyPolicy from '@/assets/privacy-policy';
@@ -9,6 +11,7 @@ import { AppConfigService } from '@/config/app-config.service';
 import { SignupService } from '@/signup/signup.service';
 // eslint-disable-next-line no-restricted-imports
 import packageJson from '../package.json';
+
 @Controller()
 export class AppController {
     constructor(
@@ -22,44 +25,53 @@ export class AppController {
         return licensesJSON;
     }
 
-    @Get('/legal/privacy-policy')
     @PublicRoute()
-    getDataPrivacyPolicy(@Req() request: FastifyRequest) {
-        const language = this.signupService.getSupportedLanguageFromRequest(request);
+    @Implement(api.misc.getPrivacyPolicy)
+    public getDataPrivacyPolicy(@Req() req: FastifyRequest) {
+        return implement(api.misc.getPrivacyPolicy).handler(async () => {
+            const language = this.signupService.getSupportedLanguageFromRequest(req);
 
-        return privacyPolicy.get(language) ?? privacyPolicy.get(Language.EN);
+            const policy = privacyPolicy.get(language) ?? privacyPolicy.get(Language.EN);
+            return policy ?? '';
+        });
     }
 
-    @Get('/envs')
     @PublicRoute()
-    getFrontendEnvs() {
-        return {
-            BACKEND_URL: new URL('/api', this.appConfigService.backendPublicUrl).href,
-            PUBLIC_URL: this.appConfigService.frontendPublicUrl,
-            PLAUSIBLE_HOST_URL: this.appConfigService.plausibleHostUrl,
-            SENTRY_FRONTEND_DSN: this.appConfigService.sentryFrontendDsn,
-            ENVIRONMENT_NAME: this.appConfigService.nodeEnv,
-            IMPRINT_CONTACT_1: this.appConfigService.imprintContact1,
-            IMPRINT_CONTACT_2: this.appConfigService.imprintContact2,
-            IMPRINT_CONTACT_3: this.appConfigService.imprintContact3,
-            IMPRINT_CONTACT_4: this.appConfigService.imprintContact4,
-            IMPRINT_COPYRIGHT: this.appConfigService.imprintCopyright,
-        };
+    @Implement(api.misc.getFrontendEnvs)
+    public getFrontendEnvs() {
+        return implement(api.misc.getFrontendEnvs).handler(async () => {
+            return {
+                BACKEND_URL: new URL('/api', this.appConfigService.backendPublicUrl).href,
+                PUBLIC_URL: this.appConfigService.frontendPublicUrl,
+                PLAUSIBLE_HOST_URL: this.appConfigService.plausibleHostUrl ?? undefined,
+                SENTRY_FRONTEND_DSN: this.appConfigService.sentryFrontendDsn ?? undefined,
+                ENVIRONMENT_NAME: this.appConfigService.nodeEnv,
+                IMPRINT_CONTACT_1: this.appConfigService.imprintContact1,
+                IMPRINT_CONTACT_2: this.appConfigService.imprintContact2,
+                IMPRINT_CONTACT_3: this.appConfigService.imprintContact3,
+                IMPRINT_CONTACT_4: this.appConfigService.imprintContact4,
+                IMPRINT_COPYRIGHT: this.appConfigService.imprintCopyright,
+            };
+        });
     }
 
-    @Get('/health')
+    @Implement(api.misc.health)
     @PublicRoute()
     getHealth() {
-        logSomeStuff();
-        return {
-            health: 'up',
-            version: packageJson.version,
-        };
+        return implement(api.misc.health).handler(async () => {
+            logSomeStuff();
+            return {
+                health: 'up',
+                version: packageJson.version,
+            };
+        });
     }
 
-    @Get('/sentry-test')
+    @Implement(api.misc.sentryTest)
     @PublicRoute()
     getSentryTest() {
-        throw new Error('Test error');
+        return implement(api.misc.sentryTest).handler(async () => {
+            throw new Error('Test error');
+        });
     }
 }

@@ -1,6 +1,7 @@
 import { Button } from '@boilerplate/ui/components/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@boilerplate/ui/components/table';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import { cn } from '@boilerplate/ui/lib/utils';
 import {
     type ColumnDef,
     flexRender,
@@ -12,18 +13,21 @@ import {
     type SortingState,
     useReactTable,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface DataTableProps<T> {
     data: T[];
     columns: ColumnDef<T>[];
+    pageSize?: number;
+    initialSorting?: SortingState;
+    onRowClick?: (row: T) => void;
 }
 
-export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
-    const [sorting, setSorting] = useState<SortingState>([]);
+export const DataTable = <T,>({ columns, data, pageSize = 10, initialSorting = [], onRowClick }: DataTableProps<T>) => {
+    const [sorting, setSorting] = useState<SortingState>(initialSorting);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: pageSize,
     });
     const table = useReactTable({
         data: data,
@@ -39,6 +43,13 @@ export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
             pagination,
         },
     });
+
+    useEffect(() => {
+        setPagination({
+            pageIndex: 0,
+            pageSize: pageSize,
+        });
+    }, [pageSize]);
 
     return (
         <div className="flex h-full w-full flex-col overflow-auto">
@@ -62,7 +73,11 @@ export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id}>
+                                <TableRow
+                                    key={row.id}
+                                    onClick={() => onRowClick?.(row.original)}
+                                    className={cn({ 'cursor-pointer': Boolean(onRowClick) })}
+                                >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -94,7 +109,6 @@ export const DataTable = <T,>({ columns, data }: DataTableProps<T>) => {
                         variant="outline"
                         size="sm"
                         onClick={() => {
-                            console.log('next');
                             table.nextPage();
                         }}
                         disabled={!table.getCanNextPage()}

@@ -1,21 +1,11 @@
-import { useMutation } from 'react-query';
-import { ProfilePictureEditor } from '@/components/ProfilePictureEditor';
 import {
     CurrentlySelectedRouteOptions,
     useSetSignedInCurrentActiveRoute,
 } from '@/layout/useSetSignedInCurrentActiveRoute';
-import { logout } from '@/repository/login';
 // eslint-disable-next-line no-restricted-imports
 import packageJson from '../../package.json';
 
 export const Home = () => {
-    const logoutMutatiuon = useMutation({
-        mutationFn: logout,
-        onSuccess: (data) => {
-            console.log(data);
-            window.location.href = '/login';
-        },
-    });
     useSetSignedInCurrentActiveRoute(CurrentlySelectedRouteOptions.DASHBOARD);
 
     return (
@@ -30,10 +20,6 @@ export const Home = () => {
                 Break the world
             </button>
             <p>Version: {packageJson.version}</p>
-            <button type="button" onClick={() => logoutMutatiuon.mutate()}>
-                Logout
-            </button>
-            <ProfilePictureEditor />
         </>
     );
 };

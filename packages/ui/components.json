@@ -12,7 +12,7 @@
     },
     "aliases": {
         "components": "@boilerplate/ui/components",
-        "ui": "@boilerplate/ui/components/ui",
+        "ui": "@boilerplate/ui/components",
         "utils": "@boilerplate/ui/lib/utils",
         "lib": "@boilerplate/ui/lib",
         "hooks": "@boilerplate/ui/hooks"

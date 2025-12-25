@@ -3,28 +3,19 @@ import { Button } from '@boilerplate/ui/components/button';
 import { useAppForm } from '@boilerplate/ui/form/useAppForm';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useTranslation } from 'react-i18next';
-import { useMutation, useQueryClient } from 'react-query';
-import { Outlet, Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Outlet, Link as RouterLink } from 'react-router-dom';
 
 import LoginSVG from '@/assets/illustrations/login.svg?react';
 import { GoogleOAuthButton } from '@/components/google-oauth-button/GoogleOAuthButton';
 import { loginFormOptions } from '@/forms/login-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { login } from '@/repository/login';
+import { useLogin } from '@/api/auth/useLogin';
 
 const LoginIllustration = <LoginSVG className="m-8 w-full max-w-full" />;
 
 export function Login() {
-    const queryClient = useQueryClient();
-    const navigate = useNavigate();
-    const loginMutation = useMutation({
-        mutationFn: login,
-        onSuccess: async () => {
-            // Invalidate and refetch
-            await queryClient.invalidateQueries();
-            navigate('/');
-        },
-    });
+
+    const loginMutation = useLogin()
 
     const { t } = useTranslation('common');
 
@@ -99,7 +90,7 @@ export function Login() {
                 <Button type="submit" className="w-full" loading={loginMutation.isLoading}>
                     <Translation>login</Translation>
                 </Button>
-                <GoogleOAuthButton />
+            <GoogleOAuthButton />
             </form>
             <div className="mt-4 text-center text-sm">
                 <Translation>noAccount</Translation>{' '}

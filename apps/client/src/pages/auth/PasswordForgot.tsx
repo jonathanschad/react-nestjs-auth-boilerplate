@@ -4,11 +4,10 @@ import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-
+import { passwordForgot } from '@/api/auth/usePasswordForgot';
 import ForgotPasswordSVG from '@/assets/illustrations/forgot-password.svg?react';
 import { passwordForgotFormOptions } from '@/forms/password-forgot-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { passwordForgot } from '@/repository/password';
 
 const PasswordForgotIllustration = <ForgotPasswordSVG className="w-1/2 max-w-full" />;
 

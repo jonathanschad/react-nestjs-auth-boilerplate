@@ -4,11 +4,10 @@ import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-
+import { completeRegistration } from '@/api/auth/useCompleteRegistration';
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import { type CompleteRegisterFormValues, completeRegisterFormOptions } from '@/forms/complete-register-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { completeRegistration } from '@/repository/login';
 import { useStore } from '@/store/store';
 
 const RegisterIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;

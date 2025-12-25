@@ -6,28 +6,27 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../dist/"
+  output   = "./client"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
-  id               String           @id @default(uuid())
-  email            String           @unique
-  state            UserState        @default(UNVERIFIED)
+  id               String                     @id @default(uuid())
+  email            String                     @unique
+  state            UserState                  @default(UNVERIFIED)
   googleOAuthId    String?
   password         Bytes?
   salt             String?
   name             String?
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  settingsId       String           @unique
-  settings         UserSettings     @relation(fields: [settingsId], references: [id])
-  profilePictureId String?          @unique
-  profilePicture   File?            @relation(fields: [profilePictureId], references: [id])
+  createdAt        DateTime                   @default(now())
+  updatedAt        DateTime                   @updatedAt
+  settingsId       String                     @unique
+  settings         UserSettings               @relation(fields: [settingsId], references: [id])
+  profilePictureId String?                    @unique
+  profilePicture   File?                      @relation(fields: [profilePictureId], references: [id])
   refreshTokens    RefreshToken[]
   accessTokens     AccessToken[]
   otherTokens      Token[]
@@ -77,10 +76,10 @@ model FilePermission {
   fileId     String
   userId     String
   permission FilePermissionType
-  file       File                 @relation(fields: [fileId], references: [id], onDelete: Cascade)
-  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt  DateTime             @default(now())
-  updatedAt  DateTime             @updatedAt
+  file       File               @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
 
   @@id([fileId, userId])
 }

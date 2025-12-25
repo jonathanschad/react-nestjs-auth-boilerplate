@@ -8,14 +8,13 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-
+import { completeGoogleAccountConnection } from '@/api/auth/useCompleteGoogleAccountConnection';
 import RegisterSVG from '@/assets/illustrations/register.svg?react';
 import {
     type ConnectGoogleAccountFormValues,
     connectGoogleAccountFormOptions,
 } from '@/forms/connect-google-account-form';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { completeGoogleAccountConnection } from '@/repository/login';
 
 type ConnectTokenType = { googleOAuthId: string; googleEmail: string; name: string; secret: string };
 const ConnectGoogleAccountCompletionIllustration = <RegisterSVG className="m-16 w-full max-w-full" />;

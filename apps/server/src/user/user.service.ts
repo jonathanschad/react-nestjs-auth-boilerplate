@@ -1,7 +1,7 @@
 import { type File, FileAccess, type User } from '@boilerplate/prisma';
+import { UserUpdateablePropertiesDTO } from '@boilerplate/types';
 import { Injectable } from '@nestjs/common';
 import sharp from 'sharp';
-
 import { AppConfigService } from '@/config/app-config.service';
 import { DatabaseFileService } from '@/database/database-file/database-file.service';
 import { DatabaseUserService } from '@/database/user/user.service';
@@ -50,5 +50,9 @@ export class UserService {
         });
 
         return await this.databaseUserService.updateProfilePicture({ userId: user.id, profilePictureId: savedFile.id });
+    }
+
+    public async updateUser({ user, updates }: { user: UserWithSettings; updates: UserUpdateablePropertiesDTO }) {
+        return await this.databaseUserService.update({ userId: user.id, updates });
     }
 }

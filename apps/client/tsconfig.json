@@ -5,7 +5,8 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"],
-            "@boilerplate/ui/*": ["../../packages/ui/src/*"]
+            "@boilerplate/ui/*": ["../../packages/ui/src/*"],
+            "@boilerplate/types": ["../../packages/types/src/*"]
         }
     },
     "include": ["src/**/*", "postcss.config.mjs", "tailwind.config.ts"],

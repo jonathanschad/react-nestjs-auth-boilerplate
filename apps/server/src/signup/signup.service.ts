@@ -10,7 +10,6 @@ import { EmailVerificationTokenService } from '@/database/email-verification-tok
 import { PrismaService } from '@/database/prisma.service';
 import { DatabaseUserService } from '@/database/user/user.service';
 import { MailService } from '@/mail/mail.service';
-import { SignupRequestDto } from '@/signup/signup.dto';
 import type { UserWithSettings } from '@/types/prisma';
 import HttpStatusCode, { HTTPError } from '@/util/httpHandlers';
 
@@ -32,7 +31,9 @@ export class SignupService {
         language,
     }: {
         language: Language;
-    } & SignupRequestDto) {
+        acceptPrivacyPolicy: boolean;
+        email: string;
+    }) {
         if (!acceptPrivacyPolicy) {
             throw new HTTPError({ statusCode: HttpStatusCode.BAD_REQUEST, message: 'Incomplete Request' });
         }

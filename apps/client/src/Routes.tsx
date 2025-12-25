@@ -1,4 +1,5 @@
-import { type ReactElement, useMemo } from 'react';
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
+import { type ReactElement, Suspense, useMemo } from 'react';
 import { BrowserRouter, Navigate, Route, Routes as RouterRoutes } from 'react-router-dom';
 
 import { NotSignedInLayout } from '@/layout/NotSignedInLayout';
@@ -7,13 +8,10 @@ import { Login } from '@/pages/auth/Login';
 import { PasswordForgot } from '@/pages/auth/PasswordForgot';
 import { PasswordForgotSuccess } from '@/pages/auth/PasswordForgotSuccess';
 import { PasswordReset } from '@/pages/auth/PasswordReset';
-import { Home } from '@/pages/Home';
 import { Imprint, NotSignedInImprint } from '@/pages/legal/Imprint';
 import { License, NotSignedInLicense } from '@/pages/legal/License';
 import { NotSignedInPrivacyPolicy, PrivacyPolicy } from '@/pages/legal/PrivacyPolicy';
-import { GeneralSettings } from '@/pages/settings/GeneralSettings';
-import { NotificationSettings } from '@/pages/settings/NotificationSettings';
-import { ProfileSettings } from '@/pages/settings/ProfileSettings';
+import { ProfileSettings } from '@/pages/settings/profile/ProfileSettings';
 import { Settings } from '@/pages/settings/Settings';
 import CompleteRegister from '@/pages/signup/CompleteRegister';
 import { ConfirmEmail } from '@/pages/signup/ConfirmEmail';
@@ -21,6 +19,8 @@ import ConnectGoogleAccountCompletion from '@/pages/signup/google/ConnectGoogleA
 import Register from '@/pages/signup/Register';
 import { RegisterSuccess } from '@/pages/signup/RegisterSuccess';
 import { UserState, useStore } from '@/store/store';
+import { Home } from '@/pages/Home';
+import { LanguageSettings } from '@/pages/settings/language/LanguageSettings';
 
 const routesFactory = (userState: UserState | undefined | null) => {
     const isLoggedIn = Boolean(userState);
@@ -39,10 +39,9 @@ const routesFactory = (userState: UserState | undefined | null) => {
             <Route key="SignedInLayout" path="*" element={<SignedInLayout />}>
                 <Route index element={<Home />} />
                 <Route path="settings" element={<Settings />}>
-                    <Route path="general" element={<GeneralSettings />} />
-                    <Route path="notification" element={<NotificationSettings />} />
                     <Route path="profile" element={<ProfileSettings />} />
-                    <Route path="*" element={<GeneralSettings />} />
+                    <Route path="language" element={<LanguageSettings />} />
+                    <Route path="*" element={<ProfileSettings />} />
                 </Route>
                 <Route path="imprint" element={<Imprint />} />
                 <Route path="privacy-policy" element={<PrivacyPolicy />} />
@@ -78,7 +77,15 @@ export const Routes = () => {
     const routes = useMemo(() => routesFactory(userState), [userState]);
     return (
         <BrowserRouter>
-            <RouterRoutes>{routes}</RouterRoutes>
+            <Suspense
+                fallback={
+                    <div className="flex h-screen w-screen items-center justify-center">
+                        <LoadingSpinner />
+                    </div>
+                }
+            >
+                <RouterRoutes>{routes}</RouterRoutes>
+            </Suspense>
         </BrowserRouter>
     );
 };

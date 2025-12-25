@@ -1,29 +1,56 @@
 {
-    "@boilerplate/client@0.5.0": {
+    "@boilerplate/client@0.7.0": {
         "licenses": "MIT",
         "publisher": "Jonathan Schad",
         "path": "",
         "licenseFile": "README.md"
     },
-    "@boilerplate/eslint-config@0.4.1": {
+    "@boilerplate/eslint-config@0.7.0": {
         "licenses": "MIT",
         "path": "node_modules/@boilerplate/eslint-config"
     },
-    "@boilerplate/ts-config@0.4.1": {
+    "@boilerplate/ts-config@0.7.0": {
         "licenses": "UNLICENSED",
         "private": true,
         "path": "node_modules/@boilerplate/ts-config"
     },
-    "@boilerplate/ui@1.0.0": {
+    "@boilerplate/types@0.7.0": {
+        "licenses": "ISC",
+        "path": "node_modules/@boilerplate/types"
+    },
+    "@boilerplate/ui@0.7.0": {
         "licenses": "UNLICENSED",
         "private": true,
         "path": "node_modules/@boilerplate/ui"
+    },
+    "@boilerplate/utils@0.7.0": {
+        "licenses": "MIT",
+        "path": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils",
+        "licenseFile": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/README.md"
     },
     "@eslint/js@9.26.0": {
         "licenses": "MIT",
         "repository": "https://github.com/eslint/eslint",
         "path": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js",
         "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/@eslint/js/LICENSE"
+    },
+    "@orpc/client@1.12.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unnoq/orpc",
+        "path": "node_modules/@orpc/client",
+        "licenseFile": "node_modules/@orpc/client/LICENSE"
+    },
+    "@orpc/contract@1.12.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unnoq/orpc",
+        "path": "node_modules/@orpc/contract",
+        "licenseFile": "node_modules/@orpc/contract/LICENSE"
+    },
+    "@orpc/openapi-client@1.12.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/unnoq/orpc",
+        "path": "node_modules/@orpc/openapi-client",
+        "licenseFile": "node_modules/@orpc/openapi-client/LICENSE"
     },
     "@sentry/react@8.55.0": {
         "licenses": "MIT",
@@ -38,6 +65,13 @@
         "publisher": "Eliya Cohen",
         "path": "node_modules/@tanstack/eslint-plugin-query",
         "licenseFile": "node_modules/@tanstack/eslint-plugin-query/LICENSE"
+    },
+    "@tanstack/react-form@1.12.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/TanStack/form",
+        "publisher": "tannerlinsley",
+        "path": "node_modules/@tanstack/react-form",
+        "licenseFile": "node_modules/@tanstack/react-form/LICENSE"
     },
     "@tanstack/react-table@8.21.2": {
         "licenses": "MIT",
@@ -110,6 +144,13 @@
         "path": "node_modules/axios",
         "licenseFile": "node_modules/axios/LICENSE"
     },
+    "class-validator@0.14.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/typestack/class-validator",
+        "publisher": "TypeStack contributors",
+        "path": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/node_modules/class-validator",
+        "licenseFile": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/node_modules/class-validator/LICENSE"
+    },
     "class-variance-authority@0.7.1": {
         "licenses": "Apache-2.0",
         "repository": "https://github.com/joe-bell/cva",
@@ -125,19 +166,12 @@
         "path": "node_modules/clsx",
         "licenseFile": "node_modules/clsx/license"
     },
-    "eslint-config-prettier@10.1.2": {
+    "dayjs@1.11.19": {
         "licenses": "MIT",
-        "repository": "https://github.com/prettier/eslint-config-prettier",
-        "publisher": "Simon Lydell",
-        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-config-prettier",
-        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-config-prettier/LICENSE"
-    },
-    "eslint-plugin-prettier@5.3.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/prettier/eslint-plugin-prettier",
-        "publisher": "Teddy Katz",
-        "path": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-prettier",
-        "licenseFile": "node_modules/@boilerplate/eslint-config/node_modules/eslint-plugin-prettier/LICENSE.md"
+        "repository": "https://github.com/iamkun/dayjs",
+        "publisher": "iamkun",
+        "path": "node_modules/dayjs",
+        "licenseFile": "node_modules/dayjs/LICENSE"
     },
     "eslint-plugin-react-hooks@5.2.0": {
         "licenses": "MIT",
@@ -151,13 +185,6 @@
         "publisher": "Arnaud Barré",
         "path": "node_modules/eslint-plugin-react-refresh",
         "licenseFile": "node_modules/eslint-plugin-react-refresh/LICENSE"
-    },
-    "eslint-plugin-simple-import-sort@12.1.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/lydell/eslint-plugin-simple-import-sort",
-        "publisher": "Simon Lydell",
-        "path": "node_modules/eslint-plugin-simple-import-sort",
-        "licenseFile": "node_modules/eslint-plugin-simple-import-sort/LICENSE"
     },
     "eslint@9.26.0": {
         "licenses": "MIT",
@@ -174,14 +201,6 @@
         "email": "lipiridis@gmail.com",
         "path": "node_modules/flag-icons",
         "licenseFile": "node_modules/flag-icons/LICENSE"
-    },
-    "formik@2.4.6": {
-        "licenses": "Apache-2.0",
-        "repository": "https://github.com/jaredpalmer/formik",
-        "publisher": "Jared Palmer",
-        "email": "jared@palmer.net",
-        "path": "node_modules/formik",
-        "licenseFile": "node_modules/formik/README.md"
     },
     "globals@15.15.0": {
         "licenses": "MIT",
@@ -237,6 +256,14 @@
         "path": "node_modules/match-sorter",
         "licenseFile": "node_modules/match-sorter/LICENSE"
     },
+    "openskill@4.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/philihp/openskill.js",
+        "publisher": "Philihp Busby",
+        "email": "philihp@gmail.com",
+        "path": "node_modules/openskill",
+        "licenseFile": "node_modules/openskill/LICENSE"
+    },
     "plausible-tracker@0.3.9": {
         "licenses": "MIT",
         "repository": "https://github.com/plausible/plausible-tracker",
@@ -251,27 +278,6 @@
         "path": "node_modules/postcss",
         "licenseFile": "node_modules/postcss/LICENSE"
     },
-    "prettier-plugin-tailwindcss@0.6.11": {
-        "licenses": "MIT",
-        "repository": "https://github.com/tailwindlabs/prettier-plugin-tailwindcss",
-        "path": "node_modules/prettier-plugin-tailwindcss",
-        "licenseFile": "node_modules/prettier-plugin-tailwindcss/LICENSE"
-    },
-    "prettier@3.5.3": {
-        "licenses": "MIT",
-        "repository": "https://github.com/prettier/prettier",
-        "publisher": "James Long",
-        "path": "node_modules/prettier",
-        "licenseFile": "node_modules/prettier/LICENSE"
-    },
-    "react-avatar-editor@13.0.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/mosch/react-avatar-editor",
-        "publisher": "Moritz Schwoerer",
-        "email": "mr.mosch@gmail.com",
-        "path": "node_modules/react-avatar-editor",
-        "licenseFile": "node_modules/react-avatar-editor/LICENSE"
-    },
     "react-dom@18.3.1": {
         "licenses": "MIT",
         "repository": "https://github.com/facebook/react",
@@ -284,6 +290,14 @@
         "publisher": "Param Aggarwal",
         "path": "node_modules/react-dropzone",
         "licenseFile": "node_modules/react-dropzone/LICENSE"
+    },
+    "react-easy-crop@5.5.6": {
+        "licenses": "MIT",
+        "repository": "https://github.com/ValentinH/react-easy-crop",
+        "publisher": "Valentin Hervieu",
+        "email": "valentin@hervi.eu",
+        "path": "node_modules/react-easy-crop",
+        "licenseFile": "node_modules/react-easy-crop/LICENSE"
     },
     "react-i18next@14.1.3": {
         "licenses": "MIT",
@@ -321,6 +335,21 @@
         "repository": "https://github.com/facebook/react",
         "path": "node_modules/react",
         "licenseFile": "node_modules/react/LICENSE"
+    },
+    "recharts@3.5.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/recharts/recharts",
+        "publisher": "recharts group",
+        "path": "node_modules/recharts",
+        "licenseFile": "node_modules/recharts/LICENSE"
+    },
+    "sonner@2.0.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/emilkowalski/sonner",
+        "publisher": "Emil Kowalski",
+        "email": "e@emilkowal.ski",
+        "path": "node_modules/sonner",
+        "licenseFile": "node_modules/sonner/LICENSE.md"
     },
     "sort-by@1.2.0": {
         "licenses": "MIT",
@@ -372,8 +401,8 @@
         "licenses": "MIT",
         "repository": "https://github.com/pd4d10/vite-plugin-svgr",
         "publisher": "Rongjian Zhang",
-        "path": "node_modules/vite-plugin-svgr",
-        "licenseFile": "node_modules/vite-plugin-svgr/LICENSE"
+        "path": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr",
+        "licenseFile": "node_modules/@boilerplate/ts-config/node_modules/vite-plugin-svgr/LICENSE"
     },
     "vite@6.3.4": {
         "licenses": "MIT",
@@ -382,14 +411,15 @@
         "path": "node_modules/vite",
         "licenseFile": "node_modules/vite/LICENSE.md"
     },
-    "yup@1.6.1": {
+    "zod@4.1.13": {
         "licenses": "MIT",
-        "repository": "https://github.com/jquense/yup",
-        "publisher": "@monasticpanic Jason Quense",
-        "path": "node_modules/yup",
-        "licenseFile": "node_modules/yup/LICENSE.md"
+        "repository": "https://github.com/colinhacks/zod",
+        "publisher": "Colin McDonnell",
+        "email": "zod@colinhacks.com",
+        "path": "node_modules/zod",
+        "licenseFile": "node_modules/zod/LICENSE"
     },
-    "zustand@4.5.6": {
+    "zustand@5.0.6": {
         "licenses": "MIT",
         "repository": "https://github.com/pmndrs/zustand",
         "publisher": "Paul Henschel",

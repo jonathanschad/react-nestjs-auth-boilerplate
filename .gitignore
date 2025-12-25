@@ -37,3 +37,110 @@ tsconfig.build.tsbuildinfo
 packages/prisma/src/generated
 
 .turbo
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+
+###
+### Based on https://github.com/github/gitignore/blob/218a941be92679ce67d0484547e3e142b2f5f6f0/Global/Xcode.gitignore
+###
+
+## User settings
+xcuserdata/
+
+## Gcc Patch
+/*.gcno
+
+
+###
+### Based on https://github.com/github/gitignore/blob/218a941be92679ce67d0484547e3e142b2f5f6f0/Swift.gitignore
+###
+
+.build/
+
+## Obj-C/Swift specific
+*.hmap
+
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+# Exclude Swift Packages directories (in iOS app)
+apps/app/**/Packages/
+Package.pins
+# Include root packages folder (TypeScript/JavaScript packages)
+!packages/
+
+# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
+# hence it is not needed unless you have added a package configuration file to your project
+.swiftpm
+
+
+###
+### Custom
+###
+
+# CocoaPods
+Pods/
+# .lock files might be ignored globally
+!Podfile.lock
+
+# Bundler
+vendor/bundle/
+.bundle/
+# .lock files might be ignored globally
+!Gemfile.lock
+
+# fastlane
+**/fastlane/README.md
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/test_output
+# Exclude generated screenshots and preview
+**/fastlane/screenshots/**/*.png
+**/fastlane/screenshots/**/*.html
+# Include static screenshots
+!**/fastlane/screenshots/**/*_static_framed.png
+
+# Tuist
+.tuist-bin
+apps/*/Derived
+apps/*/*.xcworkspace
+libraries/*/Derived
+libraries/*/*.xcodeproj
+libraries/*/*.xcworkspace
+tools/LibraryTemplate/Derived
+tools/LibraryTemplate/*.xcodeproj
+tools/LibraryTemplate/*.xcworkspace
+
+# Claude
+/.claude/settings.local.json
+
+# Symlinked dev tools
+tools/bin
+
+
+apps/server/files

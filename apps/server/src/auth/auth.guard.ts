@@ -5,16 +5,13 @@ import { Reflector } from '@nestjs/core';
 import type { FastifyRequest } from 'fastify';
 
 import { JWTService } from '@/auth/jwt.service';
-import { AppConfigService } from '@/config/app-config.service';
 import type { UserWithSettings } from '@/types/prisma';
-import { InvalidAccessTokenError } from '@/util/httpHandlers';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(
         private jwtService: JWTService,
         private reflector: Reflector,
-        _appConfigService: AppConfigService,
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -29,11 +26,7 @@ export class AuthGuard implements CanActivate {
                 const user = await this.jwtService.authenticateToken(request);
                 request.user = user;
             } catch (error) {
-                if (!(error instanceof InvalidAccessTokenError)) {
-                    throw error;
-                }
-                // As the function throws an error if the token is invalid, we can safely ignore it here as this is
-                // a public route and the user therefore optional
+                // As this is a public route, we can safely ignore the error
             }
 
             return true;

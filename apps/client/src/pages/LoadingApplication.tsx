@@ -1,9 +1,8 @@
 import { Translation } from '@boilerplate/ui/i18n/Translation';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
-
+import { loadApplication } from '@/api/misc/load-application';
 import { Loading } from '@/components/Loading';
-import { loadApplication } from '@/repository/load-application';
 
 const LoadingApplication = ({ children }: { children: React.ReactNode }) => {
     const [loadingComplete, setLoadingComplete] = useState(false);

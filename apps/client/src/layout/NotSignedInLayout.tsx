@@ -1,6 +1,7 @@
+import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
 import type React from 'react';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
@@ -22,7 +23,15 @@ export const NotSignedInLayout = () => {
                         </div>
                     </header>
                     <div className="flex h-full items-center justify-center overflow-auto">
-                        <Outlet context={{ setIllustration }} />
+                        <Suspense
+                            fallback={
+                                <div className="flex h-full w-full items-center justify-center">
+                                    <LoadingSpinner />
+                                </div>
+                            }
+                        >
+                            <Outlet context={{ setIllustration }} />
+                        </Suspense>
                     </div>
                 </div>
                 <div className="hidden max-w-full bg-muted lg:block">

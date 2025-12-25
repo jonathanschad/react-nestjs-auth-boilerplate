@@ -7,11 +7,11 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-
+import { passwordChangeToken } from '@/api/auth/usePasswordChangeToken';
+import { passwordForgotTokenValidation } from '@/api/auth/usePasswordForgotTokenValidation';
 import ResetPasswordSVG from '@/assets/illustrations/reset-password.svg?react';
 import { passwordResetFormOptions } from '@/forms/password-reset';
 import { useSetNotSignedInLayoutIllustration } from '@/layout/useSetNotSignedInLayoutIllustration';
-import { passwordChangeToken, passwordForgotTokenValidation } from '@/repository/password';
 
 const PasswordResetIllustration = <ResetPasswordSVG className="w-1/2 max-w-full" />;
 
