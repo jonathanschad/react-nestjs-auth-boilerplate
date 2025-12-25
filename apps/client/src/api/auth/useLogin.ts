@@ -1,6 +1,7 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { client } from '@/api/client';
 import type { LoginFormValues } from '@/forms/login-form';
+import { useNavigate } from 'react-router-dom';
 
 export const login = async ({ email, password, remember }: LoginFormValues) => {
     const response = await client.auth.login({ email, password, remember });
@@ -8,5 +9,14 @@ export const login = async ({ email, password, remember }: LoginFormValues) => {
 };
 
 export const useLogin = () => {
-    return useMutation(login);
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
+    
+    return useMutation({
+        mutationFn: login,
+        onSuccess: async () => {
+            await queryClient.invalidateQueries();
+            navigate('/');
+        },
+    });
 };

@@ -11,7 +11,7 @@ import { LoadingSpinner } from '@boilerplate/ui/components/loading-spinner';
 import { Sheet, SheetContent, SheetTrigger } from '@boilerplate/ui/components/sheet';
 import { Translation } from '@boilerplate/ui/i18n/Translation';
 import clsx from 'clsx';
-import { Menu } from 'lucide-react';
+import { Hexagon, Menu } from 'lucide-react';
 import * as React from 'react';
 import { Suspense } from 'react';
 import { useMutation } from 'react-query';
@@ -35,40 +35,7 @@ export const SignedInLayout = () => {
                 <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                     <ProjectLogo />
                     <Link
-                        to="/ranking/elo"
-                        className={clsx(
-                            currentlySelectedRoute === CurrentlySelectedRouteOptions.ELO_RANKING
-                                ? 'text-foreground'
-                                : 'text-muted-foreground',
-                            'transition-colors hover:text-foreground',
-                        )}
-                    >
-                        <Translation>eloRating</Translation>
-                    </Link>
-                    <Link
-                        to="/ranking/openskill"
-                        className={clsx(
-                            currentlySelectedRoute === CurrentlySelectedRouteOptions.OPENSKILL_RANKING
-                                ? 'text-foreground'
-                                : 'text-muted-foreground',
-                            'transition-colors hover:text-foreground',
-                        )}
-                    >
-                        <Translation>openSkillRating</Translation>
-                    </Link>
-                    <Link
-                        to="/games"
-                        className={clsx(
-                            currentlySelectedRoute === CurrentlySelectedRouteOptions.GAMES
-                                ? 'text-foreground'
-                                : 'text-muted-foreground',
-                            'transition-colors hover:text-foreground',
-                        )}
-                    >
-                        <Translation>allGames</Translation>
-                    </Link>
-                    <Link
-                        to="/player-of-the-week"
+                        to="/"
                         className={clsx(
                             currentlySelectedRoute === CurrentlySelectedRouteOptions.PLAYER_OF_THE_WEEK
                                 ? 'text-foreground'
@@ -102,51 +69,21 @@ export const SignedInLayout = () => {
                     <SheetContent side="left">
                         <nav className="grid gap-6 text-lg font-medium">
                             <Link to="#" className="flex items-center gap-2 text-lg font-semibold">
-                                <ProjectLogo />
+                                <Hexagon className="h-6 w-6" />
+                                <span className="sr-only">
+                                    <Translation>projectName</Translation>
+                                </span>
                             </Link>
                             <Link
-                                to="/ranking/elo"
+                                to="/"
                                 className={clsx(
-                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.ELO_RANKING
+                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.DASHBOARD
                                         ? 'text-foreground'
                                         : 'text-muted-foreground',
                                     'hover:text-foreground',
                                 )}
                             >
-                                <Translation>eloRating</Translation>
-                            </Link>
-                            <Link
-                                to="/ranking/openskill"
-                                className={clsx(
-                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.OPENSKILL_RANKING
-                                        ? 'text-foreground'
-                                        : 'text-muted-foreground',
-                                    'hover:text-foreground',
-                                )}
-                            >
-                                <Translation>openSkillRating</Translation>
-                            </Link>
-                            <Link
-                                to="/games"
-                                className={clsx(
-                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.GAMES
-                                        ? 'text-foreground'
-                                        : 'text-muted-foreground',
-                                    'hover:text-foreground',
-                                )}
-                            >
-                                <Translation>allGames</Translation>
-                            </Link>
-                            <Link
-                                to="/player-of-the-week"
-                                className={clsx(
-                                    currentlySelectedRoute === CurrentlySelectedRouteOptions.PLAYER_OF_THE_WEEK
-                                        ? 'text-foreground'
-                                        : 'text-muted-foreground',
-                                    'hover:text-foreground',
-                                )}
-                            >
-                                <Translation>playerOfTheWeek</Translation>
+                                <Translation>dashboard</Translation>
                             </Link>
                             <Link
                                 to="/settings"

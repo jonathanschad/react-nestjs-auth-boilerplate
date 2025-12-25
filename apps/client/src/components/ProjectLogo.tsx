@@ -1,11 +1,12 @@
 import { Translation } from '@boilerplate/ui/i18n/Translation';
+import { Hexagon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const ProjectLogo = () => {
     return (
         <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl">🎯</span>
-            <Translation element="span" className="inline md:hidden lg:inline flex-auto flex-shrink-0">
+            <Hexagon className="h-6 w-6 flex-none" />
+            <Translation element="span" className="flex-auto flex-shrink-0">
                 projectName
             </Translation>
             <span className="sr-only">

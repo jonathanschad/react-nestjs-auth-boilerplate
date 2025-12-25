@@ -3,10 +3,6 @@ import { useOutletContext } from 'react-router-dom';
 
 export enum CurrentlySelectedRouteOptions {
     DASHBOARD = 'dashboard',
-    ELO_RANKING = 'elo-ranking',
-    OPENSKILL_RANKING = 'openskill-ranking',
-    GAMES = 'games',
-    PLAYER_OF_THE_WEEK = 'player-of-the-week',
     SETTINGS = 'settings',
 }
 
