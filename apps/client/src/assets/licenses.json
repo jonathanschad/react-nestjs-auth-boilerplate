@@ -1,29 +1,29 @@
 {
-    "@boilerplate/client@0.7.0": {
+    "@boilerplate/client@0.8.1": {
         "licenses": "MIT",
         "publisher": "Jonathan Schad",
         "path": "",
         "licenseFile": "README.md"
     },
-    "@boilerplate/eslint-config@0.7.0": {
+    "@boilerplate/eslint-config@0.8.1": {
         "licenses": "MIT",
         "path": "node_modules/@boilerplate/eslint-config"
     },
-    "@boilerplate/ts-config@0.7.0": {
+    "@boilerplate/ts-config@0.8.1": {
         "licenses": "UNLICENSED",
         "private": true,
         "path": "node_modules/@boilerplate/ts-config"
     },
-    "@boilerplate/types@0.7.0": {
+    "@boilerplate/types@0.8.1": {
         "licenses": "ISC",
         "path": "node_modules/@boilerplate/types"
     },
-    "@boilerplate/ui@0.7.0": {
+    "@boilerplate/ui@0.8.1": {
         "licenses": "UNLICENSED",
         "private": true,
         "path": "node_modules/@boilerplate/ui"
     },
-    "@boilerplate/utils@0.7.0": {
+    "@boilerplate/utils@0.8.1": {
         "licenses": "MIT",
         "path": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils",
         "licenseFile": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/README.md"
@@ -144,13 +144,6 @@
         "path": "node_modules/axios",
         "licenseFile": "node_modules/axios/LICENSE"
     },
-    "class-validator@0.14.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/typestack/class-validator",
-        "publisher": "TypeStack contributors",
-        "path": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/node_modules/class-validator",
-        "licenseFile": "node_modules/@boilerplate/types/node_modules/@boilerplate/utils/node_modules/class-validator/LICENSE"
-    },
     "class-variance-authority@0.7.1": {
         "licenses": "Apache-2.0",
         "repository": "https://github.com/joe-bell/cva",
@@ -255,14 +248,6 @@
         "email": "me@kentcdodds.com",
         "path": "node_modules/match-sorter",
         "licenseFile": "node_modules/match-sorter/LICENSE"
-    },
-    "openskill@4.1.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/philihp/openskill.js",
-        "publisher": "Philihp Busby",
-        "email": "philihp@gmail.com",
-        "path": "node_modules/openskill",
-        "licenseFile": "node_modules/openskill/LICENSE"
     },
     "plausible-tracker@0.3.9": {
         "licenses": "MIT",
