@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
     push:
         tags:
-            - 'v*' # Trigger only on version tags like v1.0.0
+            - "v*" # Trigger only on version tags like v1.0.0
 
 jobs:
     build-and-push:
@@ -69,12 +69,14 @@ jobs:
                   sentry-cli releases set-commits --commit "${{ github.repository }}@${{ github.sha }}" "$RELEASE"
 
                   # Upload server sourcemaps
-                  sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-server \
-                      --rewrite --validate -p ${{ vars.SENTRY_PROJECT_BACKEND }} --url-prefix '~/apps/server/dist/'
+                  sentry-cli sourcemaps upload --release="$RELEASE" \
+                      --rewrite --validate -p ${{ vars.SENTRY_PROJECT_BACKEND }} --url-prefix '~/apps/server/dist/' \
+                      ./sourcemaps-server
 
                   # Upload frontend sourcemaps
-                  sentry-cli releases files "$RELEASE" upload-sourcemaps ./sourcemaps-client \
-                      --rewrite --validate -p ${{ vars.SENTRY_PROJECT_FRONTEND }}
+                  sentry-cli sourcemaps upload --release="$RELEASE" \
+                      --rewrite --validate -p ${{ vars.SENTRY_PROJECT_FRONTEND }} \
+                      ./sourcemaps-client
 
                   # Finalize the release
                   sentry-cli releases finalize "$RELEASE"
