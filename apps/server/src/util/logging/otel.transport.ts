@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/nestjs';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
+import pRetry, { AbortError } from 'p-retry';
 import Transport, { type TransportStreamOptions } from 'winston-transport';
 
 interface SigNozLogEntry {
@@ -53,10 +54,10 @@ export class OTelTransport extends Transport {
             timestamp: string;
             [key: string]: unknown;
         },
-        callback: () => void,
+        callback?: () => void | Promise<void>,
     ) {
         if (!this.otelUrl) {
-            callback();
+            void callback?.();
             return;
         }
 
@@ -83,7 +84,7 @@ export class OTelTransport extends Transport {
             void this.flush();
         }
 
-        callback();
+        void callback?.();
     }
 
     private async flush() {
@@ -92,16 +93,57 @@ export class OTelTransport extends Transport {
 
         if (logStack.length > 0) {
             try {
-                await axios.post(this.otelUrl, logStack, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        ...this.otelHeaders,
+                await pRetry(
+                    async () => {
+                        try {
+                            await axios.post(this.otelUrl, logStack, {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    ...this.otelHeaders,
+                                },
+                            });
+                        } catch (error) {
+                            if (axios.isAxiosError(error)) {
+                                // Don't retry on client errors (4xx) except 429 (rate limit)
+                                if (
+                                    error.response?.status &&
+                                    error.response.status >= 400 &&
+                                    error.response.status < 500 &&
+                                    error.response.status !== 429
+                                ) {
+                                    // Abort retries for client errors
+                                    throw new AbortError(`Client error ${error.response.status}: ${error.message}`);
+                                }
+                            }
+
+                            // Retry on server errors (5xx), 429, and other errors
+                            throw error;
+                        }
                     },
-                });
+                    {
+                        retries: 10,
+                        factor: 3,
+                        minTimeout: 1000,
+                        maxTimeout: 300000,
+                        randomize: true,
+                        onFailedAttempt: (error) => {
+                            this.log({
+                                level: 'warn',
+                                message: `OTel flush failed, attempt ${error.attemptNumber}/${error.attemptNumber + error.retriesLeft}`,
+                                extra: {
+                                    error: error instanceof Error ? error.message : 'Unknown error',
+                                    statusCode: isAxiosError(error) ? error.response?.status : undefined,
+                                },
+                                timestamp: new Date().toISOString(),
+                            });
+                        },
+                    },
+                );
             } catch (err) {
                 Sentry.captureException(err, {
                     extra: {
                         logStack,
+                        message: 'Failed to flush logs to OTel after all retries',
                     },
                 });
             }
